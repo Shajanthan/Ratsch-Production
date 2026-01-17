@@ -5,6 +5,7 @@ export default {
     extend: {
       backgroundImage: {
         "under-production": "url('/assets/images/Background.png')",
+        "under-production-mobile": "url('/assets/images/mobile.png')",
       },
       fontFamily: {
         raleway: ["Raleway", "sans-serif"],

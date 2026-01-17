@@ -30,4 +30,14 @@
   .animate-slide-right {
     animation: slide-right 0.6s ease-in-out infinite;
   }
+  
+  .bg-full-size-mobile {
+    background-size: 100% 100%;
+  }
+  
+  @media (min-width: 1024px) {
+    .bg-full-size-mobile {
+      background-size: cover;
+    }
+  }
 }

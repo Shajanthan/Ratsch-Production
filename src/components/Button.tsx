@@ -11,7 +11,7 @@ const Button: React.FC<ButtonProps> = ({ text, color, icon, textIcon }) => {
   return (
     <button
       style={{ backgroundColor: color }}
-      className="text-white p-3 shadow-lg text-sm rounded-full w-fit flex items-center justify-center gap-2 group hover:opacity-90 transition-opacity duration-300"
+      className="text-white p-2 lg:p-3 shadow-lg text-xs lg:text-sm rounded-full w-fit flex items-center justify-center gap-2 group hover:opacity-90 transition-opacity duration-300"
     >
       {icon && (
         <div className="p-1 rounded-full bg-white text-black flex items-center justify-center">
