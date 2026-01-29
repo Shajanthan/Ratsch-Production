@@ -46,6 +46,7 @@ const UnderProduction: React.FC = () => {
               textIcon={<GrFormNext size={24} />}
               color="#333333"
               icon={<CiMail className="w-4 h-4 md:w-6 md:h-6" />}
+              navButton={false}
             />
           </div>
         </div>
