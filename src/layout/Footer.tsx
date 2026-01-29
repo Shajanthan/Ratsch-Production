@@ -120,7 +120,7 @@ const Footer: React.FC = () => {
             <div className="uppercase font-semibold text-xl md:text-2xl lg:text-3xl text-center lg:text-left">
               Let's connect
             </div>
-            <div className="py-4 md:py-5 w-full max-w-sm md:max-w-none mx-auto md:mx-0">
+            <div className="py-4 md:py-5 w-full max-w-[250px] md:max-w-none mx-auto md:mx-0">
               <div className="flex justify-between bg-[#222222] rounded-full items-center pr-4 md:pr-12">
                 <div className="bg-[#333333] text-white rounded-full p-3 md:p-5 px-4 md:px-10 mr-2 md:mr-8 text-xs md:text-base">
                   info@ratschproductions.com
