@@ -51,25 +51,29 @@ const ProjectSection: React.FC = () => {
         src="/assets/images/bg.png"
         className="absolute inset-0 opacity-50 w-full h-full object-cover"
       />
-      <div className="relative z-10 py-12">
-        <div className=" bg-black py-12">
-          <div className="container mx-auto">
-            <div className="text-white flex justify-between">
-              <div className="text-6xl uppercase font-bold">
+      <div className="relative z-10 py-6 md:py-12">
+        <div className=" bg-black py-6 md:py-12">
+          <div className="container mx-auto px-4 md:px-0">
+            <div className="text-white flex flex-col sm:flex-row justify-between gap-4">
+              <div className="text-3xl md:text-5xl lg:text-6xl uppercase font-bold">
                 Latest Projects
               </div>
-              <button className="uppercase rounded-full font-bold px-10 flex items-center gap-3 text-lg bg-white/10">
+              <button className="uppercase rounded-full font-bold px-6 md:px-10 py-2 md:py-3 flex items-center gap-2 md:gap-3 text-sm md:text-lg bg-white/10 w-fit">
                 more projects
-                <BsArrowUpRight strokeWidth={2} size={16} />
+                <BsArrowUpRight
+                  strokeWidth={2}
+                  size={14}
+                  className="md:w-4 md:h-4"
+                />
               </button>
             </div>
-            <p className="text-white w-1/2 py-4">
+            <p className="text-white w-full md:w-1/2 py-4 text-sm md:text-base">
               Lorem ipsum dolor sit amet consectetur. Maecenas varius sit
               consequat vulputate urna augue. Faucibus adipiscing aenean mi
               diam. Ac bibendum elementum aliquet
             </p>
 
-            <div className="text-white flex flex-col gap-3 px-8">
+            <div className="text-white flex flex-col gap-3 px-2 md:px-8">
               {projects.map((project, index) => (
                 <ProjectCard
                   key={index}

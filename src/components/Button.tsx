@@ -18,8 +18,11 @@ const Button: React.FC<ButtonProps> = ({
   return (
     <>
       {navButton ? (
-        <button className="border rounded-full p-3 bg-[#1f0000] flex items-center gap-3 px-5 border-[#770101]">
-          {icon} <span className="text-white">{text}</span>
+        <button className="border rounded-full p-2 md:p-3 bg-[#1f0000] flex items-center gap-2 md:gap-3 px-3 md:px-5 border-[#770101]">
+          {icon}{" "}
+          <span className="text-white text-xs md:text-sm lg:text-base">
+            {text}
+          </span>
         </button>
       ) : (
         <button

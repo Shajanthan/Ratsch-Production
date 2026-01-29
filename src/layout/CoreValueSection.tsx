@@ -42,9 +42,9 @@ const CoreValueSection: React.FC = () => {
         src="/assets/images/bg.png"
         className="absolute inset-0 opacity-70 w-full h-full object-cover"
       />
-      <div className="z-10 py-12 relative">
+      <div className="z-10 py-6 md:py-12 relative">
         <div className="text-white">
-          <div className="text-7xl text-center uppercase font-bold pb-12">
+          <div className="text-3xl md:text-5xl lg:text-7xl text-center uppercase font-bold pb-6 md:pb-12 px-4">
             our core values
           </div>
 

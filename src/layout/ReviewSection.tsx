@@ -43,18 +43,18 @@ const ReviewSection: React.FC = () => {
         src="/assets/images/bg.png"
         className="absolute inset-0 opacity-70 w-full h-full object-cover"
       />
-      <div className="bg-black z-10 py-16 relative">
-        <div className="container mx-auto text-white">
-          <div className="text-7xl text-center uppercase font-bold">
+      <div className="bg-black z-10 py-8 md:py-16 relative">
+        <div className="container mx-auto text-white px-4 md:px-0">
+          <div className="text-3xl md:text-5xl lg:text-7xl text-center uppercase font-bold">
             Client Reviews
           </div>
-          <p className="text-center max-w-4xl mx-auto py-3">
+          <p className="text-center max-w-4xl mx-auto py-3 text-sm md:text-base px-4">
             Lorem ipsum dolor sit amet consectetur. Maecenas varius sit
             consequat vulputate urna augue. Faucibus adipiscing aenean mi diam.
             Ac bibendum elementum aliquet
           </p>
 
-          <div className="mt-12 px-20">
+          <div className="mt-8 md:mt-12 px-4 md:px-10 lg:px-20">
             <Swiper
               modules={[Pagination, Autoplay]}
               spaceBetween={30}

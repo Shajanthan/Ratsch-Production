@@ -14,13 +14,17 @@ const ReviewCard: React.FC<ReviewCardProps> = ({
   profile,
 }) => {
   return (
-    <div className="p-8 rounded-[35px] bg-[#111111] flex flex-col h-full">
+    <div className="p-4 md:p-6 lg:p-8 rounded-[25px] md:rounded-[35px] bg-[#111111] flex flex-col h-full">
       <div className="flex-1">
-        <img src="/assets/images/quote.png" alt="" />
-        <div className="py-3">{review}</div>
+        <img
+          src="/assets/images/quote.png"
+          alt=""
+          className="w-8 md:w-10 lg:w-auto"
+        />
+        <div className="py-2 md:py-3 text-sm md:text-base">{review}</div>
       </div>
-      <div className="flex items-center gap-4 mt-auto">
-        <div className="rounded-full w-12 h-12 bg-black flex items-center justify-center text-xl font-bold text-[#FF0000]">
+      <div className="flex items-center gap-3 md:gap-4 mt-auto">
+        <div className="rounded-full w-10 h-10 md:w-12 md:h-12 bg-black flex items-center justify-center text-lg md:text-xl font-bold text-[#FF0000] flex-shrink-0">
           {profile ? (
             <img
               src={profile}
@@ -31,9 +35,11 @@ const ReviewCard: React.FC<ReviewCardProps> = ({
             name.charAt(0)
           )}
         </div>
-        <div className="">
-          <div className="text-[#FF0000] font-semibold">{name}</div>
-          <div className="text-[#CCCCCC]">{position}</div>
+        <div className="min-w-0">
+          <div className="text-[#FF0000] font-semibold text-sm md:text-base">
+            {name}
+          </div>
+          <div className="text-[#CCCCCC] text-xs md:text-sm">{position}</div>
         </div>
       </div>
     </div>

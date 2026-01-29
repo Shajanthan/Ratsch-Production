@@ -18,7 +18,8 @@
 }
 
 @keyframes slide-right {
-  0%, 100% {
+  0%,
+  100% {
     transform: translateX(0);
   }
   50% {
@@ -45,11 +46,11 @@
   .animate-corevalue-in {
     animation: corevalue-in 600ms cubic-bezier(0.22, 1, 0.36, 1) both;
   }
-  
+
   .bg-full-size-mobile {
     background-size: 100% 100%;
   }
-  
+
   @media (min-width: 1024px) {
     .bg-full-size-mobile {
       background-size: cover;
@@ -80,7 +81,7 @@
 }
 
 .review-swiper .swiper-pagination-bullet-active {
-  background-color: #FF0000;
+  background-color: #ff0000;
   width: 14px;
   height: 14px;
   box-shadow: 0 0 12px rgba(255, 0, 0, 0.9);

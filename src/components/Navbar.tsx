@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from "react";
 import Button from "./Button";
 import { CiMail } from "react-icons/ci";
+import { HiMenu, HiX } from "react-icons/hi";
 
 const Navbar: React.FC = () => {
   const [isScrolled, setIsScrolled] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -26,20 +28,21 @@ const Navbar: React.FC = () => {
         isScrolled ? "backdrop-blur-xl bg-white/5" : "border-none py-2"
       }`}
     >
-      <div className="container mx-auto flex justify-between items-center px-2">
+      <div className="container mx-auto flex justify-between items-center px-4 md:px-2">
         <img
-          className="w-[130px]"
+          className="w-[100px] md:w-[130px]"
           src="/assets/images/RatschWhite.png"
           alt="logo"
         />
-        <div className="flex items-center">
+        {/* Desktop Navigation */}
+        <div className="hidden lg:flex items-center">
           <div
-            className={`rounded-full px-12 py-4 flex items-center gap-14 transition-all duration-300 bg-black/75`}
+            className={`rounded-full px-8 xl:px-12 py-3 xl:py-4 flex items-center gap-8 xl:gap-14 transition-all duration-300 bg-black/75`}
           >
             {navItems.map((item) => (
               <button
                 key={item.sectionId}
-                className={`text-white text-base transition-colors relative group`}
+                className={`text-white text-sm xl:text-base transition-colors relative group`}
               >
                 {item.label}
                 <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-[#BF0000] transition-all duration-300 group-hover:w-full"></span>
@@ -47,13 +50,52 @@ const Navbar: React.FC = () => {
             ))}
           </div>
         </div>
-        <Button
-          navButton={true}
-          text="Talk with us"
-          color="#333333"
-          icon={<CiMail className="w-4 h-4 md:w-6 md:h-6 text-[#C90000]" />}
-        />
+        {/* Desktop Button */}
+        <div className="hidden lg:block">
+          <Button
+            navButton={true}
+            text="Talk with us"
+            color="#333333"
+            icon={<CiMail className="w-4 h-4 md:w-6 md:h-6 text-[#C90000]" />}
+          />
+        </div>
+        {/* Mobile Menu Button */}
+        <button
+          onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+          className="lg:hidden text-white p-2"
+          aria-label="Toggle menu"
+        >
+          {isMobileMenuOpen ? (
+            <HiX className="w-6 h-6" />
+          ) : (
+            <HiMenu className="w-6 h-6" />
+          )}
+        </button>
       </div>
+      {/* Mobile Menu */}
+      {isMobileMenuOpen && (
+        <div className="lg:hidden backdrop-blur-xl bg-white/30 border-t border-white/20">
+          <div className="container mx-auto px-4 py-4 flex flex-col gap-4">
+            {navItems.map((item) => (
+              <button
+                key={item.sectionId}
+                onClick={() => setIsMobileMenuOpen(false)}
+                className="text-black text-base py-2 transition-colors hover:text-[#BF0000] text-left font-medium"
+              >
+                {item.label}
+              </button>
+            ))}
+            <div className="pt-2">
+              <Button
+                navButton={true}
+                text="Talk with us"
+                color="#333333"
+                icon={<CiMail className="w-4 h-4 text-[#C90000]" />}
+              />
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
