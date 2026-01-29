@@ -5,6 +5,7 @@ import { BsArrowUpRight } from "react-icons/bs";
 const ProjectSection: React.FC = () => {
   const projects = [
     {
+      id: "wedding-pre-shoot",
       titleLine: "Wedding",
       titleLine2: "Pre-Shoot",
       description:
@@ -12,9 +13,10 @@ const ProjectSection: React.FC = () => {
       date: "Jan 12, 2026",
       type: "Graphic Design",
       client: "TD Creative",
-      image: "/assets/images/wedding.png",
+      image: "/assets/images/WeddingOriginal.png",
     },
     {
+      id: "commercial-ads",
       titleLine: "Commercial",
       titleLine2: "ADs",
       description:
@@ -25,6 +27,7 @@ const ProjectSection: React.FC = () => {
       image: "/assets/images/car.png",
     },
     {
+      id: "video-production",
       titleLine: "Video",
       titleLine2: "Production",
       description:
@@ -35,6 +38,7 @@ const ProjectSection: React.FC = () => {
       image: "/assets/images/shoot.png",
     },
     {
+      id: "2d-animation",
       titleLine: "2D Animation",
       titleLine2: "Designing",
       description:
@@ -77,6 +81,7 @@ const ProjectSection: React.FC = () => {
               {projects.map((project, index) => (
                 <ProjectCard
                   key={index}
+                  id={project.id}
                   titleLine={project.titleLine}
                   titleLine2={project.titleLine2}
                   description={project.description}

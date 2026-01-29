@@ -88,11 +88,11 @@ const ServiceSection: React.FC<ServiceSectionProps> = () => {
         <div className="relative z-10 py-6 md:py-12">
           <div className=" bg-black py-6 md:py-12">
             <div className="container mx-auto px-4 md:px-0">
-              <div className="text-white flex md:flex-col justify-between items-end gap-4 w-full">
+              <div className="text-white flex flex-col lg:flex-row lg:justify-between gap-4 w-full">
                 <div className="text-3xl md:text-5xl lg:text-6xl uppercase font-bold">
                   Services
                 </div>
-                <button className="uppercase rounded-full font-bold px-6 md:px-10 py-2 md:py-3 flex items-center gap-2 md:gap-3 text-sm md:text-lg bg-white/10 w-fit ml-auto sm:ml-0">
+                <button className="uppercase rounded-full font-bold px-6 md:px-10 py-2 md:py-3 flex items-center gap-2 md:gap-3 text-sm md:text-lg bg-white/10 w-fit sm:ml-0">
                   more services
                   <BsArrowUpRight
                     strokeWidth={2}

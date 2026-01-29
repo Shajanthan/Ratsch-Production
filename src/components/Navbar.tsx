@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
 import Button from "./Button";
 import { CiMail } from "react-icons/ci";
 import { HiMenu, HiX } from "react-icons/hi";
@@ -6,6 +7,8 @@ import { HiMenu, HiX } from "react-icons/hi";
 const Navbar: React.FC = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const navigate = useNavigate();
+  const location = useLocation();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -15,6 +18,32 @@ const Navbar: React.FC = () => {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  const handleNavClick = (sectionId: string) => {
+    setIsMobileMenuOpen(false);
+    const currentPath = window.location.pathname;
+    const basePath = currentPath.startsWith("/demo") ? "/demo" : "";
+
+    if (sectionId === "home") {
+      if (basePath) {
+        navigate("/demo");
+      } else {
+        navigate("/");
+      }
+    } else if (sectionId === "about") {
+      navigate(`${basePath}/about`);
+    } else {
+      // For other sections, scroll to section on home page
+      if (location.pathname === "/demo" || location.pathname === "/") {
+        const element = document.getElementById(sectionId);
+        if (element) {
+          element.scrollIntoView({ behavior: "smooth" });
+        }
+      } else {
+        navigate(`${basePath}/#${sectionId}`);
+      }
+    }
+  };
 
   const navItems = [
     { sectionId: "home", label: "Home" },
@@ -29,11 +58,23 @@ const Navbar: React.FC = () => {
       }`}
     >
       <div className="container mx-auto flex justify-between items-center px-4 md:px-2">
-        <img
-          className="w-[100px] md:w-[130px]"
-          src="/assets/images/RatschWhite.png"
-          alt="logo"
-        />
+        <button
+          onClick={() => {
+            const currentPath = window.location.pathname;
+            if (currentPath.startsWith("/demo")) {
+              navigate("/demo");
+            } else {
+              navigate("/");
+            }
+          }}
+          className="cursor-pointer"
+        >
+          <img
+            className="w-[100px] md:w-[130px]"
+            src="/assets/images/RatschWhite.png"
+            alt="logo"
+          />
+        </button>
         {/* Desktop Navigation */}
         <div className="hidden lg:flex items-center">
           <div
@@ -42,10 +83,23 @@ const Navbar: React.FC = () => {
             {navItems.map((item) => (
               <button
                 key={item.sectionId}
-                className={`text-white text-sm xl:text-base transition-colors relative group`}
+                onClick={() => handleNavClick(item.sectionId)}
+                className={`text-white text-sm xl:text-base transition-colors relative group ${
+                  location.pathname.includes("/about") &&
+                  item.sectionId === "about"
+                    ? "text-[#BF0000]"
+                    : ""
+                }`}
               >
                 {item.label}
-                <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-[#BF0000] transition-all duration-300 group-hover:w-full"></span>
+                <span
+                  className={`absolute bottom-0 left-0 h-0.5 bg-[#BF0000] transition-all duration-300 ${
+                    location.pathname.includes("/about") &&
+                    item.sectionId === "about"
+                      ? "w-full"
+                      : "w-0 group-hover:w-full"
+                  }`}
+                ></span>
               </button>
             ))}
           </div>
@@ -79,8 +133,13 @@ const Navbar: React.FC = () => {
             {navItems.map((item) => (
               <button
                 key={item.sectionId}
-                onClick={() => setIsMobileMenuOpen(false)}
-                className="text-black text-base py-2 transition-colors hover:text-[#BF0000] text-left font-medium"
+                onClick={() => handleNavClick(item.sectionId)}
+                className={`text-black text-base py-2 transition-colors hover:text-[#BF0000] text-left font-medium ${
+                  location.pathname.includes("/about") &&
+                  item.sectionId === "about"
+                    ? "text-[#BF0000]"
+                    : ""
+                }`}
               >
                 {item.label}
               </button>

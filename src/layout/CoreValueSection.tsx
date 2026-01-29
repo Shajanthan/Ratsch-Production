@@ -8,7 +8,11 @@ import type { Swiper as SwiperType } from "swiper";
 import "swiper/css";
 import "swiper/css/effect-fade";
 
-const CoreValueSection: React.FC = () => {
+interface CoreValueSectionProps {
+  aboutUs?: boolean;
+}
+
+const CoreValueSection: React.FC<CoreValueSectionProps> = ({ aboutUs }) => {
   const coreValues = [
     {
       title: "Quality",
@@ -44,9 +48,11 @@ const CoreValueSection: React.FC = () => {
       />
       <div className="z-10 py-6 md:py-12 relative">
         <div className="text-white">
-          <div className="text-3xl md:text-5xl lg:text-7xl text-center uppercase font-bold pb-6 md:pb-12 px-4">
-            our core values
-          </div>
+          {!aboutUs && (
+            <div className="text-3xl md:text-5xl lg:text-7xl text-center uppercase font-bold pb-6 md:pb-12 px-4">
+              our core values
+            </div>
+          )}
 
           <div className="">
             <div className="relative">
