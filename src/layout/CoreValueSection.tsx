@@ -1,7 +1,7 @@
 import CoreValuesCard from "@/components/CoreValuesCard";
 import React, { useRef, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { EffectFade, A11y } from "swiper/modules";
+import { EffectFade, A11y, Autoplay } from "swiper/modules";
 import type { Swiper as SwiperType } from "swiper";
 
 // Import Swiper styles
@@ -55,18 +55,27 @@ const CoreValueSection: React.FC<CoreValueSectionProps> = ({ aboutUs }) => {
           )}
 
           <div className="">
-            <div className="relative">
+            <div
+              className="relative"
+              onMouseEnter={() => swiperRef.current?.autoplay?.stop()}
+              onMouseLeave={() => swiperRef.current?.autoplay?.start()}
+            >
               <Swiper
-                modules={[EffectFade, A11y]}
+                modules={[EffectFade, A11y, Autoplay]}
                 slidesPerView={1}
                 effect="fade"
                 fadeEffect={{ crossFade: true }}
                 speed={650}
+                loop={true}
+                autoplay={{
+                  delay: 4000,
+                  disableOnInteraction: false,
+                }}
                 onSwiper={(swiper) => {
                   swiperRef.current = swiper;
                 }}
                 onSlideChange={(swiper) => {
-                  setActiveIndex(swiper.activeIndex);
+                  setActiveIndex(swiper.realIndex);
                 }}
                 className="w-full"
               >

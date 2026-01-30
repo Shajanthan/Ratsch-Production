@@ -25,10 +25,14 @@ const Navbar: React.FC = () => {
     const basePath = currentPath.startsWith("/demo") ? "/demo" : "";
 
     if (sectionId === "home") {
-      if (basePath) {
-        navigate("/demo");
+      if (location.pathname === "/demo" || location.pathname === "/") {
+        window.scrollTo({ top: 0, behavior: "smooth" });
       } else {
-        navigate("/");
+        if (basePath) {
+          navigate("/demo");
+        } else {
+          navigate("/");
+        }
       }
     } else if (sectionId === "about") {
       navigate(`${basePath}/about`);
@@ -40,7 +44,8 @@ const Navbar: React.FC = () => {
           element.scrollIntoView({ behavior: "smooth" });
         }
       } else {
-        navigate(`${basePath}/#${sectionId}`);
+        const homePath = basePath ? "/demo" : "/";
+        navigate(homePath, { state: { scrollTo: sectionId } });
       }
     }
   };
@@ -48,13 +53,15 @@ const Navbar: React.FC = () => {
   const navItems = [
     { sectionId: "home", label: "Home" },
     { sectionId: "about", label: "About us" },
-    { sectionId: "projects", label: "Service" },
-    { sectionId: "skills", label: "Contact us" },
+    { sectionId: "service", label: "Service" },
+    { sectionId: "contact", label: "Contact us" },
   ];
   return (
     <div
       className={`fixed left-0 right-0 z-[51] transition-all duration-300 select-none ${
-        isScrolled ? "backdrop-blur-xl bg-white/5" : "border-none py-2"
+        isScrolled || isMobileMenuOpen
+          ? "backdrop-blur-xl bg-white/5"
+          : "border-none py-2"
       }`}
     >
       <div className="container mx-auto flex justify-between items-center px-4 md:px-2">
@@ -70,7 +77,7 @@ const Navbar: React.FC = () => {
           className="cursor-pointer"
         >
           <img
-            className="w-[100px] md:w-[130px]"
+            className="w-[100px] md:w-[180px] lg:w-[150px]"
             src="/assets/images/RatschWhite.png"
             alt="logo"
           />
@@ -111,6 +118,7 @@ const Navbar: React.FC = () => {
             text="Talk with us"
             color="#333333"
             icon={<CiMail className="w-4 h-4 md:w-6 md:h-6 text-[#C90000]" />}
+            onClick={() => handleNavClick("contact")}
           />
         </div>
         {/* Mobile Menu Button */}
@@ -128,13 +136,13 @@ const Navbar: React.FC = () => {
       </div>
       {/* Mobile Menu */}
       {isMobileMenuOpen && (
-        <div className="lg:hidden backdrop-blur-xl bg-white/30 border-t border-white/20">
+        <div className="lg:hidden backdrop-blur-xl bg-white/5 border-t border-white/10">
           <div className="container mx-auto px-4 py-4 flex flex-col gap-4">
             {navItems.map((item) => (
               <button
                 key={item.sectionId}
                 onClick={() => handleNavClick(item.sectionId)}
-                className={`text-black text-base py-2 transition-colors hover:text-[#BF0000] text-left font-medium ${
+                className={`text-white text-base py-2 transition-colors hover:text-[#BF0000] text-left font-medium ${
                   location.pathname.includes("/about") &&
                   item.sectionId === "about"
                     ? "text-[#BF0000]"
@@ -144,12 +152,13 @@ const Navbar: React.FC = () => {
                 {item.label}
               </button>
             ))}
-            <div className="pt-2">
+            <div className="pt-2 flex justify-center">
               <Button
                 navButton={true}
                 text="Talk with us"
                 color="#333333"
                 icon={<CiMail className="w-4 h-4 text-[#C90000]" />}
+                onClick={() => handleNavClick("contact")}
               />
             </div>
           </div>

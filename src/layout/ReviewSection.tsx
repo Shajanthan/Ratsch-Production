@@ -1,6 +1,7 @@
 import ReviewCard from "@/components/ReviewCard";
-import React from "react";
+import React, { useRef } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
+import type { Swiper as SwiperType } from "swiper";
 import { Pagination, Autoplay } from "swiper/modules";
 
 // Import Swiper styles
@@ -8,6 +9,7 @@ import "swiper/css";
 import "swiper/css/pagination";
 
 const ReviewSection: React.FC = () => {
+  const swiperRef = useRef<SwiperType | null>(null);
   const reviews = [
     {
       name: "John Doe",
@@ -54,12 +56,19 @@ const ReviewSection: React.FC = () => {
             Ac bibendum elementum aliquet
           </p>
 
-          <div className="mt-8 md:mt-12 px-4 md:px-10 lg:px-20">
+          <div
+            className="mt-8 md:mt-12 px-4 md:px-10 lg:px-20"
+            onMouseEnter={() => swiperRef.current?.autoplay?.stop()}
+            onMouseLeave={() => swiperRef.current?.autoplay?.start()}
+          >
             <Swiper
               modules={[Pagination, Autoplay]}
               spaceBetween={30}
               slidesPerView={1}
               loop={true}
+              onSwiper={(swiper) => {
+                swiperRef.current = swiper;
+              }}
               pagination={{
                 clickable: true,
               }}

@@ -42,7 +42,7 @@ const Footer: React.FC = () => {
               </div>
             </div>
           </div>
-          <div className="lg:col-span-4 flex flex-col md:flex-row gap-6 md:gap-2 w-full justify-between">
+          <div className="lg:col-span-4 flex flex-col lg:flex-row gap-6 lg:gap-2 w-full lg:justify-between">
             <div className="">
               <div className="font-semibold uppercase pb-3 md:pb-4 text-base md:text-lg">
                 Links
@@ -105,9 +105,9 @@ const Footer: React.FC = () => {
           </div>
         </div>
 
-        <div className="pt-12 md:pt-28 flex flex-col md:flex-row items-center justify-between gap-8 md:gap-0 max-w-7xl mx-auto">
-          <div className="w-full md:w-auto order-2 md:order-none">
-            <div className="flex flex-col sm:flex-row gap-4 sm:gap-8 md:gap-16 text-xs md:text-sm p-4 border-t-0 md:border-t-2 border-white">
+        <div className="pt-12 md:pt-28 flex flex-col lg:flex-row items-center justify-between gap-8 lg:gap-0 max-w-7xl mx-auto">
+          <div className="w-full lg:w-auto order-2 lg:order-none">
+            <div className="flex flex-col sm:flex-row gap-4 sm:gap-8 md:gap-16 text-xs md:text-sm p-4 border-t-0 lg:border-t-2 border-white justify-center items-center">
               <div className="">Copyright © Ratsch Productions </div>
               <div className="flex items-center gap-2">
                 <FaHeart className="text-red-600" size={12} />
@@ -116,18 +116,18 @@ const Footer: React.FC = () => {
             </div>
           </div>
 
-          <div className="w-full lg:w-auto flex flex-col items-center md:items-start order-1 md:order-none">
+          <div className="w-full lg:w-auto flex flex-col items-center lg:items-start order-1 lg:order-none">
             <div className="uppercase font-semibold text-xl md:text-2xl lg:text-3xl text-center lg:text-left">
               Let's connect
             </div>
-            <div className="py-4 md:py-5 w-full max-w-[250px] md:max-w-none mx-auto md:mx-0">
-              <div className="flex justify-between bg-[#222222] rounded-full items-center pr-4 md:pr-12">
-                <div className="bg-[#333333] text-white rounded-full p-3 md:p-5 px-4 md:px-10 mr-2 md:mr-8 text-xs md:text-base">
+            <div className="py-4 md:py-5 w-full max-w-[250px] md:max-w-[350px] lg:max-w-none mx-auto lg:mx-0 group">
+              <div className=" flex justify-between bg-[#222222] rounded-full items-center pr-4 md:pr-6 lg:pr-12 border border-[#333333] group-hover:border-[#FF0000] transition-all duration-500 cursor-pointer">
+                <div className="bg-[#333333] text-white rounded-full p-3 md:p-4 px-4 lg:px-10 mr-2 md:mr-0 lg:mr-8 text-xs md:text-base border border-[#333333] group-hover:border-[#FF0000] transition-all duration-500">
                   info@ratschproductions.com
                 </div>
                 <MdOutlineMailOutline
                   size={20}
-                  className="md:w-7 md:h-7 flex-shrink-0"
+                  className="md:w-7 md:h-7 flex-shrink-0 group-hover:text-[#FF0000] transition-colors duration-300"
                 />
               </div>
             </div>

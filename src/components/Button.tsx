@@ -6,6 +6,7 @@ interface ButtonProps {
   icon: React.ReactNode;
   textIcon?: React.ReactNode;
   navButton: boolean;
+  onClick?: () => void;
 }
 
 const Button: React.FC<ButtonProps> = ({
@@ -14,11 +15,16 @@ const Button: React.FC<ButtonProps> = ({
   icon,
   textIcon,
   navButton,
+  onClick,
 }) => {
   return (
     <>
       {navButton ? (
-        <button className="border rounded-full p-2 md:p-3 bg-[#1f0000] flex items-center gap-2 md:gap-3 px-3 md:px-5 border-[#770101]">
+        <button
+          type="button"
+          onClick={onClick}
+          className="border rounded-full p-2 md:p-3 bg-[#1f0000] hover:bg-[rgb(31,0,0)] flex items-center gap-2 md:gap-3 px-3 md:px-5 border-[#770101] hover:border-[#FF0000] transition-all duration-500 hover:scale-105 hover:cursor-pointer"
+        >
           {icon}{" "}
           <span className="text-white text-xs md:text-sm lg:text-base">
             {text}

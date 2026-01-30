@@ -62,12 +62,12 @@ const ProjectSection: React.FC = () => {
               <div className="text-3xl md:text-5xl lg:text-6xl uppercase font-bold">
                 Latest Projects
               </div>
-              <button className="uppercase rounded-full font-bold px-6 md:px-10 py-2 md:py-3 flex items-center gap-2 md:gap-3 text-sm md:text-lg bg-white/10 w-fit">
+              <button className="uppercase rounded-full font-bold px-6 md:px-10 py-2 md:py-3 flex items-center gap-2 md:gap-3 text-sm md:text-lg bg-white/10 hover:bg-white/20 hover:scale-105 transition-all duration-300 w-fit group">
                 more projects
                 <BsArrowUpRight
                   strokeWidth={2}
                   size={14}
-                  className="md:w-4 md:h-4"
+                  className="md:w-4 md:h-4 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform duration-300"
                 />
               </button>
             </div>

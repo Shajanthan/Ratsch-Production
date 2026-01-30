@@ -3,6 +3,7 @@ import UnderProduction from "./pages/UnderProduction";
 import HomePage from "./pages/HomePage";
 import ProjectDetailsPage from "./pages/ProjectDetailsPage";
 import AboutUsPage from "./pages/AboutUsPage";
+import ServiceDetailsPage from "./pages/ServiceDetailsPage";
 import MainLayout from "./layout/MainLayout";
 
 function App() {
@@ -54,11 +55,31 @@ function App() {
               }
             />
             <Route
+              path="/demo/service/:id"
+              element={
+                <>
+                  <MainLayout>
+                    <ServiceDetailsPage />
+                  </MainLayout>
+                </>
+              }
+            />
+            <Route
               path="/project/:id"
               element={
                 <>
                   <MainLayout>
                     <ProjectDetailsPage />
+                  </MainLayout>
+                </>
+              }
+            />
+            <Route
+              path="/service/:id"
+              element={
+                <>
+                  <MainLayout>
+                    <ServiceDetailsPage />
                   </MainLayout>
                 </>
               }
@@ -92,6 +113,16 @@ function App() {
                 <>
                   <MainLayout>
                     <ProjectDetailsPage />
+                  </MainLayout>
+                </>
+              }
+            />
+            <Route
+              path="/service/:id"
+              element={
+                <>
+                  <MainLayout>
+                    <ServiceDetailsPage />
                   </MainLayout>
                 </>
               }

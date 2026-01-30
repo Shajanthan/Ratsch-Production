@@ -44,7 +44,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
       <div className="w-full group relative">
         <img
           src={image}
-          className="w-full h-[300px] md:h-[400px] lg:h-[500px] object-cover grayscale group-hover:grayscale-0 transition-all duration-200 relative"
+          className="w-full h-[300px] md:h-[400px] lg:h-[500px] object-cover grayscale group-hover:grayscale-0 transition-all duration-700 relative"
         />
         {/* Left side black gradient - only on image */}
         <div className="absolute left-0 top-0 bottom-0 w-3/4 md:w-4/5 bg-gradient-to-r from-black via-black/80 to-transparent pointer-events-none z-10"></div>

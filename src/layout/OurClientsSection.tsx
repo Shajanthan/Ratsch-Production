@@ -1,6 +1,13 @@
-import React from "react";
+import React, { useRef } from "react";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Pagination } from "swiper/modules";
+import type { Swiper as SwiperType } from "swiper";
+import "swiper/css";
+import "swiper/css/pagination";
 
 const OurClientsSection: React.FC = () => {
+  const swiperRef = useRef<SwiperType | null>(null);
+
   const clients = [
     { image: "/assets/images/client1.png" },
     { image: "/assets/images/client2.png" },
@@ -23,12 +30,50 @@ const OurClientsSection: React.FC = () => {
             consequat vulputate urna augue. Faucibus adipiscing aenean mi diam.
             Ac bibendum elementum aliquet
           </p>
-          <div className="grid grid-cols-2 md:flex md:flex-wrap justify-center items-center gap-2 md:gap-4 lg:gap-6 py-4 md:py-6">
+
+          {/* Mobile & Tablet: Swiper */}
+          <div className="lg:hidden py-4">
+            <Swiper
+              modules={[Pagination]}
+              spaceBetween={30}
+              slidesPerView={1}
+              centeredSlides
+              pagination={{
+                clickable: true,
+              }}
+              breakpoints={{
+                768: {
+                  slidesPerView: 2,
+                  spaceBetween: 30,
+                  centeredSlides: false,
+                },
+              }}
+              onSwiper={(swiper) => {
+                swiperRef.current = swiper;
+              }}
+              className="clients-swiper"
+            >
+              {clients.map((client, index) => (
+                <SwiperSlide key={index}>
+                  <div className="flex justify-center px-4 md:px-2 h-[200px] md:h-[250px]">
+                    <img
+                      src={client.image}
+                      className="hover:scale-105 transition-all duration-500 w-full max-w-[280px] md:max-w-full h-full object-contain"
+                      alt={`Client ${index + 1}`}
+                    />
+                  </div>
+                </SwiperSlide>
+              ))}
+            </Swiper>
+          </div>
+
+          {/* Desktop: Grid */}
+          <div className="hidden lg:flex lg:flex-wrap justify-center items-center gap-6 py-4 md:py-6">
             {clients.map((client, index) => (
-              <div key={index} className="flex justify-center md:block">
+              <div key={index} className="flex justify-center">
                 <img
                   src={client.image}
-                  className="hover:scale-105 transition-all duration-500 w-full max-w-[240px] md:w-24 md:max-w-none lg:w-auto"
+                  className="hover:scale-105 transition-all duration-500 w-24 lg:w-auto"
                   alt={`Client ${index + 1}`}
                 />
               </div>

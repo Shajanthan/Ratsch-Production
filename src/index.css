@@ -98,3 +98,204 @@
   display: flex;
   align-items: stretch;
 }
+
+/* Team swiper - single centered slide */
+.team-swiper {
+  position: relative;
+  overflow: hidden;
+}
+
+.team-swiper .swiper-slide {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-sizing: border-box;
+}
+
+.team-swiper .swiper-pagination {
+  position: relative;
+  margin-top: 2rem;
+  z-index: 5;
+}
+
+.team-swiper .swiper-pagination-bullet {
+  background-color: rgba(139, 0, 0, 0.6);
+  opacity: 1;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.team-swiper .swiper-pagination-bullet-active {
+  background-color: #ff0000;
+  width: 12px;
+  height: 12px;
+  box-shadow: 0 0 12px rgba(255, 0, 0, 0.9);
+}
+
+/* Gallery thumbs swiper */
+.gallery-thumbs-swiper .swiper-slide {
+  height: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.gallery-thumbs-swiper .swiper-button-next,
+.gallery-thumbs-swiper .swiper-button-prev {
+  color: #bf0000;
+  width: 40px;
+  height: 40px;
+}
+
+.gallery-thumbs-swiper .swiper-button-next:after,
+.gallery-thumbs-swiper .swiper-button-prev:after {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.gallery-thumbs-swiper .swiper-button-disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+.gallery-thumbs-swiper .swiper-pagination {
+  position: relative;
+  margin-top: 1rem;
+}
+
+.gallery-thumbs-swiper .swiper-pagination-bullet {
+  background-color: rgba(255, 255, 255, 0.5);
+  opacity: 1;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  margin: 0 4px;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.gallery-thumbs-swiper .swiper-pagination-bullet-active {
+  background-color: #bf0000;
+  width: 24px;
+  height: 8px;
+  border-radius: 4px;
+}
+
+/* Service works swiper */
+.service-works-swiper .swiper-button-next,
+.service-works-swiper .swiper-button-prev {
+  color: #bf0000;
+  width: 40px;
+  height: 40px;
+}
+
+.service-works-swiper .swiper-button-next:after,
+.service-works-swiper .swiper-button-prev:after {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.service-works-swiper .swiper-button-disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+.service-works-swiper .swiper-pagination {
+  position: relative;
+  margin-top: 1.5rem;
+}
+
+.service-works-swiper .swiper-pagination-bullet {
+  background-color: rgba(255, 255, 255, 0.5);
+  opacity: 1;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  margin: 0 4px;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.service-works-swiper .swiper-pagination-bullet-active {
+  background-color: #bf0000;
+  width: 24px;
+  height: 8px;
+  border-radius: 4px;
+}
+
+/* Service brands swiper */
+.service-brands-swiper .swiper-button-next,
+.service-brands-swiper .swiper-button-prev {
+  color: #bf0000;
+  width: 40px;
+  height: 40px;
+}
+
+.service-brands-swiper .swiper-button-next:after,
+.service-brands-swiper .swiper-button-prev:after {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.service-brands-swiper .swiper-button-disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+.service-brands-swiper .swiper-pagination {
+  position: relative;
+  margin-top: 1.5rem;
+}
+
+.service-brands-swiper .swiper-pagination-bullet {
+  background-color: rgba(255, 255, 255, 0.5);
+  opacity: 1;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  margin: 0 4px;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.service-brands-swiper .swiper-pagination-bullet-active {
+  background-color: #bf0000;
+  width: 24px;
+  height: 8px;
+  border-radius: 4px;
+}
+
+/* Service content swiper (mobile) */
+.service-content-swiper .swiper-slide {
+  height: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Clients swiper */
+.clients-swiper .swiper-pagination {
+  position: relative;
+  margin-top: 1.5rem;
+}
+
+.clients-swiper .swiper-pagination-bullet {
+  background-color: rgba(255, 255, 255, 0.5);
+  opacity: 1;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  margin: 0 4px;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.clients-swiper .swiper-pagination-bullet-active {
+  background-color: #bf0000;
+  width: 24px;
+  height: 8px;
+  border-radius: 4px;
+}
