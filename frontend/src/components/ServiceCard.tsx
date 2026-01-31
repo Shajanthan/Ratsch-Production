@@ -42,7 +42,7 @@ const ServiceCard: React.FC<ServiceCardProps> = ({
           <BsArrowUpRight strokeWidth={2} size={10} className="md:w-3 md:h-3" />
         </button>
       </div>
-      <div className="h-[250px] md:h-[320px] lg:h-[380px] overflow-hidden">
+      <div className="h-[250px] md:h-[320px] lg:h-[320px] overflow-hidden">
         <img
           src={image}
           alt={title}
@@ -60,7 +60,7 @@ const ServiceCard: React.FC<ServiceCardProps> = ({
           {tags.map((tag, index) => (
             <span
               key={index}
-              className="px-2 md:px-3 py-1 text-xs md:text-sm rounded-full capitalize"
+              className="px-2 md:px-3 py-1 text-xs rounded-full capitalize"
               style={{ backgroundColor: tagColor, color: textColor }}
             >
               {tag}

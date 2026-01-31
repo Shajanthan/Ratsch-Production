@@ -50,7 +50,7 @@ const ServiceSection: React.FC<ServiceSectionProps> = () => {
   const [servicesPerPage, setServicesPerPage] = useState(3);
   const [swiperActiveIndex, setSwiperActiveIndex] = useState(0);
   const [flippedCards, setFlippedCards] = useState<{ [key: number]: boolean }>(
-    {},
+    {}
   );
   const swiperRef = useRef<SwiperType | null>(null);
 
@@ -132,11 +132,11 @@ const ServiceSection: React.FC<ServiceSectionProps> = () => {
             src="/assets/images/bg.png"
             className="absolute inset-0 opacity-70 w-full h-full object-cover"
           />
-          <div className="relative z-10 py-6 md:py-12">
+          <div className="relative z-10 py-6 md:py-16">
             <div className=" bg-black py-6 md:py-12">
               <div className="container mx-auto px-4 md:px-0">
                 <div className="text-white flex flex-col lg:flex-row lg:justify-between gap-4 w-full">
-                  <div className="text-3xl md:text-5xl lg:text-6xl uppercase font-bold">
+                  <div className="text-3xl md:text-5xl lg:text-5xl uppercase font-bold">
                     Services
                   </div>
                   {/* <button className="uppercase rounded-full font-bold px-6 md:px-10 py-2 md:py-3 flex items-center gap-2 md:gap-3 text-sm md:text-lg bg-white/10 hover:bg-white/20 hover:scale-105 transition-all duration-300 w-fit sm:ml-0 group">
@@ -148,7 +148,7 @@ const ServiceSection: React.FC<ServiceSectionProps> = () => {
                     />
                   </button> */}
                 </div>
-                <p className="text-white w-full md:w-1/2 py-4 text-sm md:text-base">
+                <p className="text-white w-full md:w-1/2 py-4 text-sm md:text-sm">
                   Lorem ipsum dolor sit amet consectetur. Maecenas varius sit
                   consequat vulputate urna augue. Faucibus adipiscing aenean mi
                   diam. Ac bibendum elementum aliquet
