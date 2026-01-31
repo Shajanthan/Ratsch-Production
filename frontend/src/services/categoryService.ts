@@ -1,4 +1,5 @@
 import api from "./api";
+import { getCached } from "./cache";
 
 export interface Category {
   id: string;
@@ -9,8 +10,10 @@ export interface Category {
 const BASE = "/categories";
 
 export async function getCategories(): Promise<Category[]> {
-  const { data } = await api.get<{ success: true; data: Category[] }>(BASE);
-  return data.data;
+  return getCached("categories", async () => {
+    const { data } = await api.get<{ success: true; data: Category[] }>(BASE);
+    return data.data;
+  });
 }
 
 export async function updateCategory(

@@ -6,12 +6,7 @@ import { Navigation, Pagination } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
-import {
-  getServiceById,
-  getServices,
-  slugFromTitle,
-  type Service,
-} from "../services/serviceService";
+import { getServices, slugFromTitle, type Service } from "../services/serviceService";
 
 interface ServiceData {
   id: string;
@@ -45,6 +40,11 @@ const ServiceDetailsPage: React.FC = () => {
   const [loading, setLoading] = useState(true);
   const [notFound, setNotFound] = useState(false);
 
+  // Start at top when opening or changing service
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [id]);
+
   useEffect(() => {
     const param = id ?? "";
     if (!param) {
@@ -55,36 +55,30 @@ const ServiceDetailsPage: React.FC = () => {
     let cancelled = false;
     setLoading(true);
     setNotFound(false);
-    const loadBySlugOrId = () => {
-      getServices()
-        .then((list) => {
-          if (cancelled) return;
-          const bySlug = list.find((s) => slugFromTitle(s.title) === param);
-          const byId = list.find((s) => s.id === param);
-          const match = bySlug ?? byId;
-          if (!match?.id) {
-            setNotFound(true);
-            setService(null);
-            setLoading(false);
-            return;
-          }
-          return getServiceById(match.id);
-        })
-        .then((data) => {
-          if (cancelled || !data) return;
-          setService(mapApiServiceToPageData(data));
-        })
-        .catch(() => {
-          if (!cancelled) {
-            setNotFound(true);
-            setService(null);
-          }
-        })
-        .finally(() => {
-          if (!cancelled) setLoading(false);
-        });
-    };
-    loadBySlugOrId();
+    getServices()
+      .then((list) => {
+        if (cancelled) return;
+        const bySlug = list.find((s) => slugFromTitle(s.title) === param);
+        const byId = list.find((s) => s.id === param);
+        const match = bySlug ?? byId;
+        if (!match?.id) {
+          setNotFound(true);
+          setService(null);
+          setLoading(false);
+          return;
+        }
+        // Use list data directly (already prefetched); detail is cached so no extra wait
+        setService(mapApiServiceToPageData(match));
+      })
+      .catch(() => {
+        if (!cancelled) {
+          setNotFound(true);
+          setService(null);
+        }
+      })
+      .finally(() => {
+        if (!cancelled) setLoading(false);
+      });
     return () => {
       cancelled = true;
     };

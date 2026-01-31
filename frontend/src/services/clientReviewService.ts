@@ -1,4 +1,5 @@
 import api from "./api";
+import { getCached } from "./cache";
 
 export interface ClientReview {
   id?: string;
@@ -17,8 +18,10 @@ export interface ClientReview {
 const BASE = "/client-reviews";
 
 export async function getClientReviews(): Promise<ClientReview[]> {
-  const { data } = await api.get<{ success: true; data: ClientReview[] }>(BASE);
-  return data.data;
+  return getCached("client-reviews", async () => {
+    const { data } = await api.get<{ success: true; data: ClientReview[] }>(BASE);
+    return data.data;
+  });
 }
 
 export async function addClientReview(

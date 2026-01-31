@@ -1,5 +1,8 @@
+import { useState, useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { ToastProvider } from "./context/ToastContext";
+import SplashScreen, { MIN_DISPLAY_MS } from "./components/SplashScreen";
+import { prefetchAppData } from "./utils/prefetch";
 import UnderProduction from "./pages/UnderProduction";
 import HomePage from "./pages/HomePage";
 import ProjectDetailsPage from "./pages/ProjectDetailsPage";
@@ -17,7 +20,11 @@ import AdminClientReviewPage from "./pages/Admin/AdminClientReviewPage";
 import AdminCoreValuesPage from "./pages/Admin/AdminCoreValuesPage";
 import MainLayout from "./layout/MainLayout";
 
-function App() {
+function delay(ms: number): Promise<void> {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
+function AppContent() {
   const isUnderProduction = true;
   return (
     <ToastProvider>
@@ -200,6 +207,47 @@ function App() {
         </Routes>
       </Router>
     </ToastProvider>
+  );
+}
+
+function App() {
+  const [showSplash, setShowSplash] = useState(true);
+  const [splashClosing, setSplashClosing] = useState(false);
+  const [loadProgress, setLoadProgress] = useState(0);
+  const [prefetchReady, setPrefetchReady] = useState(false);
+  const [typingReady, setTypingReady] = useState(false);
+
+  useEffect(() => {
+    const prefetch = prefetchAppData((percent) => setLoadProgress(percent));
+    Promise.all([prefetch, delay(MIN_DISPLAY_MS)])
+      .then(() => setPrefetchReady(true))
+      .catch(() => setShowSplash(false));
+  }, []);
+
+  // Close splash only when BOTH typing and prefetch (and min delay) are done
+  useEffect(() => {
+    if (prefetchReady && typingReady) {
+      setSplashClosing(true);
+    }
+  }, [prefetchReady, typingReady]);
+
+  // When closing: render app underneath so splash fades out to reveal it (no flash)
+  const showAppUnderneath = splashClosing;
+  const showSplashOverlay = showSplash;
+
+  return (
+    <>
+      {(showAppUnderneath || !showSplashOverlay) && <AppContent />}
+      {showSplashOverlay && (
+        <SplashScreen
+          progress={loadProgress}
+          isFetchComplete={prefetchReady}
+          onTypingComplete={() => setTypingReady(true)}
+          isClosing={splashClosing}
+          onCloseComplete={() => setShowSplash(false)}
+        />
+      )}
+    </>
   );
 }
 

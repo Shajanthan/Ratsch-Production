@@ -1,4 +1,5 @@
 import api from "./api";
+import { getCached } from "./cache";
 
 export interface CoreValue {
   id?: string;
@@ -13,8 +14,10 @@ export interface CoreValue {
 const BASE = "/core-values";
 
 export async function getCoreValues(): Promise<CoreValue[]> {
-  const { data } = await api.get<{ success: true; data: CoreValue[] }>(BASE);
-  return data.data;
+  return getCached("core-values", async () => {
+    const { data } = await api.get<{ success: true; data: CoreValue[] }>(BASE);
+    return data.data;
+  });
 }
 
 export async function addCoreValue(payload: {

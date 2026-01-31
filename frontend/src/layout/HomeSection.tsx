@@ -62,7 +62,7 @@ const HomeSection: React.FC = () => {
   // Keep activeIndex in bounds when project list changes (e.g. only 2 selected)
   useEffect(() => {
     setActiveIndex((prev) =>
-      projects.length ? Math.min(prev, projects.length - 1) : 0,
+      projects.length ? Math.min(prev, projects.length - 1) : 0
     );
   }, [projects.length]);
 
@@ -98,7 +98,7 @@ const HomeSection: React.FC = () => {
     if (isRightSwipe) {
       // Infinite loop: if at first, go to last
       setActiveIndex(
-        (prevIndex) => (prevIndex - 1 + projects.length) % projects.length,
+        (prevIndex) => (prevIndex - 1 + projects.length) % projects.length
       );
     }
   };
@@ -152,8 +152,14 @@ const HomeSection: React.FC = () => {
             />
           ))}
         </div>
-        {/* Top black shade overlay for mobile (same as desktop) */}
-        <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/40 to-transparent z-10 pointer-events-none" />
+        {/* Black linear gradient over image – polished look (mobile) */}
+        <div
+          className="absolute inset-0 z-10 pointer-events-none"
+          style={{
+            background:
+              "linear-gradient(to bottom, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.45) 40%, rgba(0,0,0,0.5) 100%)",
+          }}
+        />
       </div>
 
       {/* Desktop: Background Images with Slide Animation */}
@@ -175,8 +181,14 @@ const HomeSection: React.FC = () => {
             />
           ))}
         </div>
-        {/* Full black shadow overlay within the image (desktop) */}
-        <div className="absolute inset-0 bg-black/60 z-10 pointer-events-none" />
+        {/* Black linear gradient over image – polished look (desktop) */}
+        <div
+          className="absolute inset-0 z-10 pointer-events-none"
+          style={{
+            background:
+              "linear-gradient(to bottom, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.6) 50%, rgba(0,0,0,0.75) 100%)",
+          }}
+        />
       </div>
 
       {/* Mobile: Project details below image */}

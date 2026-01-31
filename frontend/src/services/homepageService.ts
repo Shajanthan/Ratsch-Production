@@ -1,4 +1,5 @@
 import api from "./api";
+import { getCached } from "./cache";
 
 export interface HomepageSettings {
   projectId1: string;
@@ -20,10 +21,12 @@ export interface HomepageSettings {
 const BASE = "/homepage";
 
 export async function getHomepageSettings(): Promise<HomepageSettings> {
-  const { data } = await api.get<{ success: true; data: HomepageSettings }>(
-    `${BASE}/settings`,
-  );
-  return data.data;
+  return getCached("homepage/settings", async () => {
+    const { data } = await api.get<{ success: true; data: HomepageSettings }>(
+      `${BASE}/settings`,
+    );
+    return data.data;
+  });
 }
 
 export async function updateHomepageSettings(

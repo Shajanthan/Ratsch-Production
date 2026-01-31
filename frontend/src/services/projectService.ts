@@ -1,4 +1,5 @@
 import api from "./api";
+import { getCached } from "./cache";
 
 export interface Project {
   id?: string;
@@ -43,15 +44,19 @@ export function slugFromTitleLines(line1: string, line2: string): string {
 }
 
 export async function getProjects(): Promise<Project[]> {
-  const { data } = await api.get<{ success: true; data: Project[] }>(BASE);
-  return data.data;
+  return getCached("projects", async () => {
+    const { data } = await api.get<{ success: true; data: Project[] }>(BASE);
+    return data.data;
+  });
 }
 
 export async function getProjectById(id: string): Promise<Project> {
-  const { data } = await api.get<{ success: true; data: Project }>(
-    `${BASE}/${id}`,
-  );
-  return data.data;
+  return getCached(`project/${id}`, async () => {
+    const { data } = await api.get<{ success: true; data: Project }>(
+      `${BASE}/${id}`,
+    );
+    return data.data;
+  });
 }
 
 export async function addProject(payload: ProjectPayload): Promise<string> {

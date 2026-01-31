@@ -1,4 +1,5 @@
 import api from "./api";
+import { getCached } from "./cache";
 
 export interface Service {
   id?: string;
@@ -47,15 +48,19 @@ export function slugFromTitle(title: string): string {
 }
 
 export async function getServices(): Promise<Service[]> {
-  const { data } = await api.get<{ success: true; data: Service[] }>(BASE);
-  return data.data;
+  return getCached("services", async () => {
+    const { data } = await api.get<{ success: true; data: Service[] }>(BASE);
+    return data.data;
+  });
 }
 
 export async function getServiceById(id: string): Promise<Service> {
-  const { data } = await api.get<{ success: true; data: Service }>(
-    `${BASE}/${id}`,
-  );
-  return data.data;
+  return getCached(`service/${id}`, async () => {
+    const { data } = await api.get<{ success: true; data: Service }>(
+      `${BASE}/${id}`,
+    );
+    return data.data;
+  });
 }
 
 export async function addService(

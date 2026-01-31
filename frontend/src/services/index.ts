@@ -1,6 +1,7 @@
 // Export all services from a single entry point
 export * from "./authService";
 export { default as api } from "./api";
+export { getCached, invalidateCache } from "./cache";
 export * from "./categoryService";
 export { uploadImage, deleteCloudinaryImage } from "./cloudinaryService";
 export * from "./clientReviewService";
