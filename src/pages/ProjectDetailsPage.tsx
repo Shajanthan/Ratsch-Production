@@ -6,6 +6,7 @@ import { Navigation, Pagination } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
+import { getProjects, slugFromTitleLines, type Project } from "../services/projectService";
 
 interface ProjectData {
   id: string;
@@ -21,109 +22,67 @@ interface ProjectData {
   galleryImages?: string[];
 }
 
+function projectToData(p: Project): ProjectData {
+  return {
+    id: p.id ?? "",
+    titleLine: p.titleLine1,
+    titleLine2: p.titleLine2,
+    description: p.smallDescription,
+    image: p.coverImageUrl || (p.imageUrls?.length ? p.imageUrls[0] : "") || "",
+    date: p.date,
+    type: p.type,
+    client: p.client,
+    overview: p.overview,
+    results: p.results,
+    galleryImages: p.imageUrls?.length ? p.imageUrls : undefined,
+  };
+}
+
 const ProjectDetailsPage: React.FC = () => {
-  const { id } = useParams<{ id: string }>();
+  const { id: slugOrId } = useParams<{ id: string }>();
   const navigate = useNavigate();
   const [swiperActiveIndex, setSwiperActiveIndex] = useState(0);
+  const [project, setProject] = useState<ProjectData | null>(null);
+  const [loading, setLoading] = useState(true);
 
-  // Mock project data - in real app, fetch by ID
-  const projects: ProjectData[] = [
-    {
-      id: "wedding-pre-shoot",
-      titleLine: "Wedding",
-      titleLine2: "Pre-Shoot",
-      description:
-        "Lorem ipsum dolor sit amet consectetur. Maecenas varius sit consequat vulputate urna augue. Faucibus adipiscing aenean mi diam. Ac bibendum elementum aliquet Lorem ipsum dolor sit amet consectetur. Maecenas varius sit consequat vulputate urna augue. Faucibus adipiscing aenean mi diam. Ac bibendum elementum aliquet",
-      date: "Jan 12, 2026",
-      type: "Graphic Design",
-      client: "TD Creative",
-      image: "/assets/images/WeddingOriginal.png",
-      overview:
-        "Lorem ipsum dolor sit amet consectetur. Maecenas varius sit consequat vulputate urna augue. Faucibus adipiscing aenean mi diam. Ac bibendum elementum aliquet Lorem ipsum dolor sit amet consectetur. Maecenas varius sit consequat vulputate urna augue. Faucibus adipiscing aenean mi diam. Ac bibendum elementum aliquet",
-      results:
-        "Lorem ipsum dolor sit amet consectetur. Maecenas varius sit consequat vulputate urna augue. Faucibus adipiscing aenean mi diam. Ac bibendum elementum aliquet Lorem ipsum dolor sit amet consectetur. Maecenas varius sit consequat vulputate urna augue. Faucibus adipiscing aenean mi diam. Ac bibendum elementum aliquet",
-      galleryImages: [
-        "/assets/images/wedding1.png",
-        "/assets/images/wedding2.png",
-        "/assets/images/wedding3.png",
-        "/assets/images/wedding4.png",
-        "/assets/images/wedding1.png",
-        "/assets/images/wedding2.png",
-        "/assets/images/wedding3.png",
-        "/assets/images/wedding4.png",
-      ],
-    },
-    {
-      id: "commercial-ads",
-      titleLine: "Commercial",
-      titleLine2: "ADs",
-      description:
-        "Lorem ipsum dolor sit amet consectetur. Maecenas varius sit consequat vulputate urna augue. Faucibus adipiscing aenean mi diam. Ac bibendum elementum aliquet Lorem ipsum dolor sit amet consectetur. Maecenas varius sit consequat vulputate urna augue. Faucibus adipiscing aenean mi diam. Ac bibendum elementum aliquet",
-      date: "Jan 12, 2026",
-      type: "Graphic Design",
-      client: "TD Creative",
-      image: "/assets/images/car.png",
-      overview:
-        "Lorem ipsum dolor sit amet consectetur. Maecenas varius sit consequat vulputate urna augue. Faucibus adipiscing aenean mi diam. Ac bibendum elementum aliquet Lorem ipsum dolor sit amet consectetur. Maecenas varius sit consequat vulputate urna augue. Faucibus adipiscing aenean mi diam. Ac bibendum elementum aliquet",
-      results:
-        "Lorem ipsum dolor sit amet consectetur. Maecenas varius sit consequat vulputate urna augue. Faucibus adipiscing aenean mi diam. Ac bibendum elementum aliquet Lorem ipsum dolor sit amet consectetur. Maecenas varius sit consequat vulputate urna augue. Faucibus adipiscing aenean mi diam. Ac bibendum elementum aliquet",
-      galleryImages: [
-        "/assets/images/car.png",
-        "/assets/images/car.png",
-        "/assets/images/car.png",
-        "/assets/images/car.png",
-      ],
-    },
-    {
-      id: "video-production",
-      titleLine: "Video",
-      titleLine2: "Production",
-      description:
-        "Lorem ipsum dolor sit amet consectetur. Maecenas varius sit consequat vulputate urna augue. Faucibus adipiscing aenean mi diam. Ac bibendum elementum aliquet Lorem ipsum dolor sit amet consectetur. Maecenas varius sit consequat vulputate urna augue. Faucibus adipiscing aenean mi diam. Ac bibendum elementum aliquet",
-      date: "Jan 12, 2026",
-      type: "Graphic Design",
-      client: "TD Creative",
-      image: "/assets/images/shoot.png",
-      overview:
-        "Lorem ipsum dolor sit amet consectetur. Maecenas varius sit consequat vulputate urna augue. Faucibus adipiscing aenean mi diam. Ac bibendum elementum aliquet Lorem ipsum dolor sit amet consectetur. Maecenas varius sit consequat vulputate urna augue. Faucibus adipiscing aenean mi diam. Ac bibendum elementum aliquet",
-      results:
-        "Lorem ipsum dolor sit amet consectetur. Maecenas varius sit consequat vulputate urna augue. Faucibus adipiscing aenean mi diam. Ac bibendum elementum aliquet Lorem ipsum dolor sit amet consectetur. Maecenas varius sit consequat vulputate urna augue. Faucibus adipiscing aenean mi diam. Ac bibendum elementum aliquet",
-      galleryImages: [
-        "/assets/images/shoot.png",
-        "/assets/images/shoot.png",
-        "/assets/images/shoot.png",
-        "/assets/images/shoot.png",
-      ],
-    },
-    {
-      id: "2d-animation",
-      titleLine: "2D Animation",
-      titleLine2: "Designing",
-      description:
-        "Lorem ipsum dolor sit amet consectetur. Maecenas varius sit consequat vulputate urna augue. Faucibus adipiscing aenean mi diam. Ac bibendum elementum aliquet Lorem ipsum dolor sit amet consectetur. Maecenas varius sit consequat vulputate urna augue. Faucibus adipiscing aenean mi diam. Ac bibendum elementum aliquet",
-      date: "Jan 12, 2026",
-      type: "Graphic Design",
-      client: "TD Creative",
-      image: "/assets/images/sketch.png",
-      overview:
-        "Lorem ipsum dolor sit amet consectetur. Maecenas varius sit consequat vulputate urna augue. Faucibus adipiscing aenean mi diam. Ac bibendum elementum aliquet Lorem ipsum dolor sit amet consectetur. Maecenas varius sit consequat vulputate urna augue. Faucibus adipiscing aenean mi diam. Ac bibendum elementum aliquet",
-      results:
-        "Lorem ipsum dolor sit amet consectetur. Maecenas varius sit consequat vulputate urna augue. Faucibus adipiscing aenean mi diam. Ac bibendum elementum aliquet Lorem ipsum dolor sit amet consectetur. Maecenas varius sit consequat vulputate urna augue. Faucibus adipiscing aenean mi diam. Ac bibendum elementum aliquet",
-      galleryImages: [
-        "/assets/images/sketch.png",
-        "/assets/images/sketch.png",
-        "/assets/images/sketch.png",
-        "/assets/images/sketch.png",
-      ],
-    },
-  ];
+  useEffect(() => {
+    let cancelled = false;
+    if (!slugOrId) {
+      setProject(null);
+      setLoading(false);
+      return;
+    }
+    getProjects()
+      .then((list) => {
+        if (cancelled) return;
+        const found =
+          list.find(
+            (p) => slugFromTitleLines(p.titleLine1, p.titleLine2) === slugOrId,
+          ) ?? list.find((p) => p.id === slugOrId);
+        setProject(found ? projectToData(found) : null);
+      })
+      .catch(() => {
+        if (!cancelled) setProject(null);
+      })
+      .finally(() => {
+        if (!cancelled) setLoading(false);
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, [slugOrId]);
 
-  const project = projects.find((p) => p.id === id);
-
-  // Scroll to top when component mounts or id changes
   useEffect(() => {
     window.scrollTo(0, 0);
-  }, [id]);
+  }, [slugOrId]);
+
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-black text-white flex items-center justify-center">
+        <p className="text-white/70">Loading…</p>
+      </div>
+    );
+  }
 
   if (!project) {
     return (
@@ -131,7 +90,7 @@ const ProjectDetailsPage: React.FC = () => {
         <div className="text-center">
           <h1 className="text-4xl mb-4">Project Not Found</h1>
           <button
-            onClick={() => navigate("/demo")}
+            onClick={() => navigate(window.location.pathname.startsWith("/demo") ? "/demo" : "/")}
             className="text-red-500 hover:text-red-600"
           >
             Go Back Home

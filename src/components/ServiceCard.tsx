@@ -4,6 +4,7 @@ import { BsArrowUpRight } from "react-icons/bs";
 
 interface ServiceCardProps {
   id: string;
+  slug: string;
   title: string;
   tags: string[];
   description: string;
@@ -14,6 +15,7 @@ interface ServiceCardProps {
 
 const ServiceCard: React.FC<ServiceCardProps> = ({
   id,
+  slug,
   title,
   tags,
   description,
@@ -26,7 +28,7 @@ const ServiceCard: React.FC<ServiceCardProps> = ({
   const basePath = currentPath.startsWith("/demo") ? "/demo" : "";
 
   const handleExplore = () => {
-    navigate(`${basePath}/service/${id}`);
+    navigate(`${basePath}/service/${slug || id}`);
   };
 
   return (
@@ -58,7 +60,7 @@ const ServiceCard: React.FC<ServiceCardProps> = ({
           {tags.map((tag, index) => (
             <span
               key={index}
-              className="px-2 md:px-3 py-1 text-xs md:text-sm rounded-full "
+              className="px-2 md:px-3 py-1 text-xs md:text-sm rounded-full capitalize"
               style={{ backgroundColor: tagColor, color: textColor }}
             >
               {tag}

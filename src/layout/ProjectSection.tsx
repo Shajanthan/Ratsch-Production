@@ -1,54 +1,80 @@
 import ProjectCard from "@/components/ProjectCard";
-import React from "react";
+import React, { useState, useEffect } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
 import { BsArrowUpRight } from "react-icons/bs";
+import { getHomepageSettings } from "../services/homepageService";
+import { getProjects } from "../services/projectService";
 
 const ProjectSection: React.FC = () => {
-  const projects = [
+  const navigate = useNavigate();
+  const location = useLocation();
+  const basePath = location.pathname.startsWith("/demo") ? "/demo" : "";
+  const [projects, setProjects] = useState<
     {
-      id: "wedding-pre-shoot",
-      titleLine: "Wedding",
-      titleLine2: "Pre-Shoot",
-      description:
-        "Lorem ipsum dolor sit amet consectetur. Maecenas varius sit consequat vulputate urna augue. Faucibus adipiscing aenean mi diam. Ac bibendum elementum aliquet Lorem ipsum dolor sit amet consectetur. Maecenas varius sit consequat vulputate urna augue. Faucibus adipiscing aenean mi diam. Ac bibendum elementum aliquet",
-      date: "Jan 12, 2026",
-      type: "Graphic Design",
-      client: "TD Creative",
-      image: "/assets/images/WeddingOriginal.png",
-    },
-    {
-      id: "commercial-ads",
-      titleLine: "Commercial",
-      titleLine2: "ADs",
-      description:
-        "Lorem ipsum dolor sit amet consectetur. Maecenas varius sit consequat vulputate urna augue. Faucibus adipiscing aenean mi diam. Ac bibendum elementum aliquet Lorem ipsum dolor sit amet consectetur. Maecenas varius sit consequat vulputate urna augue. Faucibus adipiscing aenean mi diam. Ac bibendum elementum aliquet",
-      date: "Jan 12, 2026",
-      type: "Graphic Design",
-      client: "TD Creative",
-      image: "/assets/images/car.png",
-    },
-    {
-      id: "video-production",
-      titleLine: "Video",
-      titleLine2: "Production",
-      description:
-        "Lorem ipsum dolor sit amet consectetur. Maecenas varius sit consequat vulputate urna augue. Faucibus adipiscing aenean mi diam. Ac bibendum elementum aliquet Lorem ipsum dolor sit amet consectetur. Maecenas varius sit consequat vulputate urna augue. Faucibus adipiscing aenean mi diam. Ac bibendum elementum aliquet",
-      date: "Jan 12, 2026",
-      type: "Graphic Design",
-      client: "TD Creative",
-      image: "/assets/images/shoot.png",
-    },
-    {
-      id: "2d-animation",
-      titleLine: "2D Animation",
-      titleLine2: "Designing",
-      description:
-        "Lorem ipsum dolor sit amet consectetur. Maecenas varius sit consequat vulputate urna augue. Faucibus adipiscing aenean mi diam. Ac bibendum elementum aliquet Lorem ipsum dolor sit amet consectetur. Maecenas varius sit consequat vulputate urna augue. Faucibus adipiscing aenean mi diam. Ac bibendum elementum aliquet",
-      date: "Jan 12, 2026",
-      type: "Graphic Design",
-      client: "TD Creative",
-      image: "/assets/images/sketch.png",
-    },
-  ];
+      id: string;
+      titleLine: string;
+      titleLine2: string;
+      description: string;
+      image: string;
+      date: string;
+      type: string;
+      client: string;
+    }[]
+  >([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    let cancelled = false;
+    Promise.all([getHomepageSettings(), getProjects()])
+      .then(([settings, allProjects]) => {
+        if (cancelled) return;
+        const ids = [
+          settings.latestProjectId1,
+          settings.latestProjectId2,
+          settings.latestProjectId3,
+          settings.latestProjectId4,
+        ];
+        const list: {
+          id: string;
+          titleLine: string;
+          titleLine2: string;
+          description: string;
+          image: string;
+          date: string;
+          type: string;
+          client: string;
+        }[] = [];
+        for (const id of ids) {
+          if (!id) continue;
+          const p = allProjects.find((x) => x.id === id);
+          if (!p) continue;
+          list.push({
+            id: p.id ?? "",
+            titleLine: p.titleLine1,
+            titleLine2: p.titleLine2,
+            description: p.smallDescription,
+            image:
+              p.coverImageUrl ||
+              (p.imageUrls?.length ? p.imageUrls[0] : "") ||
+              "",
+            date: p.date,
+            type: p.type,
+            client: p.client,
+          });
+        }
+        setProjects(list);
+      })
+      .catch(() => {
+        if (!cancelled) setProjects([]);
+      })
+      .finally(() => {
+        if (!cancelled) setLoading(false);
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
   return (
     <div className="min-h-screen w-full bg-black relative">
       <img
@@ -62,7 +88,11 @@ const ProjectSection: React.FC = () => {
               <div className="text-3xl md:text-5xl lg:text-6xl uppercase font-bold">
                 Latest Projects
               </div>
-              <button className="uppercase rounded-full font-bold px-6 md:px-10 py-2 md:py-3 flex items-center gap-2 md:gap-3 text-sm md:text-lg bg-white/10 hover:bg-white/20 hover:scale-105 transition-all duration-300 w-fit group">
+              <button
+                type="button"
+                onClick={() => navigate(`${basePath}/projects`)}
+                className="uppercase rounded-full font-bold px-6 md:px-10 py-2 md:py-3 flex items-center gap-2 md:gap-3 text-sm md:text-lg bg-white/10 hover:bg-white/20 hover:scale-105 transition-all duration-300 w-fit group"
+              >
                 more projects
                 <BsArrowUpRight
                   strokeWidth={2}
@@ -78,19 +108,28 @@ const ProjectSection: React.FC = () => {
             </p>
 
             <div className="text-white flex flex-col gap-3 px-2 md:px-8">
-              {projects.map((project, index) => (
-                <ProjectCard
-                  key={index}
-                  id={project.id}
-                  titleLine={project.titleLine}
-                  titleLine2={project.titleLine2}
-                  description={project.description}
-                  image={project.image}
-                  date={project.date}
-                  type={project.type}
-                  client={project.client}
-                />
-              ))}
+              {loading ? (
+                <p className="text-white/50 py-8">Loading projects…</p>
+              ) : projects.length === 0 ? (
+                <p className="text-white/50 py-8">
+                  No projects selected for Latest Projects. Choose 4 in Admin →
+                  Homepage Management.
+                </p>
+              ) : (
+                projects.map((project) => (
+                  <ProjectCard
+                    key={project.id}
+                    id={project.id}
+                    titleLine={project.titleLine}
+                    titleLine2={project.titleLine2}
+                    description={project.description}
+                    image={project.image}
+                    date={project.date}
+                    type={project.type}
+                    client={project.client}
+                  />
+                ))
+              )}
             </div>
           </div>
         </div>

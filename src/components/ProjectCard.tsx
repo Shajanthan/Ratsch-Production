@@ -1,6 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { BsArrowUpRight } from "react-icons/bs";
+import { slugFromTitleLines } from "../services/projectService";
 
 interface ProjectCardProps {
   id?: string;
@@ -14,7 +15,6 @@ interface ProjectCardProps {
 }
 
 const ProjectCard: React.FC<ProjectCardProps> = ({
-  id,
   titleLine,
   titleLine2,
   description,
@@ -24,17 +24,17 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
   client,
 }) => {
   const navigate = useNavigate();
+  const slug = slugFromTitleLines(titleLine, titleLine2);
 
   const handleExplore = (e: React.MouseEvent | React.TouchEvent) => {
     e.stopPropagation();
     e.preventDefault();
-    if (id) {
-      // Check if we're on /demo route
+    if (slug) {
       const currentPath = window.location.pathname;
       if (currentPath.startsWith("/demo")) {
-        navigate(`/demo/project/${id}`);
+        navigate(`/demo/project/${slug}`);
       } else {
-        navigate(`/project/${id}`);
+        navigate(`/project/${slug}`);
       }
     }
   };

@@ -1,8 +1,9 @@
 import ReviewCard from "@/components/ReviewCard";
-import React, { useRef } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import type { Swiper as SwiperType } from "swiper";
 import { Pagination, Autoplay } from "swiper/modules";
+import { getClientReviews } from "@/services/clientReviewService";
 
 // Import Swiper styles
 import "swiper/css";
@@ -10,35 +11,40 @@ import "swiper/css/pagination";
 
 const ReviewSection: React.FC = () => {
   const swiperRef = useRef<SwiperType | null>(null);
-  const reviews = [
-    {
-      name: "John Doe",
-      position: "CEO, Company A",
-      review:
-        "I've been consistently impressed with the quality of service provided by this website. They have exceeded my expectations and delivered exceptional results. Highly recommended!",
-      profile: "/assets/images/profile.png",
-    },
-    {
-      name: "Jane Smith",
-      position: "CEO, Company B",
-      review:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-    },
-    {
-      name: "Mark Smith",
-      position: "CEO, Company C",
-      review:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-      profile: "/assets/images/profile.png",
-    },
-    {
-      name: "William Johnson",
-      position: "CEO, Company D",
-      review:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-      profile: "/assets/images/profile.png",
-    },
-  ];
+  const [reviews, setReviews] = useState<
+    { name: string; position: string; review: string; profile?: string }[]
+  >([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    let cancelled = false;
+    setLoading(true);
+    getClientReviews()
+      .then((data) => {
+        if (!cancelled) {
+          setReviews(
+            data.map((r) => ({
+              name: `${r.firstName} ${r.lastName}`,
+              position: r.companyName
+                ? `${r.position} at ${r.companyName}`
+                : r.position,
+              review: r.review,
+              profile: r.profilePictureUrl || undefined,
+            })),
+          );
+        }
+      })
+      .catch(() => {
+        if (!cancelled) setReviews([]);
+      })
+      .finally(() => {
+        if (!cancelled) setLoading(false);
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
   return (
     <div className="relative w-full bg-black pb-12">
       <img
@@ -61,50 +67,64 @@ const ReviewSection: React.FC = () => {
             onMouseEnter={() => swiperRef.current?.autoplay?.stop()}
             onMouseLeave={() => swiperRef.current?.autoplay?.start()}
           >
-            <Swiper
-              modules={[Pagination, Autoplay]}
-              spaceBetween={30}
-              slidesPerView={1}
-              loop={true}
-              onSwiper={(swiper) => {
-                swiperRef.current = swiper;
-              }}
-              pagination={{
-                clickable: true,
-              }}
-              autoplay={{
-                delay: 3000,
-                disableOnInteraction: false,
-              }}
-              breakpoints={{
-                640: {
-                  slidesPerView: 1,
-                  spaceBetween: 20,
-                },
-                768: {
-                  slidesPerView: 2,
-                  spaceBetween: 30,
-                },
-                1024: {
-                  slidesPerView: 3,
-                  spaceBetween: 30,
-                },
-              }}
-              className="review-swiper"
-            >
-              {reviews.map((review, index) => (
-                <SwiperSlide key={index} className="h-auto">
-                  <div className="h-full">
-                    <ReviewCard
-                      name={review.name}
-                      position={review.position}
-                      review={review.review}
-                      profile={review.profile}
-                    />
-                  </div>
-                </SwiperSlide>
-              ))}
-            </Swiper>
+            {loading ? (
+              <div className="min-h-[200px] flex items-center justify-center text-white/60 text-sm">
+                Loading reviews…
+              </div>
+            ) : reviews.length === 0 ? (
+              <div className="min-h-[200px] flex items-center justify-center text-white/50 text-sm">
+                No client reviews yet.
+              </div>
+            ) : (
+              <Swiper
+                modules={[Pagination, Autoplay]}
+                spaceBetween={30}
+                slidesPerView={1}
+                loop={reviews.length > 1}
+                onSwiper={(swiper) => {
+                  swiperRef.current = swiper;
+                }}
+                pagination={{
+                  clickable: true,
+                }}
+                autoplay={
+                  reviews.length > 1
+                    ? {
+                        delay: 3000,
+                        disableOnInteraction: false,
+                      }
+                    : false
+                }
+                breakpoints={{
+                  640: {
+                    slidesPerView: 1,
+                    spaceBetween: 20,
+                  },
+                  768: {
+                    slidesPerView: 2,
+                    spaceBetween: 30,
+                  },
+                  1024: {
+                    slidesPerView: 3,
+                    spaceBetween: 30,
+                  },
+                }}
+                className="review-swiper"
+              >
+                {reviews.map((review, index) => (
+                  <SwiperSlide key={index} className="h-auto">
+                    <div className="h-full">
+                      <ReviewCard
+                        name={review.name}
+                        position={review.position}
+                        review={review.review}
+                        profile={review.profile}
+                      />
+                    </div>
+                  </SwiperSlide>
+                ))}
+              </Swiper>
+            )}
           </div>
         </div>
       </div>

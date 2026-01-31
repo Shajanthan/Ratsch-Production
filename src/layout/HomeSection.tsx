@@ -1,42 +1,77 @@
 import HomeProjectCard from "@/components/HomeProjectCard";
 import React, { useState, useEffect, useRef } from "react";
+import { getHomepageSettings } from "../services/homepageService";
+import { getProjects } from "../services/projectService";
+
+interface HomeProject {
+  title: string;
+  description: string;
+  image: string;
+}
+
+const PLACEHOLDER_IMAGE = "/assets/images/HomeBg.png";
 
 const HomeSection: React.FC = () => {
   const [activeIndex, setActiveIndex] = useState<number>(0);
   const [touchStart, setTouchStart] = useState<number | null>(null);
   const [touchEnd, setTouchEnd] = useState<number | null>(null);
   const touchContainerRef = useRef<HTMLDivElement>(null);
+  const [projects, setProjects] = useState<HomeProject[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    let cancelled = false;
+    Promise.all([getHomepageSettings(), getProjects()])
+      .then(([settings, allProjects]) => {
+        if (cancelled) return;
+        const ids = [
+          settings.projectId1,
+          settings.projectId2,
+          settings.projectId3,
+        ];
+        const list: HomeProject[] = [];
+        for (const id of ids) {
+          if (!id) continue;
+          const p = allProjects.find((x) => x.id === id);
+          if (!p) continue;
+          list.push({
+            title: `${p.titleLine1} ${p.titleLine2}`.trim() || "Project",
+            description: p.smallDescription,
+            image:
+              p.coverImageUrl ||
+              (p.imageUrls?.length ? p.imageUrls[0] : "") ||
+              PLACEHOLDER_IMAGE,
+          });
+        }
+        setProjects(list);
+      })
+      .catch(() => {
+        if (!cancelled) setProjects([]);
+      })
+      .finally(() => {
+        if (!cancelled) setLoading(false);
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, []);
 
   // Minimum swipe distance (in pixels)
   const minSwipeDistance = 50;
 
-  const projects = [
-    {
-      title: "Project Title",
-      description:
-        "Lorem ipsum dolor sit amet consectetur. Maecenas varius sit consequat vulputate urna augue. Faucibus adipiscing aenean mi diam. Ac bibendum elementum aliquet",
-      image: "/assets/images/HomeBg.png",
-    },
-    {
-      title: "Project Title 2",
-      description:
-        "Lorem ipsum dolor sit amet consectetur. Maecenas varius sit consequat vulputate urna augue. Faucibus adipiscing aenean mi diam. Ac bibendum elementum aliquet",
-      image: "/assets/images/Home2.png",
-    },
-    {
-      title: "Project Title 3",
-      description:
-        "Lorem ipsum dolor sit amet consectetur. Maecenas varius sit consequat vulputate urna augue. Faucibus adipiscing aenean mi diam. Ac bibendum elementum aliquet",
-      image: "/assets/images/Home3.png",
-    },
-  ];
+  // Keep activeIndex in bounds when project list changes (e.g. only 2 selected)
+  useEffect(() => {
+    setActiveIndex((prev) =>
+      projects.length ? Math.min(prev, projects.length - 1) : 0,
+    );
+  }, [projects.length]);
 
   // Auto-rotate active card every 8 seconds (infinite loop)
   useEffect(() => {
+    if (projects.length <= 1) return;
     const interval = setInterval(() => {
       setActiveIndex((prevIndex) => (prevIndex + 1) % projects.length);
     }, 8000);
-
     return () => clearInterval(interval);
   }, [projects.length]);
 
@@ -67,6 +102,22 @@ const HomeSection: React.FC = () => {
       );
     }
   };
+
+  if (loading) {
+    return (
+      <div className="w-full md:h-screen relative overflow-hidden flex items-center justify-center bg-black">
+        <p className="text-white/70">Loading…</p>
+      </div>
+    );
+  }
+
+  if (projects.length === 0) {
+    return (
+      <div className="w-full md:h-screen relative overflow-hidden flex items-center justify-center bg-black">
+        <p className="text-white/50">No homepage projects configured.</p>
+      </div>
+    );
+  }
 
   return (
     <div className="w-full md:h-screen relative overflow-hidden">
@@ -101,6 +152,8 @@ const HomeSection: React.FC = () => {
             />
           ))}
         </div>
+        {/* Top black shade overlay for mobile (same as desktop) */}
+        <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/40 to-transparent z-10 pointer-events-none" />
       </div>
 
       {/* Desktop: Background Images with Slide Animation */}
@@ -122,8 +175,8 @@ const HomeSection: React.FC = () => {
             />
           ))}
         </div>
-        {/* Top black shade overlay for desktop */}
-        <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/40 to-transparent z-10"></div>
+        {/* Full black shadow overlay within the image (desktop) */}
+        <div className="absolute inset-0 bg-black/60 z-10 pointer-events-none" />
       </div>
 
       {/* Mobile: Project details below image */}

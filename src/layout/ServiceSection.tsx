@@ -4,15 +4,48 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { BsArrowUpRight, BsArrowLeft, BsArrowRight } from "react-icons/bs";
 import { Swiper, SwiperSlide } from "swiper/react";
 import type { Swiper as SwiperType } from "swiper";
+import {
+  getServices,
+  type Service,
+  TAG_COLOR_PRESETS,
+  slugFromTitle,
+} from "../services/serviceService";
 
 // Import Swiper styles
 import "swiper/css";
 
 interface ServiceSectionProps {}
 
+type ServiceCardItem = {
+  id: string;
+  slug: string;
+  title: string;
+  tags: string[];
+  description: string;
+  image: string;
+  tagColor: string;
+  textColor: string;
+};
+
+function mapServiceToCard(s: Service, index: number): ServiceCardItem {
+  const fallback = TAG_COLOR_PRESETS[index % TAG_COLOR_PRESETS.length];
+  return {
+    id: s.id ?? "",
+    slug: (slugFromTitle(s.title) || s.id) ?? "",
+    title: s.title,
+    tags: Array.isArray(s.tags) ? s.tags : [],
+    description: s.aboutDescription || s.tagLine || "",
+    image: s.mainImageUrl || "",
+    tagColor: s.tagColor || fallback.tagColor,
+    textColor: s.textColor || fallback.textColor,
+  };
+}
+
 const ServiceSection: React.FC<ServiceSectionProps> = () => {
   const navigate = useNavigate();
   const location = useLocation();
+  const [services, setServices] = useState<ServiceCardItem[]>([]);
+  const [loading, setLoading] = useState(true);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [servicesPerPage, setServicesPerPage] = useState(3);
   const [swiperActiveIndex, setSwiperActiveIndex] = useState(0);
@@ -48,6 +81,25 @@ const ServiceSection: React.FC<ServiceSectionProps> = () => {
   };
 
   useEffect(() => {
+    let cancelled = false;
+    getServices()
+      .then((data) => {
+        if (!cancelled) {
+          setServices(data.map((s, i) => mapServiceToCard(s, i)));
+        }
+      })
+      .catch(() => {
+        if (!cancelled) setServices([]);
+      })
+      .finally(() => {
+        if (!cancelled) setLoading(false);
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
+  useEffect(() => {
     const updateServicesPerPage = () => {
       if (window.innerWidth < 768) {
         setServicesPerPage(1);
@@ -62,49 +114,6 @@ const ServiceSection: React.FC<ServiceSectionProps> = () => {
     window.addEventListener("resize", updateServicesPerPage);
     return () => window.removeEventListener("resize", updateServicesPerPage);
   }, []);
-
-  const services = [
-    {
-      id: "graphic-designing",
-      title: "Graphic Designing",
-      tags: ["Graphic Design"],
-      description:
-        "Lorem ipsum dolor sit amet consectetur. Accumsan pharetra donec non mi in faucibus platea risus. Aliquam a massa morbi vel ac. Adipiscing aliquam mauris condimentum enim tortor eu. Sit egestas diam ornare sit mi at..",
-      image: "/assets/images/Service1.png",
-      tagColor: "#FF7C7C",
-      textColor: "#8B0000",
-    },
-    {
-      id: "sound-production",
-      title: "Sound Production",
-      tags: ["Sound Design"],
-      description:
-        "Lorem ipsum dolor sit amet consectetur. Accumsan pharetra donec non mi in faucibus platea risus. Aliquam a massa morbi vel ac. Adipiscing aliquam mauris condimentum enim tortor eu. Sit egestas diam ornare sit mi at..",
-      image: "/assets/images/Service3.png",
-      tagColor: "#FFCD7C",
-      textColor: "#8B6600",
-    },
-    {
-      id: "photography",
-      title: "Photography",
-      tags: ["Photography"],
-      description:
-        "Lorem ipsum dolor sit amet consectetur. Accumsan pharetra donec non mi in faucibus platea risus. Aliquam a massa morbi vel ac. Adipiscing aliquam mauris condimentum enim tortor eu. Sit egestas diam ornare sit mi at..",
-      image: "/assets/images/Service2.png",
-      tagColor: "#7CC4FF",
-      textColor: "#003C8B",
-    },
-    {
-      id: "video-production",
-      title: "Video Production",
-      tags: ["Video Production"],
-      description:
-        "Lorem ipsum dolor sit amet consectetur. Accumsan pharetra donec non mi in faucibus platea risus. Aliquam a massa morbi vel ac. Adipiscing aliquam mauris condimentum enim tortor eu. Sit egestas diam ornare sit mi at..",
-      image: "/assets/images/shoot.png",
-      tagColor: "#FFCD7C",
-      textColor: "#8B6600",
-    },
-  ];
 
   const maxIndex = Math.max(0, services.length - servicesPerPage);
 
@@ -130,14 +139,14 @@ const ServiceSection: React.FC<ServiceSectionProps> = () => {
                   <div className="text-3xl md:text-5xl lg:text-6xl uppercase font-bold">
                     Services
                   </div>
-                  <button className="uppercase rounded-full font-bold px-6 md:px-10 py-2 md:py-3 flex items-center gap-2 md:gap-3 text-sm md:text-lg bg-white/10 hover:bg-white/20 hover:scale-105 transition-all duration-300 w-fit sm:ml-0 group">
+                  {/* <button className="uppercase rounded-full font-bold px-6 md:px-10 py-2 md:py-3 flex items-center gap-2 md:gap-3 text-sm md:text-lg bg-white/10 hover:bg-white/20 hover:scale-105 transition-all duration-300 w-fit sm:ml-0 group">
                     more services
                     <BsArrowUpRight
                       strokeWidth={2}
                       size={14}
                       className="md:w-4 md:h-4 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform duration-300"
                     />
-                  </button>
+                  </button> */}
                 </div>
                 <p className="text-white w-full md:w-1/2 py-4 text-sm md:text-base">
                   Lorem ipsum dolor sit amet consectetur. Maecenas varius sit
@@ -147,114 +156,130 @@ const ServiceSection: React.FC<ServiceSectionProps> = () => {
 
                 {/* Service cards */}
                 <div className="relative pt-2 px-2 md:px-8">
-                  {/* Mobile: Swiper */}
-                  <div className="md:hidden">
-                    <Swiper
-                      spaceBetween={20}
-                      slidesPerView={1}
-                      centeredSlides={true}
-                      onSwiper={(swiper) => {
-                        swiperRef.current = swiper;
-                      }}
-                      onSlideChange={(swiper) =>
-                        setSwiperActiveIndex(swiper.activeIndex)
-                      }
-                      className="service-swiper"
-                    >
-                      {services.map((service, index) => (
-                        <SwiperSlide
-                          key={index}
-                          className="flex justify-center"
-                        >
-                          <div className="w-full max-w-sm">
-                            <ServiceCard
-                              id={service.id}
-                              title={service.title}
-                              description={service.description}
-                              tags={service.tags}
-                              image={service.image}
-                              tagColor={service.tagColor}
-                              textColor={service.textColor}
-                            />
-                          </div>
-                        </SwiperSlide>
-                      ))}
-                    </Swiper>
-                    {/* Mobile navigation dots - same style as HomeSection */}
-                    <div className="flex gap-1.5 justify-center mt-4">
-                      {services.map((_, index) => (
-                        <button
-                          key={index}
-                          onClick={() => {
-                            swiperRef.current?.slideTo(index);
+                  {loading ? (
+                    <div className="flex justify-center py-12 text-white/50">
+                      Loading…
+                    </div>
+                  ) : services.length === 0 ? (
+                    <div className="flex justify-center py-12 text-white/50">
+                      No services yet.
+                    </div>
+                  ) : (
+                    <>
+                      {/* Mobile: Swiper */}
+                      <div className="md:hidden">
+                        <Swiper
+                          spaceBetween={20}
+                          slidesPerView={1}
+                          centeredSlides={true}
+                          onSwiper={(swiper) => {
+                            swiperRef.current = swiper;
                           }}
-                          className={`h-1.5 rounded-full transition-all duration-300 ${
-                            swiperActiveIndex === index
-                              ? "bg-[#BF0000] w-4"
-                              : "bg-white/50 w-1.5"
-                          }`}
-                          aria-label={`Go to service ${index + 1}`}
-                        />
-                      ))}
-                    </div>
-                  </div>
-
-                  {/* Desktop: Original carousel */}
-                  <div className="hidden md:block">
-                    <div className="overflow-hidden ">
-                      <div
-                        className="flex gap-10 transition-transform duration-500 ease-in-out"
-                        style={{
-                          transform: `translateX(calc(-${currentIndex} * (${
-                            servicesPerPage === 2 ? "50%" : "33.333%"
-                          } + ${servicesPerPage === 2 ? "20px" : "13.33px"})))`,
-                        }}
-                      >
-                        {services.map((service, index) => (
-                          <div
-                            key={index}
-                            className="flex-shrink-0 md:w-[calc(50%-20px)] lg:w-[calc(33.333%-26.67px)]"
-                          >
-                            <ServiceCard
-                              id={service.id}
-                              title={service.title}
-                              description={service.description}
-                              tags={service.tags}
-                              image={service.image}
-                              tagColor={service.tagColor}
-                              textColor={service.textColor}
+                          onSlideChange={(swiper) =>
+                            setSwiperActiveIndex(swiper.activeIndex)
+                          }
+                          className="service-swiper"
+                        >
+                          {services.map((service, index) => (
+                            <SwiperSlide
+                              key={service.id || index}
+                              className="flex justify-center"
+                            >
+                              <div className="w-full max-w-sm">
+                                <ServiceCard
+                                  id={service.id}
+                                  slug={service.slug}
+                                  title={service.title}
+                                  description={service.description}
+                                  tags={service.tags}
+                                  image={service.image}
+                                  tagColor={service.tagColor}
+                                  textColor={service.textColor}
+                                />
+                              </div>
+                            </SwiperSlide>
+                          ))}
+                        </Swiper>
+                        {/* Mobile navigation dots - same style as HomeSection */}
+                        <div className="flex gap-1.5 justify-center mt-4">
+                          {services.map((_, index) => (
+                            <button
+                              key={index}
+                              onClick={() => {
+                                swiperRef.current?.slideTo(index);
+                              }}
+                              className={`h-1.5 rounded-full transition-all duration-300 ${
+                                swiperActiveIndex === index
+                                  ? "bg-[#BF0000] w-4"
+                                  : "bg-white/50 w-1.5"
+                              }`}
+                              aria-label={`Go to service ${index + 1}`}
                             />
-                          </div>
-                        ))}
+                          ))}
+                        </div>
                       </div>
-                    </div>
 
-                    {/* Navigation Arrows - Desktop only */}
-                    <div className="flex justify-end gap-4 mt-6">
-                      <button
-                        onClick={handlePrevious}
-                        disabled={currentIndex === 0}
-                        className={`p-3 rounded-full transition-all ${
-                          currentIndex === 0
-                            ? " text-gray-500"
-                            : " text-red-700 cursor-pointer"
-                        }`}
-                      >
-                        <BsArrowLeft size={20} />
-                      </button>
-                      <button
-                        onClick={handleNext}
-                        disabled={currentIndex >= maxIndex}
-                        className={`p-3 rounded-full transition-all ${
-                          currentIndex >= maxIndex
-                            ? " text-gray-500"
-                            : " text-red-700 cursor-pointer"
-                        }`}
-                      >
-                        <BsArrowRight size={20} />
-                      </button>
-                    </div>
-                  </div>
+                      {/* Desktop: Original carousel */}
+                      <div className="hidden md:block">
+                        <div className="overflow-hidden ">
+                          <div
+                            className="flex gap-10 transition-transform duration-500 ease-in-out"
+                            style={{
+                              transform: `translateX(calc(-${currentIndex} * (${
+                                servicesPerPage === 2 ? "50%" : "33.333%"
+                              } + ${
+                                servicesPerPage === 2 ? "20px" : "13.33px"
+                              })))`,
+                            }}
+                          >
+                            {services.map((service, index) => (
+                              <div
+                                key={service.id || index}
+                                className="flex-shrink-0 md:w-[calc(50%-20px)] lg:w-[calc(33.333%-26.67px)]"
+                              >
+                                <ServiceCard
+                                  id={service.id}
+                                  slug={service.slug}
+                                  title={service.title}
+                                  description={service.description}
+                                  tags={service.tags}
+                                  image={service.image}
+                                  tagColor={service.tagColor}
+                                  textColor={service.textColor}
+                                />
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+
+                        {/* Navigation Arrows - Desktop only */}
+                        <div className="flex justify-end gap-4 mt-6">
+                          <button
+                            onClick={handlePrevious}
+                            disabled={currentIndex === 0}
+                            className={`p-3 rounded-full transition-all ${
+                              currentIndex === 0
+                                ? " text-gray-500"
+                                : " text-red-700 cursor-pointer"
+                            }`}
+                          >
+                            <BsArrowLeft size={20} />
+                          </button>
+                          <button
+                            onClick={handleNext}
+                            disabled={currentIndex >= maxIndex}
+                            className={`p-3 rounded-full transition-all ${
+                              currentIndex >= maxIndex
+                                ? " text-gray-500"
+                                : " text-red-700 cursor-pointer"
+                            }`}
+                          >
+                            <BsArrowRight size={20} />
+                          </button>
+                        </div>
+                      </div>
+                    </>
+                  )}
                 </div>
               </div>
             </div>

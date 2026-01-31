@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import Footer from "@/layout/Footer";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -6,6 +6,12 @@ import { Navigation, Pagination } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
+import {
+  getServiceById,
+  getServices,
+  slugFromTitle,
+  type Service,
+} from "../services/serviceService";
 
 interface ServiceData {
   id: string;
@@ -19,135 +25,84 @@ interface ServiceData {
   brands: string[];
 }
 
+function mapApiServiceToPageData(s: Service): ServiceData {
+  return {
+    id: s.id ?? "",
+    title: s.title,
+    tagline: s.tagLine,
+    image: s.mainImageUrl || "",
+    about: s.aboutDescription || "",
+    aboutList: Array.isArray(s.tags) && s.tags.length > 0 ? s.tags : undefined,
+    deliverables: s.deliverables || "",
+    works: Array.isArray(s.serviceImageUrls) ? s.serviceImageUrls : [],
+    brands: Array.isArray(s.brandImageUrls) ? s.brandImageUrls : [],
+  };
+}
+
 const ServiceDetailsPage: React.FC = () => {
   const { id } = useParams<{ id: string }>();
+  const [service, setService] = useState<ServiceData | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [notFound, setNotFound] = useState(false);
 
-  // Mock service data - in real app, fetch by ID
-  const services: ServiceData[] = [
-    {
-      id: "video-production",
-      title: "VIDEO PRODUCTION",
-      tagline: "TURNING IDEAS INTO MOTION, STORIES INTO IMPACT.",
-      image: "/assets/images/shoot.png",
-      about:
-        "We specialize in producing high-impact commercial advertisements that capture attention and communicate brand value effectively. Our team combines creative vision with technical expertise to deliver compelling video content that resonates with your target audience.",
-      aboutList: [
-        "TV commercials",
-        "Digital & social media ads",
-        "Product launch campaigns",
-        "Lifestyle & brand commercials",
-      ],
-      deliverables:
-        "Lorem ipsum dolor sit amet consectetur. Maecenas varius sit consequat vulputate urna augue. Faucibus adipiscing aenean mi diam. Ac bibendum elementum aliquet Lorem ipsum dolor sit amet consectetur. Maecenas varius sit consequat vulputate urna augue. Faucibus adipiscing aenean mi diam. Ac bibendum elementum aliquet Lorem ipsum dolor sit amet consectetur. Maecenas varius sit consequat vulputate urna augue. Faucibus adipiscing aenean mi diam. Ac bibendum elementum aliquet.",
-      works: [
-        "/assets/images/wedding1.png",
-        "/assets/images/wedding2.png",
-        "/assets/images/wedding3.png",
-        "/assets/images/wedding4.png",
-      ],
-      brands: [
-        "/assets/images/client1.png",
-        "/assets/images/client2.png",
-        "/assets/images/client3.png",
-        "/assets/images/client4.png",
-        "/assets/images/client1.png",
-      ],
-    },
-    {
-      id: "graphic-designing",
-      title: "GRAPHIC DESIGNING",
-      tagline: "VISUAL STORYTELLING THAT CAPTURES ATTENTION.",
-      image: "/assets/images/Service1.png",
-      about:
-        "We create visually stunning designs that communicate your brand's message effectively. Our graphic design services cover everything from branding to digital assets, ensuring consistency across all touchpoints.",
-      aboutList: [
-        "Brand identity design",
-        "Print & digital graphics",
-        "Social media assets",
-        "Marketing materials",
-      ],
-      deliverables:
-        "Lorem ipsum dolor sit amet consectetur. Maecenas varius sit consequat vulputate urna augue. Faucibus adipiscing aenean mi diam. Ac bibendum elementum aliquet Lorem ipsum dolor sit amet consectetur. Maecenas varius sit consequat vulputate urna augue. Faucibus adipiscing aenean mi diam. Ac bibendum elementum aliquet.",
-      works: [
-        "/assets/images/Service1.png",
-        "/assets/images/Service2.png",
-        "/assets/images/Service3.png",
-      ],
-      brands: [
-        "/assets/images/client1.png",
-        "/assets/images/client2.png",
-        "/assets/images/client3.png",
-        "/assets/images/client4.png",
-        "/assets/images/client1.png",
-      ],
-    },
-    {
-      id: "photography",
-      title: "PHOTOGRAPHY",
-      tagline: "CAPTURING MOMENTS THAT TELL YOUR STORY.",
-      image: "/assets/images/Service2.png",
-      about:
-        "Professional photography services for commercial, lifestyle, and brand campaigns. We deliver high-quality images that showcase your products and services in the best light.",
-      aboutList: [
-        "Product photography",
-        "Commercial shoots",
-        "Lifestyle photography",
-        "Event coverage",
-      ],
-      deliverables:
-        "Lorem ipsum dolor sit amet consectetur. Maecenas varius sit consequat vulputate urna augue. Faucibus adipiscing aenean mi diam. Ac bibendum elementum aliquet Lorem ipsum dolor sit amet consectetur. Maecenas varius sit consequat vulputate urna augue. Faucibus adipiscing aenean mi diam. Ac bibendum elementum aliquet.",
-      works: [
-        "/assets/images/wedding1.png",
-        "/assets/images/wedding2.png",
-        "/assets/images/wedding3.png",
-        "/assets/images/wedding4.png",
-      ],
-      brands: [
-        "/assets/images/client1.png",
-        "/assets/images/client2.png",
-        "/assets/images/client3.png",
-        "/assets/images/client4.png",
-        "/assets/images/client1.png",
-      ],
-    },
-    {
-      id: "sound-production",
-      title: "SOUND PRODUCTION",
-      tagline: "AUDIO THAT ELEVATES YOUR CONTENT.",
-      image: "/assets/images/Service3.png",
-      about:
-        "Complete sound production services including music composition, sound design, and audio post-production. We create immersive audio experiences that enhance your video content.",
-      aboutList: [
-        "Music composition",
-        "Sound design & foley",
-        "Audio post-production",
-        "Voice-over recording",
-      ],
-      deliverables:
-        "Lorem ipsum dolor sit amet consectetur. Maecenas varius sit consequat vulputate urna augue. Faucibus adipiscing aenean mi diam. Ac bibendum elementum aliquet Lorem ipsum dolor sit amet consectetur. Maecenas varius sit consequat vulputate urna augue. Faucibus adipiscing aenean mi diam. Ac bibendum elementum aliquet.",
-      works: [
-        "/assets/images/Service1.png",
-        "/assets/images/Service2.png",
-        "/assets/images/Service3.png",
-        "/assets/images/Service1.png",
-        "/assets/images/Service2.png",
-        "/assets/images/Service3.png",
-      ],
-      brands: [
-        "/assets/images/client1.png",
-        "/assets/images/client2.png",
-        "/assets/images/client3.png",
-        "/assets/images/client4.png",
-        "/assets/images/client1.png",
-        "/assets/images/client2.png",
-        "/assets/images/client3.png",
-      ],
-    },
-  ];
+  useEffect(() => {
+    const param = id ?? "";
+    if (!param) {
+      setNotFound(true);
+      setLoading(false);
+      return;
+    }
+    let cancelled = false;
+    setLoading(true);
+    setNotFound(false);
+    const loadBySlugOrId = () => {
+      getServices()
+        .then((list) => {
+          if (cancelled) return;
+          const bySlug = list.find((s) => slugFromTitle(s.title) === param);
+          const byId = list.find((s) => s.id === param);
+          const match = bySlug ?? byId;
+          if (!match?.id) {
+            setNotFound(true);
+            setService(null);
+            setLoading(false);
+            return;
+          }
+          return getServiceById(match.id);
+        })
+        .then((data) => {
+          if (cancelled || !data) return;
+          setService(mapApiServiceToPageData(data));
+        })
+        .catch(() => {
+          if (!cancelled) {
+            setNotFound(true);
+            setService(null);
+          }
+        })
+        .finally(() => {
+          if (!cancelled) setLoading(false);
+        });
+    };
+    loadBySlugOrId();
+    return () => {
+      cancelled = true;
+    };
+  }, [id]);
 
-  const service = services.find((s) => s.id === id);
+  if (!id || loading) {
+    return (
+      <div className="min-h-screen bg-black text-white flex items-center justify-center">
+        <div className="text-center">
+          <h1 className="text-4xl mb-4">
+            {loading ? "Loading…" : "Service Not Found"}
+          </h1>
+        </div>
+      </div>
+    );
+  }
 
-  if (!service) {
+  if (notFound || !service) {
     return (
       <div className="min-h-screen bg-black text-white flex items-center justify-center">
         <div className="text-center">
@@ -182,7 +137,7 @@ const ServiceDetailsPage: React.FC = () => {
                 <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold uppercase mb-4 text-white">
                   {service.title}
                 </h1>
-                <p className="text-white/90 text-lg md:text-2xl lg:text-3xl font-semibold">
+                <p className="text-white/90 text-lg md:text-2xl lg:text-3xl font-semibold uppercase">
                   "{service.tagline}"
                 </p>
               </div>
@@ -261,7 +216,7 @@ const ServiceDetailsPage: React.FC = () => {
                         <img
                           src={work}
                           alt={`Work ${index + 1}`}
-                          className="w-full h-full object-cover"
+                          className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
                         />
                       </div>
                     ))}
@@ -282,11 +237,11 @@ const ServiceDetailsPage: React.FC = () => {
                   >
                     {service.works.map((work, index) => (
                       <SwiperSlide key={index}>
-                        <div className="h-[300px] md:h-[400px] overflow-hidden rounded-lg">
+                        <div className="h-[300px] md:h-[400px] overflow-hidden rounded-lg ">
                           <img
                             src={work}
                             alt={`Work ${index + 1}`}
-                            className="w-full h-full object-cover"
+                            className="w-full h-full object-cover "
                           />
                         </div>
                       </SwiperSlide>

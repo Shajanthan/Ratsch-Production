@@ -1,9 +1,17 @@
 import React from "react";
 
-const LetsConnectSection: React.FC = () => {
+interface LetsConnectSectionProps {
+  bottomPadding?: boolean;
+}
+
+const LetsConnectSection: React.FC<LetsConnectSectionProps> = ({
+  bottomPadding = true,
+}) => {
   return (
     <div className="pt-12 bg-black" id="contact">
-      <div className="relative w-full bg-black pb-12">
+      <div
+        className={`relative w-full bg-black ${bottomPadding ? "pb-12" : ""}`}
+      >
         <img
           src="/assets/images/bg.png"
           className="absolute inset-0 opacity-70 w-full h-full object-cover"

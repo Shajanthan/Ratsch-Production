@@ -19,7 +19,7 @@ const Footer: React.FC = () => {
             <div className="text-4xl md:text-5xl lg:text-6xl font-bold uppercase pb-4">
               Ratsch
             </div>
-            <div className="text-sm md:text-base w-full lg:w-[500px]">
+            <div className="text-sm md:text-base w-full ">
               Lorem ipsum dolor sit amet consectetur. Maecenas varius sit
               consequat vulputate urna augue. Faucibus adipiscing aenean mi
               diam. Ac bibendum elementum aliquet
@@ -105,7 +105,7 @@ const Footer: React.FC = () => {
           </div>
         </div>
 
-        <div className="pt-12 md:pt-28 flex flex-col lg:flex-row items-center justify-between gap-8 lg:gap-0 max-w-7xl mx-auto">
+        <div className="pt-12 md:pt-28 flex flex-col lg:flex-row items-center justify-between gap-8 lg:gap-0 mx-auto">
           <div className="w-full lg:w-auto order-2 lg:order-none">
             <div className="flex flex-col sm:flex-row gap-4 sm:gap-8 md:gap-16 text-xs md:text-sm p-4 border-t-0 lg:border-t-2 border-white justify-center items-center">
               <div className="">Copyright © Ratsch Productions </div>
