@@ -6,7 +6,7 @@ Production guide for the Ratsch Production site: **frontend on Vercel**, **backe
 
 ## 1. Keeping your keys secure
 
-- **Never commit `.env` or real secrets.** They are ignored via `.gitignore` (root and `BE/`).
+- **Never commit `.env` or real secrets.** They are ignored via `.gitignore` (root and `backend/`).
 - **Use platform environment variables** for production:
   - **Vercel** → Project → Settings → Environment Variables
   - **Firebase** → Project → Functions → Environment config (or Cloud Run env vars)
@@ -50,7 +50,7 @@ Your live site will be at `https://your-project.vercel.app` (or your custom doma
 
 ## 3. Backend: Deploy to Firebase / Google Cloud
 
-Your backend is a Node/Express app in `BE/`. You can run it on **Firebase Cloud Functions** (same project as Firebase Auth/Firestore) or **Google Cloud Run**. Both use environment variables for secrets.
+Your backend is a **standalone** Node/Express app in **`backend/`**. You can host it separately on **Firebase Cloud Functions** (same project as Firebase Auth/Firestore) or **Google Cloud Run**. Both use environment variables for secrets. See **`backend/README.md`** for backend-only setup and deploy.
 
 ### 3.1 Option A: Firebase Cloud Functions
 
@@ -70,7 +70,7 @@ Your backend is a Node/Express app in `BE/`. You can run it on **Firebase Cloud 
    - This creates a `functions` folder.
 
 3. **Move or link your backend into `functions`:**
-   - Either copy the contents of `BE/src` into `functions` and install `BE/` dependencies in `functions`, or
+   - Either copy the contents of `backend/src` into `functions` and install `backend/` dependencies in `functions`, or
    - Configure `functions` to use your Express app (e.g. in `functions/index.js`):
      ```js
      const functions = require("firebase-functions");
@@ -100,21 +100,11 @@ Use this URL (with the path where your API routes are) as `VITE_API_URL` in Verc
 
 ### 3.2 Option B: Google Cloud Run
 
-1. **Add a Dockerfile** in `BE/` (if not present). Example:
-   ```dockerfile
-   FROM node:20-alpine
-   WORKDIR /app
-   COPY package*.json ./
-   RUN npm ci --only=production
-   COPY . .
-   EXPOSE 8080
-   CMD ["node", "src/index.js"]
-   ```
-   - Ensure your Express app uses `process.env.PORT || 8080` (Cloud Run sets `PORT`).
+1. **Use the Dockerfile** in `backend/` (already present). The app uses `process.env.PORT || 5000`; Cloud Run sets `PORT=8080`.
 
 2. **Build and deploy:**
    ```bash
-   cd BE
+   cd backend
    gcloud run deploy ratsch-api --source . --region REGION --allow-unauthenticated
    ```
    - Set env vars in Cloud Run console: **Edit & Deploy New Revision → Variables & Secrets** and add all keys from the table below.
@@ -141,7 +131,7 @@ Set these in **Firebase Cloud Functions** config or **Cloud Run** environment:
 | `CLOUDINARY_API_KEY` | Cloudinary API key |
 | `CLOUDINARY_API_SECRET` | Cloudinary API secret |
 
-For **CORS** in production, configure `cors` in `BE/src/index.js` to allow your Vercel origin (e.g. `https://your-project.vercel.app`). Example:
+For **CORS** in production, configure `cors` in `backend/src/index.js` to allow your Vercel origin (e.g. `https://your-project.vercel.app`). Example:
 
 ```js
 const allowedOrigins = process.env.CORS_ORIGIN
@@ -157,7 +147,7 @@ Then set `CORS_ORIGIN=https://your-project.vercel.app` in your backend environme
 ## 4. Local development
 
 - **Frontend:** `npm install` then `npm run dev`. Create `.env` from `.env.example` and set `VITE_API_URL=http://localhost:5000/api` and Cloudinary vars.
-- **Backend:** In `BE/`, copy `BE/.env.example` to `BE/.env`, fill in Firebase and Cloudinary values, then `npm install` and `npm run dev` (or `npm start`).
+- **Backend:** In `backend/`, copy `backend/.env.example` to `backend/.env`, fill in Firebase and Cloudinary values, then `npm install` and `npm run dev` (or `npm start`).
 - Never commit `.env` or paste real keys into the README.
 
 ---
@@ -176,5 +166,5 @@ Then set `CORS_ORIGIN=https://your-project.vercel.app` in your backend environme
 ## 6. Project structure (reference)
 
 - **Root:** Vite + React frontend (`src/`, `index.html`, `vite.config.ts`). Deployed to **Vercel**.
-- **BE/:** Express API (Firebase Admin, Cloudinary, auth, projects, services, etc.). Deployed to **Firebase Cloud Functions** or **Google Cloud Run**.
+- **backend/:** Standalone Express API (Firebase Admin, Cloudinary, auth, projects, services, etc.). Host separately on **Firebase Cloud Functions** or **Google Cloud Run** (see `backend/README.md`).
 - **Secrets:** Only in environment variables (Vercel for frontend, Firebase/Cloud Run for backend). Use `.env.example` as a template; never commit real `.env` files.
