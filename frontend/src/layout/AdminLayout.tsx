@@ -10,6 +10,7 @@ import {
   HiUserGroup,
   HiChat,
   HiSparkles,
+  HiOfficeBuilding,
 } from "react-icons/hi";
 
 interface AdminLayoutProps {
@@ -44,6 +45,7 @@ const AdminLayout: React.FC<AdminLayoutProps> = () => {
     { path: "/admin/clients", label: "Clients", icon: HiUserGroup },
     { path: "/admin/client-reviews", label: "Client Reviews", icon: HiChat },
     { path: "/admin/core-values", label: "Core Values", icon: HiSparkles },
+    { path: "/admin/about-us", label: "About Us", icon: HiOfficeBuilding },
   ];
 
   const isActive = (path: string) => {
@@ -66,9 +68,9 @@ const AdminLayout: React.FC<AdminLayoutProps> = () => {
       >
         <div className="flex flex-col h-full">
           {/* Logo and Close Button */}
-          <div className="flex items-center justify-between p-6 border-b border-white/10">
+          <div className="flex items-center justify-between lg:justify-center p-6 border-b border-white/10">
             <img
-              src="/assets/images/RatschWhite.png"
+              src="https://res.cloudinary.com/dybv1h20q/image/upload/v1769927286/RatschWhite_rj3oay.png"
               alt="Ratsch Productions"
               className="w-32 h-auto"
             />

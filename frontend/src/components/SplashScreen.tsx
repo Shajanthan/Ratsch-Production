@@ -63,7 +63,7 @@ const SplashScreen: React.FC<SplashScreenProps> = ({
     >
       {/* Logo */}
       <img
-        src="/assets/images/RatschWhite.png"
+        src="https://res.cloudinary.com/dybv1h20q/image/upload/v1769927286/RatschWhite_rj3oay.png"
         alt="Ratsch Productions"
         className="h-20 w-auto object-contain md:h-28"
       />

@@ -114,7 +114,7 @@ const ServiceDetailsPage: React.FC = () => {
           src="/assets/images/bg.png"
           className="absolute inset-0 opacity-70 w-full h-full object-cover"
         />
-        <div className="relative z-20 container mx-auto min-h-screen flex items-center px-4 md:px-0 w-full">
+        <div className="relative z-20 container lg:max-w-[1400px] mx-auto min-h-screen flex items-center px-4 md:px-0 w-full">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center  w-full">
             {/* Left: Image */}
             <div className="order-2 lg:order-1 w-full flex items-center justify-center">
@@ -147,7 +147,7 @@ const ServiceDetailsPage: React.FC = () => {
           className="absolute inset-0 opacity-70 w-full h-full object-cover"
         />
         <div className="bg-black z-10 relative">
-          <div className="container mx-auto text-white px-4 py-12 md:pt-16">
+          <div className="container lg:max-w-[1400px] mx-auto text-white px-4 py-12 md:pt-16">
             <h2 className="text-3xl md:text-5xl lg:text-6xl font-bold uppercase text-center mb-8 md:mb-12">
               ABOUT THE SERVICE
             </h2>
@@ -174,7 +174,7 @@ const ServiceDetailsPage: React.FC = () => {
               </p>
             </div>
           </div>
-          <div className="container mx-auto text-white px-4 py-12 md:py-16">
+          <div className="container lg:max-w-[1400px] mx-auto text-white px-4 py-12 md:py-16">
             <h2 className="text-3xl md:text-5xl lg:text-6xl font-bold uppercase text-center mb-8 md:mb-12">
               DELIVERABLES
             </h2>
@@ -195,7 +195,7 @@ const ServiceDetailsPage: React.FC = () => {
             className="absolute inset-0 opacity-70 w-full h-full object-cover"
           />
           <div className="bg-black z-10 relative">
-            <div className="container mx-auto text-white px-4 py-12 md:py-20">
+            <div className="container lg:max-w-[1400px] mx-auto text-white px-4 py-12 md:py-20">
               <h2 className="text-3xl md:text-5xl lg:text-6xl font-bold uppercase text-center mb-8 md:mb-12">
                 OUR WORKS
               </h2>
@@ -256,7 +256,7 @@ const ServiceDetailsPage: React.FC = () => {
             className="absolute inset-0 opacity-70 w-full h-full object-cover"
           />
           <div className="bg-black z-10 relative">
-            <div className="container mx-auto text-white px-4 py-12 md:py-20">
+            <div className="container lg:max-w-[1400px] mx-auto text-white px-4 py-12 md:py-20">
               <h2 className="text-3xl md:text-5xl lg:text-6xl font-bold uppercase text-center mb-8 md:mb-12">
                 BRANDS
               </h2>

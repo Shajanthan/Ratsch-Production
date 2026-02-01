@@ -111,7 +111,7 @@ const ProjectDetailsPage: React.FC = () => {
         />
         <div className="absolute inset-0  z-10"></div>
 
-        <div className="relative z-20 container mx-auto min-h-screen flex items-center py-20 px-4 lg:px-0">
+        <div className="relative z-20 container lg:max-w-[1400px] mx-auto min-h-screen flex items-center py-20 px-4 lg:px-0">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 w-full items-center">
             {/* Left: Title and Description */}
             <div>
@@ -167,10 +167,10 @@ const ProjectDetailsPage: React.FC = () => {
           className="absolute inset-0 opacity-70 w-full h-full object-cover"
         />
         <div className="bg-black z-10 relative">
-          <div className="container mx-auto text-white px-4 py-20">
+          <div className="container lg:max-w-[1400px] mx-auto text-white px-4 py-20">
             {/* Overview Section */}
             <div className="pb-32 px-4">
-              <div className="container mx-auto max-w-4xl">
+              <div className="container lg:max-w-[1400px] mx-auto max-w-4xl">
                 <h2 className="text-3xl md:text-5xl lg:text-6xl font-bold uppercase text-center mb-8">
                   Overview
                 </h2>
@@ -182,7 +182,7 @@ const ProjectDetailsPage: React.FC = () => {
 
             {/* Results Section */}
 
-            <div className="container mx-auto text-white px-4 md:px-0">
+            <div className="container lg:max-w-[1400px] mx-auto text-white px-4 md:px-0">
               <h2 className="text-3xl md:text-5xl lg:text-6xl font-bold uppercase text-center mb-8">
                 Results
               </h2>
@@ -199,7 +199,7 @@ const ProjectDetailsPage: React.FC = () => {
           {/* Image Gallery: big image = selected, swiper thumbnails below */}
           {project.galleryImages && project.galleryImages.length > 0 && (
             <div className="py-8 md:py-12 px-4 md:px-0">
-              <div className="container mx-auto max-w-7xl">
+              <div className="container lg:max-w-[1400px] mx-auto max-w-7xl">
                 {/* Main Big Image - shows center/selected gallery image */}
                 <div className="mb-6 md:mb-8">
                   <img

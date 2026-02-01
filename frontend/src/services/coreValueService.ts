@@ -1,5 +1,5 @@
 import api from "./api";
-import { getCached } from "./cache";
+import { getCached, invalidateCache } from "./cache";
 
 export interface CoreValue {
   id?: string;
@@ -30,6 +30,7 @@ export async function addCoreValue(payload: {
     BASE,
     payload,
   );
+  invalidateCache("core-values");
   return data.data.id;
 }
 
@@ -43,8 +44,10 @@ export async function updateCoreValue(
   },
 ): Promise<void> {
   await api.put(`${BASE}/${id}`, payload);
+  invalidateCache("core-values");
 }
 
 export async function deleteCoreValue(id: string): Promise<void> {
   await api.delete(`${BASE}/${id}`);
+  invalidateCache("core-values");
 }

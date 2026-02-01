@@ -1,5 +1,5 @@
 import api from "./api";
-import { getCached } from "./cache";
+import { getCached, invalidateCache } from "./cache";
 
 export interface HomepageSettings {
   projectId1: string;
@@ -33,4 +33,5 @@ export async function updateHomepageSettings(
   payload: HomepageSettings,
 ): Promise<void> {
   await api.put(`${BASE}/settings`, payload);
+  invalidateCache("homepage/settings");
 }

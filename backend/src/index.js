@@ -9,6 +9,8 @@ import coreValueRoutes from "./routes/coreValueRoutes.js";
 import projectRoutes from "./routes/projectRoutes.js";
 import serviceRoutes from "./routes/serviceRoutes.js";
 import homepageRoutes from "./routes/homepageRoutes.js";
+import aboutUsRoutes from "./routes/aboutUsRoutes.js";
+import teamMemberRoutes from "./routes/teamMemberRoutes.js";
 import cloudinaryRoutes from "./routes/cloudinaryRoutes.js";
 
 dotenv.config();
@@ -41,6 +43,8 @@ app.use("/api/core-values", coreValueRoutes);
 app.use("/api/projects", projectRoutes);
 app.use("/api/services", serviceRoutes);
 app.use("/api/homepage", homepageRoutes);
+app.use("/api/about-us", aboutUsRoutes);
+app.use("/api/team-members", teamMemberRoutes);
 app.use("/api/cloudinary", cloudinaryRoutes);
 
 // Error handling middleware

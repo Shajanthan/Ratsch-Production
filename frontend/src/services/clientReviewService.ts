@@ -1,5 +1,5 @@
 import api from "./api";
-import { getCached } from "./cache";
+import { getCached, invalidateCache } from "./cache";
 
 export interface ClientReview {
   id?: string;
@@ -31,6 +31,7 @@ export async function addClientReview(
     BASE,
     payload,
   );
+  invalidateCache("client-reviews");
   return data.data.id;
 }
 
@@ -39,8 +40,10 @@ export async function updateClientReview(
   payload: Omit<ClientReview, "id" | "createdAt" | "updatedAt">,
 ): Promise<void> {
   await api.put(`${BASE}/${id}`, payload);
+  invalidateCache("client-reviews");
 }
 
 export async function deleteClientReview(id: string): Promise<void> {
   await api.delete(`${BASE}/${id}`);
+  invalidateCache("client-reviews");
 }

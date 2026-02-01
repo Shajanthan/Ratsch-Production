@@ -64,7 +64,7 @@ const Navbar: React.FC = () => {
           : "border-none py-2"
       }`}
     >
-      <div className="container mx-auto flex justify-between items-center px-4 md:px-2">
+      <div className="container lg:max-w-[1400px] mx-auto flex justify-between items-center px-4 md:px-2">
         <button
           onClick={() => {
             const currentPath = window.location.pathname;
@@ -78,7 +78,7 @@ const Navbar: React.FC = () => {
         >
           <img
             className="w-[100px] md:w-[180px] lg:w-[150px]"
-            src="/assets/images/RatschWhite.png"
+            src="https://res.cloudinary.com/dybv1h20q/image/upload/v1769927286/RatschWhite_rj3oay.png"
             alt="logo"
           />
         </button>
@@ -137,7 +137,7 @@ const Navbar: React.FC = () => {
       {/* Mobile Menu */}
       {isMobileMenuOpen && (
         <div className="lg:hidden backdrop-blur-xl bg-white/5 border-t border-white/10">
-          <div className="container mx-auto px-4 py-4 flex flex-col gap-4">
+          <div className="container lg:max-w-[1400px] mx-auto px-4 py-4 flex flex-col gap-4">
             {navItems.map((item) => (
               <button
                 key={item.sectionId}

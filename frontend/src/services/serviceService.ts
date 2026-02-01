@@ -1,5 +1,5 @@
 import api from "./api";
-import { getCached } from "./cache";
+import { getCached, invalidateCache } from "./cache";
 
 export interface Service {
   id?: string;
@@ -70,6 +70,7 @@ export async function addService(
     BASE,
     payload,
   );
+  invalidateCache("services");
   return data.data.id;
 }
 
@@ -78,8 +79,12 @@ export async function updateService(
   payload: Omit<Service, "id" | "createdAt" | "updatedAt">,
 ): Promise<void> {
   await api.put(`${BASE}/${id}`, payload);
+  invalidateCache("services");
+  invalidateCache(`service/${id}`);
 }
 
 export async function deleteService(id: string): Promise<void> {
   await api.delete(`${BASE}/${id}`);
+  invalidateCache("services");
+  invalidateCache(`service/${id}`);
 }

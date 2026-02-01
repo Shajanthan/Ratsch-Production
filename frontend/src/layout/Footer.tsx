@@ -105,8 +105,8 @@ const Footer: React.FC = () => {
           </div>
         </div>
 
-        <div className="pt-12 md:pt-28 flex flex-col lg:flex-row items-center justify-between gap-8 lg:gap-0 mx-auto">
-          <div className="w-full lg:w-auto order-2 lg:order-none">
+        <div className="pt-12 md:pt-28 gap-8 lg:gap-0 mx-auto">
+          <div className="w-full lg:w-1/2 order-2 lg:order-none">
             <div className="flex flex-col sm:flex-row gap-4 sm:gap-8 md:gap-16 text-xs md:text-sm p-4 border-t-0 lg:border-t-2 border-white justify-center items-center">
               <div className="">Copyright © Ratsch Productions </div>
               <div className="flex items-center gap-2">
@@ -116,19 +116,23 @@ const Footer: React.FC = () => {
             </div>
           </div>
 
-          <div className="w-full lg:w-auto flex flex-col items-center lg:items-start order-1 lg:order-none">
-            <div className="uppercase font-semibold text-xl md:text-2xl lg:text-3xl text-center lg:text-left">
-              Let's connect
-            </div>
-            <div className="py-4 md:py-5 w-full max-w-[250px] md:max-w-[350px] lg:max-w-none mx-auto lg:mx-0 group">
-              <div className=" flex justify-between bg-[#222222] rounded-full items-center pr-4 md:pr-6 lg:pr-12 border border-[#333333] group-hover:border-[#FF0000] transition-all duration-500 cursor-pointer">
-                <div className="bg-[#333333] text-white rounded-full p-3 md:p-4 px-4 lg:px-10 mr-2 md:mr-0 lg:mr-8 text-xs md:text-base border border-[#333333] group-hover:border-[#FF0000] transition-all duration-500">
-                  info@ratschproductions.com
+          <div className="flex justify-end items-center pt-5 lg:pt-0">
+            <div className="w-full lg:w-1/3 flex flex-col items-center">
+              <div className="uppercase font-semibold text-xl md:text-2xl lg:text-3xl text-center lg:text-left">
+                Let's connect
+              </div>
+              <div className="py-4 md:py-5 w-[370px] mx-auto group">
+                <div className=" flex justify-between bg-[#222222] rounded-full items-center pr-6 border border-[#333333] group-hover:border-[#FF0000] transition-all duration-500 cursor-pointer">
+                  <input
+                    type="text"
+                    className="bg-[#333333] text-white rounded-full p-3 px-7 w-[300px] text-base border border-[#333333] group-hover:border-[#FF0000] transition-all duration-500"
+                    placeholder="info@ratschproductions.com"
+                  />
+                  <MdOutlineMailOutline
+                    size={20}
+                    className="md:w-7 md:h-7 flex-shrink-0 group-hover:text-[#FF0000] transition-colors duration-300"
+                  />
                 </div>
-                <MdOutlineMailOutline
-                  size={20}
-                  className="md:w-7 md:h-7 flex-shrink-0 group-hover:text-[#FF0000] transition-colors duration-300"
-                />
               </div>
             </div>
           </div>

@@ -10,3 +10,5 @@ export * from "./coreValueService";
 export * from "./projectService";
 export * from "./serviceService";
 export * from "./homepageService";
+export * from "./aboutUsService";
+export * from "./teamMemberService";

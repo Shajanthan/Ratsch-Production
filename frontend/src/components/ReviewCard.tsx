@@ -17,7 +17,7 @@ const ReviewCard: React.FC<ReviewCardProps> = ({
     <div className="p-4 md:p-6 lg:p-8 rounded-[25px] md:rounded-[35px] bg-[#111111] flex flex-col h-full">
       <div className="flex-1">
         <img
-          src="/assets/images/quote.png"
+          src="https://res.cloudinary.com/dybv1h20q/image/upload/v1769927876/quote_h0s2sc.png"
           alt=""
           className="w-8 md:w-10 lg:w-auto"
         />

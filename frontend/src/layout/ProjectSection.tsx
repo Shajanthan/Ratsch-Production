@@ -78,14 +78,14 @@ const ProjectSection: React.FC = () => {
   return (
     <div className="min-h-screen w-full bg-black relative">
       <img
-        src="/assets/images/bg.png"
+        src="https://res.cloudinary.com/dybv1h20q/image/upload/v1769927519/bg_do9pwv.png"
         className="absolute inset-0 opacity-50 w-full h-full object-cover"
       />
       <div className="relative z-10 py-6 md:py-12">
         <div className=" bg-black py-6 md:py-12">
-          <div className="container mx-auto px-4 md:px-0">
+          <div className="container lg:max-w-[1400px] mx-auto px-4 md:px-0">
             <div className="text-white flex flex-col sm:flex-row justify-between gap-4">
-              <div className="text-3xl md:text-5xl lg:text-6xl uppercase font-bold">
+              <div className="text-3xl md:text-5xl uppercase font-bold">
                 Latest Projects
               </div>
               <button

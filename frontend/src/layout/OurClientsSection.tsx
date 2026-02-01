@@ -43,12 +43,12 @@ const OurClientsSection: React.FC = () => {
   return (
     <div className="relative w-full bg-black pb-12">
       <img
-        src="/assets/images/bg.png"
+        src="https://res.cloudinary.com/dybv1h20q/image/upload/v1769927519/bg_do9pwv.png"
         className="absolute inset-0 opacity-70 w-full h-full object-cover"
       />
       <div className="bg-black z-10 py-8 md:py-16 relative">
-        <div className="container mx-auto text-white px-4 md:px-0">
-          <div className="text-3xl md:text-5xl lg:text-7xl text-center uppercase font-bold">
+        <div className="container lg:max-w-[1400px] mx-auto text-white px-4 md:px-0">
+          <div className="text-3xl md:text-5xl lg:text-6xl text-center uppercase font-bold">
             Our Clients
           </div>
           <p className="text-center max-w-4xl mx-auto py-3 text-sm md:text-base px-4">

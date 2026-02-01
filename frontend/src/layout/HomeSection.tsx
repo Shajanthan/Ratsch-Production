@@ -142,7 +142,7 @@ const HomeSection: React.FC = () => {
               key={index}
               src={project.image}
               alt={`Home Banner ${index + 1}`}
-              className="object-contain flex-shrink-0 bg-black"
+              className="object-fill flex-shrink-0 bg-black"
               style={{
                 width: "100vw",
                 minWidth: "100vw",
@@ -152,14 +152,8 @@ const HomeSection: React.FC = () => {
             />
           ))}
         </div>
-        {/* Black linear gradient over image – polished look (mobile) */}
-        <div
-          className="absolute inset-0 z-10 pointer-events-none"
-          style={{
-            background:
-              "linear-gradient(to bottom, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.45) 40%, rgba(0,0,0,0.5) 100%)",
-          }}
-        />
+        {/* Bottom 50% black gradient overlay (mobile) */}
+        <div className="absolute inset-0 z-10 pointer-events-none bg-gradient-to-b from-transparent from-[50%] to-black" />
       </div>
 
       {/* Desktop: Background Images with Slide Animation */}
@@ -181,14 +175,8 @@ const HomeSection: React.FC = () => {
             />
           ))}
         </div>
-        {/* Black linear gradient over image – polished look (desktop) */}
-        <div
-          className="absolute inset-0 z-10 pointer-events-none"
-          style={{
-            background:
-              "linear-gradient(to bottom, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.6) 50%, rgba(0,0,0,0.75) 100%)",
-          }}
-        />
+        {/* Bottom 50% black gradient overlay (desktop) */}
+        <div className="absolute inset-0 z-10 pointer-events-none bg-gradient-to-b from-transparent from-[10%] to-black" />
       </div>
 
       {/* Mobile: Project details below image */}
@@ -215,7 +203,7 @@ const HomeSection: React.FC = () => {
                 minWidth: "100vw",
               }}
             >
-              <div className="container mx-auto flex flex-col items-center gap-3 px-4">
+              <div className="container lg:max-w-[1400px] mx-auto flex flex-col items-center gap-3 px-4">
                 <HomeProjectCard
                   title={project.title}
                   description={project.description}
@@ -241,7 +229,7 @@ const HomeSection: React.FC = () => {
       </div>
 
       {/* Desktop: Content */}
-      <div className="hidden md:flex relative z-20 items-end h-full pb-10 md:pb-20 justify-center container mx-auto px-4 md:px-6 gap-6 md:gap-8 lg:gap-16">
+      <div className="hidden md:flex relative z-20 items-end h-full pb-10 md:pb-20 justify-center container lg:max-w-[1400px] mx-auto px-4 md:px-6 gap-6 md:gap-8 lg:gap-16">
         {projects.map((project, index) => (
           <div
             key={index}

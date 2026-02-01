@@ -74,7 +74,7 @@ const CategoryCard: React.FC<CategoryCardProps> = ({
 
   return (
     <div className="py-10 my-8 bg-black">
-      <div className="container mx-auto">
+      <div className="container lg:max-w-[1400px] mx-auto">
         <div className="text-3xl md:text-5xl lg:text-6xl uppercase font-bold">
           {title}
         </div>

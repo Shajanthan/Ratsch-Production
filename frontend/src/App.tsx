@@ -18,6 +18,7 @@ import AdminProjectsPage from "./pages/Admin/AdminProjectsPage";
 import AdminClientsPage from "./pages/Admin/AdminClientsPage";
 import AdminClientReviewPage from "./pages/Admin/AdminClientReviewPage";
 import AdminCoreValuesPage from "./pages/Admin/AdminCoreValuesPage";
+import AdminAboutUsPage from "./pages/Admin/AdminAboutUsPage";
 import MainLayout from "./layout/MainLayout";
 
 function delay(ms: number): Promise<void> {
@@ -135,6 +136,7 @@ function AppContent() {
                   element={<AdminClientReviewPage />}
                 />
                 <Route path="core-values" element={<AdminCoreValuesPage />} />
+                <Route path="about-us" element={<AdminAboutUsPage />} />
               </Route>
             </>
           ) : (
@@ -201,6 +203,7 @@ function AppContent() {
                   element={<AdminClientReviewPage />}
                 />
                 <Route path="core-values" element={<AdminCoreValuesPage />} />
+                <Route path="about-us" element={<AdminAboutUsPage />} />
               </Route>
             </>
           )}

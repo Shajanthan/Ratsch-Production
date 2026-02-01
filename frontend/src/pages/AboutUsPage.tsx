@@ -1,76 +1,41 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Footer from "@/layout/Footer";
 import type { Swiper as SwiperType } from "swiper";
 import CoreValueSection from "@/layout/CoreValueSection";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination, Autoplay } from "swiper/modules";
+import { getCeoSection, type CeoSection } from "@/services/aboutUsService";
+import { getTeamMembers, type TeamMember } from "@/services/teamMemberService";
 import "swiper/css";
 import "swiper/css/pagination";
 
-const TEAM_MEMBERS = [
-  {
-    id: 1,
-    name: "John Cena",
-    role: "The Founder",
-    image: "/assets/images/ceo.png",
-  },
-  {
-    id: 2,
-    name: "Jane Doe",
-    role: "Creative Director",
-    image: "/assets/images/ceo.png",
-  },
-  {
-    id: 3,
-    name: "Mark Smith",
-    role: "Lead Producer",
-    image: "/assets/images/ceo.png",
-  },
-  {
-    id: 4,
-    name: "Sarah Johnson",
-    role: "Head of Operations",
-    image: "/assets/images/ceo.png",
-  },
-  {
-    id: 5,
-    name: "David Lee",
-    role: "Technical Lead",
-    image: "/assets/images/ceo.png",
-  },
-  {
-    id: 6,
-    name: "Emily Brown",
-    role: "Content Strategist",
-    image: "/assets/images/ceo.png",
-  },
-  {
-    id: 7,
-    name: "Michael Chen",
-    role: "Design Director",
-    image: "/assets/images/ceo.png",
-  },
-  {
-    id: 8,
-    name: "Lisa Wilson",
-    role: "Client Relations",
-    image: "/assets/images/ceo.png",
-  },
-] as const;
-
 const AboutUsPage: React.FC = () => {
   const teamSwiperRef = useRef<SwiperType | null>(null);
+  const [ceo, setCeo] = useState<CeoSection | null>(null);
+  const [teamMembers, setTeamMembers] = useState<TeamMember[]>([]);
 
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
 
+  useEffect(() => {
+    getCeoSection()
+      .then(setCeo)
+      .catch(() => setCeo(null));
+  }, []);
+
+  useEffect(() => {
+    getTeamMembers()
+      .then(setTeamMembers)
+      .catch(() => setTeamMembers([]));
+  }, []);
+
   return (
     <div className="min-h-screen bg-black text-white ">
       {/* Hero Section */}
-      <div className="relative w-full h-[60vh] md:h-[90vh] overflow-hidden container mx-auto">
+      <div className="relative w-full h-[60vh] md:h-[90vh] overflow-hidden container lg:max-w-[1400px] mx-auto">
         <img
-          src="/assets/images/aboutus.png"
+          src="https://res.cloudinary.com/dybv1h20q/image/upload/v1769927928/aboutus_fl8vuc.png"
           alt="About Us Background"
           className="absolute inset-0 w-full h-full object-cover mt-20 lg:mt-28"
         />
@@ -87,7 +52,7 @@ const AboutUsPage: React.FC = () => {
 
       {/* Introductory Section */}
       <div className="py-12 md:py-16 px-4 md:px-0 bg-black">
-        <div className=" container mx-auto">
+        <div className="container lg:max-w-[1400px] mx-auto">
           <h2 className="text-5xl lg:text-8xl font-bold uppercase md:mb-16 leading-tight">
             BEGAN AS A SIMPLE <span className="text-[#FF0000]">IDEA</span>,
             <br /> NOW GROWN INTO A{" "}
@@ -97,7 +62,7 @@ const AboutUsPage: React.FC = () => {
           {/* Logos */}
           <div className="py-4 flex justify-center h-[240px] lg:h-[400px]">
             <img
-              src="/assets/images/logos.png"
+              src="https://res.cloudinary.com/dybv1h20q/image/upload/v1769928007/logos_kceqmn.png"
               alt="About Us Background"
               className="h-full w-full object-contain"
             />
@@ -122,7 +87,7 @@ const AboutUsPage: React.FC = () => {
       {/* Meet Our CEO Section */}
       <div className="relative w-full bg-black py-12">
         <img
-          src="/assets/images/bg.png"
+          src="https://res.cloudinary.com/dybv1h20q/image/upload/v1769927519/bg_do9pwv.png"
           className="absolute inset-0 opacity-70 w-full h-full object-cover"
         />
         <div className="bg-black z-10 py-8 md:py-16 relative">
@@ -136,33 +101,56 @@ const AboutUsPage: React.FC = () => {
                 {/* CEO Image */}
                 <div className="flex justify-center md:justify-start">
                   <img
-                    src="/assets/images/ceo.png"
-                    alt="CEO"
+                    src={ceo?.imageUrl || ""}
+                    alt={
+                      ceo
+                        ? `${ceo.firstName} ${ceo.lastName}`.trim() || "CEO"
+                        : "CEO"
+                    }
                     className="w-full max-w-md h-auto object-cover"
                   />
                 </div>
 
                 {/* CEO Info */}
                 <div>
-                  <h3 className="text-3xl md:text-4xl uppercase lg:text-5xl font-bold text-white mb-2">
-                    <span className="text-[#d80000]"> Raj </span> kumar
-                  </h3>
-                  <p className="text-lg md:text-xl text-white/80 mb-6 uppercase">
-                    <span className="text-red-800"> CEO, </span> RATSCH
-                    PRODUCTIONS
-                  </p>
+                  {ceo?.firstName || ceo?.lastName ? (
+                    <h3 className="text-3xl md:text-4xl uppercase lg:text-5xl font-bold text-white mb-2">
+                      {ceo.firstName && (
+                        <span className="text-[#d80000]">{ceo.firstName} </span>
+                      )}
+                      {ceo.lastName}
+                    </h3>
+                  ) : (
+                    <h3 className="text-3xl md:text-4xl uppercase lg:text-5xl font-bold text-white mb-2">
+                      <span className="text-[#d80000]"> Raj </span> kumar
+                    </h3>
+                  )}
+                  {(ceo?.position || ceo?.companyName) && (
+                    <p className="text-lg md:text-xl text-white/80 mb-6 uppercase">
+                      {ceo.position && (
+                        <span className="text-red-800">{ceo.position}</span>
+                      )}
+                      {ceo.position && ceo.companyName && " "}
+                      {ceo.companyName}
+                    </p>
+                  )}
                   <p className="text-white/90 text-sm md:text-base leading-relaxed">
-                    Lorem ipsum dolor sit amet consectetur. Maecenas varius sit
-                    consequat vulputate urna augue. Faucibus adipiscing aenean
-                    mi diam. Ac bibendum elementum aliquet Lorem ipsum dolor sit
-                    amet consectetur. Maecenas varius sit consequat vulputate
-                    urna augue. Faucibus adipiscing aenean mi diam. Ac bibendum
-                    elementum aliquet Lorem ipsum dolor sit amet consectetur.
-                    Maecenas varius sit consequat vulputate urna augue. Faucibus
-                    adipiscing aenean mi diam. Ac bibendum elementum aliquet
-                    Lorem ipsum dolor sit amet consectetur. Maecenas varius sit
-                    consequat vulputate urna augue. Faucibus adipiscing aenean
-                    mi diam. Ac bibendum elementum aliquet
+                    {ceo?.description || (
+                      <>
+                        Lorem ipsum dolor sit amet consectetur. Maecenas varius
+                        sit consequat vulputate urna augue. Faucibus adipiscing
+                        aenean mi diam. Ac bibendum elementum aliquet Lorem
+                        ipsum dolor sit amet consectetur. Maecenas varius sit
+                        consequat vulputate urna augue. Faucibus adipiscing
+                        aenean mi diam. Ac bibendum elementum aliquet Lorem
+                        ipsum dolor sit amet consectetur. Maecenas varius sit
+                        consequat vulputate urna augue. Faucibus adipiscing
+                        aenean mi diam. Ac bibendum elementum aliquet Lorem
+                        ipsum dolor sit amet consectetur. Maecenas varius sit
+                        consequat vulputate urna augue. Faucibus adipiscing
+                        aenean mi diam. Ac bibendum elementum aliquet
+                      </>
+                    )}
                   </p>
                 </div>
               </div>
@@ -171,59 +159,65 @@ const AboutUsPage: React.FC = () => {
         </div>
       </div>
 
-      {/* Our Team Section */}
+      {/* Our Team Section - image, full name, position */}
       <div className="py-12 md:py-20 bg-black">
-        <div className="container mx-auto max-w-7xl px-4">
+        <div className="container lg:max-w-[1400px] mx-auto max-w-7xl px-4">
           <h2 className="text-3xl md:text-5xl lg:text-7xl font-bold uppercase text-center mb-12 md:mb-16">
             OUR TEAM
           </h2>
 
-          <div
-            onMouseEnter={() => teamSwiperRef.current?.autoplay?.stop()}
-            onMouseLeave={() => teamSwiperRef.current?.autoplay?.start()}
-          >
-            <Swiper
-              modules={[Pagination, Autoplay]}
-              spaceBetween={20}
-              slidesPerView={1}
-              loop={true}
-              onSwiper={(swiper) => {
-                teamSwiperRef.current = swiper;
-              }}
-              pagination={{
-                clickable: true,
-              }}
-              autoplay={{
-                delay: 3000,
-                disableOnInteraction: false,
-              }}
-              breakpoints={{
-                640: { slidesPerView: 2, spaceBetween: 20 },
-                1024: { slidesPerView: 4, spaceBetween: 10 },
-              }}
-              className="team-swiper"
+          {teamMembers.length === 0 ? (
+            <p className="text-white/50 text-center py-8">
+              No team members yet.
+            </p>
+          ) : (
+            <div
+              onMouseEnter={() => teamSwiperRef.current?.autoplay?.stop()}
+              onMouseLeave={() => teamSwiperRef.current?.autoplay?.start()}
             >
-              {TEAM_MEMBERS.map((member) => (
-                <SwiperSlide key={member.id}>
-                  <div className="flex flex-col items-center justify-center py-4">
-                    <div className="w-60 h-60 rounded-full overflow-hidden bg-gray-700 shrink-0">
-                      <img
-                        src={member.image}
-                        alt={member.name}
-                        className="w-full h-full object-cover"
-                      />
+              <Swiper
+                modules={[Pagination, Autoplay]}
+                spaceBetween={20}
+                slidesPerView={1}
+                loop={teamMembers.length > 1}
+                onSwiper={(swiper) => {
+                  teamSwiperRef.current = swiper;
+                }}
+                pagination={{
+                  clickable: true,
+                }}
+                autoplay={{
+                  delay: 3000,
+                  disableOnInteraction: false,
+                }}
+                breakpoints={{
+                  640: { slidesPerView: 2, spaceBetween: 20 },
+                  1024: { slidesPerView: 4, spaceBetween: 10 },
+                }}
+                className="team-swiper"
+              >
+                {teamMembers.map((member) => (
+                  <SwiperSlide key={member.id}>
+                    <div className="flex flex-col items-center justify-center py-4">
+                      <div className="w-60 h-60 rounded-full overflow-hidden bg-gray-700 shrink-0">
+                        <img
+                          src={member.imageUrl}
+                          alt={member.fullName}
+                          className="w-full h-full object-cover"
+                        />
+                      </div>
+                      <h4 className="text-white font-semibold capitalize text-base md:text-lg lg:text-xl mt-4 mb-1">
+                        {member.fullName}
+                      </h4>
+                      <p className="text-[#FF0000] uppercase text-xs md:text-sm">
+                        {member.position}
+                      </p>
                     </div>
-                    <h4 className="text-white font-semibold text-base md:text-lg lg:text-xl mt-4 mb-1">
-                      {member.name}
-                    </h4>
-                    <p className="text-[#FF0000] uppercase text-xs md:text-sm">
-                      {member.role}
-                    </p>
-                  </div>
-                </SwiperSlide>
-              ))}
-            </Swiper>
-          </div>
+                  </SwiperSlide>
+                ))}
+              </Swiper>
+            </div>
+          )}
         </div>
       </div>
 

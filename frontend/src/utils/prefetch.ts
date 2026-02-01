@@ -8,6 +8,8 @@ import { getCategories } from "../services/categoryService";
 import { getCoreValues } from "../services/coreValueService";
 import { getClients } from "../services/clientService";
 import { getClientReviews } from "../services/clientReviewService";
+import { getCeoSection } from "../services/aboutUsService";
+import { getTeamMembers } from "../services/teamMemberService";
 
 /**
  * Prefetch all public data in parallel so the cache is warm when the app loads.
@@ -26,6 +28,8 @@ export function prefetchAppData(
     getCoreValues(),
     getClients(),
     getClientReviews(),
+    getCeoSection(),
+    getTeamMembers(),
   ])
     .then(() => {
       onProgress?.(60);

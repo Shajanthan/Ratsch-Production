@@ -37,7 +37,7 @@ const LoginPage: React.FC = () => {
       }
     } catch (err) {
       setError(
-        err instanceof Error ? err.message : "Login failed. Please try again.",
+        err instanceof Error ? err.message : "Login failed. Please try again."
       );
     } finally {
       setLoading(false);
@@ -48,7 +48,7 @@ const LoginPage: React.FC = () => {
     <div className="min-h-screen bg-black relative flex items-center justify-center">
       {/* Background Image */}
       <img
-        src="/assets/images/bg.png"
+        src="https://res.cloudinary.com/dybv1h20q/image/upload/v1769927519/bg_do9pwv.png"
         className="absolute inset-0 opacity-30 w-full h-full object-cover"
         alt="background"
       />
@@ -62,7 +62,7 @@ const LoginPage: React.FC = () => {
           {/* Logo */}
           <div className="flex justify-center mb-8">
             <img
-              src="/assets/images/RatschWhite.png"
+              src="https://res.cloudinary.com/dybv1h20q/image/upload/v1769927286/RatschWhite_rj3oay.png"
               alt="Ratsch Productions"
               className="w-32 md:w-40"
             />

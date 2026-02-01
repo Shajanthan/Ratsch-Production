@@ -1,5 +1,5 @@
 import api from "./api";
-import { getCached } from "./cache";
+import { getCached, invalidateCache } from "./cache";
 
 export interface Client {
   id?: string;
@@ -26,9 +26,11 @@ export async function addClient(payload: {
     BASE,
     payload,
   );
+  invalidateCache("clients");
   return data.data.id;
 }
 
 export async function deleteClient(id: string): Promise<void> {
   await api.delete(`${BASE}/${id}`);
+  invalidateCache("clients");
 }

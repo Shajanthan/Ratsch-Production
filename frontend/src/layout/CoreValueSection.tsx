@@ -6,7 +6,6 @@ import type { Swiper as SwiperType } from "swiper";
 import { getCoreValues, type CoreValue } from "../services/coreValueService";
 import { getHomepageSettings } from "../services/homepageService";
 
-// Import Swiper styles
 import "swiper/css";
 import "swiper/css/effect-fade";
 
@@ -57,13 +56,13 @@ const CoreValueSection: React.FC<CoreValueSectionProps> = ({ aboutUs }) => {
   return (
     <div className="relative w-full bg-black pb-12">
       <img
-        src="/assets/images/bg.png"
+        src="https://res.cloudinary.com/dybv1h20q/image/upload/v1769927519/bg_do9pwv.png"
         className="absolute inset-0 opacity-70 w-full h-full object-cover"
       />
       <div className="z-10 py-6 md:py-12 relative">
         <div className="text-white">
           {!aboutUs && (
-            <div className="text-3xl md:text-5xl lg:text-7xl text-center uppercase font-bold pb-6 md:pb-12 px-4">
+            <div className="text-3xl md:text-5xl lg:text-6xl text-center uppercase font-bold pb-6 md:pb-12 px-4">
               our core values
             </div>
           )}
@@ -74,11 +73,7 @@ const CoreValueSection: React.FC<CoreValueSectionProps> = ({ aboutUs }) => {
                 Loading…
               </div>
             ) : coreValues.length === 0 ? null : (
-              <div
-                className="relative"
-                onMouseEnter={() => swiperRef.current?.autoplay?.stop()}
-                onMouseLeave={() => swiperRef.current?.autoplay?.start()}
-              >
+              <div className="relative">
                 <Swiper
                   modules={[EffectFade, A11y, Autoplay]}
                   slidesPerView={1}
@@ -86,10 +81,8 @@ const CoreValueSection: React.FC<CoreValueSectionProps> = ({ aboutUs }) => {
                   fadeEffect={{ crossFade: true }}
                   speed={650}
                   loop={coreValues.length > 1}
-                  autoplay={{
-                    delay: 4000,
-                    disableOnInteraction: false,
-                  }}
+                  allowTouchMove={false}
+                  autoplay={{ delay: 2000 }}
                   onSwiper={(swiper) => {
                     swiperRef.current = swiper;
                   }}

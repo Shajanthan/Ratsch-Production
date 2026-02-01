@@ -1,10 +1,10 @@
 import axios, { AxiosInstance, AxiosError } from "axios";
 import { refreshAuthToken } from "./authService";
 
+//  "https://ratsch-production-okot.vercel.app/api";
+
 // API Configuration
-const API_URL =
-  import.meta.env.VITE_API_URL ||
-  "https://ratsch-production-okot.vercel.app/api";
+const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000/api";
 
 // Create axios instance with default config
 const api: AxiosInstance = axios.create({
@@ -26,7 +26,7 @@ api.interceptors.request.use(
   },
   (error) => {
     return Promise.reject(error);
-  },
+  }
 );
 
 // Response interceptor - On 401 try to refresh token and retry; only end session on logout
@@ -59,7 +59,7 @@ api.interceptors.response.use(
       }
     }
     return Promise.reject(error);
-  },
+  }
 );
 
 export default api;

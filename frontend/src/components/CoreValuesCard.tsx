@@ -34,7 +34,7 @@ const CoreValuesCard: React.FC<CoreValuesCardProps> = ({
 
         <div className="py-12 md:py-24 lg:py-32 flex flex-col flex-1 relative z-10">
           {/* Centered title + description */}
-          <div className="relative flex-1 flex items-center justify-center text-center px-4 md:px-6 container mx-auto">
+          <div className="relative flex-1 flex items-center justify-center text-center px-4 md:px-6 container lg:max-w-[1400px] mx-auto">
             <div className="max-w-3xl px-4 md:px-10">
               <div className="text-white font-extrabold uppercase tracking-widest text-3xl md:text-5xl lg:text-7xl py-2 md:py-3">
                 {title}
@@ -48,7 +48,7 @@ const CoreValuesCard: React.FC<CoreValuesCardProps> = ({
           {/* All titles ON the image (bottom overlay) */}
           {titles && titles.length > 0 && onSelectIndex ? (
             <div className="">
-              <div className="container mx-auto px-4 md:px-8">
+              <div className="container lg:max-w-[1400px] mx-auto px-4 md:px-8">
                 <div className="flex flex-wrap gap-4 md:gap-6 lg:gap-10 justify-center lg:justify-between px-0 lg:px-96 py-4 md:py-6 lg:py-8">
                   {titles.map((t, index) => {
                     const isActive = index === activeIndex;

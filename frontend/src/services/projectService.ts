@@ -1,5 +1,5 @@
 import api from "./api";
-import { getCached } from "./cache";
+import { getCached, invalidateCache } from "./cache";
 
 export interface Project {
   id?: string;
@@ -64,6 +64,7 @@ export async function addProject(payload: ProjectPayload): Promise<string> {
     BASE,
     payload,
   );
+  invalidateCache("projects");
   return data.data.id;
 }
 
@@ -72,8 +73,12 @@ export async function updateProject(
   payload: ProjectPayload,
 ): Promise<void> {
   await api.put(`${BASE}/${id}`, payload);
+  invalidateCache("projects");
+  invalidateCache(`project/${id}`);
 }
 
 export async function deleteProject(id: string): Promise<void> {
   await api.delete(`${BASE}/${id}`);
+  invalidateCache("projects");
+  invalidateCache(`project/${id}`);
 }
