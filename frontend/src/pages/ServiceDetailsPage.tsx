@@ -1,12 +1,17 @@
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
+import { BsArrowUpRight } from "react-icons/bs";
 import Footer from "@/layout/Footer";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
-import { getServices, slugFromTitle, type Service } from "../services/serviceService";
+import {
+  getServices,
+  slugFromTitle,
+  type Service,
+} from "../services/serviceService";
 
 interface ServiceData {
   id: string;
@@ -36,6 +41,7 @@ function mapApiServiceToPageData(s: Service): ServiceData {
 
 const ServiceDetailsPage: React.FC = () => {
   const { id } = useParams<{ id: string }>();
+  const navigate = useNavigate();
   const [service, setService] = useState<ServiceData | null>(null);
   const [loading, setLoading] = useState(true);
   const [notFound, setNotFound] = useState(false);
@@ -111,7 +117,7 @@ const ServiceDetailsPage: React.FC = () => {
       {/* Hero Section */}
       <div className="relative w-full pt-12 md:pt-10">
         <img
-          src="/assets/images/bg.png"
+          src="https://res.cloudinary.com/dybv1h20q/image/upload/v1769927519/bg_do9pwv.png"
           className="absolute inset-0 opacity-70 w-full h-full object-cover"
         />
         <div className="relative z-20 container lg:max-w-[1400px] mx-auto min-h-screen flex items-center px-4 md:px-0 w-full">
@@ -143,7 +149,7 @@ const ServiceDetailsPage: React.FC = () => {
       {/* About The Service Section */}
       <div className="relative w-full">
         <img
-          src="/assets/images/bg.png"
+          src="https://res.cloudinary.com/dybv1h20q/image/upload/v1769927519/bg_do9pwv.png"
           className="absolute inset-0 opacity-70 w-full h-full object-cover"
         />
         <div className="bg-black z-10 relative">
@@ -191,7 +197,7 @@ const ServiceDetailsPage: React.FC = () => {
       {service.works && service.works.length > 0 && (
         <div className="relative w-full py-12 md:py-20">
           <img
-            src="/assets/images/bg.png"
+            src="https://res.cloudinary.com/dybv1h20q/image/upload/v1769927519/bg_do9pwv.png"
             className="absolute inset-0 opacity-70 w-full h-full object-cover"
           />
           <div className="bg-black z-10 relative">
@@ -250,9 +256,9 @@ const ServiceDetailsPage: React.FC = () => {
 
       {/* Brands Section */}
       {service.brands && service.brands.length > 0 && (
-        <div className="relative w-full pb-12 md:pb-20">
+        <div className="relative w-full pb-12">
           <img
-            src="/assets/images/bg.png"
+            src="https://res.cloudinary.com/dybv1h20q/image/upload/v1769927519/bg_do9pwv.png"
             className="absolute inset-0 opacity-70 w-full h-full object-cover"
           />
           <div className="bg-black z-10 relative">
@@ -295,6 +301,59 @@ const ServiceDetailsPage: React.FC = () => {
         </div>
       )}
 
+      <div className="relative w-full pb-6">
+        <img
+          src="https://res.cloudinary.com/dybv1h20q/image/upload/v1769927519/bg_do9pwv.png"
+          className="absolute inset-0 opacity-70 w-full h-full object-cover"
+        />
+        <div className="bg-black z-10 relative">
+          <div className="bg-black z-10 py-8 md:py-16 relative">
+            <div className="container mx-auto text-white px-4 md:px-0">
+              <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 pb-6 md:pb-8">
+                <div className="text-4xl md:text-5xl lg:text-6xl uppercase font-bold">
+                  Lets Connect
+                </div>
+                <button
+                  type="button"
+                  onClick={() =>
+                    navigate("/demo", { state: { scrollTo: "contact" } })
+                  }
+                  className="flex-shrink-0 uppercase rounded-full font-bold px-6 md:px-10 py-2 md:py-3 flex items-center gap-2 md:gap-3 text-sm md:text-lg bg-white/10 hover:bg-white/20 hover:scale-105 transition-all duration-300 w-fit group"
+                >
+                  contact us
+                  <BsArrowUpRight
+                    strokeWidth={2}
+                    size={14}
+                    className="md:w-4 md:h-4 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform duration-300"
+                  />
+                </button>
+              </div>
+
+              {/* info */}
+              <div className="uppercase grid grid-cols-1 lg:grid-cols-3 gap-8 md:gap-12 lg:gap-16">
+                <div className="py-2 md:py-3">
+                  <div className="text-sm md:text-base lg:text-lg">Email</div>
+                  <div className="text-xl md:text-2xl font-semibold py-1 md:py-2 break-all">
+                    info@ratschproductions.com
+                  </div>
+                </div>
+                <div className="py-2 md:py-3">
+                  <div className="text-sm md:text-base lg:text-lg">Phone</div>
+                  <div className="text-xl md:text-2xl font-semibold py-1 md:py-2">
+                    +94 7174123456
+                  </div>
+                </div>
+                <div className="py-2 md:py-3">
+                  <div className="text-sm md:text-base lg:text-lg">Address</div>
+                  <div className="text-xl md:text-2xl font-semibold py-1 md:py-2">
+                    Sri Lanka / Switzerland
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
       {/* Footer */}
       <Footer />
     </div>

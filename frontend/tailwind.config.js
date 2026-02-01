@@ -13,8 +13,10 @@ export default {
         "splash-progress": "splash-progress 1.5s ease-out forwards",
       },
       backgroundImage: {
-        "under-production": "url('/assets/images/Background.png')",
-        "under-production-mobile": "url('/assets/images/mobile.png')",
+        "under-production":
+          'url("https://res.cloudinary.com/dybv1h20q/image/upload/v1769929837/Error_Page-_Under_Maintenance_1_asbgqs.png")',
+        "under-production-mobile":
+          'url("https://res.cloudinary.com/dybv1h20q/image/upload/v1769929836/Mobile_View_2_ndhcp2.png")',
         "home-overlay":
           "linear-gradient(to bottom, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.4) 50%, rgba(0,0,0,0.75) 100%)",
       },

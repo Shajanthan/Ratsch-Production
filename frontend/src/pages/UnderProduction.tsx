@@ -5,6 +5,11 @@ import { FaFacebook, FaInstagram, FaYoutube } from "react-icons/fa";
 import { FaTiktok, FaXTwitter } from "react-icons/fa6";
 import { GrFormNext } from "react-icons/gr";
 
+const UNDER_PRODUCTION_IMG =
+  "https://res.cloudinary.com/dybv1h20q/image/upload/v1769929837/Error_Page-_Under_Maintenance_1_asbgqs.png";
+const UNDER_PRODUCTION_MOBILE_IMG =
+  "https://res.cloudinary.com/dybv1h20q/image/upload/v1769929836/Mobile_View_2_ndhcp2.png";
+
 const UnderProduction: React.FC = () => {
   const socialMediaIcons = [
     { Icon: FaFacebook },
@@ -14,12 +19,16 @@ const UnderProduction: React.FC = () => {
     { Icon: FaTiktok },
   ];
   return (
-    <div className="w-screen min-h-[100dvh] h-screen bg-under-production-mobile md:bg-under-production bg-no-repeat bg-center text-white relative bg-full-size-mobile lg:bg-cover">
+    <div className="w-screen min-h-[100dvh] h-screen bg-no-repeat bg-center text-white relative bg-full-size-mobile lg:bg-cover under-prod-bg">
+      <style>{`
+        .under-prod-bg { background-image: url(${UNDER_PRODUCTION_MOBILE_IMG}); }
+        @media (min-width: 768px) { .under-prod-bg { background-image: url(${UNDER_PRODUCTION_IMG}); } }
+      `}</style>
       <div className="w-full h-full min-h-[100dvh] flex flex-col items-center justify-between">
         {/* Logo */}
-        <div className="bg-white absolute top-0 left-1/2 transform -translate-x-1/2 w-[70%] max-w-[600px] h-[100px] lg:h-[170px] rounded-b-[30px] sm:rounded-b-[40px] md:rounded-b-[50px] flex items-center justify-center">
+        <div className="bg-white lg:pt-12 pt-6 absolute top-0 left-1/2 transform -translate-x-1/2 w-[70%] max-w-[600px] h-[100px] lg:h-[170px] rounded-b-[30px] sm:rounded-b-[40px] md:rounded-b-[50px] flex items-center justify-center">
           <img
-            src="/assets/images/Favicon.png"
+            src="https://res.cloudinary.com/dybv1h20q/image/upload/v1769930090/RB_1_1_nlaoej.png"
             alt="logo"
             className="object-fill w-1/2 sm:w-1/3 lg:w-1/2"
           />
