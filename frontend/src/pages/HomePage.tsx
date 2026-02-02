@@ -14,9 +14,11 @@ const HomePage: React.FC = () => {
   const scrollToSection = (location.state as { scrollTo?: string })?.scrollTo;
 
   useEffect(() => {
-    if (scrollToSection) {
+    const hashId = location.hash?.slice(1);
+    if (scrollToSection || hashId) {
+      const sectionId = scrollToSection ?? hashId;
       const timer = setTimeout(() => {
-        const element = document.getElementById(scrollToSection);
+        const element = document.getElementById(sectionId);
         if (element) {
           element.scrollIntoView({ behavior: "smooth" });
         }
@@ -26,7 +28,7 @@ const HomePage: React.FC = () => {
     window.scrollTo(0, 0);
     const id = setTimeout(() => window.scrollTo(0, 0), 0);
     return () => clearTimeout(id);
-  }, [location.pathname, scrollToSection]);
+  }, [location.pathname, location.hash, scrollToSection]);
 
   return (
     <div className="select-none">

@@ -19,32 +19,39 @@ const Navbar: React.FC = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  const basePath = location.pathname.startsWith("/demo") ? "/demo" : "";
+  const homePath = basePath || "/";
+  const isOnHome =
+    location.pathname === homePath ||
+    location.pathname === homePath + "/" ||
+    location.pathname === homePath + "//";
+
   const handleNavClick = (sectionId: string) => {
     setIsMobileMenuOpen(false);
-    const currentPath = window.location.pathname;
-    const basePath = currentPath.startsWith("/demo") ? "/demo" : "";
 
     if (sectionId === "home") {
-      if (location.pathname === "/demo" || location.pathname === "/") {
+      if (isOnHome) {
         window.scrollTo({ top: 0, behavior: "smooth" });
       } else {
-        if (basePath) {
-          navigate("/demo");
-        } else {
-          navigate("/");
-        }
+        navigate(homePath);
       }
     } else if (sectionId === "about") {
       navigate(`${basePath}/about`);
+    } else if (sectionId === "contact") {
+      if (isOnHome) {
+        const el = document.getElementById("contact");
+        el?.scrollIntoView({ behavior: "smooth" });
+      } else {
+        navigate(`${homePath}#contact`);
+      }
     } else {
-      // For other sections, scroll to section on home page
-      if (location.pathname === "/demo" || location.pathname === "/") {
+      // Service and other sections: scroll on home, else navigate to home with state
+      if (isOnHome) {
         const element = document.getElementById(sectionId);
         if (element) {
           element.scrollIntoView({ behavior: "smooth" });
         }
       } else {
-        const homePath = basePath ? "/demo" : "/";
         navigate(homePath, { state: { scrollTo: sectionId } });
       }
     }

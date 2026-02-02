@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import { Link, useLocation } from "react-router-dom";
 import { BsTelephone, BsTwitterX } from "react-icons/bs";
 import {
   FaFacebook,
@@ -9,8 +10,22 @@ import {
 } from "react-icons/fa";
 import { HiOutlineLocationMarker } from "react-icons/hi";
 import { MdOutlineMailOutline } from "react-icons/md";
+import { getServices, type Service } from "@/services/serviceService";
 
 const Footer: React.FC = () => {
+  const location = useLocation();
+  const [services, setServices] = useState<Service[]>([]);
+  const basePath = location.pathname.startsWith("/demo") ? "/demo" : "";
+
+  useEffect(() => {
+    getServices()
+      .then((data) => setServices(data.slice(0, 6)))
+      .catch(() => setServices([]));
+  }, []);
+
+  const homeHref = basePath || "/";
+  const contactHref = `${homeHref}#contact`;
+
   return (
     <div className="bg-black text-white px-4 md:px-10 py-10 md:py-20">
       <div className="container mx-auto">
@@ -48,14 +63,36 @@ const Footer: React.FC = () => {
                 Links
               </div>
               <div className="list-none px-0 md:px-3">
-                <li className="hover:text-red-800 cursor-pointer transition-colors duration-300 py-1">
-                  Home
+                <li className="py-1">
+                  <Link
+                    to={homeHref}
+                    className="hover:text-red-800 cursor-pointer transition-colors duration-300 block"
+                    onClick={() => window.scrollTo(0, 0)}
+                  >
+                    Home
+                  </Link>
                 </li>
-                <li className="hover:text-red-800 cursor-pointer transition-colors duration-300 py-1">
-                  About us
+                <li className="py-1">
+                  <Link
+                    to={`${basePath}/about`}
+                    className="hover:text-red-800 cursor-pointer transition-colors duration-300 block"
+                  >
+                    About us
+                  </Link>
                 </li>
-                <li className="hover:text-red-800 cursor-pointer transition-colors duration-300 py-1">
-                  Contact us
+                <li className="py-1">
+                  <Link
+                    to={contactHref}
+                    className="hover:text-red-800 cursor-pointer transition-colors duration-300 block"
+                    onClick={() => {
+                      if (location.pathname === homeHref || location.pathname === homeHref + "/") {
+                        const el = document.getElementById("contact");
+                        el?.scrollIntoView({ behavior: "smooth" });
+                      }
+                    }}
+                  >
+                    Contact us
+                  </Link>
                 </li>
               </div>
             </div>
@@ -65,24 +102,39 @@ const Footer: React.FC = () => {
                 Services
               </div>
               <div className="list-none px-0 md:px-3">
-                <li className="hover:text-red-800 cursor-pointer transition-colors duration-300 py-1 text-sm md:text-base">
-                  Commercial Production
-                </li>
-                <li className="hover:text-red-800 cursor-pointer transition-colors duration-300 py-1 text-sm md:text-base">
-                  Video Production
-                </li>
-                <li className="hover:text-red-800 cursor-pointer transition-colors duration-300 py-1 text-sm md:text-base">
-                  Post Production
-                </li>
-                <li className="hover:text-red-800 cursor-pointer transition-colors duration-300 py-1 text-sm md:text-base">
-                  Sound Design & Finishing
-                </li>
-                <li className="hover:text-red-800 cursor-pointer transition-colors duration-300 py-1 text-sm md:text-base">
-                  Animation & Motion Graphics
-                </li>
-                <li className="hover:text-red-800 cursor-pointer transition-colors duration-300 py-1 text-sm md:text-base">
-                  Professional Photography
-                </li>
+                {services.length > 0 ? (
+                  services.map((s) => (
+                    <li key={s.id} className="py-1 text-sm md:text-base">
+                      <Link
+                        to={`${basePath}/service/${s.id}`}
+                        className="hover:text-red-800 cursor-pointer transition-colors duration-300 block"
+                      >
+                        {s.title}
+                      </Link>
+                    </li>
+                  ))
+                ) : (
+                  <>
+                    <li className="hover:text-red-800 cursor-pointer transition-colors duration-300 py-1 text-sm md:text-base">
+                      Commercial Production
+                    </li>
+                    <li className="hover:text-red-800 cursor-pointer transition-colors duration-300 py-1 text-sm md:text-base">
+                      Video Production
+                    </li>
+                    <li className="hover:text-red-800 cursor-pointer transition-colors duration-300 py-1 text-sm md:text-base">
+                      Post Production
+                    </li>
+                    <li className="hover:text-red-800 cursor-pointer transition-colors duration-300 py-1 text-sm md:text-base">
+                      Sound Design & Finishing
+                    </li>
+                    <li className="hover:text-red-800 cursor-pointer transition-colors duration-300 py-1 text-sm md:text-base">
+                      Animation & Motion Graphics
+                    </li>
+                    <li className="hover:text-red-800 cursor-pointer transition-colors duration-300 py-1 text-sm md:text-base">
+                      Professional Photography
+                    </li>
+                  </>
+                )}
               </div>
             </div>
 
