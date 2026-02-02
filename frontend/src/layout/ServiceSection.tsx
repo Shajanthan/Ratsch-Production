@@ -34,7 +34,7 @@ function mapServiceToCard(s: Service, index: number): ServiceCardItem {
     slug: (slugFromTitle(s.title) || s.id) ?? "",
     title: s.title,
     tags: Array.isArray(s.tags) ? s.tags : [],
-    description: s.aboutDescription || s.tagLine || "",
+    description: s.shortDescription || s.aboutDescription || s.tagLine || "",
     image: s.mainImageUrl || "",
     tagColor: s.tagColor || fallback.tagColor,
     textColor: s.textColor || fallback.textColor,

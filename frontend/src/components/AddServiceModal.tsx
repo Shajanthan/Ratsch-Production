@@ -38,6 +38,7 @@ const AddServiceModal: React.FC<AddServiceModalProps> = ({
   const [mainImagePreview, setMainImagePreview] = useState("");
   const [title, setTitle] = useState("");
   const [tagLine, setTagLine] = useState("");
+  const [shortDescription, setShortDescription] = useState("");
   const [aboutDescription, setAboutDescription] = useState("");
   const [deliverables, setDeliverables] = useState("");
   const [tagsInput, setTagsInput] = useState("");
@@ -49,14 +50,26 @@ const AddServiceModal: React.FC<AddServiceModalProps> = ({
   );
   const [serviceImageSlots, setServiceImageSlots] = useState<ImageSlot[]>([]);
   const [brandImageSlots, setBrandImageSlots] = useState<ImageSlot[]>([]);
+  const [aboutDescriptionModalOpen, setAboutDescriptionModalOpen] = useState(false);
 
   const isEdit = Boolean(initialService?.id);
+
+  // Lock background scroll when About description modal is open
+  useEffect(() => {
+    if (!aboutDescriptionModalOpen) return;
+    const prev = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = prev;
+    };
+  }, [aboutDescriptionModalOpen]);
 
   const resetForm = useCallback(() => {
     setMainImageFile(null);
     setMainImagePreview("");
     setTitle("");
     setTagLine("");
+    setShortDescription("");
     setAboutDescription("");
     setDeliverables("");
     setTagsInput("");
@@ -72,6 +85,7 @@ const AddServiceModal: React.FC<AddServiceModalProps> = ({
     if (initialService) {
       setTitle(initialService.title || "");
       setTagLine(initialService.tagLine || "");
+      setShortDescription(initialService.shortDescription || "");
       setAboutDescription(initialService.aboutDescription || "");
       setDeliverables(initialService.deliverables || "");
       setTagsInput(
@@ -203,6 +217,7 @@ const AddServiceModal: React.FC<AddServiceModalProps> = ({
       const basePayload = {
         title: title.trim(),
         tagLine: tagLine.trim(),
+        shortDescription: shortDescription.trim(),
         aboutDescription: aboutDescription.trim(),
         deliverables: deliverables.trim(),
         tags,
@@ -422,6 +437,19 @@ const AddServiceModal: React.FC<AddServiceModalProps> = ({
 
           <div>
             <label className="block text-white text-sm uppercase mb-1">
+              Short description (Service Section card)
+            </label>
+            <input
+              type="text"
+              value={shortDescription}
+              onChange={(e) => setShortDescription(e.target.value)}
+              placeholder="Brief text shown on the homepage service cards"
+              className="w-full border border-[#333333] focus:border-[#FF0000] rounded-md py-2 bg-[#333333] focus:ring-0 focus:outline-none px-3 text-white text-sm placeholder-white/40"
+            />
+          </div>
+
+          <div>
+            <label className="block text-white text-sm uppercase mb-1">
               Tag color (for tags on service card)
             </label>
             <div className="flex flex-wrap gap-2 mt-1">
@@ -500,13 +528,69 @@ const AddServiceModal: React.FC<AddServiceModalProps> = ({
             <label className="block text-white text-sm uppercase mb-1">
               About description *
             </label>
-            <textarea
-              value={aboutDescription}
-              onChange={(e) => setAboutDescription(e.target.value)}
-              rows={4}
-              className="w-full border border-[#333333] focus:border-[#FF0000] rounded-md py-2 bg-[#333333] focus:ring-0 focus:outline-none px-3 text-white text-sm resize-y"
-            />
+            <p className="text-white/60 text-xs mb-2">
+              Type your text with indents (spaces or tabs); line breaks and indentation will show on the service page as you type.
+            </p>
+            <button
+              type="button"
+              onClick={() => setAboutDescriptionModalOpen(true)}
+              className="w-full min-h-[120px] text-left border border-[#333333] hover:border-[#FF0000] rounded-md py-3 px-4 bg-[#333333]/50 focus:ring-0 focus:outline-none text-white text-sm font-mono placeholder-white/40 flex items-start justify-between gap-2"
+              style={{ whiteSpace: "pre-wrap" }}
+            >
+              <span className="flex-1 truncate line-clamp-4">
+                {aboutDescription || "Click to open editor…"}
+              </span>
+              <span className="flex-shrink-0 text-white/60 text-xs uppercase font-semibold">Edit</span>
+            </button>
           </div>
+
+          {/* About description – larger modal */}
+          {aboutDescriptionModalOpen && (
+            <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
+              <div
+                className="fixed inset-0 bg-black/80 backdrop-blur-sm"
+                onClick={() => setAboutDescriptionModalOpen(false)}
+              />
+              <div
+                className="relative z-[101] w-full max-w-6xl max-h-[92vh] min-h-[560px] flex flex-col backdrop-blur-xl bg-[#1a1a1a] border border-white/10 rounded-lg shadow-2xl overflow-hidden"
+                onClick={(e) => e.stopPropagation()}
+              >
+                <div className="flex items-center justify-between px-6 py-4 border-b border-white/10 flex-shrink-0">
+                  <h3 className="text-lg font-bold uppercase text-white">
+                    About description
+                  </h3>
+                  <button
+                    type="button"
+                    onClick={() => setAboutDescriptionModalOpen(false)}
+                    className="text-white/70 hover:text-white transition-colors"
+                    aria-label="Close"
+                  >
+                    <HiX className="w-6 h-6" />
+                  </button>
+                </div>
+                <div className="flex-1 min-h-0 px-6 py-4">
+                  <textarea
+                    value={aboutDescription}
+                    onChange={(e) => setAboutDescription(e.target.value)}
+                    placeholder="Type your text. Use Enter for new lines and spaces/tabs for indentation—they will appear the same on the service page."
+                    className="w-full h-full min-h-[480px] border border-[#333333] focus:border-[#FF0000] rounded-md py-3 px-4 bg-[#333333] focus:ring-0 focus:outline-none text-white text-sm resize-none font-mono placeholder-white/40"
+                    style={{ whiteSpace: "pre" }}
+                    spellCheck="true"
+                    autoFocus
+                  />
+                </div>
+                <div className="flex justify-end gap-3 px-6 py-4 border-t border-white/10 flex-shrink-0">
+                  <button
+                    type="button"
+                    onClick={() => setAboutDescriptionModalOpen(false)}
+                    className="border border-white/30 hover:border-[#FF0000] hover:bg-[#FF0000]/10 px-6 py-2.5 text-white text-sm uppercase font-semibold rounded-md transition-all"
+                  >
+                    Done
+                  </button>
+                </div>
+              </div>
+            </div>
+          )}
 
           <div>
             <label className="block text-white text-sm uppercase mb-1">

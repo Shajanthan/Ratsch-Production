@@ -13,7 +13,7 @@ const HomeProjectCard: React.FC<HomeProjectCardProps> = ({
 }) => {
   return (
     <div
-      className={`text-white transition-all duration-300 ${
+      className={`w-full h-full flex flex-col text-white transition-all duration-300 ${
         isActive ? "scale-105" : "scale-100"
       }`}
     >
@@ -25,7 +25,7 @@ const HomeProjectCard: React.FC<HomeProjectCardProps> = ({
         {title}
       </h2>
       <p
-        className={`font-thin transition-all duration-300 text-sm md:text-base ${
+        className={`font-thin transition-all duration-300 text-sm md:text-base flex-1 min-h-0 ${
           isActive ? "text-white" : "text-white/60"
         }`}
       >
@@ -33,7 +33,7 @@ const HomeProjectCard: React.FC<HomeProjectCardProps> = ({
       </p>
       {/* Red indicator bottom - Desktop only */}
       <div
-        className={`hidden md:block mt-2 md:mt-4 h-1 rounded-full transition-all duration-300 ${
+        className={`hidden md:block mt-2 md:mt-4 flex-shrink-0 h-1 rounded-full transition-all duration-300 ${
           isActive ? "w-full bg-[#BF0000]" : "w-0 bg-[#BF0000]"
         }`}
       ></div>

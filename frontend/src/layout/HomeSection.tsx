@@ -38,6 +38,7 @@ const HomeSection: React.FC = () => {
             title: `${p.titleLine1} ${p.titleLine2}`.trim() || "Project",
             description: p.smallDescription,
             image:
+              p.bannerImageUrl ||
               p.coverImageUrl ||
               (p.imageUrls?.length ? p.imageUrls[0] : "") ||
               PLACEHOLDER_IMAGE,
@@ -228,13 +229,13 @@ const HomeSection: React.FC = () => {
         </div>
       </div>
 
-      {/* Desktop: Content */}
-      <div className="hidden md:flex relative z-20 items-end h-full pb-10 md:pb-20 justify-center container lg:max-w-[1400px] mx-auto px-4 md:px-6 gap-6 md:gap-8 lg:gap-16">
+      {/* Desktop: Content - row height = tallest card, all cards stretch to match */}
+      <div className="hidden md:flex absolute bottom-0 left-0 right-0 z-20 items-stretch pb-10 md:pb-20 justify-center container lg:max-w-[1400px] mx-auto px-4 md:px-6 gap-6 md:gap-8 lg:gap-16">
         {projects.map((project, index) => (
           <div
             key={index}
             onClick={() => setActiveIndex(index)}
-            className="cursor-pointer w-full md:w-auto"
+            className="cursor-pointer flex-1 min-w-0"
           >
             <HomeProjectCard
               title={project.title}

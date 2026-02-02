@@ -17,6 +17,8 @@ export interface Project {
   results: string;
   coverImageUrl?: string;
   coverImagePublicId?: string;
+  bannerImageUrl?: string;
+  bannerImagePublicId?: string;
   imageUrls: string[];
   imagePublicIds?: string[];
   createdAt?: string;

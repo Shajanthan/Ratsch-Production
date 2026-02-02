@@ -69,7 +69,7 @@ export const getServiceById = async (req, res) => {
 
 /**
  * POST /api/services - Add a service (protected).
- * Body: mainImageUrl, mainImagePublicId, title, tagLine, aboutDescription, deliverables,
+ * Body: mainImageUrl, mainImagePublicId, title, tagLine, shortDescription, aboutDescription, deliverables,
  *       tagColor?, textColor?, tags[], serviceImageUrls[], ..., brandImagePublicIds[]
  */
 export const addService = async (req, res) => {
@@ -79,6 +79,7 @@ export const addService = async (req, res) => {
       mainImagePublicId = "",
       title = "",
       tagLine = "",
+      shortDescription = "",
       aboutDescription = "",
       deliverables = "",
       tagColor = "",
@@ -102,6 +103,7 @@ export const addService = async (req, res) => {
       mainImagePublicId: mainImagePublicId || "",
       title: title.trim(),
       tagLine: (tagLine || "").trim(),
+      shortDescription: (shortDescription || "").trim(),
       aboutDescription: (aboutDescription || "").trim(),
       deliverables: (deliverables || "").trim(),
       tagColor: String(tagColor || ""),
@@ -148,6 +150,7 @@ export const updateService = async (req, res) => {
       mainImagePublicId,
       title,
       tagLine,
+      shortDescription,
       aboutDescription,
       deliverables,
       tagColor,
@@ -180,6 +183,7 @@ export const updateService = async (req, res) => {
       mainImagePublicId: mainImagePublicId ?? "",
       title: title.trim(),
       tagLine: (tagLine ?? "").trim(),
+      shortDescription: (shortDescription ?? "").trim(),
       aboutDescription: (aboutDescription ?? "").trim(),
       deliverables: (deliverables ?? "").trim(),
       tagColor: String(tagColor ?? ""),

@@ -194,7 +194,13 @@ const AboutUsPage: React.FC = () => {
                   640: { slidesPerView: 2, spaceBetween: 20 },
                   1024: { slidesPerView: 4, spaceBetween: 10 },
                 }}
-                className="team-swiper"
+                className={`team-swiper ${
+                  teamMembers.length <= 1
+                    ? "center-slides-1"
+                    : teamMembers.length <= 3
+                      ? "center-slides-few"
+                      : ""
+                }`}
               >
                 {teamMembers.map((member) => (
                   <SwiperSlide key={member.id}>

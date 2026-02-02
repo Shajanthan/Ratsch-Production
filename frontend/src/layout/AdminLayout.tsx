@@ -40,12 +40,12 @@ const AdminLayout: React.FC<AdminLayoutProps> = () => {
 
   const menuItems = [
     { path: "/admin", label: "Homepage", icon: HiHome },
+    { path: "/admin/about-us", label: "About Us", icon: HiOfficeBuilding },
     { path: "/admin/services", label: "Services", icon: HiCollection },
     { path: "/admin/projects", label: "Projects", icon: HiFolder },
     { path: "/admin/clients", label: "Clients", icon: HiUserGroup },
     { path: "/admin/client-reviews", label: "Client Reviews", icon: HiChat },
     { path: "/admin/core-values", label: "Core Values", icon: HiSparkles },
-    { path: "/admin/about-us", label: "About Us", icon: HiOfficeBuilding },
   ];
 
   const isActive = (path: string) => {

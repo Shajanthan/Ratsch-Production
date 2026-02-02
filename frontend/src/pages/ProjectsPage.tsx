@@ -98,7 +98,7 @@ const ProjectsPage: React.FC = () => {
         {/* Hero Section */}
         <div className="relative w-full pt-12 md:pt-10">
           <img
-            src="/assets/images/bg.png"
+            src="https://res.cloudinary.com/dybv1h20q/image/upload/v1769927519/bg_do9pwv.png"
             className="absolute inset-0 opacity-70 w-full h-full object-cover"
           />
           <div className="relative z-20 min-h-[50vh] flex items-center px-4 md:px-0 w-full">
@@ -135,6 +135,7 @@ const ProjectsPage: React.FC = () => {
                         items={projectsByCategory[category].map((p) => ({
                           projectTitle1: p.titleLine1,
                           projectTitle2: p.titleLine2,
+                          shortdesc: p.smallDescription ?? "",
                           date: formatProjectDate(p.date ?? ""),
                           image:
                             p.coverImageUrl ||

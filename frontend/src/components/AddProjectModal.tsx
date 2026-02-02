@@ -73,6 +73,8 @@ const AddProjectModal: React.FC<AddProjectModalProps> = ({
   const [results, setResults] = useState("");
   const [coverImageFile, setCoverImageFile] = useState<File | null>(null);
   const [coverImagePreview, setCoverImagePreview] = useState("");
+  const [bannerImageFile, setBannerImageFile] = useState<File | null>(null);
+  const [bannerImagePreview, setBannerImagePreview] = useState("");
   const [imageSlots, setImageSlots] = useState<ImageSlot[]>([]);
   const [categoryDropdownOpen, setCategoryDropdownOpen] = useState(false);
   const categoryDropdownRef = useRef<HTMLDivElement>(null);
@@ -114,6 +116,8 @@ const AddProjectModal: React.FC<AddProjectModalProps> = ({
     setResults("");
     setCoverImageFile(null);
     setCoverImagePreview("");
+    setBannerImageFile(null);
+    setBannerImagePreview("");
     setImageSlots([]);
     setError("");
   }, []);
@@ -133,6 +137,8 @@ const AddProjectModal: React.FC<AddProjectModalProps> = ({
       setResults(initialProject.results || "");
       setCoverImageFile(null);
       setCoverImagePreview(initialProject.coverImageUrl || "");
+      setBannerImageFile(null);
+      setBannerImagePreview(initialProject.bannerImageUrl || "");
       const urls = initialProject.imageUrls || [];
       const ids = initialProject.imagePublicIds || [];
       setImageSlots(
@@ -149,6 +155,7 @@ const AddProjectModal: React.FC<AddProjectModalProps> = ({
 
   const revokeNewPreviews = () => {
     if (coverImageFile && coverImagePreview) URL.revokeObjectURL(coverImagePreview);
+    if (bannerImageFile && bannerImagePreview) URL.revokeObjectURL(bannerImagePreview);
     imageSlots.forEach((slot) => {
       if (slot.type === "new") URL.revokeObjectURL(slot.preview);
     });
@@ -175,6 +182,23 @@ const AddProjectModal: React.FC<AddProjectModalProps> = ({
     setCoverImageFile(null);
     if (coverImagePreview && coverImageFile) URL.revokeObjectURL(coverImagePreview);
     setCoverImagePreview("");
+  };
+
+  const handleBannerFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    e.target.value = "";
+    if (file) {
+      if (bannerImageFile && bannerImagePreview) URL.revokeObjectURL(bannerImagePreview);
+      setBannerImageFile(file);
+      setBannerImagePreview(URL.createObjectURL(file));
+      setError("");
+    }
+  };
+
+  const handleRemoveBanner = () => {
+    setBannerImageFile(null);
+    if (bannerImagePreview && bannerImageFile) URL.revokeObjectURL(bannerImagePreview);
+    setBannerImagePreview("");
   };
 
   const handleAddImage = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -233,6 +257,8 @@ const AddProjectModal: React.FC<AddProjectModalProps> = ({
 
       let coverImageUrl = initialProject?.coverImageUrl ?? "";
       let coverImagePublicId = initialProject?.coverImagePublicId ?? "";
+      let bannerImageUrl = initialProject?.bannerImageUrl ?? "";
+      let bannerImagePublicId = initialProject?.bannerImagePublicId ?? "";
 
       if (isEdit && initialProject?.id && coverImageFile) {
         const oldCoverId =
@@ -250,6 +276,24 @@ const AddProjectModal: React.FC<AddProjectModalProps> = ({
         );
         coverImageUrl = url;
         coverImagePublicId = publicId;
+      }
+
+      if (isEdit && initialProject?.id && bannerImageFile) {
+        const oldBannerId =
+          initialProject.bannerImagePublicId ||
+          `${initialProject.id}_banner`;
+        try {
+          await deleteCloudinaryImage(oldBannerId);
+        } catch {
+          // ignore
+        }
+        const { url, publicId } = await uploadImage(
+          bannerImageFile,
+          "projects",
+          `${initialProject.id}_banner`,
+        );
+        bannerImageUrl = url;
+        bannerImagePublicId = publicId;
       }
 
       if (isEdit && initialProject?.id) {
@@ -275,6 +319,8 @@ const AddProjectModal: React.FC<AddProjectModalProps> = ({
           ...categoryPayload,
           coverImageUrl,
           coverImagePublicId,
+          bannerImageUrl,
+          bannerImagePublicId,
           imageUrls,
           imagePublicIds,
         });
@@ -286,6 +332,8 @@ const AddProjectModal: React.FC<AddProjectModalProps> = ({
           ...categoryPayload,
           coverImageUrl: "",
           coverImagePublicId: "",
+          bannerImageUrl: "",
+          bannerImagePublicId: "",
           imageUrls: [],
           imagePublicIds: [],
         });
@@ -297,6 +345,15 @@ const AddProjectModal: React.FC<AddProjectModalProps> = ({
           );
           coverImageUrl = url;
           coverImagePublicId = publicId;
+        }
+        if (bannerImageFile) {
+          const { url, publicId } = await uploadImage(
+            bannerImageFile,
+            "projects",
+            `${id}_banner`,
+          );
+          bannerImageUrl = url;
+          bannerImagePublicId = publicId;
         }
         const imageUrls: string[] = [];
         const imagePublicIds: string[] = [];
@@ -320,6 +377,8 @@ const AddProjectModal: React.FC<AddProjectModalProps> = ({
           ...categoryPayload,
           coverImageUrl,
           coverImagePublicId,
+          bannerImageUrl,
+          bannerImagePublicId,
           imageUrls,
           imagePublicIds,
         });
@@ -572,6 +631,42 @@ const AddProjectModal: React.FC<AddProjectModalProps> = ({
                 <button
                   type="button"
                   onClick={handleRemoveCover}
+                  className="absolute top-2 right-2 p-2 rounded-full bg-black/60 hover:bg-red-500/80 text-white transition-colors"
+                >
+                  <HiX className="w-4 h-4" />
+                </button>
+              </div>
+            )}
+          </div>
+
+          <div>
+            <label className="block text-white text-sm uppercase mb-1">
+              Banner image
+            </label>
+            {!bannerImagePreview ? (
+              <label className="flex flex-col items-center justify-center w-full h-32 border-2 border-dashed border-[#333333] hover:border-[#FF0000] transition-all duration-500 rounded-md cursor-pointer bg-[#333333]/30">
+                <span className="text-white/70 text-sm mb-1">
+                  Click or drag to upload banner
+                </span>
+                <input
+                  type="file"
+                  accept="image/*"
+                  onChange={handleBannerFileChange}
+                  className="hidden"
+                />
+              </label>
+            ) : (
+              <div className="relative">
+                <div className="w-full max-h-40 rounded-md overflow-hidden bg-[#333333]/30 border border-[#333333]">
+                  <img
+                    src={bannerImagePreview}
+                    alt="Banner"
+                    className="w-full h-40 object-cover"
+                  />
+                </div>
+                <button
+                  type="button"
+                  onClick={handleRemoveBanner}
                   className="absolute top-2 right-2 p-2 rounded-full bg-black/60 hover:bg-red-500/80 text-white transition-colors"
                 >
                   <HiX className="w-4 h-4" />

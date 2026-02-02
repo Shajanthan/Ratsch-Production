@@ -19,7 +19,6 @@ interface ServiceData {
   tagline: string;
   image: string;
   about: string;
-  aboutList?: string[];
   deliverables: string;
   works: string[];
   brands: string[];
@@ -32,7 +31,6 @@ function mapApiServiceToPageData(s: Service): ServiceData {
     tagline: s.tagLine,
     image: s.mainImageUrl || "",
     about: s.aboutDescription || "",
-    aboutList: Array.isArray(s.tags) && s.tags.length > 0 ? s.tags : undefined,
     deliverables: s.deliverables || "",
     works: Array.isArray(s.serviceImageUrls) ? s.serviceImageUrls : [],
     brands: Array.isArray(s.brandImageUrls) ? s.brandImageUrls : [],
@@ -158,26 +156,14 @@ const ServiceDetailsPage: React.FC = () => {
               ABOUT THE SERVICE
             </h2>
             <div className="max-w-4xl mx-auto">
-              <p className="text-white/90 text-sm md:text-base leading-relaxed mb-6">
-                {service.about}
-              </p>
-              {service.aboutList && service.aboutList.length > 0 && (
-                <div className="mb-6">
-                  <p className="text-white/90 text-sm md:text-base mb-4">
-                    We manage the complete advertising process:
-                  </p>
-                  <ul className="list-none font-semibold px-10 list-inside space-y-2 text-white/90 text-sm md:text-base">
-                    {service.aboutList.map((item, index) => (
-                      <li key={index}>{item}</li>
-                    ))}
-                  </ul>
+              {service.about ? (
+                <div
+                  className="text-white/90 text-sm md:text-base leading-relaxed whitespace-pre-wrap"
+                  style={{ fontFamily: "inherit" }}
+                >
+                  {service.about}
                 </div>
-              )}
-              <p className="text-white/90 text-sm md:text-base leading-relaxed">
-                We craft advertisements with strong storytelling, cinematic
-                visuals, and strategic messaging that drive results and build
-                lasting brand connections.
-              </p>
+              ) : null}
             </div>
           </div>
           <div className="container lg:max-w-[1400px] mx-auto text-white px-4 py-12 md:py-16">

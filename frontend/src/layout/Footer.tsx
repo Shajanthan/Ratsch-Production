@@ -106,22 +106,12 @@ const Footer: React.FC = () => {
         </div>
 
         <div className="pt-12 md:pt-28 gap-8 lg:gap-0 mx-auto">
-          <div className="w-full lg:w-1/2 order-2 lg:order-none">
-            <div className="flex flex-col sm:flex-row gap-4 sm:gap-8 md:gap-16 text-xs md:text-sm p-4 border-t-0 lg:border-t-2 border-white justify-center items-center">
-              <div className="">Copyright © Ratsch Productions </div>
-              <div className="flex items-center gap-2">
-                <FaHeart className="text-red-600" size={12} />
-                <span>Designed by TD Creatives</span>
-              </div>
-            </div>
-          </div>
-
-          <div className="flex justify-end items-center pt-5 lg:pt-0">
+        <div className="flex justify-end items-center pt-5 lg:pt-0">
             <div className="w-full lg:w-1/3 flex flex-col items-center">
               <div className="uppercase font-semibold text-xl md:text-2xl lg:text-3xl text-center lg:text-left">
                 Let's connect
               </div>
-              <div className="py-4 md:py-5 w-[370px] mx-auto group">
+              <div className="py-4 md:py-5  lg:w-[370px] mx-auto group">
                 <div className=" flex justify-between bg-[#222222] rounded-full items-center pr-6 border border-[#333333] group-hover:border-[#FF0000] transition-all duration-500 cursor-pointer">
                   <input
                     type="text"
@@ -136,6 +126,17 @@ const Footer: React.FC = () => {
               </div>
             </div>
           </div>
+          <div className="w-full lg:w-1/2 order-2 lg:order-none">
+            <div className="flex flex-col sm:flex-row gap-4 sm:gap-8 md:gap-16 text-xs md:text-sm p-4 border-t-0 lg:border-t-2 border-white justify-center items-center">
+              <div className="">Copyright © Ratsch Productions </div>
+              <div className="flex items-center gap-2">
+                <FaHeart className="text-red-600" size={12} />
+                <span>Designed by TD Creatives</span>
+              </div>
+            </div>
+          </div>
+
+       
         </div>
       </div>
     </div>

@@ -170,12 +170,34 @@
   box-shadow: 0 0 12px rgba(255, 0, 0, 0.9);
 }
 
+/* Team swiper: center slides when fewer than breakpoint (1 slide = always center; 2–3 = center on lg) */
+.team-swiper.center-slides-1 .swiper-wrapper {
+  justify-content: center;
+}
+
+@media (min-width: 1024px) {
+  .team-swiper.center-slides-few .swiper-wrapper {
+    justify-content: center;
+  }
+}
+
 /* Gallery thumbs swiper */
 .gallery-thumbs-swiper .swiper-slide {
   height: auto;
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+/* Gallery thumbs: center when fewer than breakpoint (≤2 = always; 3–5 = center on md) */
+.gallery-thumbs-swiper.center-slides-1 .swiper-wrapper {
+  justify-content: center;
+}
+
+@media (min-width: 768px) {
+  .gallery-thumbs-swiper.center-slides-few .swiper-wrapper {
+    justify-content: center;
+  }
 }
 
 .gallery-thumbs-swiper .swiper-button-next,

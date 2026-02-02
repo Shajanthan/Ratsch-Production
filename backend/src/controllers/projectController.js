@@ -16,6 +16,8 @@ const toDoc = (doc) => {
     ...d,
     imageUrls: Array.isArray(d.imageUrls) ? d.imageUrls : [],
     imagePublicIds: Array.isArray(d.imagePublicIds) ? d.imagePublicIds : [],
+    bannerImageUrl: d.bannerImageUrl ?? "",
+    bannerImagePublicId: d.bannerImagePublicId ?? "",
     createdAt: d.createdAt?.toDate?.()?.toISOString?.() ?? null,
     updatedAt: d.updatedAt?.toDate?.()?.toISOString?.() ?? null,
   };
@@ -105,6 +107,8 @@ export const addProject = async (req, res) => {
       results = "",
       coverImageUrl = "",
       coverImagePublicId = "",
+      bannerImageUrl = "",
+      bannerImagePublicId = "",
       imageUrls = [],
       imagePublicIds = [],
     } = req.body;
@@ -155,6 +159,8 @@ export const addProject = async (req, res) => {
       results: results || "",
       coverImageUrl: coverImageUrl || "",
       coverImagePublicId: coverImagePublicId || "",
+      bannerImageUrl: bannerImageUrl || "",
+      bannerImagePublicId: bannerImagePublicId || "",
       imageUrls: Array.isArray(imageUrls) ? imageUrls : [],
       imagePublicIds: Array.isArray(imagePublicIds) ? imagePublicIds : [],
       createdAt: new Date(),
@@ -194,6 +200,8 @@ export const updateProject = async (req, res) => {
       results,
       coverImageUrl,
       coverImagePublicId,
+      bannerImageUrl,
+      bannerImagePublicId,
       imageUrls,
       imagePublicIds,
     } = req.body;
@@ -253,6 +261,8 @@ export const updateProject = async (req, res) => {
       results: results ?? "",
       coverImageUrl: coverImageUrl ?? "",
       coverImagePublicId: coverImagePublicId ?? "",
+      bannerImageUrl: bannerImageUrl ?? "",
+      bannerImagePublicId: bannerImagePublicId ?? "",
       imageUrls: Array.isArray(imageUrls) ? imageUrls : [],
       imagePublicIds: Array.isArray(imagePublicIds) ? imagePublicIds : [],
       updatedAt: new Date(),
@@ -305,6 +315,12 @@ export const deleteProject = async (req, res) => {
     const coverId = data.coverImagePublicId || `${CLOUDINARY_PREFIX}/${id}_cover`;
     try {
       await cloudinary.uploader.destroy(coverId);
+    } catch {
+      // ignore
+    }
+    const bannerId = data.bannerImagePublicId || `${CLOUDINARY_PREFIX}/${id}_banner`;
+    try {
+      await cloudinary.uploader.destroy(bannerId);
     } catch {
       // ignore
     }

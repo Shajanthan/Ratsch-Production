@@ -7,6 +7,7 @@ export interface Service {
   mainImagePublicId?: string;
   title: string;
   tagLine: string;
+  shortDescription?: string;
   aboutDescription: string;
   deliverables: string;
   tagColor?: string;

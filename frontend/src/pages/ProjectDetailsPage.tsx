@@ -163,7 +163,7 @@ const ProjectDetailsPage: React.FC = () => {
 
       <div className="relative w-full py-12">
         <img
-          src="/assets/images/bg.png"
+          src="https://res.cloudinary.com/dybv1h20q/image/upload/v1769927519/bg_do9pwv.png"
           className="absolute inset-0 opacity-70 w-full h-full object-cover"
         />
         <div className="bg-black z-10 relative">
@@ -222,9 +222,15 @@ const ProjectDetailsPage: React.FC = () => {
                       setSwiperActiveIndex(swiper.activeIndex);
                     }}
                     breakpoints={{
-                      768: { slidesPerView: 6, spaceBetween: 12 },
+                      768: { slidesPerView: 4, spaceBetween: 8 },
                     }}
-                    className="gallery-thumbs-swiper"
+                    className={`gallery-thumbs-swiper ${
+                      project.galleryImages.length <= 2
+                        ? "center-slides-1"
+                        : project.galleryImages.length <= 4
+                          ? "center-slides-few"
+                          : ""
+                    }`}
                   >
                     {project.galleryImages.map((img, index) => (
                       <SwiperSlide key={index}>
@@ -238,7 +244,7 @@ const ProjectDetailsPage: React.FC = () => {
                               setSwiperActiveIndex(index);
                             }
                           }}
-                          className={`rounded-lg w-[100px] overflow-hidden border-2 cursor-pointer transition-all duration-200 ${
+                          className={`rounded-lg w-[250px] overflow-hidden border-2 cursor-pointer transition-all duration-200 ${
                             swiperActiveIndex === index
                               ? "border-[#BF0000] opacity-100"
                               : "border-transparent opacity-60 hover:opacity-80"
@@ -247,7 +253,7 @@ const ProjectDetailsPage: React.FC = () => {
                           <img
                             src={img}
                             alt={`Gallery ${index + 1}`}
-                            className="w-full h-[80px] md:h-[100px] object-cover"
+                            className="w-full h-[80px] md:h-[130px] object-cover"
                             draggable={false}
                           />
                         </div>

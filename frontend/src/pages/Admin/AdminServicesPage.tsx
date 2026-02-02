@@ -114,8 +114,8 @@ const AdminServicesPage: React.FC = () => {
               Services Management
             </h2>
             <p className="text-white/70 text-sm md:text-base">
-              Manage service main image, title, tag line, about description,
-              deliverables, service images, and brands images.
+              Manage service main image, title, tag line, short description (card), about
+              description, deliverables, service images, and brands images.
             </p>
           </div>
           <button
@@ -157,6 +157,9 @@ const AdminServicesPage: React.FC = () => {
                       Tag line
                     </th>
                     <th className="py-3 px-2 text-white/70 text-xs uppercase tracking-wider font-semibold hidden lg:table-cell">
+                      Short desc (card)
+                    </th>
+                    <th className="py-3 px-2 text-white/70 text-xs uppercase tracking-wider font-semibold hidden xl:table-cell">
                       Tags
                     </th>
                     <th className="py-3 px-2 text-white/70 text-xs uppercase tracking-wider font-semibold text-right w-28">
@@ -190,6 +193,9 @@ const AdminServicesPage: React.FC = () => {
                         {s.tagLine || "—"}
                       </td>
                       <td className="py-3 px-2 text-white/80 hidden lg:table-cell truncate max-w-[180px]">
+                        {s.shortDescription || "—"}
+                      </td>
+                      <td className="py-3 px-2 text-white/80 hidden xl:table-cell truncate max-w-[180px]">
                         {Array.isArray(s.tags) && s.tags.length > 0
                           ? s.tags.join(", ")
                           : "—"}
