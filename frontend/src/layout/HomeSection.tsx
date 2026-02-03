@@ -230,7 +230,7 @@ const HomeSection: React.FC = () => {
       </div>
 
       {/* Desktop: Content - row height = tallest card, all cards stretch to match */}
-      <div className="hidden md:flex absolute bottom-0 left-0 right-0 z-20 items-stretch pb-10 md:pb-20 justify-center container lg:max-w-[1400px] mx-auto px-4 md:px-6 gap-6 md:gap-8 lg:gap-16">
+      <div className="hidden md:flex absolute bottom-0 left-0 right-0 z-20 items-stretch pb-10 md:pb-20 justify-center container mx-auto px-4 md:px-6 gap-6 md:gap-8 lg:gap-16">
         {projects.map((project, index) => (
           <div
             key={index}

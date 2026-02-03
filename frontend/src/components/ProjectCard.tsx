@@ -67,7 +67,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
             <h1 className="">{titleLine}</h1>
             <h1 className="">{titleLine2}</h1>
           </div>
-          <p className="text-white text-left text-xs md:text-sm line-clamp-2 md:line-clamp-none">
+          <p className="text-white text-left text-xs md:text-sm line-clamp-2 md:line-clamp-5">
             {description}
           </p>
           <div className="grid grid-cols-2 md:grid-cols-3 gap-2 md:gap-6 mt-2 md:mt-4 text-xs md:text-sm py-2 md:py-3 pointer-events-none">

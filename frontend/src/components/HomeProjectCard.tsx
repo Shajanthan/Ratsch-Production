@@ -25,7 +25,7 @@ const HomeProjectCard: React.FC<HomeProjectCardProps> = ({
         {title}
       </h2>
       <p
-        className={`font-thin transition-all duration-300 text-sm md:text-base flex-1 min-h-0 ${
+        className={`font-thin transition-all duration-300 text-sm md:text-base flex-1 min-h-0 line-clamp-4 ${
           isActive ? "text-white" : "text-white/60"
         }`}
       >

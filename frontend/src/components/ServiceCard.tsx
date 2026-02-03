@@ -53,7 +53,7 @@ const ServiceCard: React.FC<ServiceCardProps> = ({
         <div className="text-lg md:text-xl uppercase font-bold text-[#FFFFFF]">
           {title}
         </div>
-        <div className="text-[#CCCCCC] leading-relaxed px-2 md:px-4 text-xs md:text-sm flex-1 min-h-0">
+        <div className="text-[#CCCCCC] leading-relaxed px-2 md:px-4 text-xs md:text-sm flex-1 min-h-0 line-clamp-5">
           {description}
         </div>
         <div className="flex flex-wrap gap-2 mt-1 md:mt-2 px-2 md:px-4 flex-shrink-0">

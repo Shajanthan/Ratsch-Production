@@ -50,7 +50,19 @@ const CoreValueSection: React.FC<CoreValueSectionProps> = ({ aboutUs }) => {
 
   const handleSelectIndex = (index: number) => {
     setActiveIndex(index);
-    swiperRef.current?.slideTo(index);
+    if (swiperRef.current) {
+      // Stop autoplay when user manually selects
+      swiperRef.current.autoplay?.stop();
+      if (coreValues.length > 1 && swiperRef.current.params.loop) {
+        swiperRef.current.slideToLoop(index);
+      } else {
+        swiperRef.current.slideTo(index);
+      }
+      // Restart autoplay after a delay
+      setTimeout(() => {
+        swiperRef.current?.autoplay?.start();
+      }, 3000);
+    }
   };
 
   return (

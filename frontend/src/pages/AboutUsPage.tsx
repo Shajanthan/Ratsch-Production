@@ -14,9 +14,9 @@ const AboutUsPage: React.FC = () => {
   const [ceo, setCeo] = useState<CeoSection | null>(null);
   const [teamMembers, setTeamMembers] = useState<TeamMember[]>([]);
 
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
+  // useEffect(() => {
+  //   window.scrollTo(0, 0);
+  // }, []);
 
   useEffect(() => {
     getCeoSection()
@@ -41,7 +41,7 @@ const AboutUsPage: React.FC = () => {
         />
 
         <div className="relative z-20 h-full flex flex-col items-center justify-center text-center px-4 ">
-          <h1 className="text-5xl md:text-7xl lg:text-9xl font-bold uppercase mb-4 text-white">
+          <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold uppercase pb-2 text-white">
             ABOUT US
           </h1>
           <p className="text-xl md:text-2xl lg:text-3xl uppercase text-white/90">
@@ -112,7 +112,7 @@ const AboutUsPage: React.FC = () => {
                 </div>
 
                 {/* CEO Info */}
-                <div>
+                <div className="h-full">
                   {ceo?.firstName || ceo?.lastName ? (
                     <h3 className="text-3xl md:text-4xl uppercase lg:text-5xl font-bold text-white mb-2">
                       {ceo.firstName && (
@@ -134,7 +134,7 @@ const AboutUsPage: React.FC = () => {
                       {ceo.companyName}
                     </p>
                   )}
-                  <p className="text-white/90 text-sm md:text-base leading-relaxed">
+                  <p className="text-white/90 text-sm md:text-base leading-relaxed py-7">
                     {ceo?.description || (
                       <>
                         Lorem ipsum dolor sit amet consectetur. Maecenas varius
