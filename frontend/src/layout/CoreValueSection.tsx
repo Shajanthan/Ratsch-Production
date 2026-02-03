@@ -85,7 +85,11 @@ const CoreValueSection: React.FC<CoreValueSectionProps> = ({ aboutUs }) => {
                 Loading…
               </div>
             ) : coreValues.length === 0 ? null : (
-              <div className="relative">
+              <div
+                className="relative"
+                onMouseEnter={() => swiperRef.current?.autoplay?.stop()}
+                onMouseLeave={() => swiperRef.current?.autoplay?.start()}
+              >
                 <Swiper
                   modules={[EffectFade, A11y, Autoplay]}
                   slidesPerView={1}
