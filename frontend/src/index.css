@@ -17,7 +17,7 @@
 * {
   /* Firefox */
   scrollbar-width: thin;
-  scrollbar-color: #000000 rgba(51, 51, 51, 0.8);
+  scrollbar-color: #FF0000 rgba(51, 51, 51, 0.8);
 }
 
 *::-webkit-scrollbar {
@@ -31,16 +31,16 @@
 }
 
 *::-webkit-scrollbar-thumb {
-  background: #000000;
+  background: #FF0000;
   border-radius: 4px;
 }
 
 *::-webkit-scrollbar-thumb:hover {
-  background: #000000;
+  background: #FF0000;
 }
 
 *::-webkit-scrollbar-thumb:active {
-  background: #000000;
+  background: #FF0000;
 }
 
 *::-webkit-scrollbar-corner {
