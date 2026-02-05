@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
+import { HiX } from "react-icons/hi";
+import { BsChevronLeft, BsChevronRight } from "react-icons/bs";
 import Footer from "@/layout/Footer";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination } from "swiper/modules";
@@ -44,6 +46,8 @@ const ProjectDetailsPage: React.FC = () => {
   const [swiperActiveIndex, setSwiperActiveIndex] = useState(0);
   const [project, setProject] = useState<ProjectData | null>(null);
   const [loading, setLoading] = useState(true);
+  const [isFullscreenOpen, setIsFullscreenOpen] = useState(false);
+  const [fullscreenIndex, setFullscreenIndex] = useState(0);
 
   useEffect(() => {
     let cancelled = false;
@@ -75,6 +79,47 @@ const ProjectDetailsPage: React.FC = () => {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [slugOrId]);
+
+  useEffect(() => {
+    if (!isFullscreenOpen) return;
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        setIsFullscreenOpen(false);
+      } else if (e.key === "ArrowLeft" && project?.galleryImages) {
+        setFullscreenIndex((prev) =>
+          prev > 0 ? prev - 1 : project.galleryImages!.length - 1
+        );
+      } else if (e.key === "ArrowRight" && project?.galleryImages) {
+        setFullscreenIndex((prev) =>
+          prev < project.galleryImages!.length - 1 ? prev + 1 : 0
+        );
+      }
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [isFullscreenOpen, project?.galleryImages]);
+
+  const openFullscreen = (index: number) => {
+    setFullscreenIndex(index);
+    setIsFullscreenOpen(true);
+  };
+
+  const closeFullscreen = () => {
+    setIsFullscreenOpen(false);
+  };
+
+  const navigateFullscreen = (direction: "prev" | "next") => {
+    if (!project?.galleryImages) return;
+    if (direction === "prev") {
+      setFullscreenIndex((prev) =>
+        prev > 0 ? prev - 1 : project.galleryImages!.length - 1
+      );
+    } else {
+      setFullscreenIndex((prev) =>
+        prev < project.galleryImages!.length - 1 ? prev + 1 : 0
+      );
+    }
+  };
 
   if (loading) {
     return (
@@ -202,11 +247,21 @@ const ProjectDetailsPage: React.FC = () => {
               <div className="container lg:max-w-[1400px] mx-auto max-w-7xl">
                 {/* Main Big Image - shows center/selected gallery image */}
                 <div className="mb-6 md:mb-8">
-                  <img
-                    src={project.galleryImages[swiperActiveIndex]}
-                    alt={`Gallery ${swiperActiveIndex + 1}`}
-                    className="w-full h-[280px] md:h-[650px] object-cover rounded-lg transition-opacity duration-300"
-                  />
+                  <div
+                    onClick={() => openFullscreen(swiperActiveIndex)}
+                    className="cursor-pointer group relative"
+                  >
+                    <img
+                      src={project.galleryImages[swiperActiveIndex]}
+                      alt={`Gallery ${swiperActiveIndex + 1}`}
+                      className="w-full h-[280px] md:h-[700px] object-cover rounded-lg transition-opacity duration-300 group-hover:opacity-90"
+                    />
+                    <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-all duration-300 rounded-lg flex items-center justify-center">
+                      <span className="opacity-0 group-hover:opacity-100 text-white text-sm md:text-base uppercase font-semibold transition-opacity duration-300">
+                        Click to view full image
+                      </span>
+                    </div>
+                  </div>
                 </div>
 
                 {/* Thumbnail Swiper - 2 on mobile, 4 on desktop */}
@@ -266,6 +321,52 @@ const ProjectDetailsPage: React.FC = () => {
           )}
         </div>
       </div>
+
+      {/* Fullscreen Image Modal */}
+      {isFullscreenOpen && project.galleryImages && (
+        <div className="fixed inset-0 z-[100] bg-black/95 flex items-center justify-center p-4">
+          <button
+            onClick={closeFullscreen}
+            className="absolute top-4 right-4 md:top-6 md:right-6 z-50 p-3 rounded-full bg-black/60 hover:bg-black/80 text-white transition-colors"
+            aria-label="Close"
+          >
+            <HiX className="w-6 h-6 md:w-8 md:h-8" />
+          </button>
+          
+          {project.galleryImages.length > 1 && (
+            <>
+              <button
+                onClick={() => navigateFullscreen("prev")}
+                className="absolute left-4 md:left-6 z-50 p-3 rounded-full bg-black/60 hover:bg-black/80 text-white transition-colors"
+                aria-label="Previous image"
+              >
+                <BsChevronLeft className="w-6 h-6 md:w-8 md:h-8" />
+              </button>
+              <button
+                onClick={() => navigateFullscreen("next")}
+                className="absolute right-4 md:right-6 z-50 p-3 rounded-full bg-black/60 hover:bg-black/80 text-white transition-colors"
+                aria-label="Next image"
+              >
+                <BsChevronRight className="w-6 h-6 md:w-8 md:h-8" />
+              </button>
+            </>
+          )}
+
+          <div className="relative w-full h-full flex items-center justify-center">
+            <img
+              src={project.galleryImages[fullscreenIndex]}
+              alt={`Gallery ${fullscreenIndex + 1}`}
+              className="max-w-full max-h-full object-contain"
+            />
+          </div>
+
+          {project.galleryImages.length > 1 && (
+            <div className="absolute bottom-4 md:bottom-6 left-1/2 -translate-x-1/2 z-50 bg-black/60 px-4 py-2 rounded-full text-white text-sm">
+              {fullscreenIndex + 1} / {project.galleryImages.length}
+            </div>
+          )}
+        </div>
+      )}
 
       {/* Footer */}
       <Footer />

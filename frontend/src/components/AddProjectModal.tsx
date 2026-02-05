@@ -78,6 +78,10 @@ const AddProjectModal: React.FC<AddProjectModalProps> = ({
   const [imageSlots, setImageSlots] = useState<ImageSlot[]>([]);
   const [categoryDropdownOpen, setCategoryDropdownOpen] = useState(false);
   const categoryDropdownRef = useRef<HTMLDivElement>(null);
+  const initializedProjectIdRef = useRef<string | null>(null);
+  const [uploadingCover, setUploadingCover] = useState(false);
+  const [uploadingBanner, setUploadingBanner] = useState(false);
+  const [uploadingImageIndices, setUploadingImageIndices] = useState<Set<number>>(new Set());
 
   const isEdit = Boolean(initialProject?.id);
 
@@ -120,10 +124,24 @@ const AddProjectModal: React.FC<AddProjectModalProps> = ({
     setBannerImagePreview("");
     setImageSlots([]);
     setError("");
+    setUploadingCover(false);
+    setUploadingBanner(false);
+    setUploadingImageIndices(new Set());
   }, []);
 
   useEffect(() => {
-    if (!isOpen) return;
+    if (!isOpen) {
+      // Reset ref when modal closes
+      initializedProjectIdRef.current = null;
+      return;
+    }
+    
+    // Only initialize if we haven't initialized for this project yet
+    const currentProjectId = initialProject?.id ?? null;
+    if (initializedProjectIdRef.current === currentProjectId) {
+      return; // Already initialized for this project
+    }
+    
     if (initialProject) {
       setTitleLine1(initialProject.titleLine1);
       setTitleLine2(initialProject.titleLine2);
@@ -148,8 +166,10 @@ const AddProjectModal: React.FC<AddProjectModalProps> = ({
           publicId: ids[i],
         })),
       );
+      initializedProjectIdRef.current = currentProjectId;
     } else {
       resetForm();
+      initializedProjectIdRef.current = null;
     }
   }, [isOpen, initialProject, resetForm]);
 
@@ -261,42 +281,73 @@ const AddProjectModal: React.FC<AddProjectModalProps> = ({
       let bannerImagePublicId = initialProject?.bannerImagePublicId ?? "";
 
       if (isEdit && initialProject?.id && coverImageFile) {
-        const oldCoverId =
-          initialProject.coverImagePublicId ||
-          `${initialProject.id}_cover`;
+        setUploadingCover(true);
         try {
-          await deleteCloudinaryImage(oldCoverId);
-        } catch {
-          // ignore
+          const oldCoverId =
+            initialProject.coverImagePublicId ||
+            `${initialProject.id}_cover`;
+          try {
+            await deleteCloudinaryImage(oldCoverId);
+          } catch {
+            // ignore
+          }
+          const { url, publicId } = await uploadImage(
+            coverImageFile,
+            "projects",
+            `${initialProject.id}_cover`,
+          );
+          coverImageUrl = url;
+          coverImagePublicId = publicId;
+        } finally {
+          setUploadingCover(false);
         }
-        const { url, publicId } = await uploadImage(
-          coverImageFile,
-          "projects",
-          `${initialProject.id}_cover`,
-        );
-        coverImageUrl = url;
-        coverImagePublicId = publicId;
       }
 
       if (isEdit && initialProject?.id && bannerImageFile) {
-        const oldBannerId =
-          initialProject.bannerImagePublicId ||
-          `${initialProject.id}_banner`;
+        setUploadingBanner(true);
         try {
-          await deleteCloudinaryImage(oldBannerId);
-        } catch {
-          // ignore
+          const oldBannerId =
+            initialProject.bannerImagePublicId ||
+            `${initialProject.id}_banner`;
+          try {
+            await deleteCloudinaryImage(oldBannerId);
+          } catch {
+            // ignore
+          }
+          const { url, publicId } = await uploadImage(
+            bannerImageFile,
+            "projects",
+            `${initialProject.id}_banner`,
+          );
+          bannerImageUrl = url;
+          bannerImagePublicId = publicId;
+        } finally {
+          setUploadingBanner(false);
         }
-        const { url, publicId } = await uploadImage(
-          bannerImageFile,
-          "projects",
-          `${initialProject.id}_banner`,
-        );
-        bannerImageUrl = url;
-        bannerImagePublicId = publicId;
       }
 
       if (isEdit && initialProject?.id) {
+        // Find images that were removed (exist in original but not in current slots)
+        const originalPublicIds = initialProject.imagePublicIds || [];
+        const remainingPublicIds = new Set<string>();
+        imageSlots.forEach((slot) => {
+          if (slot.type === "existing" && slot.publicId) {
+            remainingPublicIds.add(slot.publicId);
+          }
+        });
+        
+        // Delete removed images from Cloudinary
+        const removedPublicIds = originalPublicIds.filter(
+          (id) => id && !remainingPublicIds.has(id)
+        );
+        for (const publicId of removedPublicIds) {
+          try {
+            await deleteCloudinaryImage(publicId);
+          } catch {
+            // ignore deletion errors
+          }
+        }
+
         const imageUrls: string[] = [];
         const imagePublicIds: string[] = [];
         for (let i = 0; i < imageSlots.length; i++) {
@@ -305,13 +356,22 @@ const AddProjectModal: React.FC<AddProjectModalProps> = ({
             imageUrls.push(slot.url);
             if (slot.publicId) imagePublicIds.push(slot.publicId);
           } else {
-            const { url, publicId } = await uploadImage(
-              slot.file,
-              "projects",
-              `${initialProject.id}_${i}`,
-            );
-            imageUrls.push(url);
-            imagePublicIds.push(publicId);
+            setUploadingImageIndices((prev) => new Set(prev).add(i));
+            try {
+              const { url, publicId } = await uploadImage(
+                slot.file,
+                "projects",
+                `${initialProject.id}_${i}`,
+              );
+              imageUrls.push(url);
+              imagePublicIds.push(publicId);
+            } finally {
+              setUploadingImageIndices((prev) => {
+                const next = new Set(prev);
+                next.delete(i);
+                return next;
+              });
+            }
           }
         }
         await updateProject(initialProject.id, {
@@ -338,22 +398,32 @@ const AddProjectModal: React.FC<AddProjectModalProps> = ({
           imagePublicIds: [],
         });
         if (coverImageFile) {
-          const { url, publicId } = await uploadImage(
-            coverImageFile,
-            "projects",
-            `${id}_cover`,
-          );
-          coverImageUrl = url;
-          coverImagePublicId = publicId;
+          setUploadingCover(true);
+          try {
+            const { url, publicId } = await uploadImage(
+              coverImageFile,
+              "projects",
+              `${id}_cover`,
+            );
+            coverImageUrl = url;
+            coverImagePublicId = publicId;
+          } finally {
+            setUploadingCover(false);
+          }
         }
         if (bannerImageFile) {
-          const { url, publicId } = await uploadImage(
-            bannerImageFile,
-            "projects",
-            `${id}_banner`,
-          );
-          bannerImageUrl = url;
-          bannerImagePublicId = publicId;
+          setUploadingBanner(true);
+          try {
+            const { url, publicId } = await uploadImage(
+              bannerImageFile,
+              "projects",
+              `${id}_banner`,
+            );
+            bannerImageUrl = url;
+            bannerImagePublicId = publicId;
+          } finally {
+            setUploadingBanner(false);
+          }
         }
         const imageUrls: string[] = [];
         const imagePublicIds: string[] = [];
@@ -363,13 +433,22 @@ const AddProjectModal: React.FC<AddProjectModalProps> = ({
             imageUrls.push(slot.url);
             if (slot.publicId) imagePublicIds.push(slot.publicId);
           } else {
-            const { url, publicId } = await uploadImage(
-              slot.file,
-              "projects",
-              `${id}_${i}`,
-            );
-            imageUrls.push(url);
-            imagePublicIds.push(publicId);
+            setUploadingImageIndices((prev) => new Set(prev).add(i));
+            try {
+              const { url, publicId } = await uploadImage(
+                slot.file,
+                "projects",
+                `${id}_${i}`,
+              );
+              imageUrls.push(url);
+              imagePublicIds.push(publicId);
+            } finally {
+              setUploadingImageIndices((prev) => {
+                const next = new Set(prev);
+                next.delete(i);
+                return next;
+              });
+            }
           }
         }
         await updateProject(id, {
@@ -627,11 +706,20 @@ const AddProjectModal: React.FC<AddProjectModalProps> = ({
                     alt="Cover"
                     className="w-full h-40 object-cover"
                   />
+                  {uploadingCover && (
+                    <div className="absolute inset-0 bg-black/70 flex items-center justify-center z-10">
+                      <div className="flex flex-col items-center gap-2">
+                        <div className="w-8 h-8 border-4 border-[#BF0000] border-t-transparent rounded-full animate-spin"></div>
+                        <span className="text-white text-xs">Uploading...</span>
+                      </div>
+                    </div>
+                  )}
                 </div>
                 <button
                   type="button"
                   onClick={handleRemoveCover}
-                  className="absolute top-2 right-2 p-2 rounded-full bg-black/60 hover:bg-red-500/80 text-white transition-colors"
+                  disabled={uploadingCover}
+                  className="absolute top-2 right-2 p-2 rounded-full bg-black/60 hover:bg-red-500/80 text-white transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   <HiX className="w-4 h-4" />
                 </button>
@@ -663,11 +751,20 @@ const AddProjectModal: React.FC<AddProjectModalProps> = ({
                     alt="Banner"
                     className="w-full h-40 object-cover"
                   />
+                  {uploadingBanner && (
+                    <div className="absolute inset-0 bg-black/70 flex items-center justify-center z-10">
+                      <div className="flex flex-col items-center gap-2">
+                        <div className="w-8 h-8 border-4 border-[#BF0000] border-t-transparent rounded-full animate-spin"></div>
+                        <span className="text-white text-xs">Uploading...</span>
+                      </div>
+                    </div>
+                  )}
                 </div>
                 <button
                   type="button"
                   onClick={handleRemoveBanner}
-                  className="absolute top-2 right-2 p-2 rounded-full bg-black/60 hover:bg-red-500/80 text-white transition-colors"
+                  disabled={uploadingBanner}
+                  className="absolute top-2 right-2 p-2 rounded-full bg-black/60 hover:bg-red-500/80 text-white transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   <HiX className="w-4 h-4" />
                 </button>
@@ -690,10 +787,19 @@ const AddProjectModal: React.FC<AddProjectModalProps> = ({
                     alt=""
                     className="w-full h-full object-cover"
                   />
+                  {uploadingImageIndices.has(index) && (
+                    <div className="absolute inset-0 bg-black/70 flex items-center justify-center z-10">
+                      <div className="flex flex-col items-center gap-1">
+                        <div className="w-6 h-6 border-3 border-[#BF0000] border-t-transparent rounded-full animate-spin"></div>
+                        <span className="text-white text-[10px]">Uploading</span>
+                      </div>
+                    </div>
+                  )}
                   <button
                     type="button"
                     onClick={() => handleRemoveImage(index)}
-                    className="absolute top-0.5 right-0.5 p-1 rounded-full bg-black/70 hover:bg-red-500/80 text-white"
+                    disabled={uploadingImageIndices.has(index)}
+                    className="absolute top-0.5 right-0.5 p-1 rounded-full bg-black/70 hover:bg-red-500/80 text-white disabled:opacity-50 disabled:cursor-not-allowed"
                   >
                     <HiX className="w-3 h-3" />
                   </button>
