@@ -24,7 +24,101 @@ export interface UploadResult {
 }
 
 /**
+ * Compress and convert image to WebP format before upload
+ * @param file - Original image file
+ * @param maxWidth - Maximum width (default: 1920)
+ * @param maxHeight - Maximum height (default: 1920)
+ * @param quality - WebP quality 0-1 (default: 0.85)
+ * @returns Compressed WebP File
+ */
+async function compressImage(
+  file: File,
+  maxWidth: number = 1920,
+  maxHeight: number = 1920,
+  quality: number = 0.85,
+): Promise<File> {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      const img = new Image();
+      img.onload = () => {
+        const canvas = document.createElement("canvas");
+        let width = img.width;
+        let height = img.height;
+
+        // Calculate new dimensions maintaining aspect ratio
+        if (width > maxWidth || height > maxHeight) {
+          const ratio = Math.min(maxWidth / width, maxHeight / height);
+          width = width * ratio;
+          height = height * ratio;
+        }
+
+        canvas.width = width;
+        canvas.height = height;
+
+        const ctx = canvas.getContext("2d");
+        if (!ctx) {
+          reject(new Error("Failed to get canvas context"));
+          return;
+        }
+
+        // Draw image with high quality
+        ctx.imageSmoothingEnabled = true;
+        ctx.imageSmoothingQuality = "high";
+        ctx.drawImage(img, 0, 0, width, height);
+
+        // Convert to WebP format (with fallback to JPEG if WebP not supported)
+        const tryWebP = () => {
+          canvas.toBlob(
+            (blob) => {
+              if (!blob) {
+                // Fallback to JPEG if WebP fails
+                canvas.toBlob(
+                  (jpegBlob) => {
+                    if (!jpegBlob) {
+                      reject(new Error("Failed to convert image"));
+                      return;
+                    }
+                    const fileName = file.name.replace(/\.[^/.]+$/, "") + ".jpg";
+                    const compressedFile = new File(
+                      [jpegBlob],
+                      fileName,
+                      { type: "image/jpeg", lastModified: Date.now() }
+                    );
+                    resolve(compressedFile);
+                  },
+                  "image/jpeg",
+                  quality,
+                );
+                return;
+              }
+              // Create new File with WebP format
+              const fileName = file.name.replace(/\.[^/.]+$/, "") + ".webp";
+              const compressedFile = new File(
+                [blob],
+                fileName,
+                { type: "image/webp", lastModified: Date.now() }
+              );
+              resolve(compressedFile);
+            },
+            "image/webp",
+            quality,
+          );
+        };
+        
+        tryWebP();
+      };
+      img.onerror = () => reject(new Error("Failed to load image"));
+      img.src = e.target?.result as string;
+    };
+    reader.onerror = () => reject(new Error("Failed to read file"));
+    reader.readAsDataURL(file);
+  });
+}
+
+/**
  * Upload an image to Cloudinary and return the secure URL and public_id.
+ * Images are automatically compressed and optimized before upload.
  * Use publicId to name the image (e.g. Firebase doc id) so it won't duplicate.
  * @param file - Image file to upload
  * @param folder - Optional folder in Cloudinary (e.g. "reviews", "services")
@@ -41,9 +135,21 @@ export async function uploadImage(
     );
   }
 
+  // Compress and convert to WebP format before upload
+  let optimizedFile = file;
+  try {
+    // Convert all images to WebP format for better compression
+    optimizedFile = await compressImage(file);
+  } catch (error) {
+    console.warn("WebP conversion failed, uploading original:", error);
+    // Continue with original file if conversion fails
+  }
+
   const formData = new FormData();
-  formData.append("file", file);
+  formData.append("file", optimizedFile);
   formData.append("upload_preset", UPLOAD_PRESET);
+  // Note: format and quality parameters are not allowed in unsigned uploads
+  // The file is already converted to WebP client-side before upload
   if (publicId != null && publicId !== "") {
     formData.append("public_id", folder ? `${folder}/${publicId}` : publicId);
   } else if (folder) {
