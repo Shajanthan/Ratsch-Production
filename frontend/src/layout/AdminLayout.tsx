@@ -70,7 +70,7 @@ const AdminLayout: React.FC<AdminLayoutProps> = () => {
           {/* Logo and Close Button */}
           <div className="flex items-center justify-between lg:justify-center p-6 border-b border-white/10">
             <img
-              src="https://res.cloudinary.com/dybv1h20q/image/upload/v1769927286/RatschWhite_rj3oay.png"
+              src="https://res.cloudinary.com/dybv1h20q/image/upload/v1770745345/IMG_0950_xstvv3.png"
               alt="Ratsch Productions"
               className="w-32 h-auto"
             />

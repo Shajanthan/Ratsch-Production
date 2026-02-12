@@ -55,7 +55,7 @@ const SplashScreen: React.FC<SplashScreenProps> = ({
 
   return (
     <div
-      className={`fixed inset-0 z-[9999] flex flex-col items-center justify-center bg-black transition-opacity duration-500 ease-out ${
+      className={`fixed inset-0 z-[9999] flex flex-col items-center justify-center bg-white transition-opacity duration-500 ease-out ${
         isClosing ? "opacity-0" : "opacity-100"
       }`}
       onTransitionEnd={handleTransitionEnd}
@@ -63,7 +63,7 @@ const SplashScreen: React.FC<SplashScreenProps> = ({
     >
       {/* Logo */}
       <img
-        src="https://res.cloudinary.com/dybv1h20q/image/upload/v1769927286/RatschWhite_rj3oay.png"
+        src="https://res.cloudinary.com/dybv1h20q/image/upload/v1770745345/IMG_0950_xstvv3.png"
         alt="Ratsch Productions"
         className="h-20 w-auto object-contain md:h-28"
       />
@@ -75,7 +75,7 @@ const SplashScreen: React.FC<SplashScreenProps> = ({
         />
       </div>
       {/* Typing: "Welcome to Ratsch productions" then cursor or " . . . " */}
-      <p className="mt-4 min-h-[1.5rem] text-sm uppercase tracking-widest text-white/80 md:text-base">
+      <p className="mt-4 min-h-[1.5rem] text-sm uppercase tracking-widest text-black/80 md:text-base">
         {typedText}
         {!typingComplete && (
           <span

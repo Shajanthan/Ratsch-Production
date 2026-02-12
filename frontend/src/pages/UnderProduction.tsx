@@ -28,7 +28,7 @@ const UnderProduction: React.FC = () => {
         {/* Logo */}
         <div className="bg-white lg:pt-12 pt-6 absolute top-0 left-1/2 transform -translate-x-1/2 w-[70%] max-w-[600px] h-[100px] lg:h-[170px] rounded-b-[30px] sm:rounded-b-[40px] md:rounded-b-[50px] flex items-center justify-center">
           <img
-            src="https://res.cloudinary.com/dybv1h20q/image/upload/v1769930090/RB_1_1_nlaoej.png"
+            src="https://res.cloudinary.com/dybv1h20q/image/upload/v1770745345/IMG_0950_xstvv3.png"
             alt="logo"
             className="object-fill w-1/2 sm:w-1/3 lg:w-1/2"
           />

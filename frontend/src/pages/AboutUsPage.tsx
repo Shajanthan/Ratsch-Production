@@ -14,9 +14,9 @@ const AboutUsPage: React.FC = () => {
   const [ceo, setCeo] = useState<CeoSection | null>(null);
   const [teamMembers, setTeamMembers] = useState<TeamMember[]>([]);
 
-  // useEffect(() => {
-  //   window.scrollTo(0, 0);
-  // }, []);
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   useEffect(() => {
     getCeoSection()

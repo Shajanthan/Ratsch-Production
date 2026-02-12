@@ -62,7 +62,7 @@ const LoginPage: React.FC = () => {
           {/* Logo */}
           <div className="flex justify-center mb-8">
             <img
-              src="https://res.cloudinary.com/dybv1h20q/image/upload/v1769927286/RatschWhite_rj3oay.png"
+              src="https://res.cloudinary.com/dybv1h20q/image/upload/v1770745345/IMG_0950_xstvv3.png"
               alt="Ratsch Productions"
               className="w-32 md:w-40"
             />
