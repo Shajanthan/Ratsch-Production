@@ -50,7 +50,8 @@ const AddServiceModal: React.FC<AddServiceModalProps> = ({
   );
   const [serviceImageSlots, setServiceImageSlots] = useState<ImageSlot[]>([]);
   const [brandImageSlots, setBrandImageSlots] = useState<ImageSlot[]>([]);
-  const [aboutDescriptionModalOpen, setAboutDescriptionModalOpen] = useState(false);
+  const [aboutDescriptionModalOpen, setAboutDescriptionModalOpen] =
+    useState(false);
 
   const isEdit = Boolean(initialService?.id);
 
@@ -93,12 +94,8 @@ const AddServiceModal: React.FC<AddServiceModalProps> = ({
           ? initialService.tags.join(", ")
           : "",
       );
-      setTagColor(
-        initialService.tagColor || TAG_COLOR_PRESETS[0].tagColor,
-      );
-      setTextColor(
-        initialService.textColor || TAG_COLOR_PRESETS[0].textColor,
-      );
+      setTagColor(initialService.tagColor || TAG_COLOR_PRESETS[0].tagColor);
+      setTextColor(initialService.textColor || TAG_COLOR_PRESETS[0].textColor);
       setMainImageFile(null);
       setMainImagePreview(initialService.mainImageUrl || "");
       const serviceUrls = initialService.serviceImageUrls || [];
@@ -125,7 +122,8 @@ const AddServiceModal: React.FC<AddServiceModalProps> = ({
   }, [isOpen, initialService, resetForm]);
 
   const revokeNewPreviews = () => {
-    if (mainImageFile && mainImagePreview) URL.revokeObjectURL(mainImagePreview);
+    if (mainImageFile && mainImagePreview)
+      URL.revokeObjectURL(mainImagePreview);
     [...serviceImageSlots, ...brandImageSlots].forEach((slot) => {
       if (slot.type === "new") URL.revokeObjectURL(slot.preview);
     });
@@ -272,12 +270,11 @@ const AddServiceModal: React.FC<AddServiceModalProps> = ({
       };
 
       if (isEdit && initialService?.id) {
-        const { urls: serviceUrls, publicIds: serviceIds } =
-          await uploadSlots(
-            serviceImageSlots,
-            "service",
-            initialService.id,
-          );
+        const { urls: serviceUrls, publicIds: serviceIds } = await uploadSlots(
+          serviceImageSlots,
+          "service",
+          initialService.id,
+        );
         const { urls: brandUrls, publicIds: brandIds } = await uploadSlots(
           brandImageSlots,
           "brand",
@@ -313,8 +310,11 @@ const AddServiceModal: React.FC<AddServiceModalProps> = ({
           mainImageUrl = url;
           mainImagePublicId = publicId;
         }
-        const { urls: serviceUrls, publicIds: serviceIds } =
-          await uploadSlots(serviceImageSlots, "service", id);
+        const { urls: serviceUrls, publicIds: serviceIds } = await uploadSlots(
+          serviceImageSlots,
+          "service",
+          id,
+        );
         const { urls: brandUrls, publicIds: brandIds } = await uploadSlots(
           brandImageSlots,
           "brand",
@@ -379,7 +379,7 @@ const AddServiceModal: React.FC<AddServiceModalProps> = ({
               Service main image *
             </label>
             {!mainImagePreview ? (
-              <label className="flex flex-col items-center justify-center w-full h-32 border-2 border-dashed border-[#333333] hover:border-[#FF0000] transition-all duration-500 rounded-md cursor-pointer bg-[#333333]/30">
+              <label className="flex flex-col items-center justify-center w-full h-32 border-2 border-dashed border-[#333333] hover:border-[#E30514] transition-all duration-500 rounded-md cursor-pointer bg-[#333333]/30">
                 <span className="text-white/70 text-sm mb-1">
                   Click or drag to upload
                 </span>
@@ -419,7 +419,7 @@ const AddServiceModal: React.FC<AddServiceModalProps> = ({
               value={title}
               onChange={(e) => setTitle(e.target.value)}
               required
-              className="w-full border border-[#333333] focus:border-[#FF0000] rounded-md py-2 bg-[#333333] focus:ring-0 focus:outline-none px-3 text-white text-sm"
+              className="w-full border border-[#333333] focus:border-[#E30514] rounded-md py-2 bg-[#333333] focus:ring-0 focus:outline-none px-3 text-white text-sm"
             />
           </div>
 
@@ -431,7 +431,7 @@ const AddServiceModal: React.FC<AddServiceModalProps> = ({
               type="text"
               value={tagLine}
               onChange={(e) => setTagLine(e.target.value)}
-              className="w-full border border-[#333333] focus:border-[#FF0000] rounded-md py-2 bg-[#333333] focus:ring-0 focus:outline-none px-3 text-white text-sm"
+              className="w-full border border-[#333333] focus:border-[#E30514] rounded-md py-2 bg-[#333333] focus:ring-0 focus:outline-none px-3 text-white text-sm"
             />
           </div>
 
@@ -444,7 +444,7 @@ const AddServiceModal: React.FC<AddServiceModalProps> = ({
               value={shortDescription}
               onChange={(e) => setShortDescription(e.target.value)}
               placeholder="Brief text shown on the homepage service cards"
-              className="w-full border border-[#333333] focus:border-[#FF0000] rounded-md py-2 bg-[#333333] focus:ring-0 focus:outline-none px-3 text-white text-sm placeholder-white/40"
+              className="w-full border border-[#333333] focus:border-[#E30514] rounded-md py-2 bg-[#333333] focus:ring-0 focus:outline-none px-3 text-white text-sm placeholder-white/40"
             />
           </div>
 
@@ -487,7 +487,7 @@ const AddServiceModal: React.FC<AddServiceModalProps> = ({
               value={tagsInput}
               onChange={(e) => setTagsInput(e.target.value)}
               placeholder="e.g. Video, Graphic Design, Photography"
-              className="w-full border border-[#333333] focus:border-[#FF0000] rounded-md py-2 bg-[#333333] focus:ring-0 focus:outline-none px-3 text-white text-sm placeholder-white/40"
+              className="w-full border border-[#333333] focus:border-[#E30514] rounded-md py-2 bg-[#333333] focus:ring-0 focus:outline-none px-3 text-white text-sm placeholder-white/40"
             />
             {(() => {
               const tagsList = tagsInput
@@ -529,18 +529,21 @@ const AddServiceModal: React.FC<AddServiceModalProps> = ({
               About description *
             </label>
             <p className="text-white/60 text-xs mb-2">
-              Type your text with indents (spaces or tabs); line breaks and indentation will show on the service page as you type.
+              Type your text with indents (spaces or tabs); line breaks and
+              indentation will show on the service page as you type.
             </p>
             <button
               type="button"
               onClick={() => setAboutDescriptionModalOpen(true)}
-              className="w-full min-h-[120px] text-left border border-[#333333] hover:border-[#FF0000] rounded-md py-3 px-4 bg-[#333333]/50 focus:ring-0 focus:outline-none text-white text-sm font-mono placeholder-white/40 flex items-start justify-between gap-2"
+              className="w-full min-h-[120px] text-left border border-[#333333] hover:border-[#E30514] rounded-md py-3 px-4 bg-[#333333]/50 focus:ring-0 focus:outline-none text-white text-sm font-mono placeholder-white/40 flex items-start justify-between gap-2"
               style={{ whiteSpace: "pre-wrap" }}
             >
               <span className="flex-1 truncate line-clamp-4">
                 {aboutDescription || "Click to open editor…"}
               </span>
-              <span className="flex-shrink-0 text-white/60 text-xs uppercase font-semibold">Edit</span>
+              <span className="flex-shrink-0 text-white/60 text-xs uppercase font-semibold">
+                Edit
+              </span>
             </button>
           </div>
 
@@ -573,7 +576,7 @@ const AddServiceModal: React.FC<AddServiceModalProps> = ({
                     value={aboutDescription}
                     onChange={(e) => setAboutDescription(e.target.value)}
                     placeholder="Type your text. Use Enter for new lines and spaces/tabs for indentation—they will appear the same on the service page."
-                    className="w-full h-full min-h-[480px] border border-[#333333] focus:border-[#FF0000] rounded-md py-3 px-4 bg-[#333333] focus:ring-0 focus:outline-none text-white text-sm resize-none font-mono placeholder-white/40"
+                    className="w-full h-full min-h-[480px] border border-[#333333] focus:border-[#E30514] rounded-md py-3 px-4 bg-[#333333] focus:ring-0 focus:outline-none text-white text-sm resize-none font-mono placeholder-white/40"
                     style={{ whiteSpace: "pre" }}
                     spellCheck="true"
                     autoFocus
@@ -583,7 +586,7 @@ const AddServiceModal: React.FC<AddServiceModalProps> = ({
                   <button
                     type="button"
                     onClick={() => setAboutDescriptionModalOpen(false)}
-                    className="border border-white/30 hover:border-[#FF0000] hover:bg-[#FF0000]/10 px-6 py-2.5 text-white text-sm uppercase font-semibold rounded-md transition-all"
+                    className="border border-white/30 hover:border-[#E30514] hover:bg-[#E30514]/10 px-6 py-2.5 text-white text-sm uppercase font-semibold rounded-md transition-all"
                   >
                     Done
                   </button>
@@ -600,7 +603,7 @@ const AddServiceModal: React.FC<AddServiceModalProps> = ({
               value={deliverables}
               onChange={(e) => setDeliverables(e.target.value)}
               rows={4}
-              className="w-full border border-[#333333] focus:border-[#FF0000] rounded-md py-2 bg-[#333333] focus:ring-0 focus:outline-none px-3 text-white text-sm resize-y"
+              className="w-full border border-[#333333] focus:border-[#E30514] rounded-md py-2 bg-[#333333] focus:ring-0 focus:outline-none px-3 text-white text-sm resize-y"
             />
           </div>
 
@@ -629,7 +632,7 @@ const AddServiceModal: React.FC<AddServiceModalProps> = ({
                 </div>
               ))}
               {serviceImageSlots.length < MAX_SERVICE_IMAGES && (
-                <label className="w-24 h-24 rounded-md border-2 border-dashed border-[#333333] hover:border-[#FF0000] flex items-center justify-center cursor-pointer flex-shrink-0 text-white/50 text-xs">
+                <label className="w-24 h-24 rounded-md border-2 border-dashed border-[#333333] hover:border-[#E30514] flex items-center justify-center cursor-pointer flex-shrink-0 text-white/50 text-xs">
                   <span>+ Add</span>
                   <input
                     type="file"
@@ -667,7 +670,7 @@ const AddServiceModal: React.FC<AddServiceModalProps> = ({
                 </div>
               ))}
               {brandImageSlots.length < MAX_BRAND_IMAGES && (
-                <label className="w-24 h-24 rounded-md border-2 border-dashed border-[#333333] hover:border-[#FF0000] flex items-center justify-center cursor-pointer flex-shrink-0 text-white/50 text-xs">
+                <label className="w-24 h-24 rounded-md border-2 border-dashed border-[#333333] hover:border-[#E30514] flex items-center justify-center cursor-pointer flex-shrink-0 text-white/50 text-xs">
                   <span>+ Add</span>
                   <input
                     type="file"
@@ -691,7 +694,7 @@ const AddServiceModal: React.FC<AddServiceModalProps> = ({
             <button
               type="submit"
               disabled={loading}
-              className="flex-1 border border-[#FF0000] bg-[#FF0000]/20 hover:bg-[#FF0000]/30 text-white transition-all duration-300 py-3 px-6 text-sm uppercase font-semibold rounded-md disabled:opacity-50 disabled:pointer-events-none"
+              className="flex-1 border border-[#E30514] bg-[#E30514]/20 hover:bg-[#E30514]/30 text-white transition-all duration-300 py-3 px-6 text-sm uppercase font-semibold rounded-md disabled:opacity-50 disabled:pointer-events-none"
             >
               {loading
                 ? isEdit

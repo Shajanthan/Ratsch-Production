@@ -50,10 +50,10 @@ const ServiceSection: React.FC<ServiceSectionProps> = () => {
   const [servicesPerPage, setServicesPerPage] = useState(3);
   const [swiperActiveIndex, setSwiperActiveIndex] = useState(0);
   const [flippedCards, setFlippedCards] = useState<{ [key: number]: boolean }>(
-    {}
+    {},
   );
   const [carouselRowHeight, setCarouselRowHeight] = useState<number | null>(
-    null
+    null,
   );
   const swiperRef = useRef<SwiperType | null>(null);
   const desktopCarouselRowRef = useRef<HTMLDivElement | null>(null);
@@ -255,7 +255,7 @@ const ServiceSection: React.FC<ServiceSectionProps> = () => {
                               }}
                               className={`h-1.5 rounded-full transition-all duration-300 ${
                                 swiperActiveIndex === index
-                                  ? "bg-[#BF0000] w-4"
+                                  ? "bg-[#E30514] w-4"
                                   : "bg-white/50 w-1.5"
                               }`}
                               aria-label={`Go to service ${index + 1}`}

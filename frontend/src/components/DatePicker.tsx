@@ -113,7 +113,7 @@ const DatePicker: React.FC<DatePickerProps> = ({
   return (
     <div ref={containerRef} className={`relative ${className}`}>
       <div
-        className="flex items-center gap-2 w-full border border-[#333333] hover:border-[#FF0000] focus-within:border-[#FF0000] rounded-md py-2 bg-[#333333] px-3 text-white text-sm cursor-pointer"
+        className="flex items-center gap-2 w-full border border-[#333333] hover:border-[#E30514] focus-within:border-[#E30514] rounded-md py-2 bg-[#333333] px-3 text-white text-sm cursor-pointer"
         onClick={() => setOpen((o) => !o)}
       >
         <HiCalendar className="w-4 h-4 text-white/50 flex-shrink-0" />
@@ -185,10 +185,10 @@ const DatePicker: React.FC<DatePickerProps> = ({
                   className={[
                     "py-2 rounded transition-colors",
                     isSelected
-                      ? "bg-[#FF0000] text-white font-semibold"
+                      ? "bg-[#E30514] text-white font-semibold"
                       : isToday
-                      ? "bg-white/20 text-white"
-                      : "text-white/90 hover:bg-white/10",
+                        ? "bg-white/20 text-white"
+                        : "text-white/90 hover:bg-white/10",
                   ].join(" ")}
                 >
                   {day}

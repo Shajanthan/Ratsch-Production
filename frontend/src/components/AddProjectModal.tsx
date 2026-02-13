@@ -63,7 +63,9 @@ const AddProjectModal: React.FC<AddProjectModalProps> = ({
   const [error, setError] = useState("");
   const [titleLine1, setTitleLine1] = useState("");
   const [titleLine2, setTitleLine2] = useState("");
-  const [projectCategoryId, setProjectCategoryId] = useState<string | null>(null);
+  const [projectCategoryId, setProjectCategoryId] = useState<string | null>(
+    null,
+  );
   const [projectCategoryInput, setProjectCategoryInput] = useState("");
   const [smallDescription, setSmallDescription] = useState("");
   const [date, setDate] = useState("");
@@ -81,7 +83,9 @@ const AddProjectModal: React.FC<AddProjectModalProps> = ({
   const initializedProjectIdRef = useRef<string | null>(null);
   const [uploadingCover, setUploadingCover] = useState(false);
   const [uploadingBanner, setUploadingBanner] = useState(false);
-  const [uploadingImageIndices, setUploadingImageIndices] = useState<Set<number>>(new Set());
+  const [uploadingImageIndices, setUploadingImageIndices] = useState<
+    Set<number>
+  >(new Set());
 
   const isEdit = Boolean(initialProject?.id);
 
@@ -135,13 +139,13 @@ const AddProjectModal: React.FC<AddProjectModalProps> = ({
       initializedProjectIdRef.current = null;
       return;
     }
-    
+
     // Only initialize if we haven't initialized for this project yet
     const currentProjectId = initialProject?.id ?? null;
     if (initializedProjectIdRef.current === currentProjectId) {
       return; // Already initialized for this project
     }
-    
+
     if (initialProject) {
       setTitleLine1(initialProject.titleLine1);
       setTitleLine2(initialProject.titleLine2);
@@ -174,8 +178,10 @@ const AddProjectModal: React.FC<AddProjectModalProps> = ({
   }, [isOpen, initialProject, resetForm]);
 
   const revokeNewPreviews = () => {
-    if (coverImageFile && coverImagePreview) URL.revokeObjectURL(coverImagePreview);
-    if (bannerImageFile && bannerImagePreview) URL.revokeObjectURL(bannerImagePreview);
+    if (coverImageFile && coverImagePreview)
+      URL.revokeObjectURL(coverImagePreview);
+    if (bannerImageFile && bannerImagePreview)
+      URL.revokeObjectURL(bannerImagePreview);
     imageSlots.forEach((slot) => {
       if (slot.type === "new") URL.revokeObjectURL(slot.preview);
     });
@@ -191,7 +197,8 @@ const AddProjectModal: React.FC<AddProjectModalProps> = ({
     const file = e.target.files?.[0];
     e.target.value = "";
     if (file) {
-      if (coverImageFile && coverImagePreview) URL.revokeObjectURL(coverImagePreview);
+      if (coverImageFile && coverImagePreview)
+        URL.revokeObjectURL(coverImagePreview);
       setCoverImageFile(file);
       setCoverImagePreview(URL.createObjectURL(file));
       setError("");
@@ -200,7 +207,8 @@ const AddProjectModal: React.FC<AddProjectModalProps> = ({
 
   const handleRemoveCover = () => {
     setCoverImageFile(null);
-    if (coverImagePreview && coverImageFile) URL.revokeObjectURL(coverImagePreview);
+    if (coverImagePreview && coverImageFile)
+      URL.revokeObjectURL(coverImagePreview);
     setCoverImagePreview("");
   };
 
@@ -208,7 +216,8 @@ const AddProjectModal: React.FC<AddProjectModalProps> = ({
     const file = e.target.files?.[0];
     e.target.value = "";
     if (file) {
-      if (bannerImageFile && bannerImagePreview) URL.revokeObjectURL(bannerImagePreview);
+      if (bannerImageFile && bannerImagePreview)
+        URL.revokeObjectURL(bannerImagePreview);
       setBannerImageFile(file);
       setBannerImagePreview(URL.createObjectURL(file));
       setError("");
@@ -217,7 +226,8 @@ const AddProjectModal: React.FC<AddProjectModalProps> = ({
 
   const handleRemoveBanner = () => {
     setBannerImageFile(null);
-    if (bannerImagePreview && bannerImageFile) URL.revokeObjectURL(bannerImagePreview);
+    if (bannerImagePreview && bannerImageFile)
+      URL.revokeObjectURL(bannerImagePreview);
     setBannerImagePreview("");
   };
 
@@ -284,8 +294,7 @@ const AddProjectModal: React.FC<AddProjectModalProps> = ({
         setUploadingCover(true);
         try {
           const oldCoverId =
-            initialProject.coverImagePublicId ||
-            `${initialProject.id}_cover`;
+            initialProject.coverImagePublicId || `${initialProject.id}_cover`;
           try {
             await deleteCloudinaryImage(oldCoverId);
           } catch {
@@ -307,8 +316,7 @@ const AddProjectModal: React.FC<AddProjectModalProps> = ({
         setUploadingBanner(true);
         try {
           const oldBannerId =
-            initialProject.bannerImagePublicId ||
-            `${initialProject.id}_banner`;
+            initialProject.bannerImagePublicId || `${initialProject.id}_banner`;
           try {
             await deleteCloudinaryImage(oldBannerId);
           } catch {
@@ -335,10 +343,10 @@ const AddProjectModal: React.FC<AddProjectModalProps> = ({
             remainingPublicIds.add(slot.publicId);
           }
         });
-        
+
         // Delete removed images from Cloudinary
         const removedPublicIds = originalPublicIds.filter(
-          (id) => id && !remainingPublicIds.has(id)
+          (id) => id && !remainingPublicIds.has(id),
         );
         for (const publicId of removedPublicIds) {
           try {
@@ -516,7 +524,7 @@ const AddProjectModal: React.FC<AddProjectModalProps> = ({
                 value={titleLine1}
                 onChange={(e) => setTitleLine1(e.target.value)}
                 required
-                className="w-full border border-[#333333] focus:border-[#FF0000] rounded-md py-2 bg-[#333333] focus:ring-0 focus:outline-none px-3 text-white text-sm"
+                className="w-full border border-[#333333] focus:border-[#E30514] rounded-md py-2 bg-[#333333] focus:ring-0 focus:outline-none px-3 text-white text-sm"
               />
             </div>
             <div>
@@ -528,7 +536,7 @@ const AddProjectModal: React.FC<AddProjectModalProps> = ({
                 value={titleLine2}
                 onChange={(e) => setTitleLine2(e.target.value)}
                 required
-                className="w-full border border-[#333333] focus:border-[#FF0000] rounded-md py-2 bg-[#333333] focus:ring-0 focus:outline-none px-3 text-white text-sm"
+                className="w-full border border-[#333333] focus:border-[#E30514] rounded-md py-2 bg-[#333333] focus:ring-0 focus:outline-none px-3 text-white text-sm"
               />
             </div>
           </div>
@@ -549,7 +557,7 @@ const AddProjectModal: React.FC<AddProjectModalProps> = ({
                 onFocus={() => setCategoryDropdownOpen(true)}
                 placeholder="Type or select a category"
                 required
-                className="w-full border border-[#333333] focus:border-[#FF0000] rounded-md rounded-r-none py-2 bg-[#333333] focus:ring-0 focus:outline-none px-3 text-white text-sm pr-2"
+                className="w-full border border-[#333333] focus:border-[#E30514] rounded-md rounded-r-none py-2 bg-[#333333] focus:ring-0 focus:outline-none px-3 text-white text-sm pr-2"
               />
               {projectCategoryInput.trim() ? (
                 <button
@@ -567,9 +575,7 @@ const AddProjectModal: React.FC<AddProjectModalProps> = ({
               ) : null}
               <button
                 type="button"
-                onClick={() =>
-                  setCategoryDropdownOpen((open) => !open)
-                }
+                onClick={() => setCategoryDropdownOpen((open) => !open)}
                 className="border border-l-0 border-[#333333] rounded-r-md bg-[#333333] text-white/70 hover:text-white hover:bg-[#404040] px-3 focus:outline-none focus:ring-0"
                 aria-label="Toggle category list"
               >
@@ -590,7 +596,7 @@ const AddProjectModal: React.FC<AddProjectModalProps> = ({
                     <li
                       key={cat.id}
                       role="option"
-                      className="px-3 py-2 text-white text-sm cursor-pointer hover:bg-[#FF0000]/20 focus:bg-[#FF0000]/20 focus:outline-none"
+                      className="px-3 py-2 text-white text-sm cursor-pointer hover:bg-[#E30514]/20 focus:bg-[#E30514]/20 focus:outline-none"
                       onClick={() => {
                         setProjectCategoryId(cat.id);
                         setProjectCategoryInput(cat.name || "");
@@ -617,7 +623,7 @@ const AddProjectModal: React.FC<AddProjectModalProps> = ({
               value={smallDescription}
               onChange={(e) => setSmallDescription(e.target.value)}
               rows={2}
-              className="w-full border border-[#333333] focus:border-[#FF0000] rounded-md py-2 bg-[#333333] focus:ring-0 focus:outline-none px-3 text-white text-sm resize-y"
+              className="w-full border border-[#333333] focus:border-[#E30514] rounded-md py-2 bg-[#333333] focus:ring-0 focus:outline-none px-3 text-white text-sm resize-y"
             />
           </div>
 
@@ -641,7 +647,7 @@ const AddProjectModal: React.FC<AddProjectModalProps> = ({
                 value={type}
                 onChange={(e) => setType(e.target.value)}
                 placeholder="e.g. Graphic Design"
-                className="w-full border border-[#333333] focus:border-[#FF0000] rounded-md py-2 bg-[#333333] focus:ring-0 focus:outline-none px-3 text-white text-sm"
+                className="w-full border border-[#333333] focus:border-[#E30514] rounded-md py-2 bg-[#333333] focus:ring-0 focus:outline-none px-3 text-white text-sm"
               />
             </div>
             <div>
@@ -653,7 +659,7 @@ const AddProjectModal: React.FC<AddProjectModalProps> = ({
                 value={client}
                 onChange={(e) => setClient(e.target.value)}
                 placeholder="e.g. TD Creative"
-                className="w-full border border-[#333333] focus:border-[#FF0000] rounded-md py-2 bg-[#333333] focus:ring-0 focus:outline-none px-3 text-white text-sm"
+                className="w-full border border-[#333333] focus:border-[#E30514] rounded-md py-2 bg-[#333333] focus:ring-0 focus:outline-none px-3 text-white text-sm"
               />
             </div>
           </div>
@@ -666,7 +672,7 @@ const AddProjectModal: React.FC<AddProjectModalProps> = ({
               value={overview}
               onChange={(e) => setOverview(e.target.value)}
               rows={3}
-              className="w-full border border-[#333333] focus:border-[#FF0000] rounded-md py-2 bg-[#333333] focus:ring-0 focus:outline-none px-3 text-white text-sm resize-y"
+              className="w-full border border-[#333333] focus:border-[#E30514] rounded-md py-2 bg-[#333333] focus:ring-0 focus:outline-none px-3 text-white text-sm resize-y"
             />
           </div>
 
@@ -678,7 +684,7 @@ const AddProjectModal: React.FC<AddProjectModalProps> = ({
               value={results}
               onChange={(e) => setResults(e.target.value)}
               rows={3}
-              className="w-full border border-[#333333] focus:border-[#FF0000] rounded-md py-2 bg-[#333333] focus:ring-0 focus:outline-none px-3 text-white text-sm resize-y"
+              className="w-full border border-[#333333] focus:border-[#E30514] rounded-md py-2 bg-[#333333] focus:ring-0 focus:outline-none px-3 text-white text-sm resize-y"
             />
           </div>
 
@@ -687,7 +693,7 @@ const AddProjectModal: React.FC<AddProjectModalProps> = ({
               Cover image
             </label>
             {!coverImagePreview ? (
-              <label className="flex flex-col items-center justify-center w-full h-32 border-2 border-dashed border-[#333333] hover:border-[#FF0000] transition-all duration-500 rounded-md cursor-pointer bg-[#333333]/30">
+              <label className="flex flex-col items-center justify-center w-full h-32 border-2 border-dashed border-[#333333] hover:border-[#E30514] transition-all duration-500 rounded-md cursor-pointer bg-[#333333]/30">
                 <span className="text-white/70 text-sm mb-1">
                   Click or drag to upload cover
                 </span>
@@ -709,7 +715,7 @@ const AddProjectModal: React.FC<AddProjectModalProps> = ({
                   {uploadingCover && (
                     <div className="absolute inset-0 bg-black/70 flex items-center justify-center z-10">
                       <div className="flex flex-col items-center gap-2">
-                        <div className="w-8 h-8 border-4 border-[#BF0000] border-t-transparent rounded-full animate-spin"></div>
+                        <div className="w-8 h-8 border-4 border-[#E30514] border-t-transparent rounded-full animate-spin"></div>
                         <span className="text-white text-xs">Uploading...</span>
                       </div>
                     </div>
@@ -732,7 +738,7 @@ const AddProjectModal: React.FC<AddProjectModalProps> = ({
               Banner image
             </label>
             {!bannerImagePreview ? (
-              <label className="flex flex-col items-center justify-center w-full h-32 border-2 border-dashed border-[#333333] hover:border-[#FF0000] transition-all duration-500 rounded-md cursor-pointer bg-[#333333]/30">
+              <label className="flex flex-col items-center justify-center w-full h-32 border-2 border-dashed border-[#333333] hover:border-[#E30514] transition-all duration-500 rounded-md cursor-pointer bg-[#333333]/30">
                 <span className="text-white/70 text-sm mb-1">
                   Click or drag to upload banner
                 </span>
@@ -754,7 +760,7 @@ const AddProjectModal: React.FC<AddProjectModalProps> = ({
                   {uploadingBanner && (
                     <div className="absolute inset-0 bg-black/70 flex items-center justify-center z-10">
                       <div className="flex flex-col items-center gap-2">
-                        <div className="w-8 h-8 border-4 border-[#BF0000] border-t-transparent rounded-full animate-spin"></div>
+                        <div className="w-8 h-8 border-4 border-[#E30514] border-t-transparent rounded-full animate-spin"></div>
                         <span className="text-white text-xs">Uploading...</span>
                       </div>
                     </div>
@@ -790,8 +796,10 @@ const AddProjectModal: React.FC<AddProjectModalProps> = ({
                   {uploadingImageIndices.has(index) && (
                     <div className="absolute inset-0 bg-black/70 flex items-center justify-center z-10">
                       <div className="flex flex-col items-center gap-1">
-                        <div className="w-6 h-6 border-3 border-[#BF0000] border-t-transparent rounded-full animate-spin"></div>
-                        <span className="text-white text-[10px]">Uploading</span>
+                        <div className="w-6 h-6 border-3 border-[#E30514] border-t-transparent rounded-full animate-spin"></div>
+                        <span className="text-white text-[10px]">
+                          Uploading
+                        </span>
                       </div>
                     </div>
                   )}
@@ -806,7 +814,7 @@ const AddProjectModal: React.FC<AddProjectModalProps> = ({
                 </div>
               ))}
               {imageSlots.length < MAX_IMAGES && (
-                <label className="w-24 h-24 rounded-md border-2 border-dashed border-[#333333] hover:border-[#FF0000] flex items-center justify-center cursor-pointer flex-shrink-0 text-white/50 text-xs">
+                <label className="w-24 h-24 rounded-md border-2 border-dashed border-[#333333] hover:border-[#E30514] flex items-center justify-center cursor-pointer flex-shrink-0 text-white/50 text-xs">
                   <span>+ Add</span>
                   <input
                     type="file"
@@ -830,7 +838,7 @@ const AddProjectModal: React.FC<AddProjectModalProps> = ({
             <button
               type="submit"
               disabled={loading}
-              className="flex-1 border border-[#FF0000] bg-[#FF0000]/20 hover:bg-[#FF0000]/30 text-white transition-all duration-300 py-3 px-6 text-sm uppercase font-semibold rounded-md disabled:opacity-50 disabled:pointer-events-none"
+              className="flex-1 border border-[#E30514] bg-[#E30514]/20 hover:bg-[#E30514]/30 text-white transition-all duration-300 py-3 px-6 text-sm uppercase font-semibold rounded-md disabled:opacity-50 disabled:pointer-events-none"
             >
               {loading
                 ? isEdit

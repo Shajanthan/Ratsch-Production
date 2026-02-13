@@ -29,8 +29,7 @@ const AdminCoreValuesPage: React.FC = () => {
       const data = await getCoreValues();
       setCoreValues(data);
     } catch (e) {
-      const msg =
-        e instanceof Error ? e.message : "Failed to load core values";
+      const msg = e instanceof Error ? e.message : "Failed to load core values";
       setError(msg);
       toast.error(msg);
     } finally {
@@ -100,7 +99,7 @@ const AdminCoreValuesPage: React.FC = () => {
           </div>
           <button
             onClick={openAddModal}
-            className="border border-white hover:border-[#FF0000] transition-all duration-300 py-3 px-6 text-white text-sm md:text-base uppercase font-semibold rounded-md hover:bg-[#FF0000]/10"
+            className="border border-white hover:border-[#E30514] transition-all duration-300 py-3 px-6 text-white text-sm md:text-base uppercase font-semibold rounded-md hover:bg-[#E30514]/10"
           >
             Add Core Value
           </button>
@@ -152,7 +151,7 @@ const AdminCoreValuesPage: React.FC = () => {
                     <button
                       type="button"
                       onClick={() => openEditModal(cv)}
-                      className="inline-flex items-center gap-2 border border-white/40 hover:border-[#FF0000] hover:bg-[#FF0000]/10 transition-all duration-300 py-2 px-4 text-white text-xs uppercase font-semibold rounded-md"
+                      className="inline-flex items-center gap-2 border border-white/40 hover:border-[#E30514] hover:bg-[#E30514]/10 transition-all duration-300 py-2 px-4 text-white text-xs uppercase font-semibold rounded-md"
                     >
                       <HiOutlinePencil className="w-4 h-4 flex-shrink-0" />
                       Edit

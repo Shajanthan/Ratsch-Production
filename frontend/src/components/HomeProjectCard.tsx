@@ -34,7 +34,7 @@ const HomeProjectCard: React.FC<HomeProjectCardProps> = ({
       {/* Red indicator bottom - Desktop only */}
       <div
         className={`hidden md:block mt-2 md:mt-4 flex-shrink-0 h-1 rounded-full transition-all duration-300 ${
-          isActive ? "w-full bg-[#BF0000]" : "w-0 bg-[#BF0000]"
+          isActive ? "w-full bg-[#E30514]" : "w-0 bg-[#E30514]"
         }`}
       ></div>
     </div>

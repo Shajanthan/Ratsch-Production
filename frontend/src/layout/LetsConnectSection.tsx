@@ -50,7 +50,7 @@ const LetsConnectSection: React.FC<LetsConnectSectionProps> = ({
                   <div className="py-2 md:py-3">
                     <input
                       type="text"
-                      className="border hover:cursor-default border-[#333333] hover:border-[#FF0000] transition-all duration-500 rounded-md py-3 md:py-4 bg-[#333333] w-full lg:w-3/4 focus:ring-1 ring-[#FF0000] focus:outline-none px-2 text-sm md:text-base"
+                      className="border hover:cursor-default border-[#333333] hover:border-[#E30514] transition-all duration-500 rounded-md py-3 md:py-4 bg-[#333333] w-full lg:w-3/4 focus:ring-1 ring-[#E30514] focus:outline-none px-2 text-sm md:text-base"
                       placeholder="your name here"
                     />
                   </div>
@@ -60,7 +60,7 @@ const LetsConnectSection: React.FC<LetsConnectSectionProps> = ({
                   <div className="py-2 md:py-3">
                     <input
                       type="text"
-                      className="border hover:cursor-default border-[#333333] hover:border-[#FF0000] transition-all duration-500 rounded-md py-3 md:py-4 bg-[#333333] w-full lg:w-3/4 focus:ring-1 ring-[#FF0000] focus:outline-none px-2 text-sm md:text-base"
+                      className="border hover:cursor-default border-[#333333] hover:border-[#E30514] transition-all duration-500 rounded-md py-3 md:py-4 bg-[#333333] w-full lg:w-3/4 focus:ring-1 ring-[#E30514] focus:outline-none px-2 text-sm md:text-base"
                       placeholder="your email here"
                     />
                   </div>
@@ -73,7 +73,7 @@ const LetsConnectSection: React.FC<LetsConnectSectionProps> = ({
                       placeholder="leave your message here"
                       name=""
                       id=""
-                      className="border hover:cursor-default border-[#333333] hover:border-[#FF0000] transition-all duration-500 rounded-md py-3 md:py-4 bg-[#333333] w-full lg:w-3/4 focus:ring-1 ring-[#FF0000] focus:outline-none px-2 text-sm md:text-base resize-none"
+                      className="border hover:cursor-default border-[#333333] hover:border-[#E30514] transition-all duration-500 rounded-md py-3 md:py-4 bg-[#333333] w-full lg:w-3/4 focus:ring-1 ring-[#E30514] focus:outline-none px-2 text-sm md:text-base resize-none"
                     ></textarea>
                   </div>
                 </div>

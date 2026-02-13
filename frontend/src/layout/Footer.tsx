@@ -85,7 +85,10 @@ const Footer: React.FC = () => {
                     to={contactHref}
                     className="hover:text-red-800 cursor-pointer transition-colors duration-300 block"
                     onClick={() => {
-                      if (location.pathname === homeHref || location.pathname === homeHref + "/") {
+                      if (
+                        location.pathname === homeHref ||
+                        location.pathname === homeHref + "/"
+                      ) {
                         const el = document.getElementById("contact");
                         el?.scrollIntoView({ behavior: "smooth" });
                       }
@@ -158,21 +161,21 @@ const Footer: React.FC = () => {
         </div>
 
         <div className="pt-12 md:pt-28 gap-8 lg:gap-0 mx-auto">
-        <div className="flex justify-end items-center pt-5 lg:pt-0">
+          <div className="flex justify-end items-center pt-5 lg:pt-0">
             <div className="w-full lg:w-1/3 flex flex-col items-center">
               <div className="uppercase font-semibold text-xl md:text-2xl lg:text-3xl text-center lg:text-left">
                 Let's connect
               </div>
               <div className="py-4 md:py-5  lg:w-[370px] mx-auto group">
-                <div className=" flex justify-between bg-[#222222] rounded-full items-center pr-6 border border-[#333333] group-hover:border-[#FF0000] transition-all duration-500 cursor-pointer">
+                <div className=" flex justify-between bg-[#222222] rounded-full items-center pr-6 border border-[#333333] group-hover:border-[#E30514] transition-all duration-500 cursor-pointer">
                   <input
                     type="text"
-                    className="bg-[#333333] text-white rounded-full p-3 px-7 w-[300px] text-base border border-[#333333] group-hover:border-[#FF0000] transition-all duration-500"
+                    className="bg-[#333333] text-white rounded-full p-3 px-7 w-[300px] text-base border border-[#333333] group-hover:border-[#E30514] transition-all duration-500"
                     placeholder="info@ratschproductions.com"
                   />
                   <MdOutlineMailOutline
                     size={20}
-                    className="md:w-7 md:h-7 flex-shrink-0 group-hover:text-[#FF0000] transition-colors duration-300"
+                    className="md:w-7 md:h-7 flex-shrink-0 group-hover:text-[#E30514] transition-colors duration-300"
                   />
                 </div>
               </div>
@@ -187,8 +190,6 @@ const Footer: React.FC = () => {
               </div>
             </div>
           </div>
-
-       
         </div>
       </div>
     </div>

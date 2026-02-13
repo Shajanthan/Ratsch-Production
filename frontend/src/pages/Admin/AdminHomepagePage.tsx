@@ -241,7 +241,7 @@ const AdminHomepagePage: React.FC = () => {
               onClick={() => setActiveTab(tab.id)}
               className={`px-4 py-2.5 text-sm font-semibold uppercase rounded-md transition-all duration-200 ${
                 activeTab === tab.id
-                  ? "bg-[#FF0000]/30 border border-[#FF0000] text-white"
+                  ? "bg-[#E30514]/30 border border-[#E30514] text-white"
                   : "bg-white/5 border border-white/10 text-white/70 hover:text-white hover:border-white/20"
               }`}
             >
@@ -349,7 +349,7 @@ const AdminHomepagePage: React.FC = () => {
             type="button"
             onClick={handleSave}
             disabled={saving}
-            className="border border-[#FF0000] bg-[#FF0000]/20 hover:bg-[#FF0000]/30 text-white transition-all duration-300 py-3 px-6 text-sm uppercase font-semibold rounded-md disabled:opacity-50 disabled:pointer-events-none"
+            className="border border-[#E30514] bg-[#E30514]/20 hover:bg-[#E30514]/30 text-white transition-all duration-300 py-3 px-6 text-sm uppercase font-semibold rounded-md disabled:opacity-50 disabled:pointer-events-none"
           >
             {saving ? "Saving…" : "Save homepage settings"}
           </button>

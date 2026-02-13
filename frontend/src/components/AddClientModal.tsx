@@ -56,16 +56,15 @@ const AddClientModal: React.FC<AddClientModalProps> = ({
     }
     setLoading(true);
     try {
-      const { url, publicId } = await uploadImage(
-        imageFile,
-        "clients",
-      );
+      const { url, publicId } = await uploadImage(imageFile, "clients");
       await addClient({ imageUrl: url, imagePublicId: publicId });
       handleClose();
       onSuccess("Client logo added.");
     } catch (err) {
       const msg =
-        err instanceof Error ? err.message : "Failed to add client. Please try again.";
+        err instanceof Error
+          ? err.message
+          : "Failed to add client. Please try again.";
       setError(msg);
       toast.error(msg);
     } finally {
@@ -105,7 +104,7 @@ const AddClientModal: React.FC<AddClientModalProps> = ({
               Client Logo Image *
             </label>
             {!imagePreview ? (
-              <label className="flex flex-col items-center justify-center w-full h-40 border-2 border-dashed border-[#333333] hover:border-[#FF0000] transition-all duration-500 rounded-md cursor-pointer bg-[#333333]/30">
+              <label className="flex flex-col items-center justify-center w-full h-40 border-2 border-dashed border-[#333333] hover:border-[#E30514] transition-all duration-500 rounded-md cursor-pointer bg-[#333333]/30">
                 <span className="text-white/70 text-sm mb-2">
                   Click or drag to upload
                 </span>
@@ -147,7 +146,7 @@ const AddClientModal: React.FC<AddClientModalProps> = ({
             <button
               type="submit"
               disabled={loading || !imageFile}
-              className="flex-1 border border-[#FF0000] bg-[#FF0000]/20 hover:bg-[#FF0000]/30 text-white transition-all duration-300 py-3 px-6 text-sm uppercase font-semibold rounded-md disabled:opacity-50 disabled:pointer-events-none"
+              className="flex-1 border border-[#E30514] bg-[#E30514]/20 hover:bg-[#E30514]/30 text-white transition-all duration-300 py-3 px-6 text-sm uppercase font-semibold rounded-md disabled:opacity-50 disabled:pointer-events-none"
             >
               {loading ? "Adding…" : "Add Client"}
             </button>

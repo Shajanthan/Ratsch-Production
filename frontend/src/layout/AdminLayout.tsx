@@ -76,7 +76,7 @@ const AdminLayout: React.FC<AdminLayoutProps> = () => {
             />
             <button
               onClick={() => setSidebarOpen(false)}
-              className="lg:hidden text-white p-2 hover:text-[#FF0000] transition-colors"
+              className="lg:hidden text-white p-2 hover:text-[#E30514] transition-colors"
             >
               <HiX className="w-6 h-6" />
             </button>
@@ -96,7 +96,7 @@ const AdminLayout: React.FC<AdminLayoutProps> = () => {
                   }}
                   className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-300 ${
                     active
-                      ? "bg-[#FF0000]/20 border border-[#FF0000]/50 text-white"
+                      ? "bg-[#E30514]/20 border border-[#E30514]/50 text-white"
                       : "text-white/70 hover:bg-white/5 hover:text-white border border-transparent"
                   }`}
                 >
@@ -111,7 +111,7 @@ const AdminLayout: React.FC<AdminLayoutProps> = () => {
           <div className="p-4 border-t border-white/10">
             <button
               onClick={handleLogout}
-              className="w-full flex items-center justify-center gap-2 px-4 py-3 rounded-lg border border-white/20 hover:border-[#FF0000] text-white hover:bg-[#FF0000]/10 transition-all duration-300"
+              className="w-full flex items-center justify-center gap-2 px-4 py-3 rounded-lg border border-white/20 hover:border-[#E30514] text-white hover:bg-[#E30514]/10 transition-all duration-300"
             >
               <span className="text-sm font-medium uppercase">Logout</span>
             </button>
@@ -134,7 +134,7 @@ const AdminLayout: React.FC<AdminLayoutProps> = () => {
           <div className="flex items-center gap-4 px-4 md:px-6 py-4">
             <button
               onClick={() => setSidebarOpen(true)}
-              className="lg:hidden text-white p-2 hover:text-[#FF0000] transition-colors flex-shrink-0 relative z-10"
+              className="lg:hidden text-white p-2 hover:text-[#E30514] transition-colors flex-shrink-0 relative z-10"
               aria-label="Open menu"
               type="button"
             >

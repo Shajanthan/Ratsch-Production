@@ -63,7 +63,7 @@ const HomeSection: React.FC = () => {
   // Keep activeIndex in bounds when project list changes (e.g. only 2 selected)
   useEffect(() => {
     setActiveIndex((prev) =>
-      projects.length ? Math.min(prev, projects.length - 1) : 0
+      projects.length ? Math.min(prev, projects.length - 1) : 0,
     );
   }, [projects.length]);
 
@@ -99,7 +99,7 @@ const HomeSection: React.FC = () => {
     if (isRightSwipe) {
       // Infinite loop: if at first, go to last
       setActiveIndex(
-        (prevIndex) => (prevIndex - 1 + projects.length) % projects.length
+        (prevIndex) => (prevIndex - 1 + projects.length) % projects.length,
       );
     }
   };
@@ -221,7 +221,7 @@ const HomeSection: React.FC = () => {
               key={index}
               onClick={() => setActiveIndex(index)}
               className={`h-1.5 rounded-full transition-all duration-300 ${
-                activeIndex === index ? "bg-[#BF0000] w-4" : "bg-white/50 w-1.5"
+                activeIndex === index ? "bg-[#E30514] w-4" : "bg-white/50 w-1.5"
               }`}
               aria-label={`Go to project ${index + 1}`}
             />

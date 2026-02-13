@@ -34,13 +34,17 @@ const Dropdown: React.FC<DropdownProps> = ({
 
   useEffect(() => {
     const handleClickOutside = (e: MouseEvent) => {
-      if (containerRef.current && !containerRef.current.contains(e.target as Node)) {
+      if (
+        containerRef.current &&
+        !containerRef.current.contains(e.target as Node)
+      ) {
         setOpen(false);
       }
     };
     if (open) {
       document.addEventListener("mousedown", handleClickOutside);
-      return () => document.removeEventListener("mousedown", handleClickOutside);
+      return () =>
+        document.removeEventListener("mousedown", handleClickOutside);
     }
   }, [open]);
 
@@ -52,10 +56,7 @@ const Dropdown: React.FC<DropdownProps> = ({
   return (
     <div ref={containerRef} className={`relative ${className}`}>
       {label && (
-        <label
-          htmlFor={id}
-          className="block text-white text-sm uppercase mb-2"
-        >
+        <label htmlFor={id} className="block text-white text-sm uppercase mb-2">
           {label}
         </label>
       )}
@@ -63,7 +64,7 @@ const Dropdown: React.FC<DropdownProps> = ({
         id={id}
         type="button"
         onClick={() => setOpen((o) => !o)}
-        className="w-full flex items-center justify-between gap-2 border border-[#333333] hover:border-[#FF0000] focus:border-[#FF0000] transition-all duration-300 rounded-md py-3 bg-[#333333] focus:ring-0 focus:outline-none px-4 text-white text-left min-h-[52px]"
+        className="w-full flex items-center justify-between gap-2 border border-[#333333] hover:border-[#E30514] focus:border-[#E30514] transition-all duration-300 rounded-md py-3 bg-[#333333] focus:ring-0 focus:outline-none px-4 text-white text-left min-h-[52px]"
         aria-haspopup="listbox"
         aria-expanded={open}
         aria-label={label || placeholder}
@@ -76,7 +77,9 @@ const Dropdown: React.FC<DropdownProps> = ({
               className="w-10 h-10 object-contain rounded bg-white/5 flex-shrink-0"
             />
           )}
-          <span className={value ? "text-white truncate" : "text-white/50 truncate"}>
+          <span
+            className={value ? "text-white truncate" : "text-white/50 truncate"}
+          >
             {displayText}
           </span>
         </span>
@@ -102,13 +105,17 @@ const Dropdown: React.FC<DropdownProps> = ({
             </button>
           </li>
           {options.map((opt) => (
-            <li key={opt.value} role="option" aria-selected={value === opt.value}>
+            <li
+              key={opt.value}
+              role="option"
+              aria-selected={value === opt.value}
+            >
               <button
                 type="button"
                 onClick={() => handleSelect(opt.value)}
                 className={`w-full flex items-center gap-3 text-left px-4 py-2.5 text-sm transition-colors ${
                   value === opt.value
-                    ? "bg-[#FF0000]/20 text-white"
+                    ? "bg-[#E30514]/20 text-white"
                     : "text-white/90 hover:bg-white/10 hover:text-white"
                 }`}
               >

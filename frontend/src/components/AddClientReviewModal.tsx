@@ -250,7 +250,7 @@ const AddClientReviewModal: React.FC<AddClientReviewModalProps> = ({
                 value={formData.firstName}
                 onChange={handleInputChange}
                 required
-                className="w-full border border-[#333333] hover:border-[#FF0000] focus:border-[#FF0000] transition-all duration-500 rounded-md py-3 bg-[#333333] focus:ring-0 focus:outline-none px-4 text-white"
+                className="w-full border border-[#333333] hover:border-[#E30514] focus:border-[#E30514] transition-all duration-500 rounded-md py-3 bg-[#333333] focus:ring-0 focus:outline-none px-4 text-white"
               />
             </div>
             <div>
@@ -263,7 +263,7 @@ const AddClientReviewModal: React.FC<AddClientReviewModalProps> = ({
                 value={formData.lastName}
                 onChange={handleInputChange}
                 required
-                className="w-full border border-[#333333] hover:border-[#FF0000] focus:border-[#FF0000] transition-all duration-500 rounded-md py-3 bg-[#333333] focus:ring-0 focus:outline-none px-4 text-white"
+                className="w-full border border-[#333333] hover:border-[#E30514] focus:border-[#E30514] transition-all duration-500 rounded-md py-3 bg-[#333333] focus:ring-0 focus:outline-none px-4 text-white"
               />
             </div>
           </div>
@@ -279,7 +279,7 @@ const AddClientReviewModal: React.FC<AddClientReviewModalProps> = ({
               onChange={handleInputChange}
               required
               placeholder="e.g. CEO, Marketing Director"
-              className="w-full border border-[#333333] hover:border-[#FF0000] focus:border-[#FF0000] transition-all duration-500 rounded-md py-3 bg-[#333333] focus:ring-0 focus:outline-none px-4 text-white"
+              className="w-full border border-[#333333] hover:border-[#E30514] focus:border-[#E30514] transition-all duration-500 rounded-md py-3 bg-[#333333] focus:ring-0 focus:outline-none px-4 text-white"
             />
           </div>
 
@@ -292,7 +292,7 @@ const AddClientReviewModal: React.FC<AddClientReviewModalProps> = ({
               name="companyName"
               value={formData.companyName}
               onChange={handleInputChange}
-              className="w-full border border-[#333333] hover:border-[#FF0000] focus:border-[#FF0000] transition-all duration-500 rounded-md py-3 bg-[#333333] focus:ring-0 focus:outline-none px-4 text-white"
+              className="w-full border border-[#333333] hover:border-[#E30514] focus:border-[#E30514] transition-all duration-500 rounded-md py-3 bg-[#333333] focus:ring-0 focus:outline-none px-4 text-white"
             />
           </div>
 
@@ -307,7 +307,7 @@ const AddClientReviewModal: React.FC<AddClientReviewModalProps> = ({
               required
               rows={5}
               placeholder="Client testimonial or review text..."
-              className="w-full border border-[#333333] hover:border-[#FF0000] focus:border-[#FF0000] transition-all duration-500 rounded-md py-3 bg-[#333333] focus:ring-0 focus:outline-none px-4 text-white resize-none"
+              className="w-full border border-[#333333] hover:border-[#E30514] focus:border-[#E30514] transition-all duration-500 rounded-md py-3 bg-[#333333] focus:ring-0 focus:outline-none px-4 text-white resize-none"
             />
           </div>
 
@@ -320,7 +320,7 @@ const AddClientReviewModal: React.FC<AddClientReviewModalProps> = ({
               type="file"
               accept="image/*"
               onChange={handleFileChange}
-              className="w-full border border-[#333333] hover:border-[#FF0000] focus:border-[#FF0000] transition-all duration-500 rounded-md py-3 bg-[#333333] focus:ring-0 focus:outline-none px-4 text-white file:mr-4 file:py-2 file:px-4 file:rounded file:border-0 file:text-sm file:font-semibold file:bg-[#FF0000] file:text-white hover:file:bg-[#CC0000]"
+              className="w-full border border-[#333333] hover:border-[#E30514] focus:border-[#E30514] transition-all duration-500 rounded-md py-3 bg-[#333333] focus:ring-0 focus:outline-none px-4 text-white file:mr-4 file:py-2 file:px-4 file:rounded file:border-0 file:text-sm file:font-semibold file:bg-[#E30514] file:text-white hover:file:bg-[#CC0000]"
             />
             {(profilePreview ||
               (isEdit &&
@@ -354,7 +354,7 @@ const AddClientReviewModal: React.FC<AddClientReviewModalProps> = ({
             <button
               type="submit"
               disabled={loading}
-              className="border border-[#FF0000] hover:bg-[#FF0000]/20 transition-all duration-300 py-3 px-6 text-white text-sm uppercase font-semibold rounded-md disabled:opacity-50"
+              className="border border-[#E30514] hover:bg-[#E30514]/20 transition-all duration-300 py-3 px-6 text-white text-sm uppercase font-semibold rounded-md disabled:opacity-50"
             >
               {loading
                 ? isEdit

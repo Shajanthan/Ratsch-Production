@@ -141,7 +141,7 @@ const AdminClientReviewPage: React.FC = () => {
           </div>
           <button
             onClick={openAddModal}
-            className="border border-white hover:border-[#FF0000] transition-all duration-300 py-3 px-6 text-white text-sm md:text-base uppercase font-semibold rounded-md hover:bg-[#FF0000]/10"
+            className="border border-white hover:border-[#E30514] transition-all duration-300 py-3 px-6 text-white text-sm md:text-base uppercase font-semibold rounded-md hover:bg-[#E30514]/10"
           >
             Add New Client Review
           </button>
@@ -204,7 +204,7 @@ const AdminClientReviewPage: React.FC = () => {
                                 name: `${r.firstName} ${r.lastName}`,
                               })
                             }
-                            className="w-full h-full block cursor-pointer hover:ring-2 hover:ring-[#FF0000]/60 hover:ring-offset-2 hover:ring-offset-black transition-all rounded-full focus:outline-none focus:ring-2 focus:ring-[#FF0000]/60"
+                            className="w-full h-full block cursor-pointer hover:ring-2 hover:ring-[#E30514]/60 hover:ring-offset-2 hover:ring-offset-black transition-all rounded-full focus:outline-none focus:ring-2 focus:ring-[#E30514]/60"
                           >
                             <img
                               src={r.profilePictureUrl}
@@ -237,7 +237,7 @@ const AdminClientReviewPage: React.FC = () => {
                         <button
                           type="button"
                           onClick={() => openEditModal(r)}
-                          className="inline-flex items-center gap-2 border border-white/40 hover:border-[#FF0000] hover:bg-[#FF0000]/10 transition-all duration-300 py-2 px-4 text-white text-xs uppercase font-semibold rounded-md"
+                          className="inline-flex items-center gap-2 border border-white/40 hover:border-[#E30514] hover:bg-[#E30514]/10 transition-all duration-300 py-2 px-4 text-white text-xs uppercase font-semibold rounded-md"
                           title="Edit"
                         >
                           <HiOutlinePencil className="w-4 h-4 flex-shrink-0" />
@@ -280,7 +280,7 @@ const AdminClientReviewPage: React.FC = () => {
                 type="button"
                 onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
                 disabled={currentPage <= 1}
-                className="select-none border border-white/30 hover:border-[#FF0000] hover:bg-[#FF0000]/10 disabled:opacity-40 disabled:pointer-events-none transition-all duration-300 py-2 px-4 text-white text-sm font-semibold rounded-md"
+                className="select-none border border-white/30 hover:border-[#E30514] hover:bg-[#E30514]/10 disabled:opacity-40 disabled:pointer-events-none transition-all duration-300 py-2 px-4 text-white text-sm font-semibold rounded-md"
               >
                 Previous
               </button>
@@ -293,7 +293,7 @@ const AdminClientReviewPage: React.FC = () => {
                   setCurrentPage((p) => Math.min(totalPages, p + 1))
                 }
                 disabled={currentPage >= totalPages}
-                className="select-none border border-white/30 hover:border-[#FF0000] hover:bg-[#FF0000]/10 disabled:opacity-40 disabled:pointer-events-none transition-all duration-300 py-2 px-4 text-white text-sm font-semibold rounded-md"
+                className="select-none border border-white/30 hover:border-[#E30514] hover:bg-[#E30514]/10 disabled:opacity-40 disabled:pointer-events-none transition-all duration-300 py-2 px-4 text-white text-sm font-semibold rounded-md"
               >
                 Next
               </button>
@@ -409,7 +409,7 @@ const AdminClientReviewPage: React.FC = () => {
                           name: `${viewingReview.firstName} ${viewingReview.lastName}`,
                         })
                       }
-                      className="w-full h-full block cursor-pointer hover:ring-2 hover:ring-[#FF0000]/60 rounded-full focus:outline-none focus:ring-2 focus:ring-[#FF0000]/60"
+                      className="w-full h-full block cursor-pointer hover:ring-2 hover:ring-[#E30514]/60 rounded-full focus:outline-none focus:ring-2 focus:ring-[#E30514]/60"
                     >
                       <img
                         src={viewingReview.profilePictureUrl}

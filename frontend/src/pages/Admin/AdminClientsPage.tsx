@@ -24,8 +24,7 @@ const AdminClientsPage: React.FC = () => {
       const data = await getClients();
       setClients(data);
     } catch (e) {
-      const msg =
-        e instanceof Error ? e.message : "Failed to load clients";
+      const msg = e instanceof Error ? e.message : "Failed to load clients";
       setError(msg);
       toast.error(msg);
     } finally {
@@ -59,8 +58,7 @@ const AdminClientsPage: React.FC = () => {
       void loadClients();
       toast.success("Client logo deleted.");
     } catch (e) {
-      const msg =
-        e instanceof Error ? e.message : "Failed to delete client";
+      const msg = e instanceof Error ? e.message : "Failed to delete client";
       setError(msg);
       toast.error(msg);
     } finally {
@@ -82,7 +80,7 @@ const AdminClientsPage: React.FC = () => {
           </div>
           <button
             onClick={openAddModal}
-            className="border border-white hover:border-[#FF0000] transition-all duration-300 py-3 px-6 text-white text-sm md:text-base uppercase font-semibold rounded-md hover:bg-[#FF0000]/10"
+            className="border border-white hover:border-[#E30514] transition-all duration-300 py-3 px-6 text-white text-sm md:text-base uppercase font-semibold rounded-md hover:bg-[#E30514]/10"
           >
             Add Client
           </button>

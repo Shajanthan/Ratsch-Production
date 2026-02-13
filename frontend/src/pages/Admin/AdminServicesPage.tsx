@@ -114,13 +114,14 @@ const AdminServicesPage: React.FC = () => {
               Services Management
             </h2>
             <p className="text-white/70 text-sm md:text-base">
-              Manage service main image, title, tag line, short description (card), about
-              description, deliverables, service images, and brands images.
+              Manage service main image, title, tag line, short description
+              (card), about description, deliverables, service images, and
+              brands images.
             </p>
           </div>
           <button
             onClick={openAddModal}
-            className="border border-white hover:border-[#FF0000] transition-all duration-300 py-3 px-6 text-white text-sm md:text-base uppercase font-semibold rounded-md hover:bg-[#FF0000]/10"
+            className="border border-white hover:border-[#E30514] transition-all duration-300 py-3 px-6 text-white text-sm md:text-base uppercase font-semibold rounded-md hover:bg-[#E30514]/10"
           >
             Add Service
           </button>
@@ -205,7 +206,7 @@ const AdminServicesPage: React.FC = () => {
                           <button
                             type="button"
                             onClick={() => openEditModal(s)}
-                            className="inline-flex items-center gap-2 border border-white/40 hover:border-[#FF0000] hover:bg-[#FF0000]/10 transition-all duration-300 py-2 px-4 text-white text-xs uppercase font-semibold rounded-md"
+                            className="inline-flex items-center gap-2 border border-white/40 hover:border-[#E30514] hover:bg-[#E30514]/10 transition-all duration-300 py-2 px-4 text-white text-xs uppercase font-semibold rounded-md"
                           >
                             <HiOutlinePencil className="w-4 h-4 flex-shrink-0" />
                             Edit
@@ -245,7 +246,7 @@ const AdminServicesPage: React.FC = () => {
                   type="button"
                   onClick={() => setServicePage((p) => Math.max(1, p - 1))}
                   disabled={servicePage <= 1}
-                  className="select-none border border-white/30 hover:border-[#FF0000] hover:bg-[#FF0000]/10 disabled:opacity-40 disabled:pointer-events-none transition-all duration-300 py-2 px-4 text-white text-sm font-semibold rounded-md"
+                  className="select-none border border-white/30 hover:border-[#E30514] hover:bg-[#E30514]/10 disabled:opacity-40 disabled:pointer-events-none transition-all duration-300 py-2 px-4 text-white text-sm font-semibold rounded-md"
                 >
                   Previous
                 </button>
@@ -258,7 +259,7 @@ const AdminServicesPage: React.FC = () => {
                     setServicePage((p) => Math.min(serviceTotalPages, p + 1))
                   }
                   disabled={servicePage >= serviceTotalPages}
-                  className="select-none border border-white/30 hover:border-[#FF0000] hover:bg-[#FF0000]/10 disabled:opacity-40 disabled:pointer-events-none transition-all duration-300 py-2 px-4 text-white text-sm font-semibold rounded-md"
+                  className="select-none border border-white/30 hover:border-[#E30514] hover:bg-[#E30514]/10 disabled:opacity-40 disabled:pointer-events-none transition-all duration-300 py-2 px-4 text-white text-sm font-semibold rounded-md"
                 >
                   Next
                 </button>

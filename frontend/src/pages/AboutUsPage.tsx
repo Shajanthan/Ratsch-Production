@@ -54,9 +54,9 @@ const AboutUsPage: React.FC = () => {
       <div className="py-12 md:py-16 px-4 md:px-0 bg-black">
         <div className="container lg:max-w-[1400px] mx-auto">
           <h2 className="text-5xl lg:text-8xl font-bold uppercase md:mb-16 leading-tight">
-            BEGAN AS A SIMPLE <span className="text-[#FF0000]">IDEA</span>,
+            BEGAN AS A SIMPLE <span className="text-[#E30514]">IDEA</span>,
             <br /> NOW GROWN INTO A{" "}
-            <span className="text-[#FF0000]">JOURNEY</span>
+            <span className="text-[#E30514]">JOURNEY</span>
           </h2>
 
           {/* Logos */}
@@ -224,7 +224,7 @@ const AboutUsPage: React.FC = () => {
                       <h4 className="text-white font-semibold capitalize text-base md:text-lg lg:text-xl mt-4 mb-1">
                         {member.fullName}
                       </h4>
-                      <p className="text-[#FF0000] uppercase text-xs md:text-sm">
+                      <p className="text-[#E30514] uppercase text-xs md:text-sm">
                         {member.position}
                       </p>
                     </div>

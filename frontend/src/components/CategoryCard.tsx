@@ -21,7 +21,7 @@ interface CategoryCardProps {
 
 function ProjectTile({ item }: { item: CategoryCardItem }) {
   return (
-    <div className="relative aspect-square overflow-hidden bg-black group hover:cursor-pointer transition-all duration-400 ease-out hover:ring-2 hover:ring-[#BF0000]/50 hover:ring-inset">
+    <div className="relative aspect-square overflow-hidden bg-black group hover:cursor-pointer transition-all duration-400 ease-out hover:ring-2 hover:ring-[#E30514]/50 hover:ring-inset">
       <img
         src={item.image}
         alt={item.projectTitle1}

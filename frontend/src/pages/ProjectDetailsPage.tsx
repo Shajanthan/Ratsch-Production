@@ -8,7 +8,11 @@ import { Navigation, Pagination } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
-import { getProjects, slugFromTitleLines, type Project } from "../services/projectService";
+import {
+  getProjects,
+  slugFromTitleLines,
+  type Project,
+} from "../services/projectService";
 
 interface ProjectData {
   id: string;
@@ -87,11 +91,11 @@ const ProjectDetailsPage: React.FC = () => {
         setIsFullscreenOpen(false);
       } else if (e.key === "ArrowLeft" && project?.galleryImages) {
         setFullscreenIndex((prev) =>
-          prev > 0 ? prev - 1 : project.galleryImages!.length - 1
+          prev > 0 ? prev - 1 : project.galleryImages!.length - 1,
         );
       } else if (e.key === "ArrowRight" && project?.galleryImages) {
         setFullscreenIndex((prev) =>
-          prev < project.galleryImages!.length - 1 ? prev + 1 : 0
+          prev < project.galleryImages!.length - 1 ? prev + 1 : 0,
         );
       }
     };
@@ -112,11 +116,11 @@ const ProjectDetailsPage: React.FC = () => {
     if (!project?.galleryImages) return;
     if (direction === "prev") {
       setFullscreenIndex((prev) =>
-        prev > 0 ? prev - 1 : project.galleryImages!.length - 1
+        prev > 0 ? prev - 1 : project.galleryImages!.length - 1,
       );
     } else {
       setFullscreenIndex((prev) =>
-        prev < project.galleryImages!.length - 1 ? prev + 1 : 0
+        prev < project.galleryImages!.length - 1 ? prev + 1 : 0,
       );
     }
   };
@@ -135,7 +139,11 @@ const ProjectDetailsPage: React.FC = () => {
         <div className="text-center">
           <h1 className="text-4xl mb-4">Project Not Found</h1>
           <button
-            onClick={() => navigate(window.location.pathname.startsWith("/demo") ? "/demo" : "/")}
+            onClick={() =>
+              navigate(
+                window.location.pathname.startsWith("/demo") ? "/demo" : "/",
+              )
+            }
             className="text-red-500 hover:text-red-600"
           >
             Go Back Home
@@ -303,7 +311,7 @@ const ProjectDetailsPage: React.FC = () => {
                           }}
                           className={`rounded-lg w-[250px] overflow-hidden border-2 cursor-pointer transition-all duration-200 ${
                             swiperActiveIndex === index
-                              ? "border-[#BF0000] opacity-100"
+                              ? "border-[#E30514] opacity-100"
                               : "border-transparent opacity-60 hover:opacity-80"
                           }`}
                         >
@@ -334,7 +342,7 @@ const ProjectDetailsPage: React.FC = () => {
           >
             <HiX className="w-6 h-6 md:w-8 md:h-8" />
           </button>
-          
+
           {project.galleryImages.length > 1 && (
             <>
               <button

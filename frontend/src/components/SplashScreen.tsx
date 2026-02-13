@@ -70,7 +70,7 @@ const SplashScreen: React.FC<SplashScreenProps> = ({
       {/* Loading bar: 0 → 100% width */}
       <div className="mt-8 h-2 w-48 overflow-hidden rounded-sm border border-white/20 bg-white/10 md:h-2.5 md:w-64">
         <div
-          className="h-full rounded-sm bg-[#BF0000] transition-[width] duration-300 ease-out"
+          className="h-full rounded-sm bg-[#E30514] transition-[width] duration-300 ease-out"
           style={{ width: `${Math.min(100, Math.max(0, progress))}%` }}
         />
       </div>

@@ -1,10 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { HiX } from "react-icons/hi";
 import { uploadImage } from "../services/cloudinaryService";
-import {
-  updateCeoSection,
-  type CeoSection,
-} from "../services/aboutUsService";
+import { updateCeoSection, type CeoSection } from "../services/aboutUsService";
 import { useToast } from "../context/ToastContext";
 
 interface EditCeoModalProps {
@@ -144,7 +141,7 @@ const EditCeoModal: React.FC<EditCeoModalProps> = ({
               CEO Image *
             </label>
             {!imagePreview ? (
-              <label className="flex flex-col items-center justify-center w-full h-40 border-2 border-dashed border-[#333333] hover:border-[#FF0000] transition-all duration-500 rounded-md cursor-pointer bg-[#333333]/30">
+              <label className="flex flex-col items-center justify-center w-full h-40 border-2 border-dashed border-[#333333] hover:border-[#E30514] transition-all duration-500 rounded-md cursor-pointer bg-[#333333]/30">
                 <span className="text-white/70 text-sm mb-2">
                   Click or drag to upload
                 </span>
@@ -185,7 +182,7 @@ const EditCeoModal: React.FC<EditCeoModalProps> = ({
                 value={firstName}
                 onChange={(e) => setFirstName(e.target.value)}
                 required
-                className="w-full border border-[#333333] hover:border-[#FF0000] focus:border-[#FF0000] transition-all duration-500 rounded-md py-3 bg-[#333333] focus:ring-0 focus:outline-none px-4 text-white"
+                className="w-full border border-[#333333] hover:border-[#E30514] focus:border-[#E30514] transition-all duration-500 rounded-md py-3 bg-[#333333] focus:ring-0 focus:outline-none px-4 text-white"
                 placeholder="John"
               />
             </div>
@@ -198,7 +195,7 @@ const EditCeoModal: React.FC<EditCeoModalProps> = ({
                 value={lastName}
                 onChange={(e) => setLastName(e.target.value)}
                 required
-                className="w-full border border-[#333333] hover:border-[#FF0000] focus:border-[#FF0000] transition-all duration-500 rounded-md py-3 bg-[#333333] focus:ring-0 focus:outline-none px-4 text-white"
+                className="w-full border border-[#333333] hover:border-[#E30514] focus:border-[#E30514] transition-all duration-500 rounded-md py-3 bg-[#333333] focus:ring-0 focus:outline-none px-4 text-white"
                 placeholder="Doe"
               />
             </div>
@@ -212,7 +209,7 @@ const EditCeoModal: React.FC<EditCeoModalProps> = ({
               value={description}
               onChange={(e) => setDescription(e.target.value)}
               rows={4}
-              className="w-full border border-[#333333] hover:border-[#FF0000] focus:border-[#FF0000] transition-all duration-500 rounded-md py-3 bg-[#333333] focus:ring-0 focus:outline-none px-4 text-white resize-y"
+              className="w-full border border-[#333333] hover:border-[#E30514] focus:border-[#E30514] transition-all duration-500 rounded-md py-3 bg-[#333333] focus:ring-0 focus:outline-none px-4 text-white resize-y"
               placeholder="A short bio or message from the CEO…"
             />
           </div>
@@ -228,7 +225,7 @@ const EditCeoModal: React.FC<EditCeoModalProps> = ({
             <button
               type="submit"
               disabled={loading}
-              className="flex-1 border border-[#FF0000] bg-[#FF0000]/20 hover:bg-[#FF0000]/30 text-white transition-all duration-300 py-3 px-6 text-sm uppercase font-semibold rounded-md disabled:opacity-50 disabled:pointer-events-none"
+              className="flex-1 border border-[#E30514] bg-[#E30514]/20 hover:bg-[#E30514]/30 text-white transition-all duration-300 py-3 px-6 text-sm uppercase font-semibold rounded-md disabled:opacity-50 disabled:pointer-events-none"
             >
               {loading ? "Updating…" : "Update CEO Section"}
             </button>

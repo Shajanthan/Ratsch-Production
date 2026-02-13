@@ -98,10 +98,10 @@ const Navbar: React.FC = () => {
               <button
                 key={item.sectionId}
                 onClick={() => handleNavClick(item.sectionId)}
-                className="text-white text-sm xl:text-base transition-colors relative group hover:text-[#BF0000]"
+                className="text-white text-sm xl:text-base transition-colors relative group hover:text-[#E30514]"
               >
                 {item.label}
-                <span className="absolute bottom-0 left-0 h-0.5 bg-[#BF0000] transition-all duration-300 w-0 group-hover:w-full"></span>
+                <span className="absolute bottom-0 left-0 h-0.5 bg-[#E30514] transition-all duration-300 w-0 group-hover:w-full"></span>
               </button>
             ))}
           </div>
@@ -137,7 +137,7 @@ const Navbar: React.FC = () => {
               <button
                 key={item.sectionId}
                 onClick={() => handleNavClick(item.sectionId)}
-                className="text-white text-base py-2 transition-colors hover:text-[#BF0000] text-left font-medium"
+                className="text-white text-base py-2 transition-colors hover:text-[#E30514] text-left font-medium"
               >
                 {item.label}
               </button>

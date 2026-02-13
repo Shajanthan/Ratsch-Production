@@ -64,7 +64,8 @@ const AddTeamMemberModal: React.FC<AddTeamMemberModalProps> = ({
 
   const handleClose = () => {
     setImageFile(null);
-    if (imagePreview && imagePreview.startsWith("blob:")) URL.revokeObjectURL(imagePreview);
+    if (imagePreview && imagePreview.startsWith("blob:"))
+      URL.revokeObjectURL(imagePreview);
     setImagePreview("");
     setFullName("");
     setPosition("");
@@ -150,7 +151,7 @@ const AddTeamMemberModal: React.FC<AddTeamMemberModalProps> = ({
               Image
             </label>
             {!imagePreview ? (
-              <label className="flex flex-col items-center justify-center w-full h-40 border-2 border-dashed border-[#333333] hover:border-[#FF0000] transition-all duration-500 rounded-md cursor-pointer bg-[#333333]/30">
+              <label className="flex flex-col items-center justify-center w-full h-40 border-2 border-dashed border-[#333333] hover:border-[#E30514] transition-all duration-500 rounded-md cursor-pointer bg-[#333333]/30">
                 <span className="text-white/70 text-sm mb-2">
                   Click or drag to upload
                 </span>
@@ -190,7 +191,7 @@ const AddTeamMemberModal: React.FC<AddTeamMemberModalProps> = ({
               value={fullName}
               onChange={(e) => setFullName(e.target.value)}
               required
-              className="w-full border border-[#333333] hover:border-[#FF0000] focus:border-[#FF0000] transition-all duration-500 rounded-md py-3 bg-[#333333] focus:ring-0 focus:outline-none px-4 text-white"
+              className="w-full border border-[#333333] hover:border-[#E30514] focus:border-[#E30514] transition-all duration-500 rounded-md py-3 bg-[#333333] focus:ring-0 focus:outline-none px-4 text-white"
               placeholder="e.g. John Doe"
             />
           </div>
@@ -203,7 +204,7 @@ const AddTeamMemberModal: React.FC<AddTeamMemberModalProps> = ({
               type="text"
               value={position}
               onChange={(e) => setPosition(e.target.value)}
-              className="w-full border border-[#333333] hover:border-[#FF0000] focus:border-[#FF0000] transition-all duration-500 rounded-md py-3 bg-[#333333] focus:ring-0 focus:outline-none px-4 text-white"
+              className="w-full border border-[#333333] hover:border-[#E30514] focus:border-[#E30514] transition-all duration-500 rounded-md py-3 bg-[#333333] focus:ring-0 focus:outline-none px-4 text-white"
               placeholder="e.g. Creative Director"
             />
           </div>
@@ -219,7 +220,7 @@ const AddTeamMemberModal: React.FC<AddTeamMemberModalProps> = ({
             <button
               type="submit"
               disabled={loading || !fullName.trim()}
-              className="flex-1 border border-[#FF0000] bg-[#FF0000]/20 hover:bg-[#FF0000]/30 text-white transition-all duration-300 py-3 px-6 text-sm uppercase font-semibold rounded-md disabled:opacity-50 disabled:pointer-events-none"
+              className="flex-1 border border-[#E30514] bg-[#E30514]/20 hover:bg-[#E30514]/30 text-white transition-all duration-300 py-3 px-6 text-sm uppercase font-semibold rounded-md disabled:opacity-50 disabled:pointer-events-none"
             >
               {loading
                 ? isEdit

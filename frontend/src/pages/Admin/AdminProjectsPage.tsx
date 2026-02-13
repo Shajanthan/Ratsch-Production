@@ -152,8 +152,8 @@ const AdminProjectsPage: React.FC = () => {
           ? (e as { response?: { data?: { message?: string } } }).response?.data
               ?.message
           : e instanceof Error
-          ? e.message
-          : "Failed to delete category";
+            ? e.message
+            : "Failed to delete category";
       toast.error(msg ?? "Failed to delete category");
     } finally {
       setDeletingCategoryId(null);
@@ -254,7 +254,7 @@ const AdminProjectsPage: React.FC = () => {
                 onClick={() => setActiveTab(tab.id)}
                 className={`px-4 py-2.5 text-sm font-semibold uppercase rounded-md transition-all duration-200 ${
                   activeTab === tab.id
-                    ? "bg-[#FF0000]/30 border border-[#FF0000] text-white"
+                    ? "bg-[#E30514]/30 border border-[#E30514] text-white"
                     : "bg-white/5 border border-white/10 text-white/70 hover:text-white hover:border-white/20"
                 }`}
               >
@@ -265,7 +265,7 @@ const AdminProjectsPage: React.FC = () => {
           {activeTab === "projects" && (
             <button
               onClick={openAddModal}
-              className="border border-white hover:border-[#FF0000] transition-all duration-300 py-2 px-6 text-white text-sm md:text-base uppercase font-semibold rounded-md hover:bg-[#FF0000]/10"
+              className="border border-white hover:border-[#E30514] transition-all duration-300 py-2 px-6 text-white text-sm md:text-base uppercase font-semibold rounded-md hover:bg-[#E30514]/10"
             >
               Add Project
             </button>
@@ -360,7 +360,7 @@ const AdminProjectsPage: React.FC = () => {
                               <button
                                 type="button"
                                 onClick={() => openEditModal(p)}
-                                className="inline-flex items-center gap-2 border border-white/40 hover:border-[#FF0000] hover:bg-[#FF0000]/10 transition-all duration-300 py-2 px-4 text-white text-xs uppercase font-semibold rounded-md"
+                                className="inline-flex items-center gap-2 border border-white/40 hover:border-[#E30514] hover:bg-[#E30514]/10 transition-all duration-300 py-2 px-4 text-white text-xs uppercase font-semibold rounded-md"
                               >
                                 <HiOutlinePencil className="w-4 h-4 flex-shrink-0" />
                                 Edit
@@ -403,7 +403,7 @@ const AdminProjectsPage: React.FC = () => {
                       type="button"
                       onClick={() => setProjectPage((p) => Math.max(1, p - 1))}
                       disabled={projectPage <= 1}
-                      className="select-none border border-white/30 hover:border-[#FF0000] hover:bg-[#FF0000]/10 disabled:opacity-40 disabled:pointer-events-none transition-all duration-300 py-2 px-4 text-white text-sm font-semibold rounded-md"
+                      className="select-none border border-white/30 hover:border-[#E30514] hover:bg-[#E30514]/10 disabled:opacity-40 disabled:pointer-events-none transition-all duration-300 py-2 px-4 text-white text-sm font-semibold rounded-md"
                     >
                       Previous
                     </button>
@@ -418,7 +418,7 @@ const AdminProjectsPage: React.FC = () => {
                         )
                       }
                       disabled={projectPage >= projectTotalPages}
-                      className="select-none border border-white/30 hover:border-[#FF0000] hover:bg-[#FF0000]/10 disabled:opacity-40 disabled:pointer-events-none transition-all duration-300 py-2 px-4 text-white text-sm font-semibold rounded-md"
+                      className="select-none border border-white/30 hover:border-[#E30514] hover:bg-[#E30514]/10 disabled:opacity-40 disabled:pointer-events-none transition-all duration-300 py-2 px-4 text-white text-sm font-semibold rounded-md"
                     >
                       Next
                     </button>
@@ -480,7 +480,7 @@ const AdminProjectsPage: React.FC = () => {
                               <button
                                 type="button"
                                 onClick={() => openEditCategory(cat)}
-                                className="inline-flex items-center gap-2 border border-white/40 hover:border-[#FF0000] hover:bg-[#FF0000]/10 transition-all duration-300 py-2 px-4 text-white text-xs uppercase font-semibold rounded-md"
+                                className="inline-flex items-center gap-2 border border-white/40 hover:border-[#E30514] hover:bg-[#E30514]/10 transition-all duration-300 py-2 px-4 text-white text-xs uppercase font-semibold rounded-md"
                                 title="Edit"
                               >
                                 <HiOutlinePencil className="w-4 h-4 flex-shrink-0" />
@@ -527,7 +527,7 @@ const AdminProjectsPage: React.FC = () => {
                       type="button"
                       onClick={() => setCategoryPage((p) => Math.max(1, p - 1))}
                       disabled={categoryPage <= 1}
-                      className="select-none border border-white/30 hover:border-[#FF0000] hover:bg-[#FF0000]/10 disabled:opacity-40 disabled:pointer-events-none transition-all duration-300 py-2 px-4 text-white text-sm font-semibold rounded-md"
+                      className="select-none border border-white/30 hover:border-[#E30514] hover:bg-[#E30514]/10 disabled:opacity-40 disabled:pointer-events-none transition-all duration-300 py-2 px-4 text-white text-sm font-semibold rounded-md"
                     >
                       Previous
                     </button>
@@ -542,7 +542,7 @@ const AdminProjectsPage: React.FC = () => {
                         )
                       }
                       disabled={categoryPage >= categoryTotalPages}
-                      className="select-none border border-white/30 hover:border-[#FF0000] hover:bg-[#FF0000]/10 disabled:opacity-40 disabled:pointer-events-none transition-all duration-300 py-2 px-4 text-white text-sm font-semibold rounded-md"
+                      className="select-none border border-white/30 hover:border-[#E30514] hover:bg-[#E30514]/10 disabled:opacity-40 disabled:pointer-events-none transition-all duration-300 py-2 px-4 text-white text-sm font-semibold rounded-md"
                     >
                       Next
                     </button>
@@ -643,7 +643,7 @@ const AdminProjectsPage: React.FC = () => {
               type="text"
               value={categoryName}
               onChange={(e) => setCategoryName(e.target.value)}
-              className="w-full border border-[#333333] focus:border-[#FF0000] rounded-md py-2 bg-[#333333] focus:ring-0 focus:outline-none px-3 text-white text-sm mb-4"
+              className="w-full border border-[#333333] focus:border-[#E30514] rounded-md py-2 bg-[#333333] focus:ring-0 focus:outline-none px-3 text-white text-sm mb-4"
               placeholder="Category name"
             />
             <label className="block text-white/80 text-sm uppercase mb-1">
@@ -653,7 +653,7 @@ const AdminProjectsPage: React.FC = () => {
               value={categoryDescription}
               onChange={(e) => setCategoryDescription(e.target.value)}
               rows={4}
-              className="w-full border border-[#333333] focus:border-[#FF0000] rounded-md py-2 bg-[#333333] focus:ring-0 focus:outline-none px-3 text-white text-sm resize-y mb-4"
+              className="w-full border border-[#333333] focus:border-[#E30514] rounded-md py-2 bg-[#333333] focus:ring-0 focus:outline-none px-3 text-white text-sm resize-y mb-4"
               placeholder="Add a description for this category…"
             />
             <div className="flex gap-3 justify-end">
@@ -668,7 +668,7 @@ const AdminProjectsPage: React.FC = () => {
                 type="button"
                 onClick={saveCategory}
                 disabled={savingCategory}
-                className="border border-[#FF0000] bg-[#FF0000]/20 hover:bg-[#FF0000]/30 py-2 px-4 text-white text-sm uppercase font-semibold rounded-md disabled:opacity-50"
+                className="border border-[#E30514] bg-[#E30514]/20 hover:bg-[#E30514]/30 py-2 px-4 text-white text-sm uppercase font-semibold rounded-md disabled:opacity-50"
               >
                 {savingCategory ? "Saving…" : "Save"}
               </button>

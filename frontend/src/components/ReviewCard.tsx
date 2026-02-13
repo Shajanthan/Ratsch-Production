@@ -24,7 +24,7 @@ const ReviewCard: React.FC<ReviewCardProps> = ({
         <div className="py-2 md:py-3 text-sm md:text-base">{review}</div>
       </div>
       <div className="flex items-center gap-3 md:gap-4 mt-auto">
-        <div className="rounded-full w-10 h-10 md:w-12 md:h-12 bg-black flex items-center justify-center text-lg md:text-xl font-bold text-[#FF0000] flex-shrink-0">
+        <div className="rounded-full w-10 h-10 md:w-12 md:h-12 bg-black flex items-center justify-center text-lg md:text-xl font-bold text-[#E30514] flex-shrink-0">
           {profile ? (
             <img
               src={profile}
@@ -36,7 +36,7 @@ const ReviewCard: React.FC<ReviewCardProps> = ({
           )}
         </div>
         <div className="min-w-0">
-          <div className="text-[#FF0000] font-semibold text-sm md:text-base">
+          <div className="text-[#E30514] font-semibold text-sm md:text-base">
             {name}
           </div>
           <div className="text-[#CCCCCC] text-xs md:text-sm">{position}</div>

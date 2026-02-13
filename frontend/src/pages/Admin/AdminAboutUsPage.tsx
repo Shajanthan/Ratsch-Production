@@ -8,10 +8,7 @@ import {
 } from "react-icons/hi";
 import EditCeoModal from "../../components/EditCeoModal";
 import AddTeamMemberModal from "../../components/AddTeamMemberModal";
-import {
-  getCeoSection,
-  type CeoSection,
-} from "../../services/aboutUsService";
+import { getCeoSection, type CeoSection } from "../../services/aboutUsService";
 import {
   getTeamMembers,
   deleteTeamMember,
@@ -153,7 +150,7 @@ const AdminAboutUsPage: React.FC = () => {
             onClick={() => setActiveTab("ceo")}
             className={`flex items-center gap-2 py-2 px-4 text-sm uppercase font-semibold rounded-t transition-all duration-300 ${
               activeTab === "ceo"
-                ? "bg-white/10 text-white border-b-2 border-[#FF0000] -mb-0.5"
+                ? "bg-white/10 text-white border-b-2 border-[#E30514] -mb-0.5"
                 : "text-white/60 hover:text-white hover:bg-white/5"
             }`}
           >
@@ -165,7 +162,7 @@ const AdminAboutUsPage: React.FC = () => {
             onClick={() => setActiveTab("team")}
             className={`flex items-center gap-2 py-2 px-4 text-sm uppercase font-semibold rounded-t transition-all duration-300 ${
               activeTab === "team"
-                ? "bg-white/10 text-white border-b-2 border-[#FF0000] -mb-0.5"
+                ? "bg-white/10 text-white border-b-2 border-[#E30514] -mb-0.5"
                 : "text-white/60 hover:text-white hover:bg-white/5"
             }`}
           >
@@ -176,72 +173,76 @@ const AdminAboutUsPage: React.FC = () => {
 
         {/* CEO Section tab */}
         {activeTab === "ceo" && (
-        <section className="mb-8">
-          <h3 className="text-xl font-semibold uppercase mb-4 border-b border-white/10 pb-2">
-            CEO Section
-          </h3>
-          {loading ? (
-            <div className="bg-[#333333]/30 border border-[#333333] rounded-lg p-8 text-center">
-              <p className="text-white/70">Loading CEO section…</p>
-            </div>
-          ) : error ? (
-            <div className="bg-[#333333]/30 border border-[#333333] rounded-lg p-8 text-center">
-              <p className="text-red-400">{error}</p>
-            </div>
-          ) : (
-            <div className="bg-[#333333]/30 border border-[#333333] rounded-lg overflow-hidden">
-              <div className="flex flex-col md:flex-row gap-6 p-6 md:p-8">
-                {/* CEO Image */}
-                <div className="flex-shrink-0 w-40 sm:w-48">
-                  {ceo.imageUrl ? (
-                    <img
-                      src={ceo.imageUrl}
-                      alt={`${ceo.firstName} ${ceo.lastName}`.trim() || "CEO"}
-                      className="w-full aspect-square object-cover rounded-md border border-white/10"
-                    />
-                  ) : (
-                    <div className="w-full aspect-square rounded-md bg-[#222222] border border-white/10 flex items-center justify-center text-white/40 text-sm">
-                      No image
-                    </div>
-                  )}
-                </div>
-                {/* CEO details */}
-                <div className="flex-1 min-w-0">
-                  <h4 className="text-xl md:text-2xl font-bold text-white uppercase mb-2">
-                    {ceo.firstName || ceo.lastName ? (
-                      <>
-                        {ceo.firstName && (
-                          <span className="text-[#FF0000]">{ceo.firstName} </span>
-                        )}
-                        {ceo.lastName}
-                      </>
+          <section className="mb-8">
+            <h3 className="text-xl font-semibold uppercase mb-4 border-b border-white/10 pb-2">
+              CEO Section
+            </h3>
+            {loading ? (
+              <div className="bg-[#333333]/30 border border-[#333333] rounded-lg p-8 text-center">
+                <p className="text-white/70">Loading CEO section…</p>
+              </div>
+            ) : error ? (
+              <div className="bg-[#333333]/30 border border-[#333333] rounded-lg p-8 text-center">
+                <p className="text-red-400">{error}</p>
+              </div>
+            ) : (
+              <div className="bg-[#333333]/30 border border-[#333333] rounded-lg overflow-hidden">
+                <div className="flex flex-col md:flex-row gap-6 p-6 md:p-8">
+                  {/* CEO Image */}
+                  <div className="flex-shrink-0 w-40 sm:w-48">
+                    {ceo.imageUrl ? (
+                      <img
+                        src={ceo.imageUrl}
+                        alt={`${ceo.firstName} ${ceo.lastName}`.trim() || "CEO"}
+                        className="w-full aspect-square object-cover rounded-md border border-white/10"
+                      />
                     ) : (
-                      <span className="text-white/50">No name set</span>
+                      <div className="w-full aspect-square rounded-md bg-[#222222] border border-white/10 flex items-center justify-center text-white/40 text-sm">
+                        No image
+                      </div>
                     )}
-                  </h4>
-                  {ceo.description ? (
-                    <p className="text-white/80 text-sm md:text-base leading-relaxed line-clamp-4">
-                      {ceo.description}
-                    </p>
-                  ) : (
-                    <p className="text-white/50 text-sm">No description set.</p>
-                  )}
-                </div>
-                {/* Edit button */}
-                <div className="flex-shrink-0 flex items-start">
-                  <button
-                    type="button"
-                    onClick={openEditModal}
-                    className="flex items-center gap-2 border border-white/30 hover:border-[#FF0000] hover:bg-[#FF0000]/10 transition-all duration-300 py-3 px-6 text-white text-sm uppercase font-semibold rounded-md"
-                  >
-                    <HiOutlinePencil className="w-5 h-5" />
-                    Edit
-                  </button>
+                  </div>
+                  {/* CEO details */}
+                  <div className="flex-1 min-w-0">
+                    <h4 className="text-xl md:text-2xl font-bold text-white uppercase mb-2">
+                      {ceo.firstName || ceo.lastName ? (
+                        <>
+                          {ceo.firstName && (
+                            <span className="text-[#E30514]">
+                              {ceo.firstName}{" "}
+                            </span>
+                          )}
+                          {ceo.lastName}
+                        </>
+                      ) : (
+                        <span className="text-white/50">No name set</span>
+                      )}
+                    </h4>
+                    {ceo.description ? (
+                      <p className="text-white/80 text-sm md:text-base leading-relaxed line-clamp-4">
+                        {ceo.description}
+                      </p>
+                    ) : (
+                      <p className="text-white/50 text-sm">
+                        No description set.
+                      </p>
+                    )}
+                  </div>
+                  {/* Edit button */}
+                  <div className="flex-shrink-0 flex items-start">
+                    <button
+                      type="button"
+                      onClick={openEditModal}
+                      className="flex items-center gap-2 border border-white/30 hover:border-[#E30514] hover:bg-[#E30514]/10 transition-all duration-300 py-3 px-6 text-white text-sm uppercase font-semibold rounded-md"
+                    >
+                      <HiOutlinePencil className="w-5 h-5" />
+                      Edit
+                    </button>
+                  </div>
                 </div>
               </div>
-            </div>
-          )}
-        </section>
+            )}
+          </section>
         )}
 
         {/* Team Members tab */}
@@ -254,7 +255,7 @@ const AdminAboutUsPage: React.FC = () => {
               <button
                 type="button"
                 onClick={openAddTeamModal}
-                className="border border-white hover:border-[#FF0000] transition-all duration-300 py-3 px-6 text-white text-sm md:text-base uppercase font-semibold rounded-md hover:bg-[#FF0000]/10"
+                className="border border-white hover:border-[#E30514] transition-all duration-300 py-3 px-6 text-white text-sm md:text-base uppercase font-semibold rounded-md hover:bg-[#E30514]/10"
               >
                 Add Team Member
               </button>
@@ -306,7 +307,7 @@ const AdminAboutUsPage: React.FC = () => {
                       <button
                         type="button"
                         onClick={() => openEditTeamModal(member)}
-                        className="flex-1 inline-flex items-center justify-center gap-2 border border-white/40 hover:border-[#FF0000] hover:bg-[#FF0000]/10 transition-all duration-300 py-2 px-3 text-white text-xs uppercase font-semibold rounded-md"
+                        className="flex-1 inline-flex items-center justify-center gap-2 border border-white/40 hover:border-[#E30514] hover:bg-[#E30514]/10 transition-all duration-300 py-2 px-3 text-white text-xs uppercase font-semibold rounded-md"
                       >
                         <HiOutlinePencil className="w-4 h-4 flex-shrink-0" />
                         Edit

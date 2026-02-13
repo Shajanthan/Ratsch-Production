@@ -17,7 +17,7 @@
 * {
   /* Firefox */
   scrollbar-width: thin;
-  scrollbar-color: #FF0000 rgba(51, 51, 51, 0.8);
+  scrollbar-color: #e30514 rgba(51, 51, 51, 0.8);
 }
 
 *::-webkit-scrollbar {
@@ -31,16 +31,16 @@
 }
 
 *::-webkit-scrollbar-thumb {
-  background: #FF0000;
+  background: #e30514;
   border-radius: 4px;
 }
 
 *::-webkit-scrollbar-thumb:hover {
-  background: #FF0000;
+  background: #e30514;
 }
 
 *::-webkit-scrollbar-thumb:active {
-  background: #FF0000;
+  background: #e30514;
 }
 
 *::-webkit-scrollbar-corner {
@@ -116,7 +116,7 @@
 }
 
 .review-swiper .swiper-pagination-bullet-active {
-  background-color: #ff0000;
+  background-color: #e30514;
   width: 14px;
   height: 14px;
   box-shadow: 0 0 12px rgba(255, 0, 0, 0.9);
@@ -164,7 +164,7 @@
 }
 
 .team-swiper .swiper-pagination-bullet-active {
-  background-color: #ff0000;
+  background-color: #e30514;
   width: 12px;
   height: 12px;
   box-shadow: 0 0 12px rgba(255, 0, 0, 0.9);
@@ -202,7 +202,7 @@
 
 .gallery-thumbs-swiper .swiper-button-next,
 .gallery-thumbs-swiper .swiper-button-prev {
-  color: #bf0000;
+  color: #e30514;
   width: 40px;
   height: 40px;
 }
@@ -235,7 +235,7 @@
 }
 
 .gallery-thumbs-swiper .swiper-pagination-bullet-active {
-  background-color: #bf0000;
+  background-color: #e30514;
   width: 24px;
   height: 8px;
   border-radius: 4px;
@@ -244,7 +244,7 @@
 /* Service works swiper */
 .service-works-swiper .swiper-button-next,
 .service-works-swiper .swiper-button-prev {
-  color: #bf0000;
+  color: #e30514;
   width: 40px;
   height: 40px;
 }
@@ -277,7 +277,7 @@
 }
 
 .service-works-swiper .swiper-pagination-bullet-active {
-  background-color: #bf0000;
+  background-color: #e30514;
   width: 24px;
   height: 8px;
   border-radius: 4px;
@@ -286,7 +286,7 @@
 /* Service brands swiper */
 .service-brands-swiper .swiper-button-next,
 .service-brands-swiper .swiper-button-prev {
-  color: #bf0000;
+  color: #e30514;
   width: 40px;
   height: 40px;
 }
@@ -319,7 +319,7 @@
 }
 
 .service-brands-swiper .swiper-pagination-bullet-active {
-  background-color: #bf0000;
+  background-color: #e30514;
   width: 24px;
   height: 8px;
   border-radius: 4px;
@@ -351,7 +351,7 @@
 }
 
 .clients-swiper .swiper-pagination-bullet-active {
-  background-color: #bf0000;
+  background-color: #e30514;
   width: 24px;
   height: 8px;
   border-radius: 4px;

@@ -149,10 +149,7 @@ const AddCoreValueModal: React.FC<AddCoreValueModalProps> = ({
           setLoading(false);
           return;
         }
-        const { url, publicId } = await uploadImage(
-          imageFile,
-          "core-values",
-        );
+        const { url, publicId } = await uploadImage(imageFile, "core-values");
         await addCoreValue({
           title: title.trim(),
           description: description.trim(),
@@ -212,7 +209,7 @@ const AddCoreValueModal: React.FC<AddCoreValueModalProps> = ({
               value={title}
               onChange={(e) => setTitle(e.target.value)}
               required
-              className="w-full border border-[#333333] hover:border-[#FF0000] focus:border-[#FF0000] transition-all duration-500 rounded-md py-3 bg-[#333333] focus:ring-0 focus:outline-none px-4 text-white"
+              className="w-full border border-[#333333] hover:border-[#E30514] focus:border-[#E30514] transition-all duration-500 rounded-md py-3 bg-[#333333] focus:ring-0 focus:outline-none px-4 text-white"
               placeholder="e.g. Quality, Creativity"
             />
           </div>
@@ -226,7 +223,7 @@ const AddCoreValueModal: React.FC<AddCoreValueModalProps> = ({
               onChange={(e) => setDescription(e.target.value)}
               required
               rows={4}
-              className="w-full border border-[#333333] hover:border-[#FF0000] focus:border-[#FF0000] transition-all duration-500 rounded-md py-3 bg-[#333333] focus:ring-0 focus:outline-none px-4 text-white resize-y"
+              className="w-full border border-[#333333] hover:border-[#E30514] focus:border-[#E30514] transition-all duration-500 rounded-md py-3 bg-[#333333] focus:ring-0 focus:outline-none px-4 text-white resize-y"
               placeholder="Describe this core value"
             />
           </div>
@@ -236,7 +233,7 @@ const AddCoreValueModal: React.FC<AddCoreValueModalProps> = ({
               Image *
             </label>
             {!imagePreview ? (
-              <label className="flex flex-col items-center justify-center w-full h-40 border-2 border-dashed border-[#333333] hover:border-[#FF0000] transition-all duration-500 rounded-md cursor-pointer bg-[#333333]/30">
+              <label className="flex flex-col items-center justify-center w-full h-40 border-2 border-dashed border-[#333333] hover:border-[#E30514] transition-all duration-500 rounded-md cursor-pointer bg-[#333333]/30">
                 <span className="text-white/70 text-sm mb-2">
                   Click or drag to upload
                 </span>
@@ -278,7 +275,7 @@ const AddCoreValueModal: React.FC<AddCoreValueModalProps> = ({
             <button
               type="submit"
               disabled={loading}
-              className="flex-1 border border-[#FF0000] bg-[#FF0000]/20 hover:bg-[#FF0000]/30 text-white transition-all duration-300 py-3 px-6 text-sm uppercase font-semibold rounded-md disabled:opacity-50 disabled:pointer-events-none"
+              className="flex-1 border border-[#E30514] bg-[#E30514]/20 hover:bg-[#E30514]/30 text-white transition-all duration-300 py-3 px-6 text-sm uppercase font-semibold rounded-md disabled:opacity-50 disabled:pointer-events-none"
             >
               {loading
                 ? isEdit

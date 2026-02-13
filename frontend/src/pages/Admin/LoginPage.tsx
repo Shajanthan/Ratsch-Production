@@ -37,7 +37,7 @@ const LoginPage: React.FC = () => {
       }
     } catch (err) {
       setError(
-        err instanceof Error ? err.message : "Login failed. Please try again."
+        err instanceof Error ? err.message : "Login failed. Please try again.",
       );
     } finally {
       setLoading(false);
@@ -107,7 +107,7 @@ const LoginPage: React.FC = () => {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
-                className="border hover:cursor-text border-[#333333] hover:border-[#FF0000] focus:border-[#FF0000] transition-all duration-500 rounded-md py-3 md:py-4 bg-[#333333] w-full focus:ring-0 focus:outline-none px-4 text-white text-sm md:text-base placeholder-white/50"
+                className="border hover:cursor-text border-[#333333] hover:border-[#E30514] focus:border-[#E30514] transition-all duration-500 rounded-md py-3 md:py-4 bg-[#333333] w-full focus:ring-0 focus:outline-none px-4 text-white text-sm md:text-base placeholder-white/50"
                 placeholder="your email here"
                 disabled={loading}
               />
@@ -127,7 +127,7 @@ const LoginPage: React.FC = () => {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required
-                className="border hover:cursor-text border-[#333333] hover:border-[#FF0000] focus:border-[#FF0000] transition-all duration-500 rounded-md py-3 md:py-4 bg-[#333333] w-full focus:ring-0 focus:outline-none px-4 text-white text-sm md:text-base placeholder-white/50"
+                className="border hover:cursor-text border-[#333333] hover:border-[#E30514] focus:border-[#E30514] transition-all duration-500 rounded-md py-3 md:py-4 bg-[#333333] w-full focus:ring-0 focus:outline-none px-4 text-white text-sm md:text-base placeholder-white/50"
                 placeholder="your password here"
                 disabled={loading}
               />
@@ -137,7 +137,7 @@ const LoginPage: React.FC = () => {
             <button
               type="submit"
               disabled={loading}
-              className="w-full border border-white hover:border-[#FF0000] transition-all duration-300 py-4 md:py-5 text-white text-sm md:text-base lg:text-lg uppercase font-semibold rounded-md hover:bg-[#FF0000]/10 disabled:opacity-50 disabled:cursor-not-allowed"
+              className="w-full border border-white hover:border-[#E30514] transition-all duration-300 py-4 md:py-5 text-white text-sm md:text-base lg:text-lg uppercase font-semibold rounded-md hover:bg-[#E30514]/10 disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {loading ? "Logging in..." : "Login"}
             </button>
