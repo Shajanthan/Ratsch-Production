@@ -7,7 +7,7 @@ import "swiper/css";
 interface CategoryCardItem {
   projectTitle1: string;
   projectTitle2: string;
-  shortdesc : string;
+  shortdesc: string;
   date: string;
   image: string;
   onExplore?: () => void;
@@ -28,6 +28,12 @@ function ProjectTile({ item }: { item: CategoryCardItem }) {
         className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-110"
       />
       <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent opacity-80 group-hover:opacity-100 group-hover:from-black/85 group-hover:via-black/50 transition-all duration-400 ease-out" />
+      {/* Top right corner shadow for Explore button */}
+      <div className="absolute inset-0 z-10 pointer-events-none bg-gradient-to-t from-transparent from-[60%] to-black" />
+
+      {/* Bottom left corner shadow for Date */}
+      <div className="absolute inset-0 z-10 pointer-events-none bg-gradient-to-b from-transparent from-[80%] to-black" />
+
       {/* Explore - top right */}
       <div className="absolute top-3 right-3 md:top-4 md:right-4 text-white z-20">
         <button

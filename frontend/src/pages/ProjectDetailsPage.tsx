@@ -147,6 +147,8 @@ const ProjectDetailsPage: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-black text-white">
+      <div className="absolute inset-0 z-10 pointer-events-none bg-gradient-to-b from-transparent from-[0%] to-black" />
+
       {/* Hero Section */}
       <div className="relative w-full min-h-screen overflow-hidden">
         <img

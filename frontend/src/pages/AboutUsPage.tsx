@@ -60,7 +60,16 @@ const AboutUsPage: React.FC = () => {
           </h2>
 
           {/* Logos */}
-          <div className="py-4 flex justify-center h-[240px] lg:h-[400px]">
+          <div className="flex justify-center md:my-6">
+            <div className="bg-white p-4 rounded-md">
+              <img
+                className=" md:h-[200px] bg-contain"
+                src="https://res.cloudinary.com/dybv1h20q/image/upload/v1770745345/IMG_0950_xstvv3.png"
+                alt="logo"
+              />
+            </div>
+          </div>
+          <div className="p-4 px-6 flex justify-center h-[240px] lg:h-[300px]">
             <img
               src="https://res.cloudinary.com/dybv1h20q/image/upload/v1769928007/logos_kceqmn.png"
               alt="About Us Background"
