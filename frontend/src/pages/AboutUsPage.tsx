@@ -61,10 +61,10 @@ const AboutUsPage: React.FC = () => {
 
           {/* Logos */}
           <div className="flex justify-center md:my-6">
-            <div className="bg-white p-4 rounded-md">
+            <div className="p-4 rounded-md">
               <img
                 className=" md:h-[200px] bg-contain"
-                src="https://res.cloudinary.com/dybv1h20q/image/upload/v1770745345/IMG_0950_xstvv3.png"
+                src="https://res.cloudinary.com/dybv1h20q/image/upload/v1771049149/Ratsch_Productions_Logo_Png-White_ynyzqp.png"
                 alt="logo"
               />
             </div>

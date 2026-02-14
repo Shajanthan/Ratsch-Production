@@ -85,7 +85,7 @@ const Navbar: React.FC = () => {
         >
           <img
             className="w-[100px] md:w-[180px] lg:w-[150px]"
-            src="https://res.cloudinary.com/dybv1h20q/image/upload/v1770745345/IMG_0950_xstvv3.png"
+            src="https://res.cloudinary.com/dybv1h20q/image/upload/v1771049149/Ratsch_Productions_Logo_Png-White_ynyzqp.png"
             alt="logo"
           />
         </button>
