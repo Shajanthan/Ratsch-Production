@@ -79,17 +79,19 @@ const AboutUsPage: React.FC = () => {
 
           {/* Description */}
           <p className="text-white/90 text-center text-sm md:text-base leading-relaxed max-w-4xl mx-auto pt-6">
-            Lorem ipsum dolor sit amet consectetur. Maecenas varius sit
-            consequat vulputate urna augue. Faucibus adipiscing aenean mi diam.
-            Ac bibendum elementum aliquet Lorem ipsum dolor sit amet
-            consectetur. Maecenas varius sit consequat vulputate urna augue.
-            Faucibus adipiscing aenean mi diam. Ac bibendum elementum aliquet
-            Lorem ipsum dolor sit amet consectetur. Maecenas varius sit
-            consequat vulputate urna augue. Faucibus adipiscing aenean mi diam.
-            Ac bibendum elementum aliquet Lorem ipsum dolor sit amet
-            consectetur. Maecenas varius sit consequat vulputate urna augue.
-            Faucibus adipiscing aenean mi diam. Ac bibendum elementum aliquet
+          RATSCH Productions is a creative and production studio built on the power of visual storytelling. Based in Sri Lanka and working across international markets, we create cinematic content that elevates brands, shapes perception, and leaves a lasting impact.
+          <br /><br />
+          Driven by a new generation of highly skilled creatives and technical specialists, we merge storytelling, design, and production into a seamless creative process. From concept to final delivery, every frame we produce is intentional—crafted with precision, emotion, and purpose.
+          <br /><br />
+          We collaborate closely with brands, agencies, and businesses to translate ideas into compelling visual experiences. Whether it’s commercial advertising, branded films, fashion narratives, or experiential productions, our work is rooted in strong creative direction and executed with uncompromising production quality.
+          <br /><br />
+          At RATSCH Productions, we believe great visuals do more than look good—they communicate, inspire, and perform. Our focus is on creating work that not only captures attention, but also delivers measurable value and long-term brand impact.
           </p>
+        </div>
+        <div className="mt-2 text-white/90 uppercase text-2xl md:text-3xl lg:text-4xl font-bold text-center leading-relaxed max-w-4xl mx-auto pt-6">
+        We don’t just <span className="text-[#E30514]">produce content.</span>
+        <br />We craft <span className="text-[#E30514]"> stories that move.</span>
+
         </div>
       </div>
 

@@ -171,9 +171,14 @@ const ServiceDetailsPage: React.FC = () => {
               DELIVERABLES
             </h2>
             <div className="max-w-4xl mx-auto">
-              <p className="text-white/90 text-sm md:text-base leading-relaxed text-justify">
-                {service.deliverables}
-              </p>
+              {service.deliverables ? (
+                <div
+                  className="text-white/90 text-sm md:text-base leading-relaxed whitespace-pre-wrap"
+                  style={{ fontFamily: "inherit" }}
+                >
+                  {service.deliverables}
+                </div>
+              ) : null}
             </div>
           </div>
         </div>
@@ -272,7 +277,7 @@ const ServiceDetailsPage: React.FC = () => {
                         <img
                           src={brand}
                           alt={`Brand ${index + 1}`}
-                          className="w-full h-full object-cover"
+                          className="w-full h-full object-contain"
                           onError={(e) => {
                             e.currentTarget.style.display = "none";
                           }}
