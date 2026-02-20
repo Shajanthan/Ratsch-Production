@@ -177,7 +177,8 @@ const HomeSection: React.FC = () => {
           ))}
         </div>
         {/* Bottom 50% black gradient overlay (desktop) */}
-        <div className="absolute inset-0 z-10 pointer-events-none bg-gradient-to-b from-transparent from-[10%] to-black" />
+        <div className="absolute inset-0 z-10 pointer-events-none bg-gradient-to-b from-transparent from-[60%] to-black" />
+        <div className="absolute inset-0 z-10 pointer-events-none bg-gradient-to-t from-transparent from-[80%] to-black" />
       </div>
 
       {/* Mobile: Project details below image */}
