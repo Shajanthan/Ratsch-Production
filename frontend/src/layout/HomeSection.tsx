@@ -154,7 +154,8 @@ const HomeSection: React.FC = () => {
           ))}
         </div>
         {/* Bottom 50% black gradient overlay (mobile) */}
-        <div className="absolute inset-0 z-10 pointer-events-none bg-gradient-to-b from-transparent from-[50%] to-black" />
+        <div className="absolute inset-0 z-10 pointer-events-none bg-gradient-to-b from-transparent from-[80%] to-black" />
+        <div className="absolute inset-0 z-10 pointer-events-none bg-gradient-to-t from-transparent from-[75%] to-black" />
       </div>
 
       {/* Desktop: Background Images with Slide Animation */}
