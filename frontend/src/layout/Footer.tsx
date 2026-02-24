@@ -147,7 +147,7 @@ const Footer: React.FC = () => {
                 <li className="flex gap-2 md:gap-3 items-center py-1 hover:text-red-800 cursor-pointer transition-colors duration-300 text-sm md:text-base">
                   <BsTelephone className="flex-shrink-0" />
                   <span className="break-all">
-                    +94 (72) 471 8466 / +41 (78) 601 36 50
+                    +94 72 471 8466 / +41 78 601 36 50
                   </span>
                 </li>
                 <li className="flex gap-2 md:gap-3 items-center py-1 hover:text-red-800 cursor-pointer transition-colors duration-300 text-sm md:text-base">
