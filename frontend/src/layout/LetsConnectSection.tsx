@@ -33,7 +33,7 @@ const LetsConnectSection: React.FC<LetsConnectSectionProps> = ({
                 <div className="py-2 md:py-3">
                   <div className="text-sm md:text-base lg:text-lg">Phone</div>
                   <div className="text-xl md:text-2xl lg:text-3xl font-semibold py-1 md:py-2">
-                    +94 7174123456
+                    +94 72 471 8466 / +41 78 601 36 50
                   </div>
                 </div>
                 <div className="py-2 md:py-3">
