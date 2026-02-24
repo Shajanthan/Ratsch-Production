@@ -30,7 +30,7 @@ const ReviewSection: React.FC = () => {
                 : r.position,
               review: r.review,
               profile: r.profilePictureUrl || undefined,
-            }))
+            })),
           );
         }
       })
@@ -57,9 +57,9 @@ const ReviewSection: React.FC = () => {
             Client Reviews
           </div>
           <p className="text-center max-w-4xl mx-auto py-3 text-sm md:text-base px-4">
-            Lorem ipsum dolor sit amet consectetur. Maecenas varius sit
-            consequat vulputate urna augue. Faucibus adipiscing aenean mi diam.
-            Ac bibendum elementum aliquet
+            Hear from our clients about how we bring their visions to life. Our
+            focus on creativity, quality, and collaboration ensures every
+            project delivers impact and exceeds expectations
           </p>
 
           <div

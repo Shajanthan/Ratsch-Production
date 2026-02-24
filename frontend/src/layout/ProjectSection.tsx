@@ -102,9 +102,9 @@ const ProjectSection: React.FC = () => {
               </button>
             </div>
             <p className="text-white w-full md:w-1/2 py-4 text-sm md:text-base">
-              Lorem ipsum dolor sit amet consectetur. Maecenas varius sit
-              consequat vulputate urna augue. Faucibus adipiscing aenean mi
-              diam. Ac bibendum elementum aliquet
+              Our projects showcase creativity, innovation, and high-quality
+              execution. Each one is crafted to tell a compelling story and
+              deliver measurable impact for our clients
             </p>
 
             <div className="text-white flex flex-col gap-3 px-2 md:px-8">

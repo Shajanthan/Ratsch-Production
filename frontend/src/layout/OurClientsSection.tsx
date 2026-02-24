@@ -52,9 +52,9 @@ const OurClientsSection: React.FC = () => {
             Our Clients
           </div>
           <p className="text-center max-w-4xl mx-auto py-3 text-sm md:text-base px-4">
-            Lorem ipsum dolor sit amet consectetur. Maecenas varius sit
-            consequat vulputate urna augue. Faucibus adipiscing aenean mi diam.
-            Ac bibendum elementum aliquet
+            We work closely with our clients to create visually compelling
+            content that tells their story, engages audiences, and leaves a
+            lasting impression.
           </p>
 
           {/* Mobile & Tablet: Swiper */}

@@ -35,9 +35,10 @@ const Footer: React.FC = () => {
               Ratsch
             </div>
             <div className="text-sm md:text-base w-full ">
-              Lorem ipsum dolor sit amet consectetur. Maecenas varius sit
-              consequat vulputate urna augue. Faucibus adipiscing aenean mi
-              diam. Ac bibendum elementum aliquet
+              RATSCH Productions is a creative studio focused on cinematic
+              storytelling and high-quality visual production. We partner with
+              brands and businesses to craft purposeful, engaging content that
+              inspires and delivers impact.
             </div>
             <div className="flex gap-3 md:gap-4 px-0 lg:px-3 py-4 md:py-6">
               <div className="hover:text-red-800 cursor-pointer transition-colors duration-300">

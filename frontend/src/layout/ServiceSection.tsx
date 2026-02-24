@@ -194,9 +194,9 @@ const ServiceSection: React.FC<ServiceSectionProps> = () => {
                   </button> */}
                 </div>
                 <p className="text-white w-full md:w-1/2 py-4 text-sm md:text-base">
-                  Lorem ipsum dolor sit amet consectetur. Maecenas varius sit
-                  consequat vulputate urna augue. Faucibus adipiscing aenean mi
-                  diam. Ac bibendum elementum aliquet
+                  We create high-quality visual content—from commercials and
+                  branded films to creative productions—designed to elevate
+                  brands and engage audiences.
                 </p>
 
                 {/* Service cards */}
@@ -386,13 +386,11 @@ const ServiceSection: React.FC<ServiceSectionProps> = () => {
                                 Stories worth watching
                               </div>
                               <p className="font-thin py-3 text-sm drop-shadow-md">
-                                Lorem ipsum dolor sit amet consectetur. Maecenas
-                                varius sit consequat vulputate urna augue.
-                                Faucibus adipiscing aenean mi diam. Ac bibendum
-                                elementum aliquet Lorem ipsum dolor sit amet
-                                consectetur. Maecenas varius sit consequat
-                                vulputate urna augue. Faucibus adipiscing aenean
-                                mi diam. Ac bibendum elementum aliquet
+                                We craft meaningful visual stories that connect
+                                with audiences and elevate brands. Every project
+                                blends creativity and precision to deliver
+                                content that’s engaging, memorable, and worth
+                                watching.
                               </p>
                             </div>
                             <div className="flex justify-between items-end pt-4 relative z-10">
@@ -439,13 +437,9 @@ const ServiceSection: React.FC<ServiceSectionProps> = () => {
                                 Our Work in Action
                               </div>
                               <p className="font-thin py-3 text-sm drop-shadow-md">
-                                Lorem ipsum dolor sit amet consectetur. Maecenas
-                                varius sit consequat vulputate urna augue.
-                                Faucibus adipiscing aenean mi diam. Ac bibendum
-                                elementum aliquet Lorem ipsum dolor sit amet
-                                consectetur. Maecenas varius sit consequat
-                                vulputate urna augue. Faucibus adipiscing aenean
-                                mi diam. Ac bibendum elementum aliquet
+                                We showcase our work through dynamic and
+                                engaging projects, highlighting creativity,
+                                quality, and impact in every frame.
                               </p>
                             </div>
                             <div className="flex justify-between items-end pt-4 relative z-10">
@@ -506,13 +500,9 @@ const ServiceSection: React.FC<ServiceSectionProps> = () => {
                                 Our Work in Action
                               </div>
                               <p className="font-thin py-3 text-sm drop-shadow-md">
-                                Lorem ipsum dolor sit amet consectetur. Maecenas
-                                varius sit consequat vulputate urna augue.
-                                Faucibus adipiscing aenean mi diam. Ac bibendum
-                                elementum aliquet Lorem ipsum dolor sit amet
-                                consectetur. Maecenas varius sit consequat
-                                vulputate urna augue. Faucibus adipiscing aenean
-                                mi diam. Ac bibendum elementum aliquet
+                                We showcase our work through dynamic and
+                                engaging projects, highlighting creativity,
+                                quality, and impact in every frame.
                               </p>
                             </div>
                             <div className="flex justify-between items-end pt-4 relative z-10">
@@ -559,13 +549,11 @@ const ServiceSection: React.FC<ServiceSectionProps> = () => {
                                 Stories worth watching
                               </div>
                               <p className="font-thin py-3 text-sm drop-shadow-md">
-                                Lorem ipsum dolor sit amet consectetur. Maecenas
-                                varius sit consequat vulputate urna augue.
-                                Faucibus adipiscing aenean mi diam. Ac bibendum
-                                elementum aliquet Lorem ipsum dolor sit amet
-                                consectetur. Maecenas varius sit consequat
-                                vulputate urna augue. Faucibus adipiscing aenean
-                                mi diam. Ac bibendum elementum aliquet
+                                We craft meaningful visual stories that connect
+                                with audiences and elevate brands. Every project
+                                blends creativity and precision to deliver
+                                content that’s engaging, memorable, and worth
+                                watching.
                               </p>
                             </div>
                             <div className="flex justify-between items-end pt-4 relative z-10">
@@ -624,12 +612,10 @@ const ServiceSection: React.FC<ServiceSectionProps> = () => {
                     Stories worth watching
                   </div>
                   <p className="font-thin py-3 text-sm md:text-base">
-                    Lorem ipsum dolor sit amet consectetur. Maecenas varius sit
-                    consequat vulputate urna augue. Faucibus adipiscing aenean
-                    mi diam. Ac bibendum elementum aliquet Lorem ipsum dolor sit
-                    amet consectetur. Maecenas varius sit consequat vulputate
-                    urna augue. Faucibus adipiscing aenean mi diam. Ac bibendum
-                    elementum aliquet
+                    We craft meaningful visual stories that connect with
+                    audiences and elevate brands. Every project blends
+                    creativity and precision to deliver content that’s engaging,
+                    memorable, and worth watching.
                   </p>
                   <div className="flex justify-start lg:justify-end pt-4">
                     <button
@@ -650,12 +636,8 @@ const ServiceSection: React.FC<ServiceSectionProps> = () => {
                     Our Work in Action
                   </div>
                   <p className="font-thin py-3 text-sm md:text-base">
-                    Lorem ipsum dolor sit amet consectetur. Maecenas varius sit
-                    consequat vulputate urna augue. Faucibus adipiscing aenean
-                    mi diam. Ac bibendum elementum aliquet Lorem ipsum dolor sit
-                    amet consectetur. Maecenas varius sit consequat vulputate
-                    urna augue. Faucibus adipiscing aenean mi diam. Ac bibendum
-                    elementum aliquet
+                    We showcase our work through dynamic and engaging projects,
+                    highlighting creativity, quality, and impact in every frame.
                   </p>
                   <div className="flex justify-start pt-4">
                     <button
