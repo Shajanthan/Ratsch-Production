@@ -49,7 +49,7 @@ const CoreValuesCard: React.FC<CoreValuesCardProps> = ({
           {titles && titles.length > 0 && onSelectIndex ? (
             <div className="">
               <div className="container lg:max-w-[1400px] mx-auto px-4 md:px-8">
-                <div className="flex flex-wrap gap-4 md:gap-6 lg:gap-10 justify-center lg:justify-between px-0 lg:px-96 py-4 md:py-6 lg:py-8">
+                <div className="flex flex-wrap gap-4 md:gap-6 lg:gap-10 justify-center items-center py-4 md:py-6 lg:py-8">
                   {titles.map((t, index) => {
                     const isActive = index === activeIndex;
                     return (
@@ -59,8 +59,8 @@ const CoreValuesCard: React.FC<CoreValuesCardProps> = ({
                         onClick={() => onSelectIndex(index)}
                         aria-current={isActive ? "true" : undefined}
                         className={[
-                          "whitespace-nowrap capitalize transition-all",
-                          "text-sm md:text-base lg:text-lg xl:text-xl",
+                          "whitespace-nowrap capitalize transition-all px-4 lg:px-10",
+                          "text-sm md:text-base text-center lg:text-lg xl:text-xl",
                           isActive
                             ? "text-white font-semibold"
                             : "text-white/50 font-medium hover:text-white/80",

@@ -57,6 +57,7 @@ const ServiceSection: React.FC<ServiceSectionProps> = () => {
   );
   const swiperRef = useRef<SwiperType | null>(null);
   const desktopCarouselRowRef = useRef<HTMLDivElement | null>(null);
+  const desktopScrollRef = useRef<HTMLDivElement | null>(null);
 
   const toggleFlip = (index: number) => {
     setFlippedCards((prev) => ({
@@ -145,6 +146,7 @@ const ServiceSection: React.FC<ServiceSectionProps> = () => {
     });
     const t1 = setTimeout(measure, 200);
     const t2 = setTimeout(measure, 600);
+    const t3 = setTimeout(measure, 1200);
     const ro = new ResizeObserver(measure);
     for (let i = 0; i < row.children.length; i++) {
       ro.observe(row.children[i] as HTMLElement);
@@ -157,18 +159,41 @@ const ServiceSection: React.FC<ServiceSectionProps> = () => {
       window.removeEventListener("resize", measure);
       clearTimeout(t1);
       clearTimeout(t2);
+      clearTimeout(t3);
     };
   }, [services]);
 
   const maxIndex = Math.max(0, services.length - servicesPerPage);
 
   const handlePrevious = () => {
+    const el = desktopScrollRef.current;
+    if (el) {
+      const cardWidth = el.scrollWidth / services.length;
+      el.scrollTo({ left: el.scrollLeft - cardWidth * servicesPerPage, behavior: "smooth" });
+    }
     setCurrentIndex((prev) => Math.max(0, prev - 1));
   };
 
   const handleNext = () => {
+    const el = desktopScrollRef.current;
+    if (el) {
+      const cardWidth = el.scrollWidth / services.length;
+      el.scrollTo({ left: el.scrollLeft + cardWidth * servicesPerPage, behavior: "smooth" });
+    }
     setCurrentIndex((prev) => Math.min(maxIndex, prev + 1));
   };
+
+  useEffect(() => {
+    const el = desktopScrollRef.current;
+    if (!el || services.length === 0) return;
+    const onScroll = () => {
+      const cardWidth = el.scrollWidth / services.length;
+      const idx = Math.round(el.scrollLeft / cardWidth);
+      setCurrentIndex(Math.min(maxIndex, Math.max(0, idx)));
+    };
+    el.addEventListener("scroll", onScroll);
+    return () => el.removeEventListener("scroll", onScroll);
+  }, [services.length, maxIndex]);
   return (
     <div className="min-h-screen w-full bg-black">
       <div id="service" className="pt-6">
@@ -230,7 +255,7 @@ const ServiceSection: React.FC<ServiceSectionProps> = () => {
                               key={service.id || index}
                               className="flex justify-center items-stretch"
                             >
-                              <div className="w-full max-w-sm min-h-[420px] flex">
+                              <div className="w-full max-w-sm min-h-[420px] flex flex-col h-full">
                                 <ServiceCard
                                   id={service.id}
                                   slug={service.slug}
@@ -264,18 +289,22 @@ const ServiceSection: React.FC<ServiceSectionProps> = () => {
                         </div>
                       </div>
 
-                      {/* Desktop: Original carousel */}
+                      {/* Desktop: Original carousel with scrollbar */}
                       <div className="hidden md:block">
-                        <div className="overflow-hidden">
+                        <div
+                          ref={desktopScrollRef}
+                          className="overflow-x-auto overflow-y-hidden"
+                          style={{
+                            ...(carouselRowHeight != null && {
+                              height: carouselRowHeight,
+                              minHeight: carouselRowHeight,
+                            }),
+                          }}
+                        >
                           <div
                             ref={desktopCarouselRowRef}
-                            className="flex items-stretch gap-10 transition-transform duration-500 ease-in-out min-h-0"
+                            className="flex items-stretch gap-10 min-h-0 flex-nowrap"
                             style={{
-                              transform: `translateX(calc(-${currentIndex} * (${
-                                servicesPerPage === 2 ? "50%" : "33.333%"
-                              } + ${
-                                servicesPerPage === 2 ? "20px" : "13.33px"
-                              })))`,
                               ...(carouselRowHeight != null && {
                                 height: carouselRowHeight,
                                 minHeight: carouselRowHeight,
@@ -285,7 +314,7 @@ const ServiceSection: React.FC<ServiceSectionProps> = () => {
                             {services.map((service, index) => (
                               <div
                                 key={service.id || index}
-                                className="flex flex-col flex-shrink-0 md:w-[calc(50%-20px)] lg:w-[calc(33.333%-26.67px)] h-full"
+                                className="flex flex-col flex-shrink-0 md:w-[calc(50%-20px)] lg:w-[calc(33.333%-26.67px)] md:min-w-[calc(50%-20px)] lg:min-w-[calc(33.333%-26.67px)] h-full"
                               >
                                 <ServiceCard
                                   id={service.id}

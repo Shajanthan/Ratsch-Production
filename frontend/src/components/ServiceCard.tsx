@@ -32,7 +32,7 @@ const ServiceCard: React.FC<ServiceCardProps> = ({
   };
 
   return (
-    <div className="bg-[#222222] w-full flex-1 flex flex-col relative group min-h-0">
+    <div className="bg-[#222222] w-full flex-1 flex flex-col relative group  my-6">
       <div className="absolute top-3 right-3 md:top-4 md:right-4 text-white z-20">
         <button
           onClick={handleExplore}
@@ -49,11 +49,11 @@ const ServiceCard: React.FC<ServiceCardProps> = ({
           className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
         />
       </div>
-      <div className="p-3 md:p-4 flex flex-col gap-2 md:gap-3 flex-1 min-h-0">
+      <div className="p-3 md:p-4 flex flex-col gap-2 md:gap-3 flex-1">
         <div className="text-lg md:text-xl uppercase font-bold text-[#FFFFFF]">
           {title}
         </div>
-        <div className="text-[#CCCCCC] leading-relaxed px-2 md:px-4 text-xs md:text-sm flex-1 min-h-0 line-clamp-5">
+        <div className="text-[#CCCCCC] leading-relaxed px-2 md:px-4 text-xs md:text-sm flex-1 line-clamp-3">
           {description}
         </div>
         <div className="flex flex-wrap gap-2 mt-1 md:mt-2 px-2 md:px-4 flex-shrink-0">
