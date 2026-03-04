@@ -333,6 +333,25 @@
   justify-content: center;
 }
 
+/* Service desktop swiper – horizontal scrollbar visible */
+.service-desktop-swiper .swiper-scrollbar {
+  position: relative;
+  margin-top: 1rem;
+  height: 8px;
+  background: rgba(51, 51, 51, 0.8);
+  border-radius: 4px;
+  opacity: 1;
+}
+.service-desktop-swiper .swiper-scrollbar-drag {
+  height: 8px;
+  background: #e30514;
+  border-radius: 4px;
+  cursor: grab;
+}
+.service-desktop-swiper .swiper-scrollbar-drag:active {
+  cursor: grabbing;
+}
+
 /* Clients swiper */
 .clients-swiper .swiper-pagination {
   position: relative;

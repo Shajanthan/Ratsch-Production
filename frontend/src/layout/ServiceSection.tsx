@@ -4,6 +4,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { BsArrowUpRight, BsArrowLeft, BsArrowRight } from "react-icons/bs";
 import { Swiper, SwiperSlide } from "swiper/react";
 import type { Swiper as SwiperType } from "swiper";
+import { Scrollbar } from "swiper/modules";
 import {
   getServices,
   type Service,
@@ -13,6 +14,7 @@ import {
 
 // Import Swiper styles
 import "swiper/css";
+import "swiper/css/scrollbar";
 
 interface ServiceSectionProps {}
 
@@ -56,6 +58,7 @@ const ServiceSection: React.FC<ServiceSectionProps> = () => {
     null,
   );
   const swiperRef = useRef<SwiperType | null>(null);
+  const desktopSwiperRef = useRef<SwiperType | null>(null);
   const desktopCarouselRowRef = useRef<HTMLDivElement | null>(null);
   const desktopScrollRef = useRef<HTMLDivElement | null>(null);
 
@@ -166,6 +169,11 @@ const ServiceSection: React.FC<ServiceSectionProps> = () => {
   const maxIndex = Math.max(0, services.length - servicesPerPage);
 
   const handlePrevious = () => {
+    const swiper = desktopSwiperRef.current;
+    if (swiper) {
+      swiper.slidePrev();
+      return;
+    }
     const el = desktopScrollRef.current;
     if (el) {
       const cardWidth = el.scrollWidth / services.length;
@@ -175,6 +183,11 @@ const ServiceSection: React.FC<ServiceSectionProps> = () => {
   };
 
   const handleNext = () => {
+    const swiper = desktopSwiperRef.current;
+    if (swiper) {
+      swiper.slideNext();
+      return;
+    }
     const el = desktopScrollRef.current;
     if (el) {
       const cardWidth = el.scrollWidth / services.length;
@@ -289,11 +302,11 @@ const ServiceSection: React.FC<ServiceSectionProps> = () => {
                         </div>
                       </div>
 
-                      {/* Desktop: Original carousel with scrollbar */}
+                      {/* Desktop: Original carousel with scrollbar (in DOM for refs/measurement, visually replaced by Swiper below) */}
                       <div className="hidden md:block">
                         <div
                           ref={desktopScrollRef}
-                          className="overflow-x-auto overflow-y-hidden"
+                          className="overflow-x-auto overflow-y-hidden hidden"
                           style={{
                             ...(carouselRowHeight != null && {
                               height: carouselRowHeight,
@@ -330,6 +343,42 @@ const ServiceSection: React.FC<ServiceSectionProps> = () => {
                             ))}
                           </div>
                         </div>
+
+                        {/* Desktop: Swiper (added - same cards, Swiper for sliding) */}
+                        <Swiper
+                          modules={[Scrollbar]}
+                          spaceBetween={40}
+                          slidesPerView={2}
+                          breakpoints={{
+                            768: { slidesPerView: 2 },
+                            1024: { slidesPerView: 3 },
+                          }}
+                          scrollbar={{ draggable: true, hide: false }}
+                          onSwiper={(swiper) => {
+                            desktopSwiperRef.current = swiper;
+                          }}
+                          onSlideChange={(swiper) => {
+                            setCurrentIndex(swiper.activeIndex);
+                          }}
+                          className="service-desktop-swiper"
+                        >
+                          {services.map((service, index) => (
+                            <SwiperSlide key={service.id || index} className="!h-auto">
+                              <div className="flex flex-col h-full min-h-[420px]">
+                                <ServiceCard
+                                  id={service.id}
+                                  slug={service.slug}
+                                  title={service.title}
+                                  description={service.description}
+                                  tags={service.tags}
+                                  image={service.image}
+                                  tagColor={service.tagColor}
+                                  textColor={service.textColor}
+                                />
+                              </div>
+                            </SwiperSlide>
+                          ))}
+                        </Swiper>
 
                         {/* Navigation Arrows - Desktop only */}
                         <div className="flex justify-end gap-4 mt-6">
