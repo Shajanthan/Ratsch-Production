@@ -109,12 +109,12 @@ const Navbar: React.FC = () => {
         {/* Desktop Button */}
         <div className="hidden lg:block">
           <Button
-          lightTheme={false}
             navButton={true}
             text="Talk with us"
             color="#333333"
             icon={<CiMail className="w-4 h-4 md:w-6 md:h-6 text-[#C90000]" />}
             onClick={() => handleNavClick("contact")}
+            isLightTheme={false}
           />
         </div>
         {/* Mobile Menu Button */}
@@ -145,7 +145,7 @@ const Navbar: React.FC = () => {
             ))}
             <div className="pt-2 flex justify-center">
               <Button
-                lightTheme={false}
+                isLightTheme={false}
                 navButton={true}
                 text="Talk with us"
                 color="#333333"
