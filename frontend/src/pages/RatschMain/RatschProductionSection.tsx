@@ -8,7 +8,7 @@ const RatschProductionSection: React.FC<RatschProductionSectionProps> = () => {
   const bgImageUrl =
     "https://res.cloudinary.com/dybv1h20q/image/upload/v1774869280/Frame_76_j4sppz.png";
   return (
-    <div className="relative w-full h-screen my-10 py-10">
+    <div className="relative w-full my-5 py-3">
       <img
         src={bgImageUrl}
         alt="Production section background"
@@ -17,7 +17,7 @@ const RatschProductionSection: React.FC<RatschProductionSectionProps> = () => {
 
       {/* Light overlay to keep future text readable */}
       <div className="absolute inset-0 " aria-hidden />
-      <div className="relative z-10 max-w-2xl mx-auto py-8 md:py-10 px-4 md:px-0 h-full w-full">
+      <div className="relative z-10 max-w-2xl mx-auto py-4 md:py-10 px-4 md:px-0 w-full">
         <div className="grid grid-cols-1 gap-6 h-full w-full">
           <div className="relative overflow-hidden bg-white shadow-2xl rounded-[50px] h-full w-full p-8 border border-zinc-300">
             <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4 w-full h-full">
@@ -56,7 +56,7 @@ const RatschProductionSection: React.FC<RatschProductionSectionProps> = () => {
                     </li>
                   </ul>
                 </div>
-                <div className="flex justify-center items-center py-3 pb-5">
+                <div className="flex justify-center items-center py-3">
                   <div
                     className="uppercase rounded-full font-bold px-6 md:px-10 py-3 md:py-4 flex items-center justify-center gap-2 md:gap-3 text-sm md:text-lg bg-[#0557B2] hover:scale-105 transition-all duration-300 w-full sm:w-fit group cursor-pointer text-white"
                     onClick={() => navigate("/demo/digital-projects")}
