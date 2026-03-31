@@ -19,7 +19,11 @@ import AdminClientsPage from "./pages/Admin/AdminClientsPage";
 import AdminClientReviewPage from "./pages/Admin/AdminClientReviewPage";
 import AdminCoreValuesPage from "./pages/Admin/AdminCoreValuesPage";
 import AdminAboutUsPage from "./pages/Admin/AdminAboutUsPage";
-import MainLayout from "./layout/MainLayout";
+import ProductionMainLayout from "./layout/ProductionMainLayout";
+import RatchHomePage from "./pages/RatchHomePage";
+import RatschMainLayout from "./layout/RatschMainLayout";
+import RatschDigitalProjects from "./pages/RatschMain/RatschDigitalProjects";
+import RatschProjectDetailsPage from "./pages/RatschMain/RatschProjectDetailsPage";
 
 function delay(ms: number): Promise<void> {
   return new Promise((resolve) => setTimeout(resolve, ms));
@@ -38,19 +42,9 @@ function AppContent() {
                 path="/demo"
                 element={
                   <>
-                    <MainLayout>
-                      <HomePage />
-                    </MainLayout>
-                  </>
-                }
-              />
-              <Route
-                path="/demo/"
-                element={
-                  <>
-                    <MainLayout>
-                      <HomePage />
-                    </MainLayout>
+                    <RatschMainLayout>
+                      <RatchHomePage />
+                    </RatschMainLayout>
                   </>
                 }
               />
@@ -58,9 +52,9 @@ function AppContent() {
                 path="/demo/project/:id"
                 element={
                   <>
-                    <MainLayout>
-                      <ProjectDetailsPage />
-                    </MainLayout>
+                    <RatschMainLayout>
+                      <RatschProjectDetailsPage />
+                    </RatschMainLayout>
                   </>
                 }
               />
@@ -68,9 +62,9 @@ function AppContent() {
                 path="/demo/about"
                 element={
                   <>
-                    <MainLayout>
+                    <RatschMainLayout>
                       <AboutUsPage />
-                    </MainLayout>
+                    </RatschMainLayout>
                   </>
                 }
               />
@@ -78,9 +72,9 @@ function AppContent() {
                 path="/demo/service/:id"
                 element={
                   <>
-                    <MainLayout>
+                    <ProductionMainLayout>
                       <ServiceDetailsPage />
-                    </MainLayout>
+                    </ProductionMainLayout>
                   </>
                 }
               />
@@ -88,9 +82,19 @@ function AppContent() {
                 path="/demo/projects"
                 element={
                   <>
-                    <MainLayout>
+                    <ProductionMainLayout>
                       <ProjectsPage />
-                    </MainLayout>
+                    </ProductionMainLayout>
+                  </>
+                }
+              />
+              <Route
+                path="/demo/digital-projects"
+                element={
+                  <>
+                    <RatschMainLayout>
+                      <RatschDigitalProjects />
+                    </RatschMainLayout>
                   </>
                 }
               />
@@ -98,9 +102,9 @@ function AppContent() {
                 path="/project/:id"
                 element={
                   <>
-                    <MainLayout>
-                      <ProjectDetailsPage />
-                    </MainLayout>
+                    <RatschMainLayout>
+                      <RatschProjectDetailsPage />
+                    </RatschMainLayout>
                   </>
                 }
               />
@@ -108,9 +112,9 @@ function AppContent() {
                 path="/service/:id"
                 element={
                   <>
-                    <MainLayout>
+                    <ProductionMainLayout>
                       <ServiceDetailsPage />
-                    </MainLayout>
+                    </ProductionMainLayout>
                   </>
                 }
               />
@@ -118,9 +122,9 @@ function AppContent() {
                 path="/about"
                 element={
                   <>
-                    <MainLayout>
+                    <ProductionMainLayout>
                       <AboutUsPage />
-                    </MainLayout>
+                    </ProductionMainLayout>
                   </>
                 }
               />
@@ -145,9 +149,9 @@ function AppContent() {
                 path="/"
                 element={
                   <>
-                    <MainLayout>
+                    <ProductionMainLayout>
                       <HomePage />
-                    </MainLayout>
+                    </ProductionMainLayout>
                   </>
                 }
               />
@@ -155,9 +159,9 @@ function AppContent() {
                 path="/project/:id"
                 element={
                   <>
-                    <MainLayout>
+                    <ProductionMainLayout>
                       <ProjectDetailsPage />
-                    </MainLayout>
+                    </ProductionMainLayout>
                   </>
                 }
               />
@@ -165,9 +169,9 @@ function AppContent() {
                 path="/service/:id"
                 element={
                   <>
-                    <MainLayout>
+                    <ProductionMainLayout>
                       <ServiceDetailsPage />
-                    </MainLayout>
+                    </ProductionMainLayout>
                   </>
                 }
               />
@@ -175,9 +179,9 @@ function AppContent() {
                 path="/projects"
                 element={
                   <>
-                    <MainLayout>
+                    <ProductionMainLayout>
                       <ProjectsPage />
-                    </MainLayout>
+                    </ProductionMainLayout>
                   </>
                 }
               />
@@ -185,9 +189,9 @@ function AppContent() {
                 path="/about"
                 element={
                   <>
-                    <MainLayout>
+                    <ProductionMainLayout>
                       <AboutUsPage />
-                    </MainLayout>
+                    </ProductionMainLayout>
                   </>
                 }
               />

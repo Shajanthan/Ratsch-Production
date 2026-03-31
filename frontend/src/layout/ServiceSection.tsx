@@ -739,5 +739,4 @@ const ServiceSection: React.FC<ServiceSectionProps> = () => {
     </div>
   );
 };
-
 export default ServiceSection;

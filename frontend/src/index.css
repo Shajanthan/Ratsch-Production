@@ -65,11 +65,21 @@
 @keyframes corevalue-in {
   from {
     opacity: 0;
-    transform: translateY(12px);
+    transform: translateY(8px);
   }
   to {
     opacity: 1;
     transform: translateY(0);
+  }
+}
+
+@keyframes letsgo-down {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(8px);
   }
 }
 
@@ -80,6 +90,10 @@
 
   .animate-corevalue-in {
     animation: corevalue-in 600ms cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+
+  .animate-letsgo-down {
+    animation: letsgo-down 1.4s ease-in-out infinite;
   }
 
   .bg-full-size-mobile {
@@ -110,7 +124,7 @@
   width: 14px;
   height: 14px;
   border-radius: 50%;
-  margin: 0 8px;
+  margin: 0 4px;
   transition: all 0.3s ease;
   cursor: pointer;
 }
@@ -374,4 +388,46 @@
   width: 24px;
   height: 8px;
   border-radius: 4px;
+}
+
+/* Ratsch review swiper */
+.ratsch-review-swiper {
+  position: relative;
+  padding-bottom: 2rem;
+}
+
+.ratsch-review-swiper .swiper-pagination {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+.ratsch-review-swiper .swiper-pagination-bullet {
+  background-color: rgba(5, 87, 178, 0.35);
+  opacity: 1;
+  width: 14px;
+  height: 14px;
+  border-radius: 9999px;
+  margin: 0 4px;
+  transition: all 0.3s ease;
+}
+
+.ratsch-review-swiper .swiper-pagination-bullet-active {
+  background-color: #0557b2;
+  width: 14px;
+  height: 14px;
+  border-radius: 9999px;
+}
+
+.ratsch-review-swiper .swiper-slide {
+  height: auto;
+  display: flex;
+  align-items: stretch;
+}
+
+.ratsch-review-swiper .swiper-slide > div {
+  width: 100%;
+  display: flex;
+  align-items: stretch;
 }

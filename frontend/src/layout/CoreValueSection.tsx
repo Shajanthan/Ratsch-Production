@@ -66,13 +66,9 @@ const CoreValueSection: React.FC<CoreValueSectionProps> = ({ aboutUs }) => {
   };
 
   return (
-    <div className="relative w-full bg-black pb-12">
-      <img
-        src="https://res.cloudinary.com/dybv1h20q/image/upload/v1769927519/bg_do9pwv.png"
-        className="absolute inset-0 opacity-70 w-full h-full object-cover"
-      />
-      <div className="z-10 py-6 md:py-12 relative">
-        <div className="text-white">
+    <div className="relative w-full">
+      <div className={`z-10 relative ${aboutUs ? "" : " md:py-12"}`}>
+        <div className="text-[#02244A]">
           {!aboutUs && (
             <div className="text-3xl md:text-5xl lg:text-6xl text-center uppercase font-bold pb-6 md:pb-12 px-4">
               our core values

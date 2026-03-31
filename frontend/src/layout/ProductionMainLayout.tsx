@@ -1,11 +1,11 @@
 import Navbar from "@/components/Navbar";
 import React from "react";
 
-interface MainLayoutProps {
+interface ProductionMainLayoutProps {
   children: React.ReactNode;
 }
 
-const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
+const ProductionMainLayout: React.FC<ProductionMainLayoutProps> = ({ children }) => {
   return (
     <div>
       <Navbar />
@@ -15,4 +15,4 @@ const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
   );
 };
 
-export default MainLayout;
+export default ProductionMainLayout;

@@ -1,5 +1,4 @@
 import React, { useEffect, useRef, useState } from "react";
-import Footer from "@/layout/Footer";
 import type { Swiper as SwiperType } from "swiper";
 import CoreValueSection from "@/layout/CoreValueSection";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -8,6 +7,7 @@ import { getCeoSection, type CeoSection } from "@/services/aboutUsService";
 import { getTeamMembers, type TeamMember } from "@/services/teamMemberService";
 import "swiper/css";
 import "swiper/css/pagination";
+import RatschFooter from "./RatschMain/RatschFooter";
 
 const AboutUsPage: React.FC = () => {
   const teamSwiperRef = useRef<SwiperType | null>(null);
@@ -31,13 +31,13 @@ const AboutUsPage: React.FC = () => {
   }, []);
 
   return (
-    <div className="min-h-screen bg-black text-white ">
+    <div className="min-h-screen bg-white text-[#02244A] ">
       {/* Hero Section */}
-      <div className="relative w-full h-[60vh] md:h-[90vh] overflow-hidden container lg:max-w-[1400px] mx-auto">
+      <div className="relative w-full h-[60vh] md:h-[90vh] overflow-hidden container lg:max-w-[1800px] mx-auto">
         <img
           src="https://res.cloudinary.com/dybv1h20q/image/upload/v1769927928/aboutus_fl8vuc.png"
           alt="About Us Background"
-          className="absolute inset-0 w-full h-full object-cover mt-20 lg:mt-28"
+          className="absolute inset-0 w-full h-full object-cover mt-4 rounded-3xl p-2"
         />
 
         <div className="relative z-20 h-full flex flex-col items-center justify-center text-center px-4 ">
@@ -51,9 +51,9 @@ const AboutUsPage: React.FC = () => {
       </div>
 
       {/* Introductory Section */}
-      <div className="py-12 md:py-16 px-4 md:px-0 bg-black">
+      <div className="py-12 md:py-16 px-4 md:px-0 bg-white">
         <div className="container lg:max-w-[1400px] mx-auto">
-          <h2 className="text-5xl lg:text-8xl font-bold uppercase md:mb-16 leading-tight">
+          <h2 className="text-5xl lg:text-8xl font-bold uppercase md:mb-16 leading-tight text-center">
             BEGAN AS A SIMPLE <span className="text-[#E30514]">IDEA</span>,
             <br /> NOW GROWN INTO A{" "}
             <span className="text-[#E30514]">JOURNEY</span>
@@ -64,21 +64,14 @@ const AboutUsPage: React.FC = () => {
             <div className="p-4 rounded-md">
               <img
                 className=" md:h-[200px] bg-contain"
-                src="https://res.cloudinary.com/dybv1h20q/image/upload/v1771049149/Ratsch_Productions_Logo_Png-White_ynyzqp.png"
+                src="https://res.cloudinary.com/dybv1h20q/image/upload/v1774418189/RATSCH_GROUP_PNG_1_dkzvsu.png"
                 alt="logo"
               />
             </div>
           </div>
-          <div className="p-4 px-6 flex justify-center h-[240px] lg:h-[300px]">
-            <img
-              src="https://res.cloudinary.com/dybv1h20q/image/upload/v1769928007/logos_kceqmn.png"
-              alt="About Us Background"
-              className="h-full w-full object-contain"
-            />
-          </div>
 
           {/* Description */}
-          <p className="text-white/90 text-center text-sm md:text-base leading-relaxed max-w-4xl mx-auto pt-6">
+          <p className="text-center text-sm md:text-base leading-relaxed max-w-4xl mx-auto pt-6 font-medium">
             RATSCH Productions is a creative and production studio built on the
             power of visual storytelling. Based in Sri Lanka and working across
             international markets, we create cinematic content that elevates
@@ -105,23 +98,14 @@ const AboutUsPage: React.FC = () => {
             measurable value and long-term brand impact.
           </p>
         </div>
-        <div className="mt-2 text-white/90 uppercase text-2xl md:text-3xl lg:text-4xl font-bold text-center leading-relaxed max-w-4xl mx-auto pt-6">
-          We don’t just <span className="text-[#E30514]">produce content.</span>
-          <br />
-          We craft <span className="text-[#E30514]"> stories that move.</span>
-        </div>
       </div>
 
       {/* Meet Our CEO Section */}
-      <div className="relative w-full bg-black py-12">
-        <img
-          src="https://res.cloudinary.com/dybv1h20q/image/upload/v1769927519/bg_do9pwv.png"
-          className="absolute inset-0 opacity-70 w-full h-full object-cover"
-        />
-        <div className="bg-black z-10 py-8 md:py-16 relative">
+      <div className="relative w-full bg-white py-12">
+        <div className="bg-white z-10 py-8 md:py-16 relative">
           <div className=" text-white px-4 md:px-0">
             <div className="container mx-auto max-w-6xl">
-              <h2 className="text-5xl lg:text-7xl font-bold uppercase text-center mb-12 md:mb-16">
+              <h2 className="text-5xl lg:text-7xl font-bold uppercase text-center mb-12 md:mb-16 bg-[#02244A] text-white py-3 rounded-3xl">
                 MEET OUR CEO
               </h2>
 
@@ -142,27 +126,24 @@ const AboutUsPage: React.FC = () => {
                 {/* CEO Info */}
                 <div className="h-full">
                   {ceo?.firstName || ceo?.lastName ? (
-                    <h3 className="text-3xl md:text-4xl uppercase lg:text-5xl font-bold text-white mb-2">
+                    <h3 className="text-3xl md:text-4xl uppercase lg:text-5xl font-bold text-[#02244A] mb-2">
                       {ceo.firstName && (
                         <span className="text-[#d80000]">{ceo.firstName} </span>
                       )}
                       {ceo.lastName}
                     </h3>
                   ) : (
-                    <h3 className="text-3xl md:text-4xl uppercase lg:text-5xl font-bold text-white mb-2">
+                    <h3 className="text-3xl md:text-4xl uppercase lg:text-5xl font-bold text-[#02244A] mb-2">
                       <span className="text-[#d80000]"> Raj </span> kumar
                     </h3>
                   )}
-                  {(ceo?.position || ceo?.companyName) && (
-                    <p className="text-lg md:text-xl text-white/80 mb-6 uppercase">
-                      {ceo.position && (
-                        <span className="text-red-800">{ceo.position}</span>
-                      )}
-                      {ceo.position && ceo.companyName && " "}
-                      {ceo.companyName}
-                    </p>
-                  )}
-                  <p className="text-white/90 text-sm md:text-base leading-relaxed py-7">
+
+                  <p className="text-lg md:text-xl text-[#02244A] mb-6 uppercase">
+                    <span className="text-[#FF0000]">ceo, </span>
+                    RATSCH PRODUCTIONS
+                  </p>
+
+                  <p className="text-[#02244A] text-sm md:text-base leading-relaxed py-7">
                     {ceo?.description || (
                       <>
                         At RATSCH Productions, our mission is to combine
@@ -182,7 +163,7 @@ const AboutUsPage: React.FC = () => {
       </div>
 
       {/* Our Team Section - image, full name, position */}
-      <div className="py-12 md:py-20 bg-black">
+      <div className="py-12 md:py-20 bg-white">
         <div className="container lg:max-w-[1400px] mx-auto max-w-7xl px-4">
           <h2 className="text-3xl md:text-5xl lg:text-7xl font-bold uppercase text-center mb-12 md:mb-16">
             OUR TEAM
@@ -234,7 +215,7 @@ const AboutUsPage: React.FC = () => {
                           className="w-full h-full object-cover"
                         />
                       </div>
-                      <h4 className="text-white font-semibold capitalize text-base md:text-lg lg:text-xl mt-4 mb-1">
+                      <h4 className="text-[#02244A] font-semibold capitalize text-base md:text-lg lg:text-xl mt-4 mb-1">
                         {member.fullName}
                       </h4>
                       <p className="text-[#E30514] uppercase text-xs md:text-sm">
@@ -251,9 +232,9 @@ const AboutUsPage: React.FC = () => {
 
       {/* Quality Section */}
       <CoreValueSection aboutUs={true} />
-
+      <div className="h-10"></div>
       {/* Footer */}
-      <Footer />
+      <RatschFooter />
     </div>
   );
 };

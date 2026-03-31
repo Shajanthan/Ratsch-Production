@@ -4,7 +4,7 @@ import Button from "./Button";
 import { CiMail } from "react-icons/ci";
 import { HiMenu, HiX } from "react-icons/hi";
 
-const Navbar: React.FC = () => {
+const RatschMainNavBar: React.FC = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const navigate = useNavigate();
@@ -65,13 +65,13 @@ const Navbar: React.FC = () => {
   ];
   return (
     <div
-      className={`fixed left-0 right-0 z-[51] transition-all duration-300 select-none py-3 ${
+      className={`fixed left-0 right-0 z-[51] transition-all duration-300 select-none py-3  ${
         isScrolled || isMobileMenuOpen
-          ? "backdrop-blur-xl bg-white/5"
+          ? "backdrop-blur-xl bg-white/20"
           : "border-none py-2"
       }`}
     >
-      <div className="container lg:max-w-[1400px] mx-auto flex justify-between items-center px-4 md:px-2">
+      <div className="container lg:max-w-[1400px] mx-auto flex justify-between items-center px-4 md:px-2 ">
         <button
           onClick={() => {
             const currentPath = window.location.pathname;
@@ -84,21 +84,21 @@ const Navbar: React.FC = () => {
           className="cursor-pointer"
         >
           <img
-            className="w-[100px] md:w-[180px] lg:w-[150px]"
-            src="https://res.cloudinary.com/dybv1h20q/image/upload/v1771049149/Ratsch_Productions_Logo_Png-White_ynyzqp.png"
+            className="w-[160px] md:w-[180px] lg:w-[200px]"
+            src="https://res.cloudinary.com/dybv1h20q/image/upload/v1774418189/RATSCH_GROUP_PNG_1_dkzvsu.png"
             alt="logo"
           />
         </button>
         {/* Desktop Navigation */}
         <div className="hidden lg:flex items-center">
           <div
-            className={`rounded-full px-8 xl:px-12 py-3 xl:py-4 flex items-center gap-8 xl:gap-14 transition-all duration-300 bg-black/75`}
+            className={`rounded-full px-8 xl:px-12 py-3 xl:py-4 flex items-center gap-8 xl:gap-14 transition-all duration-300 bg-white shadow-lg shadow-black/30`}
           >
             {navItems.map((item) => (
               <button
                 key={item.sectionId}
                 onClick={() => handleNavClick(item.sectionId)}
-                className="text-white text-sm xl:text-base transition-colors relative group hover:text-[#E30514]"
+                className="text-[#02244A] text-sm xl:text-base transition-colors relative group hover:text-[#E30514]"
               >
                 {item.label}
                 <span className="absolute bottom-0 left-0 h-0.5 bg-[#E30514] transition-all duration-300 w-0 group-hover:w-full"></span>
@@ -109,7 +109,7 @@ const Navbar: React.FC = () => {
         {/* Desktop Button */}
         <div className="hidden lg:block">
           <Button
-          lightTheme={false}
+            isLightTheme={true}
             navButton={true}
             text="Talk with us"
             color="#333333"
@@ -120,7 +120,7 @@ const Navbar: React.FC = () => {
         {/* Mobile Menu Button */}
         <button
           onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-          className="lg:hidden text-white p-2"
+          className="lg:hidden text-[#02244A] p-2"
           aria-label="Toggle menu"
         >
           {isMobileMenuOpen ? (
@@ -132,7 +132,7 @@ const Navbar: React.FC = () => {
       </div>
       {/* Mobile Menu */}
       {isMobileMenuOpen && (
-        <div className="lg:hidden backdrop-blur-xl bg-white/5 border-t border-white/10">
+        <div className="lg:hidden backdrop-blur-xl bg-[#02244A] border-t border-white/10">
           <div className="container lg:max-w-[1400px] mx-auto px-4 py-4 flex flex-col gap-4">
             {navItems.map((item) => (
               <button
@@ -145,7 +145,7 @@ const Navbar: React.FC = () => {
             ))}
             <div className="pt-2 flex justify-center">
               <Button
-                lightTheme={false}
+                isLightTheme={true}
                 navButton={true}
                 text="Talk with us"
                 color="#333333"
@@ -160,4 +160,4 @@ const Navbar: React.FC = () => {
   );
 };
 
-export default Navbar;
+export default RatschMainNavBar;
