@@ -12,6 +12,7 @@ import homepageRoutes from "./routes/homepageRoutes.js";
 import aboutUsRoutes from "./routes/aboutUsRoutes.js";
 import teamMemberRoutes from "./routes/teamMemberRoutes.js";
 import cloudinaryRoutes from "./routes/cloudinaryRoutes.js";
+import ratschHomeRoutes from "./routes/ratschHomeRoutes.js";
 
 dotenv.config();
 
@@ -46,9 +47,10 @@ app.use("/api/homepage", homepageRoutes);
 app.use("/api/about-us", aboutUsRoutes);
 app.use("/api/team-members", teamMemberRoutes);
 app.use("/api/cloudinary", cloudinaryRoutes);
+app.use("/api/ratsch-homepage", ratschHomeRoutes);
 
-// Error handling middleware
-app.use((err, req, res) => {
+// Error handling middleware (must have 4 args for Express to treat as error handler)
+app.use((err, req, res, next) => {
   console.error("Error:", err);
   res.status(err.status || 500).json({
     success: false,

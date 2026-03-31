@@ -12,6 +12,7 @@ import {
   HiSparkles,
   HiOfficeBuilding,
 } from "react-icons/hi";
+import { IoHomeOutline } from "react-icons/io5";
 
 interface AdminLayoutProps {
   children?: React.ReactNode;
@@ -40,6 +41,7 @@ const AdminLayout: React.FC<AdminLayoutProps> = () => {
 
   const menuItems = [
     { path: "/admin", label: "Homepage", icon: HiHome },
+    { path: "/admin/ratsch-homepage", label: "Ratsch Banner", icon: IoHomeOutline  },
     { path: "/admin/about-us", label: "About Us", icon: HiOfficeBuilding },
     { path: "/admin/services", label: "Services", icon: HiCollection },
     { path: "/admin/projects", label: "Projects", icon: HiFolder },

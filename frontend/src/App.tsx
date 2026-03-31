@@ -24,6 +24,7 @@ import RatchHomePage from "./pages/RatchHomePage";
 import RatschMainLayout from "./layout/RatschMainLayout";
 import RatschDigitalProjects from "./pages/RatschMain/RatschDigitalProjects";
 import RatschProjectDetailsPage from "./pages/RatschMain/RatschProjectDetailsPage";
+import AdminRatschHomepagePage from "./pages/Admin/AdminRatschHomepagePage";
 
 function delay(ms: number): Promise<void> {
   return new Promise((resolve) => setTimeout(resolve, ms));
@@ -141,6 +142,7 @@ function AppContent() {
                 />
                 <Route path="core-values" element={<AdminCoreValuesPage />} />
                 <Route path="about-us" element={<AdminAboutUsPage />} />
+                <Route path="ratsch-homepage" element={<AdminRatschHomepagePage />} />
               </Route>
             </>
           ) : (

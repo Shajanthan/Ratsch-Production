@@ -1,17 +1,40 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { FaAnglesDown } from "react-icons/fa6";
+import { getRatschHomeSettings } from "../../services/ratschHomeService";
 
 interface RatschHomeProps {}
 
 const RatschHome: React.FC<RatschHomeProps> = () => {
+  const [bannerUrl, setBannerUrl] = useState<string | null>(null);
+
+  // Fallback to current static URL if settings not yet configured
+  const fallbackUrl =
+    "https://res.cloudinary.com/dybv1h20q/image/upload/v1769935486/projects/dsq3tEikFp5cQo1o0zJe_banner.png";
+
+  useEffect(() => {
+    let cancelled = false;
+    getRatschHomeSettings()
+      .then((settings) => {
+        if (cancelled) return;
+        setBannerUrl(settings.bannerImageUrl || fallbackUrl);
+      })
+      .catch(() => {
+        if (cancelled) return;
+        setBannerUrl(fallbackUrl);
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
   return (
     <div>
       <div className="p-3 ">
-        <div className="lg:h-[800px] h-[350px] rounded-3xl relative overflow-hidden">
+        <div className="lg:h-[800px] h-[300px] rounded-3xl relative overflow-hidden">
           <img
-            src="https://res.cloudinary.com/dybv1h20q/image/upload/v1769935486/projects/dsq3tEikFp5cQo1o0zJe_banner.png"
+            src={bannerUrl ?? fallbackUrl}
             alt="Ratsch home banner"
-            className="absolute inset-0 w-full h-full object-cover opacity-85"
+            className="absolute inset-0 w-full h-full object-fill opacity-100"
           />
           <div className="absolute inset-0 bg-black/10" />
 
