@@ -81,9 +81,9 @@ const RatschProjectDetailsPage: React.FC = () => {
     };
   }, [slugOrId]);
 
-  // useEffect(() => {
-  //   window.scrollTo(0, 0);
-  // }, [slugOrId]);
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [slugOrId]);
 
   useEffect(() => {
     if (!isFullscreenOpen) return;
