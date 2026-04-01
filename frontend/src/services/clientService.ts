@@ -5,6 +5,7 @@ export interface Client {
   id?: string;
   imageUrl: string;
   imagePublicId?: string;
+  category?: "all" | "creative" | "digital" | "production";
   createdAt?: string;
   updatedAt?: string;
 }
@@ -21,6 +22,7 @@ export async function getClients(): Promise<Client[]> {
 export async function addClient(payload: {
   imageUrl: string;
   imagePublicId?: string;
+  category?: "all" | "creative" | "digital" | "production";
 }): Promise<string> {
   const { data } = await api.post<{ success: true; data: { id: string } }>(
     BASE,
@@ -28,6 +30,18 @@ export async function addClient(payload: {
   );
   invalidateCache("clients");
   return data.data.id;
+}
+
+export async function updateClient(
+  id: string,
+  payload: {
+    imageUrl: string;
+    imagePublicId?: string;
+    category?: "all" | "creative" | "digital" | "production";
+  },
+): Promise<void> {
+  await api.put(`${BASE}/${id}`, payload);
+  invalidateCache("clients");
 }
 
 export async function deleteClient(id: string): Promise<void> {

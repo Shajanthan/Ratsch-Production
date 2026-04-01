@@ -4,6 +4,13 @@ import cloudinary from "../config/cloudinary.js";
 const db = admin.firestore();
 const COLLECTION = "clients";
 const CLOUDINARY_CLIENTS_PREFIX = "clients";
+const ALLOWED_CATEGORIES = ["all", "creative", "digital", "production"];
+
+function normalizeCategory(value) {
+  const normalized = (value || "").toString().trim().toLowerCase();
+  if (normalized === "digital") return "creative";
+  return ALLOWED_CATEGORIES.includes(normalized) ? normalized : "all";
+}
 
 /**
  * GET /api/clients - Get all clients (public)
@@ -33,7 +40,7 @@ export const getClients = async (req, res) => {
  */
 export const addClient = async (req, res) => {
   try {
-    const { imageUrl = "", imagePublicId = "" } = req.body;
+    const { imageUrl = "", imagePublicId = "", category = "all" } = req.body;
 
     if (!imageUrl) {
       return res.status(400).json({
@@ -45,6 +52,7 @@ export const addClient = async (req, res) => {
     const docRef = await db.collection(COLLECTION).add({
       imageUrl,
       imagePublicId: imagePublicId || "",
+      category: normalizeCategory(category),
       createdAt: new Date(),
       updatedAt: new Date(),
     });
@@ -59,6 +67,51 @@ export const addClient = async (req, res) => {
     res.status(500).json({
       success: false,
       message: "Failed to add client",
+    });
+  }
+};
+
+/**
+ * PUT /api/clients/:id - Update a client logo/category (protected).
+ * Body: { imageUrl, imagePublicId?, category? }
+ */
+export const updateClient = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { imageUrl = "", imagePublicId = "", category = "all" } = req.body;
+
+    if (!imageUrl) {
+      return res.status(400).json({
+        success: false,
+        message: "Missing required field: imageUrl",
+      });
+    }
+
+    const docRef = db.collection(COLLECTION).doc(id);
+    const doc = await docRef.get();
+    if (!doc.exists) {
+      return res.status(404).json({
+        success: false,
+        message: "Client not found",
+      });
+    }
+
+    await docRef.update({
+      imageUrl,
+      imagePublicId: imagePublicId || "",
+      category: normalizeCategory(category),
+      updatedAt: new Date(),
+    });
+
+    res.json({
+      success: true,
+      message: "Client updated",
+    });
+  } catch (error) {
+    console.error("updateClient error:", error);
+    res.status(500).json({
+      success: false,
+      message: "Failed to update client",
     });
   }
 };

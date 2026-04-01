@@ -199,11 +199,16 @@ const AdminHomepagePage: React.FC = () => {
 
   const clientDropdownOptions = useMemo(
     () =>
-      clients.map((c, i) => ({
-        value: c.id ?? "",
-        label: `Client ${i + 1}`,
-        imageUrl: c.imageUrl,
-      })),
+      clients
+        .filter((c) => {
+          const category = (c.category || "all").trim().toLowerCase();
+          return category === "all" || category === "production";
+        })
+        .map((c, i) => ({
+          value: c.id ?? "",
+          label: `Client ${i + 1}`,
+          imageUrl: c.imageUrl,
+        })),
     [clients],
   );
 

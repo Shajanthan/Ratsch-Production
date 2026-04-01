@@ -1,5 +1,9 @@
 import React, { useState, useEffect, useCallback } from "react";
-import { HiOutlineExclamation, HiOutlineTrash } from "react-icons/hi";
+import {
+  HiOutlineExclamation,
+  HiOutlinePencil,
+  HiOutlineTrash,
+} from "react-icons/hi";
 import AddClientModal from "../../components/AddClientModal";
 import {
   getClients,
@@ -12,10 +16,15 @@ const AdminClientsPage: React.FC = () => {
   const toast = useToast();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [clients, setClients] = useState<Client[]>([]);
+  const [editingClient, setEditingClient] = useState<Client | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [clientToDelete, setClientToDelete] = useState<Client | null>(null);
   const [deletingId, setDeletingId] = useState<string | null>(null);
+  const categoryLabel = (category?: string) =>
+    category === "creative" || category === "digital"
+      ? "creative & digital"
+      : category || "all";
 
   const loadClients = useCallback(async () => {
     setLoading(true);
@@ -37,12 +46,23 @@ const AdminClientsPage: React.FC = () => {
   }, [loadClients]);
 
   const handleAddSuccess = (message?: string) => {
+    setEditingClient(null);
     void loadClients();
     if (message) toast.success(message);
   };
 
-  const openAddModal = () => setIsModalOpen(true);
-  const handleCloseModal = () => setIsModalOpen(false);
+  const openAddModal = () => {
+    setEditingClient(null);
+    setIsModalOpen(true);
+  };
+  const openEditModal = (client: Client) => {
+    setEditingClient(client);
+    setIsModalOpen(true);
+  };
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+    setEditingClient(null);
+  };
 
   const openDeleteConfirm = (client: Client) => setClientToDelete(client);
   const closeDeleteConfirm = () => {
@@ -119,15 +139,28 @@ const AdminClientsPage: React.FC = () => {
                     <span className="text-white/40 text-sm">No image</span>
                   )}
                 </div>
-                <button
-                  type="button"
-                  onClick={() => openDeleteConfirm(client)}
-                  disabled={deletingId === client.id}
-                  className="inline-flex items-center gap-2 border border-white/40 hover:border-red-500 hover:bg-red-500/10 transition-all duration-300 py-2 px-4 text-white text-xs uppercase font-semibold rounded-md disabled:opacity-50"
-                >
-                  <HiOutlineTrash className="w-4 h-4 flex-shrink-0" />
-                  {deletingId === client.id ? "Deleting…" : "Delete"}
-                </button>
+                <div className="text-[10px] uppercase tracking-wide text-white/70 border border-white/20 rounded-full px-3 py-1">
+                  {categoryLabel(client.category)}
+                </div>
+                <div className="flex items-center gap-2">
+                  <button
+                    type="button"
+                    onClick={() => openEditModal(client)}
+                    className="inline-flex items-center gap-2 border border-white/40 hover:border-[#E30514] hover:bg-[#E30514]/10 transition-all duration-300 py-2 px-4 text-white text-xs uppercase font-semibold rounded-md"
+                  >
+                    <HiOutlinePencil className="w-4 h-4 flex-shrink-0" />
+                    Edit
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => openDeleteConfirm(client)}
+                    disabled={deletingId === client.id}
+                    className="inline-flex items-center gap-2 border border-white/40 hover:border-red-500 hover:bg-red-500/10 transition-all duration-300 py-2 px-4 text-white text-xs uppercase font-semibold rounded-md disabled:opacity-50"
+                  >
+                    <HiOutlineTrash className="w-4 h-4 flex-shrink-0" />
+                    {deletingId === client.id ? "Deleting…" : "Delete"}
+                  </button>
+                </div>
               </div>
             ))}
           </div>
@@ -138,6 +171,7 @@ const AdminClientsPage: React.FC = () => {
         isOpen={isModalOpen}
         onClose={handleCloseModal}
         onSuccess={handleAddSuccess}
+        initialClient={editingClient}
       />
 
       {/* Delete confirmation modal */}

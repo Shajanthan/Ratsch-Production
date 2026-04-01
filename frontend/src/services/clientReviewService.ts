@@ -7,6 +7,7 @@ export interface ClientReview {
   lastName: string;
   position: string;
   companyName: string;
+  category?: "all" | "creative" | "digital" | "production";
   review: string;
   profilePictureUrl: string;
   /** Cloudinary public_id; used to delete image on review delete or re-upload */

@@ -3,7 +3,6 @@ import {
   HiOutlinePencil,
   HiOutlineExclamation,
   HiOutlineTrash,
-  HiOutlineUserGroup,
   HiOutlineOfficeBuilding,
 } from "react-icons/hi";
 import EditCeoModal from "../../components/EditCeoModal";
@@ -157,7 +156,7 @@ const AdminAboutUsPage: React.FC = () => {
             <HiOutlineOfficeBuilding className="w-5 h-5" />
             CEO Section
           </button>
-          <button
+          {/* <button
             type="button"
             onClick={() => setActiveTab("team")}
             className={`flex items-center gap-2 py-2 px-4 text-sm uppercase font-semibold rounded-t transition-all duration-300 ${
@@ -168,7 +167,7 @@ const AdminAboutUsPage: React.FC = () => {
           >
             <HiOutlineUserGroup className="w-5 h-5" />
             Team Members
-          </button>
+          </button> */}
         </div>
 
         {/* CEO Section tab */}

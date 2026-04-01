@@ -82,8 +82,9 @@ const RatschMainNavBar: React.FC = () => {
         navigate(`${homePath}#contact`);
       }
     } else if (sectionId === "production") {
-      navigate(`${homePath}/production`);
+      navigate(`${basePath}/production`);
     } else if (sectionId === "creative" || sectionId === "digital") {
+      window.scrollTo({ top: 0, behavior: "smooth" });
       const params = new URLSearchParams();
       params.set("category", sectionId);
       navigate(`${basePath}/digital-projects?${params.toString()}`);
@@ -106,7 +107,11 @@ const RatschMainNavBar: React.FC = () => {
     const params = new URLSearchParams();
     params.set("category", categoryKey);
     params.set("sub", subLabel);
-    navigate(`${basePath}/digital-projects?${params.toString()}`);
+    if (categoryKey === "production") {
+      navigate(`${basePath}/projects?${params.toString()}`);
+    } else {
+      navigate(`${basePath}/digital-projects?${params.toString()}`);
+    }
   };
 
   const navItems = [

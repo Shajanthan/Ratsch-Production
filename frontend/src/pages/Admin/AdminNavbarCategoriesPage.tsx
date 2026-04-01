@@ -43,7 +43,10 @@ const AdminNavbarCategoriesPage: React.FC = () => {
     () =>
       categories
         .slice()
-        .sort((a, b) => (a.order || 0) - (b.order || 0) || a.key.localeCompare(b.key)),
+        .sort(
+          (a, b) =>
+            (a.order || 0) - (b.order || 0) || a.key.localeCompare(b.key),
+        ),
     [categories],
   );
 
@@ -157,7 +160,7 @@ const AdminNavbarCategoriesPage: React.FC = () => {
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-6">
           <div>
             <h2 className="text-2xl md:text-3xl font-bold uppercase mb-2">
-              Navbar Categories
+              Service Categories
             </h2>
             <p className="text-white/70 text-sm md:text-base">
               Manage Digital, Creative, and Production dropdown content that
@@ -395,4 +398,3 @@ const AdminNavbarCategoriesPage: React.FC = () => {
 };
 
 export default AdminNavbarCategoriesPage;
-

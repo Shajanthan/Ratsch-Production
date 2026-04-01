@@ -24,14 +24,19 @@ const ReviewSection: React.FC = () => {
       .then((data) => {
         if (!cancelled) {
           setReviews(
-            data.map((r) => ({
-              name: `${r.firstName} ${r.lastName}`,
-              position: r.companyName
-                ? `${r.position} at ${r.companyName}`
-                : r.position,
-              review: r.review,
-              profile: r.profilePictureUrl || undefined,
-            })),
+            data
+              .filter((r) => {
+                const category = (r.category || "all").trim().toLowerCase();
+                return category === "all" || category === "production";
+              })
+              .map((r) => ({
+                name: `${r.firstName} ${r.lastName}`,
+                position: r.companyName
+                  ? `${r.position} at ${r.companyName}`
+                  : r.position,
+                review: r.review,
+                profile: r.profilePictureUrl || undefined,
+              })),
           );
         }
       })

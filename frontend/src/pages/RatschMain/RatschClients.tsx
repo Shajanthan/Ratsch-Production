@@ -5,7 +5,6 @@ import { Pagination } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/pagination";
 import { Client, getClients } from "@/services/clientService";
-import { getHomepageSettings } from "@/services/homepageService";
 import RevealOnScroll from "@/components/RevealOnScroll";
 
 interface RatschClientsProps {}
@@ -13,22 +12,17 @@ interface RatschClientsProps {}
 const RatschClients: React.FC<RatschClientsProps> = () => {
   const [clients, setClients] = useState<Client[]>([]);
 
+  const isAllowedCategory = (client: Client) => {
+    const category = (client.category || "all").trim().toLowerCase();
+    return category === "all" || category === "creative" || category === "digital";
+  };
+
   useEffect(() => {
     let cancelled = false;
-    Promise.all([getHomepageSettings(), getClients()])
-      .then(([settings, allClients]) => {
+    getClients()
+      .then((allClients) => {
         if (cancelled) return;
-        const ids = [
-          settings.clientId1,
-          settings.clientId2,
-          settings.clientId3,
-          settings.clientId4,
-        ].filter(Boolean);
-        const byId = new Map(allClients.map((c) => [c.id, c]));
-        const ordered = ids
-          .map((id) => byId.get(id))
-          .filter((c): c is Client => c != null);
-        setClients(ordered.length > 0 ? ordered : allClients);
+        setClients(allClients.filter(isAllowedCategory));
       })
       .catch(() => {
         if (!cancelled) setClients([]);
@@ -61,7 +55,7 @@ const RatschClients: React.FC<RatschClientsProps> = () => {
                   <img
                     src={client.imageUrl}
                     alt="Ratsch clients"
-                    className="w-[120px] h-[70px] object-fill rounded-lg hover:scale-105 transition-all duration-500"
+                    className="w-[120px] h-[70px] object-cover rounded-lg hover:scale-105 transition-all duration-500"
                   />
                 </div>
               </SwiperSlide>

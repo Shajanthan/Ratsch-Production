@@ -30,6 +30,10 @@ const AdminClientReviewPage: React.FC = () => {
   const [error, setError] = useState<string | null>(null);
   const [deletingId, setDeletingId] = useState<string | null>(null);
   const [currentPage, setCurrentPage] = useState(1);
+  const categoryLabel = (category?: string) =>
+    category === "creative" || category === "digital"
+      ? "creative & digital"
+      : category || "all";
 
   const PER_PAGE = 8;
   const totalPages = useMemo(
@@ -179,6 +183,9 @@ const AdminClientReviewPage: React.FC = () => {
                   <th className="py-3 px-2 text-white/70 text-xs uppercase tracking-wider font-semibold hidden md:table-cell">
                     Position
                   </th>
+                  <th className="py-3 px-2 text-white/70 text-xs uppercase tracking-wider font-semibold hidden md:table-cell">
+                    Category
+                  </th>
                   <th className="py-3 px-2 text-white/70 text-xs uppercase tracking-wider font-semibold hidden lg:table-cell">
                     Created | Updated
                   </th>
@@ -227,6 +234,9 @@ const AdminClientReviewPage: React.FC = () => {
                     </td>
                     <td className="py-3 px-2 text-white/80 hidden md:table-cell">
                       {r.position}
+                    </td>
+                    <td className="py-3 px-2 text-white/80 hidden md:table-cell uppercase text-xs">
+                      {categoryLabel(r.category)}
                     </td>
 
                     <td className="py-3 px-2 text-white/60 text-sm hidden lg:table-cell whitespace-nowrap">
@@ -431,6 +441,9 @@ const AdminClientReviewPage: React.FC = () => {
                     {viewingReview.position}{" "}
                     {viewingReview.companyName &&
                       `· ${viewingReview.companyName}`}
+                  </p>
+                  <p className="text-white/60 text-xs uppercase truncate">
+                    Category: {categoryLabel(viewingReview.category)}
                   </p>
                 </div>
               </div>

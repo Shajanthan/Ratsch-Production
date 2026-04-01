@@ -1,25 +1,45 @@
 import React, { useState } from "react";
 import { HiX } from "react-icons/hi";
 import { uploadImage } from "../services/cloudinaryService";
-import { addClient } from "../services/clientService";
+import { addClient, updateClient, type Client } from "../services/clientService";
 import { useToast } from "../context/ToastContext";
+import CategoryDropdown, { type CategoryValue } from "./CategoryDropdown";
 
 interface AddClientModalProps {
   isOpen: boolean;
   onClose: () => void;
   onSuccess: (message?: string) => void;
+  initialClient?: Client | null;
 }
 
 const AddClientModal: React.FC<AddClientModalProps> = ({
   isOpen,
   onClose,
   onSuccess,
+  initialClient = null,
 }) => {
   const toast = useToast();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [imageFile, setImageFile] = useState<File | null>(null);
   const [imagePreview, setImagePreview] = useState("");
+  const [category, setCategory] = useState<CategoryValue>("all");
+
+  const isEdit = Boolean(initialClient?.id);
+
+  React.useEffect(() => {
+    if (!isOpen) return;
+    const nextCategory =
+      (initialClient?.category as CategoryValue) || "all";
+    setCategory(nextCategory);
+    setImageFile(null);
+    setError("");
+    if (initialClient?.imageUrl) {
+      setImagePreview(initialClient.imageUrl);
+    } else {
+      setImagePreview("");
+    }
+  }, [isOpen, initialClient]);
 
   if (!isOpen) return null;
 
@@ -34,14 +54,15 @@ const AddClientModal: React.FC<AddClientModalProps> = ({
 
   const handleRemoveImage = () => {
     setImageFile(null);
-    if (imagePreview) URL.revokeObjectURL(imagePreview);
+    if (imagePreview.startsWith("blob:")) URL.revokeObjectURL(imagePreview);
     setImagePreview("");
   };
 
   const handleClose = () => {
     setImageFile(null);
-    if (imagePreview) URL.revokeObjectURL(imagePreview);
+    if (imagePreview.startsWith("blob:")) URL.revokeObjectURL(imagePreview);
     setImagePreview("");
+    setCategory("all");
     setError("");
     onClose();
   };
@@ -49,22 +70,41 @@ const AddClientModal: React.FC<AddClientModalProps> = ({
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError("");
-    if (!imageFile) {
+    if (!imageFile && !isEdit) {
       setError("Please select an image.");
       toast.error("Please select an image.");
       return;
     }
     setLoading(true);
     try {
-      const { url, publicId } = await uploadImage(imageFile, "clients");
-      await addClient({ imageUrl: url, imagePublicId: publicId });
+      if (isEdit && initialClient?.id) {
+        if (imageFile) {
+          const { url, publicId } = await uploadImage(imageFile, "clients");
+          await updateClient(initialClient.id, {
+            imageUrl: url,
+            imagePublicId: publicId,
+            category,
+          });
+        } else {
+          await updateClient(initialClient.id, {
+            imageUrl: initialClient.imageUrl,
+            imagePublicId: initialClient.imagePublicId,
+            category,
+          });
+        }
+      } else if (imageFile) {
+        const { url, publicId } = await uploadImage(imageFile, "clients");
+        await addClient({ imageUrl: url, imagePublicId: publicId, category });
+      }
       handleClose();
-      onSuccess("Client logo added.");
+      onSuccess(isEdit ? "Client updated." : "Client logo added.");
     } catch (err) {
       const msg =
         err instanceof Error
           ? err.message
-          : "Failed to add client. Please try again.";
+          : isEdit
+            ? "Failed to update client. Please try again."
+            : "Failed to add client. Please try again.";
       setError(msg);
       toast.error(msg);
     } finally {
@@ -82,7 +122,7 @@ const AddClientModal: React.FC<AddClientModalProps> = ({
       <div className="relative z-50 w-full max-w-md max-h-[90vh] overflow-y-auto backdrop-blur-xl bg-white/5 border border-white/10 rounded-lg p-6 md:p-8">
         <div className="flex items-center justify-between mb-6">
           <h2 className="text-2xl md:text-3xl font-bold uppercase text-white">
-            Add Client Logo
+            {isEdit ? "Edit Client" : "Add Client Logo"}
           </h2>
           <button
             onClick={handleClose}
@@ -101,7 +141,14 @@ const AddClientModal: React.FC<AddClientModalProps> = ({
         <form onSubmit={handleSubmit} className="space-y-6">
           <div>
             <label className="block text-white text-sm uppercase mb-2">
-              Client Logo Image *
+              Category *
+            </label>
+            <CategoryDropdown value={category} onChange={setCategory} />
+          </div>
+
+          <div>
+            <label className="block text-white text-sm uppercase mb-2">
+              Client Logo Image {isEdit ? "" : "*"}
             </label>
             {!imagePreview ? (
               <label className="flex flex-col items-center justify-center w-full h-40 border-2 border-dashed border-[#333333] hover:border-[#E30514] transition-all duration-500 rounded-md cursor-pointer bg-[#333333]/30">
@@ -145,10 +192,16 @@ const AddClientModal: React.FC<AddClientModalProps> = ({
             </button>
             <button
               type="submit"
-              disabled={loading || !imageFile}
+              disabled={loading || (!imageFile && !isEdit)}
               className="flex-1 border border-[#E30514] bg-[#E30514]/20 hover:bg-[#E30514]/30 text-white transition-all duration-300 py-3 px-6 text-sm uppercase font-semibold rounded-md disabled:opacity-50 disabled:pointer-events-none"
             >
-              {loading ? "Adding…" : "Add Client"}
+              {loading
+                ? isEdit
+                  ? "Saving…"
+                  : "Adding…"
+                : isEdit
+                  ? "Save Changes"
+                  : "Add Client"}
             </button>
           </div>
         </form>

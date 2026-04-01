@@ -4,6 +4,13 @@ import cloudinary from "../config/cloudinary.js";
 const db = admin.firestore();
 const COLLECTION = "clientReviews";
 const CLOUDINARY_REVIEWS_PREFIX = "reviews";
+const ALLOWED_CATEGORIES = ["all", "creative", "digital", "production"];
+
+function normalizeCategory(value) {
+  const normalized = (value || "").toString().trim().toLowerCase();
+  if (normalized === "digital") return "creative";
+  return ALLOWED_CATEGORIES.includes(normalized) ? normalized : "all";
+}
 
 /**
  * GET /api/client-reviews - Get all client reviews (public)
@@ -40,6 +47,7 @@ export const addClientReview = async (req, res) => {
       companyName,
       review,
       profilePictureUrl = "",
+      category = "all",
     } = req.body;
 
     if (!firstName || !lastName || !position || !review) {
@@ -56,6 +64,7 @@ export const addClientReview = async (req, res) => {
       position,
       companyName: companyName ?? "",
       review,
+      category: normalizeCategory(category),
       profilePictureUrl: profilePictureUrl || "",
       profilePicturePublicId: req.body.profilePicturePublicId || "",
       createdAt: new Date(),
@@ -90,6 +99,7 @@ export const updateClientReview = async (req, res) => {
       review,
       profilePictureUrl,
       profilePicturePublicId,
+      category = "all",
     } = req.body;
 
     if (!firstName || !lastName || !position || !review) {
@@ -115,6 +125,7 @@ export const updateClientReview = async (req, res) => {
       position,
       companyName: companyName ?? "",
       review,
+      category: normalizeCategory(category),
       profilePictureUrl: profilePictureUrl ?? "",
       updatedAt: new Date(),
     };

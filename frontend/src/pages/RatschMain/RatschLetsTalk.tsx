@@ -50,7 +50,7 @@ const RatschLetsTalk: React.FC<RatschLetsTalkProps> = () => {
                 <div className="py-2 md:py-3">
                   <input
                     type="text"
-                    className="border hover:cursor-default border-zinc-500 hover:border-[#02244A] transition-all duration-500 rounded-md py-3 md:py-4 bg-zinc-500 w-full lg:w-3/4 focus:ring-1 ring-[#02244A] focus:outline-none px-2 text-sm md:text-base"
+                    className="border hover:cursor-default border-zinc-500 hover:border-[#02244A] transition-all duration-500 rounded-md py-3 md:py-4 bg-zinc-200 w-full lg:w-3/4 focus:ring-1 ring-[#02244A] focus:outline-none px-2 text-sm md:text-base"
                     placeholder="your name here"
                   />
                 </div>
@@ -60,7 +60,7 @@ const RatschLetsTalk: React.FC<RatschLetsTalkProps> = () => {
                 <div className="py-2 md:py-3">
                   <input
                     type="text"
-                    className="border hover:cursor-default border-zinc-500 hover:border-[#02244A] transition-all duration-500 rounded-md py-3 md:py-4 bg-zinc-500 w-full lg:w-3/4 focus:ring-1 ring-[#02244A] focus:outline-none px-2 text-sm md:text-base"
+                    className="border hover:cursor-default border-zinc-500 hover:border-[#02244A] transition-all duration-500 rounded-md py-3 md:py-4 bg-zinc-200 w-full lg:w-3/4 focus:ring-1 ring-[#02244A] focus:outline-none px-2 text-sm md:text-base"
                     placeholder="your email here"
                   />
                 </div>
@@ -73,7 +73,7 @@ const RatschLetsTalk: React.FC<RatschLetsTalkProps> = () => {
                     placeholder="leave your message here"
                     name=""
                     id=""
-                    className="border hover:cursor-default border-zinc-500 hover:border-[#02244A] transition-all duration-500 rounded-md py-3 md:py-4 bg-zinc-500 w-full lg:w-3/4 focus:ring-1 ring-[#02244A] focus:outline-none px-2 text-sm md:text-base resize-none"
+                    className="border hover:cursor-default border-zinc-500 hover:border-[#02244A] transition-all duration-500 rounded-md py-3 md:py-4 bg-zinc-200 w-full lg:w-3/4 focus:ring-1 ring-[#02244A] focus:outline-none px-2 text-sm md:text-base resize-none"
                   ></textarea>
                 </div>
               </div>

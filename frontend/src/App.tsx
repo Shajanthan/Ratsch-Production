@@ -154,7 +154,10 @@ function AppContent() {
               <Route path="/admin" element={<AdminLayout />}>
                 <Route index element={<AdminPage />} />
                 <Route path="homepage" element={<AdminHomepagePage />} />
-                <Route path="services" element={<AdminServicesPage />} />
+                <Route
+                  path="services"
+                  element={<AdminNavbarCategoriesPage />}
+                />
                 <Route
                   path="navbar-categories"
                   element={<AdminNavbarCategoriesPage />}
@@ -185,7 +188,7 @@ function AppContent() {
                   </>
                 }
               />
-               <Route
+              <Route
                 path="/production"
                 element={
                   <>

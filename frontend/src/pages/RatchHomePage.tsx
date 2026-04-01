@@ -11,6 +11,7 @@ import RatschLetsConnectSection from "./RatschMain/RatschLetsConnectSection";
 import RatschLetsTalk from "./RatschMain/RatschLetsTalk";
 import RatschFooter from "./RatschMain/RatschFooter";
 import CoreValueSection from "@/layout/CoreValueSection";
+import WhatsAppFloatingButton from "@/components/WhatsAppFloatingButton";
 
 const RatchHomePage: React.FC = () => {
   const location = useLocation();
@@ -46,6 +47,7 @@ const RatchHomePage: React.FC = () => {
       <CoreValueSection aboutUs={true} />
       <RatschLetsTalk />
       <RatschFooter />
+      <WhatsAppFloatingButton />
     </div>
   );
 };

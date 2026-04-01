@@ -11,6 +11,7 @@ import {
   type ClientReview,
 } from "../services/clientReviewService";
 import { useToast } from "../context/ToastContext";
+import CategoryDropdown, { type CategoryValue } from "./CategoryDropdown";
 
 interface AddClientReviewModalProps {
   isOpen: boolean;
@@ -25,6 +26,7 @@ const emptyForm = {
   lastName: "",
   position: "",
   companyName: "",
+  category: "all" as CategoryValue,
   review: "",
   profilePicture: null as File | null,
 };
@@ -54,6 +56,8 @@ const AddClientReviewModal: React.FC<AddClientReviewModalProps> = ({
         lastName: initialReview.lastName,
         position: initialReview.position,
         companyName: initialReview.companyName,
+        category:
+          (initialReview.category as CategoryValue) || "all",
         review: initialReview.review,
         profilePicture: null,
       });
@@ -117,6 +121,7 @@ const AddClientReviewModal: React.FC<AddClientReviewModalProps> = ({
       lastName: formData.lastName,
       position: formData.position,
       companyName: formData.companyName,
+      category: formData.category,
       review: formData.review,
       profilePictureUrl: "",
     };
@@ -293,6 +298,21 @@ const AddClientReviewModal: React.FC<AddClientReviewModalProps> = ({
               value={formData.companyName}
               onChange={handleInputChange}
               className="w-full border border-[#333333] hover:border-[#E30514] focus:border-[#E30514] transition-all duration-500 rounded-md py-3 bg-[#333333] focus:ring-0 focus:outline-none px-4 text-white"
+            />
+          </div>
+
+          <div>
+            <label className="block text-white text-sm uppercase mb-2">
+              Category *
+            </label>
+            <CategoryDropdown
+              value={formData.category}
+              onChange={(next) =>
+                setFormData((prev) => ({
+                  ...prev,
+                  category: next,
+                }))
+              }
             />
           </div>
 

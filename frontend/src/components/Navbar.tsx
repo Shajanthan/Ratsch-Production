@@ -42,7 +42,7 @@ const Navbar: React.FC = () => {
   }, []);
 
   const basePath = location.pathname.startsWith("/demo") ? "/demo" : "";
-  const homePath = basePath || "/";
+  const homePath = `${basePath}/production`;
   const isOnHome =
     location.pathname === homePath ||
     location.pathname === homePath + "/" ||
@@ -68,8 +68,9 @@ const Navbar: React.FC = () => {
         navigate(`${homePath}#contact`);
       }
     } else if (sectionId === "production") {
-      navigate(`${homePath}/production`);
+      navigate(`${basePath}/production`);
     } else if (sectionId === "creative" || sectionId === "digital") {
+      window.scrollTo({ top: 0, behavior: "smooth" });
       const params = new URLSearchParams();
       params.set("category", sectionId);
       navigate(`${basePath}/digital-projects?${params.toString()}`);
@@ -92,7 +93,11 @@ const Navbar: React.FC = () => {
     const params = new URLSearchParams();
     params.set("category", categoryKey);
     params.set("sub", subLabel);
-    navigate(`${basePath}/digital-projects?${params.toString()}`);
+    if (categoryKey === "production") {
+      navigate(`${basePath}/projects?${params.toString()}`);
+    } else {
+      navigate(`${basePath}/digital-projects?${params.toString()}`);
+    }
   };
 
 
@@ -114,12 +119,7 @@ const Navbar: React.FC = () => {
       <div className="container lg:max-w-[1400px] mx-auto flex justify-between items-center px-4 md:px-2">
         <button
           onClick={() => {
-            const currentPath = window.location.pathname;
-            if (currentPath.startsWith("/demo")) {
-              navigate("/demo");
-            } else {
-              navigate("/");
-            }
+            navigate(homePath);
           }}
           className="cursor-pointer"
         >

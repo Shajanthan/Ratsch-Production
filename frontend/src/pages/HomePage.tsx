@@ -5,6 +5,7 @@ import LetsConnectSection from "@/layout/LetsConnectSection";
 import OurClientsSection from "@/layout/OurClientsSection";
 import ProjectSection from "@/layout/ProjectSection";
 import ReviewSection from "@/layout/ReviewSection";
+import WhatsAppFloatingButton from "@/components/WhatsAppFloatingButton";
 import React, { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 
@@ -39,6 +40,7 @@ const HomePage: React.FC = () => {
       <CoreValueSection aboutUs={true} />
       <LetsConnectSection />
       <Footer />
+      <WhatsAppFloatingButton />
     </div>
   );
 };
