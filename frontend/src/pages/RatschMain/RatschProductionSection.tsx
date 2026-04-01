@@ -48,8 +48,8 @@ const RatschProductionSection: React.FC<RatschProductionSectionProps> = () => {
       {/* Light overlay to keep future text readable */}
       <div className="absolute inset-0 " aria-hidden />
       <div className="relative z-10 max-w-2xl mx-auto py-4 md:py-10 px-4 md:px-0 w-full">
-        <div className="grid grid-cols-1 gap-6 h-full w-full">
-          <div className="relative overflow-hidden rounded-[50px] h-full w-full p-8 border border-white/50 bg-[#f1f2f4]/90 backdrop-blur-xl shadow-[0_8px_32px_rgba(2,36,74,0.25)]">
+        <div className="flex justify-center items-center gap-6 h-full max-w-lg w-full mx-auto">
+          <div className="relative overflow-hidden rounded-[50px] h-full w-full py-8 border border-white/50 bg-[#f1f2f4]/90 backdrop-blur-xl shadow-[0_8px_32px_rgba(2,36,74,0.25)]">
             <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4 w-full h-full">
               <div className="w-full h-full text-center">
                 <div className="text-2xl lg:text-6xl font-semibold text-[#02244A] ">

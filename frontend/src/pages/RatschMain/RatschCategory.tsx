@@ -1,10 +1,15 @@
-import React from 'react'
+import React from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 
 interface RatschCategoryProps {
   
 }
 
 const RatschCategory: React.FC<RatschCategoryProps> = () => {
+  const navigate = useNavigate();
+  const location = useLocation();
+  const basePath = location.pathname.startsWith("/demo") ? "/demo" : "";
+
   return (
     <div id="ratsch-category" className="max-w-5xl mx-auto py-10">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 relative p-2">
@@ -29,9 +34,13 @@ const RatschCategory: React.FC<RatschCategoryProps> = () => {
                 </div>
               </div>
 
-              <div className="mt-10 text-center capitalize lg:text-lg text-base text-white bg-[#00CF69] p-4 px-8 rounded-full hover:scale-105 transition-all duration-300 cursor-pointer">
+              <button
+                type="button"
+                onClick={() => navigate(`${basePath}/digital-projects`)}
+                className="mt-10 text-center capitalize lg:text-lg text-base text-white bg-[#00CF69] p-4 px-8 rounded-full hover:scale-105 transition-all duration-300 cursor-pointer"
+              >
                 Let's Design
-              </div>
+              </button>
             </div>
           </div>
         </div>
@@ -60,9 +69,13 @@ const RatschCategory: React.FC<RatschCategoryProps> = () => {
                 </div>
               </div>
 
-              <div className="mt-10 text-center capitalize lg:text-lg text-base text-white bg-[#0557B2] p-4 px-8 rounded-full hover:scale-105 transition-all duration-300 cursor-pointer">
+              <button
+                type="button"
+                onClick={() => navigate(`${basePath}/projects?category=production`)}
+                className="mt-10 text-center capitalize lg:text-lg text-base text-white bg-[#0557B2] p-4 px-8 rounded-full hover:scale-105 transition-all duration-300 cursor-pointer"
+              >
                 Tell your story
-              </div>
+              </button>
             </div>
           </div>
         </div>
@@ -77,7 +90,7 @@ const RatschCategory: React.FC<RatschCategoryProps> = () => {
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
 export default RatschCategory;

@@ -59,7 +59,7 @@ const AboutUsPage: React.FC = () => {
           <div className="flex justify-center md:my-6">
             <div className="p-4 rounded-md">
               <img
-                className="md:h-[150px] bg-contain"
+                className="md:h-[100px] bg-contain"
                 src="https://res.cloudinary.com/dybv1h20q/image/upload/v1774418189/RATSCH_GROUP_PNG_1_dkzvsu.png"
                 alt="logo"
               />

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import Button from "./Button";
 import { CiMail } from "react-icons/ci";
-import { HiMenu, HiX } from "react-icons/hi";
+import { HiChevronDown, HiChevronUp, HiMenu, HiX } from "react-icons/hi";
 import {
   type NavbarCategory,
   getNavbarCategories,
@@ -11,6 +11,9 @@ import {
 const RatschMainNavBar: React.FC = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [openMobileCategory, setOpenMobileCategory] = useState<string | null>(
+    null,
+  );
   const [categories, setCategories] = useState<NavbarCategory[]>([]);
   const navigate = useNavigate();
   const location = useLocation();
@@ -41,6 +44,19 @@ const RatschMainNavBar: React.FC = () => {
 
   const basePath = location.pathname.startsWith("/demo") ? "/demo" : "";
   const homePath = basePath || "/";
+  const currentCategory = new URLSearchParams(location.search)
+    .get("category")
+    ?.trim()
+    .toLowerCase();
+  const isDigitalProjectsPage =
+    location.pathname === `${basePath}/digital-projects` ||
+    location.pathname === "/digital-projects";
+  const useCreativeDigitalLogo =
+    isDigitalProjectsPage &&
+    (currentCategory === "creative" || currentCategory === "digital");
+  const logoSrc = useCreativeDigitalLogo
+    ? "https://res.cloudinary.com/dybv1h20q/image/upload/v1775040623/CREATIVE_DIGITAL_AGENCY_PNG_2_njmcqf.png"
+    : "https://res.cloudinary.com/dybv1h20q/image/upload/v1774418189/RATSCH_GROUP_PNG_1_dkzvsu.png";
   const isOnHome =
     location.pathname === homePath ||
     location.pathname === homePath + "/" ||
@@ -48,6 +64,7 @@ const RatschMainNavBar: React.FC = () => {
 
   const handleNavClick = (sectionId: string) => {
     setIsMobileMenuOpen(false);
+    setOpenMobileCategory(null);
 
     if (sectionId === "home") {
       if (isOnHome) {
@@ -85,6 +102,7 @@ const RatschMainNavBar: React.FC = () => {
 
   const handleSubItemClick = (categoryKey: string, subLabel: string) => {
     setIsMobileMenuOpen(false);
+    setOpenMobileCategory(null);
     const params = new URLSearchParams();
     params.set("category", categoryKey);
     params.set("sub", subLabel);
@@ -120,7 +138,7 @@ const RatschMainNavBar: React.FC = () => {
         >
           <img
             className="w-[160px] md:w-[180px] lg:w-[200px]"
-            src="https://res.cloudinary.com/dybv1h20q/image/upload/v1774418189/RATSCH_GROUP_PNG_1_dkzvsu.png"
+            src={logoSrc}
             alt="logo"
           />
         </button>
@@ -182,7 +200,10 @@ const RatschMainNavBar: React.FC = () => {
         </div>
         {/* Mobile Menu Button */}
         <button
-          onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+          onClick={() => {
+            setIsMobileMenuOpen(!isMobileMenuOpen);
+            if (isMobileMenuOpen) setOpenMobileCategory(null);
+          }}
           className="lg:hidden text-[#02244A] p-2"
           aria-label="Toggle menu"
         >
@@ -197,15 +218,54 @@ const RatschMainNavBar: React.FC = () => {
       {isMobileMenuOpen && (
         <div className="lg:hidden backdrop-blur-xl bg-[#02244A] border-t border-white/10">
           <div className="container lg:max-w-[1400px] mx-auto px-4 py-4 flex flex-col gap-4">
-            {navItems.map((item) => (
-              <button
-                key={item.sectionId}
-                onClick={() => handleNavClick(item.sectionId)}
-                className="text-white text-base py-2 transition-colors hover:text-[#E30514] text-left font-medium"
-              >
-                {item.label}
-              </button>
-            ))}
+            {navItems.map((item) => {
+              const cat = categories.find((c) => c.key === item.sectionId);
+              const hasSubItems =
+                !!cat && Array.isArray(cat.items) && cat.items.length > 0;
+              const isOpen = openMobileCategory === item.sectionId;
+              return (
+                <div key={item.sectionId} className="border-b border-white/10 pb-2">
+                  <div className="flex items-center justify-between gap-2">
+                    <button
+                      onClick={() => handleNavClick(item.sectionId)}
+                      className="text-white text-base py-2 transition-colors hover:text-[#E30514] text-left font-medium"
+                    >
+                      {item.label}
+                    </button>
+                    {hasSubItems && (
+                      <button
+                        type="button"
+                        onClick={() =>
+                          setOpenMobileCategory(isOpen ? null : item.sectionId)
+                        }
+                        className="text-white p-2 hover:text-[#E30514] transition-colors"
+                        aria-label={`Toggle ${item.label} subitems`}
+                      >
+                        {isOpen ? (
+                          <HiChevronUp className="w-5 h-5" />
+                        ) : (
+                          <HiChevronDown className="w-5 h-5" />
+                        )}
+                      </button>
+                    )}
+                  </div>
+                  {hasSubItems && isOpen && (
+                    <div className="pl-4 pb-2 flex flex-col gap-1">
+                      {cat.items.map((label) => (
+                        <button
+                          key={label}
+                          type="button"
+                          onClick={() => handleSubItemClick(item.sectionId, label)}
+                          className="text-white/90 text-sm py-1 text-left hover:text-[#E30514] transition-colors"
+                        >
+                          - {label}
+                        </button>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              );
+            })}
             <div className="pt-2 flex justify-center">
               <Button
                 isLightTheme={true}

@@ -46,10 +46,10 @@ const RatschFooter: React.FC = () => {
   };
 
   return (
-    <div className="bg-[#02244A] text-white px-4 md:px-10 py-10 md:py-20">
-      <div className="mx-auto lg:px-12">
-        <div className="grid grid-cols-1 lg:grid-cols-6 gap-8 lg:gap-0">
-          <div className="lg:col-span-2 px-2 max-w-lg">
+    <div className="bg-[#02244A] text-white py-10 ">
+      <div className="mx-auto">
+        <div className="grid grid-cols-1 lg:grid-cols-6 px-4 lg:px-20">
+          <div className="lg:col-span-2 px-2  max-w-xl">
             <div className="text-4xl md:text-5xl lg:text-6xl font-bold uppercase pb-4">
               Ratsch
             </div>
@@ -104,14 +104,14 @@ const RatschFooter: React.FC = () => {
           </div>
 
           <div className="lg:col-span-4 flex flex-col lg:flex-row gap-6 lg:gap-2 w-full lg:justify-between px-3 lg:px-6">
-            <div className="">
+            <div className="w-full">
               {categories.length > 0 ? (
-                <ul className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-x-6 gap-y-4 list-none">
-                  <div className="">
-                    <div className="pb-2 text-lg cursor-pointer block font-bold uppercase text-white">
+                <ul className="grid grid-cols-1 sm:grid-cols-2 2xl:grid-cols-4 gap-x-6 gap-y-4 list-none">
+                  <div className="lg:pl-28">
+                    <div className="w-full pb-2 text-lg cursor-pointer block font-bold uppercase text-white">
                       Links
                     </div>
-                    <div className="list-none px-0 md:px-3">
+                    <div className="list-none px-0">
                       <li className="py-0.5">
                         <Link
                           to={homeHref}
@@ -146,13 +146,63 @@ const RatschFooter: React.FC = () => {
                           - Contact us
                         </Link>
                       </li>
+                      <li className="py-0.5 lg:hidden">
+                        <Link
+                          to={`${basePath}/digital-projects?category=digital`}
+                          className="hover:text-blue-500 font-semibold cursor-pointer transition-colors duration-300 block text-sm text-white/80"
+                          onClick={() => {
+                            if (
+                              location.pathname === homeHref ||
+                              location.pathname === homeHref + "/"
+                            ) {
+                              const el = document.getElementById("contact");
+                              el?.scrollIntoView({ behavior: "smooth" });
+                            }
+                          }}
+                        >
+                          - Digital
+                        </Link>
+                      </li>
+                      <li className="py-0.5 lg:hidden">
+                        <Link
+                          to={`${basePath}/digital-projects?category=creative`}
+                          className="hover:text-blue-500 font-semibold cursor-pointer transition-colors duration-300 block text-sm text-white/80"
+                          onClick={() => {
+                            if (
+                              location.pathname === homeHref ||
+                              location.pathname === homeHref + "/"
+                            ) {
+                              const el = document.getElementById("contact");
+                              el?.scrollIntoView({ behavior: "smooth" });
+                            }
+                          }}
+                        >
+                          - Creative
+                        </Link>
+                      </li>
+                      <li className="py-0.5 lg:hidden">
+                        <Link
+                          to={`${basePath}/production`}
+                          className="hover:text-blue-500 font-semibold cursor-pointer transition-colors duration-300 block text-sm text-white/80"
+                          onClick={() => {
+                            if (
+                              location.pathname === homeHref ||
+                              location.pathname === homeHref + "/"
+                            ) {
+                              const el = document.getElementById("contact");
+                              el?.scrollIntoView({ behavior: "smooth" });
+                            }
+                          }}
+                        >
+                          - Production
+                        </Link>
+                      </li>
                     </div>
                   </div>
-
                   {categories.map((category) => (
                     <li
                       key={category.id || category.key}
-                      className="text-base md:text-lg"
+                      className="text-base md:text-lg hidden lg:block"
                     >
                       <Link
                         to={categoryHref(category.key)}
@@ -216,9 +266,9 @@ const RatschFooter: React.FC = () => {
               </div>
             </div>
           </div>
-          <div className="w-full lg:w-1/2 order-2 lg:order-none max-w-lg px-3">
-            <div className="flex flex-col sm:flex-row gap-4 sm:gap-8 md:gap-16 text-xs md:text-sm p-4 border-t-0 lg:border-t-2 border-white justify-center items-center">
-              <div className="">
+          <div className="w-full lg:w-1/2 order-2 lg:order-none max-w-2xl px-3 lg:px-20">
+            <div className="flex flex-col sm:flex-row gap-4 sm:gap-8 md:gap-16 text-xs md:text-sm p-4 border-t-0 lg:border-t-2 border-white justify-center items-center text-center lg:text-left">
+              <div className="w-full">
                 {" "}
                 Copyright © Ratsch Productions - {new Date().getFullYear()}
               </div>

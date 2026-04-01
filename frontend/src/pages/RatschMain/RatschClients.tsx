@@ -46,21 +46,21 @@ const RatschClients: React.FC<RatschClientsProps> = () => {
     <div className="bg-gray-200">
       <div className="max-w-4xl mx-auto">
         {/* Mobile/Tablet: show 2 logos, remaining ones are swipeable */}
-        <div className="lg:hidden py-4">
+        <div className="lg:hidden ">
           <Swiper
             modules={[Pagination]}
             spaceBetween={4}
-            slidesPerView={2}
+            slidesPerView={3}
             pagination={{ clickable: true }}
-            className="clients-swiper max-w-[312px] mx-auto"
+            className="clients-swiper px-2"
           >
             {clients.map((client, index) => (
               <SwiperSlide key={index}>
-                <div className="h-[100px] flex items-center justify-center ">
+                <div className="h-[90px] flex items-center justify-center ">
                   <img
                     src={client.imageUrl}
                     alt="Ratsch clients"
-                    className="w-[120px] h-[90px] object-fill rounded-lg hover:scale-105 transition-all duration-500"
+                    className="w-[120px] h-[70px] object-fill rounded-lg hover:scale-105 transition-all duration-500"
                   />
                 </div>
               </SwiperSlide>

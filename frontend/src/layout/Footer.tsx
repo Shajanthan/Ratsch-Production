@@ -46,10 +46,10 @@ const Footer: React.FC = () => {
   };
 
   return (
-    <div className="bg-black text-white px-4 md:px-10 py-10 md:py-20">
-      <div className="mx-auto lg:px-12">
-        <div className="grid grid-cols-1 lg:grid-cols-6 gap-8 lg:gap-0">
-          <div className="lg:col-span-2 px-2 max-w-lg">
+    <div className="bg-black text-white py-10 ">
+      <div className="mx-auto">
+        <div className="grid grid-cols-1 lg:grid-cols-6 px-4 lg:px-20">
+          <div className="lg:col-span-2 px-2  max-w-xl">
             <div className="text-4xl md:text-5xl lg:text-6xl font-bold uppercase pb-4">
               Ratsch
             </div>
@@ -63,19 +63,19 @@ const Footer: React.FC = () => {
             <div className="py-4">
               <div className="text-base md:text-lg">
                 <div className="list-none uppercase font-semibold">
-                  <li className="flex gap-2 md:gap-3 items-center py-1 hover:text-red-800 cursor-pointer transition-colors duration-300 text-sm md:text-base">
+                  <li className="flex gap-2 md:gap-3 items-center py-1 hover:text-red-700 cursor-pointer transition-colors duration-300 text-sm md:text-base">
                     <BsTelephone className="flex-shrink-0" />
                     <span className="break-all">+94 77 14141411</span>
                   </li>
-                  <li className="flex gap-2 md:gap-3 items-center py-1 hover:text-red-800 cursor-pointer transition-colors duration-300 text-sm md:text-base">
+                  <li className="flex gap-2 md:gap-3 items-center py-1 hover:text-red-700 cursor-pointer transition-colors duration-300 text-sm md:text-base">
                     <FaWhatsapp className="flex-shrink-0" />
                     <span className="break-all">+94 77 14141411</span>
                   </li>
-                  <li className="flex gap-2 md:gap-3 items-center py-1 hover:text-red-800 cursor-pointer transition-colors duration-300 text-sm md:text-base">
+                  <li className="flex gap-2 md:gap-3 items-center py-1 hover:text-red-700 cursor-pointer transition-colors duration-300 text-sm md:text-base">
                     <HiOutlineLocationMarker className="flex-shrink-0" />
                     <span>Sri Lanka / Switzerland</span>
                   </li>
-                  <li className="flex gap-2 md:gap-3 items-center py-1 hover:text-red-800 cursor-pointer transition-colors duration-300 text-sm md:text-base">
+                  <li className="flex gap-2 md:gap-3 items-center py-1 hover:text-red-700 cursor-pointer transition-colors duration-300 text-sm md:text-base">
                     <MdOutlineMailOutline className="flex-shrink-0" />
                     <span className="break-all">
                       info@ratschproductions.com
@@ -85,37 +85,37 @@ const Footer: React.FC = () => {
               </div>
             </div>
             <div className="flex gap-3 md:gap-4 px-0 lg:px-3 py-4 md:py-6">
-              <div className="hover:text-red-800 cursor-pointer transition-colors duration-300">
+              <div className="hover:text-red-700 cursor-pointer transition-colors duration-300">
                 <FaFacebook size={24} className="md:w-7 md:h-7" />
               </div>
-              <div className="hover:text-red-800 cursor-pointer transition-colors duration-300">
+              <div className="hover:text-red-700 cursor-pointer transition-colors duration-300">
                 <FaInstagram size={24} className="md:w-7 md:h-7" />
               </div>
-              <div className="hover:text-red-800 cursor-pointer transition-colors duration-300">
+              <div className="hover:text-red-700 cursor-pointer transition-colors duration-300">
                 <FaYoutube size={24} className="md:w-7 md:h-7" />
               </div>
-              <div className="hover:text-red-800 cursor-pointer transition-colors duration-300">
+              <div className="hover:text-red-700 cursor-pointer transition-colors duration-300">
                 <BsTwitterX size={24} className="md:w-7 md:h-7" />
               </div>
-              <div className="hover:text-red-800 cursor-pointer transition-colors duration-300">
+              <div className="hover:text-red-700 cursor-pointer transition-colors duration-300">
                 <FaTiktok size={24} className="md:w-7 md:h-7" />
               </div>
             </div>
           </div>
 
           <div className="lg:col-span-4 flex flex-col lg:flex-row gap-6 lg:gap-2 w-full lg:justify-between px-3 lg:px-6">
-            <div className="">
+            <div className="w-full">
               {categories.length > 0 ? (
-                <ul className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-x-6 gap-y-4 list-none">
-                  <div className="">
-                    <div className="pb-2 text-lg cursor-pointer block font-bold uppercase text-white">
+                <ul className="grid grid-cols-1 sm:grid-cols-2 2xl:grid-cols-4 gap-x-6 gap-y-4 list-none">
+                  <div className="lg:pl-28">
+                    <div className="w-full pb-2 text-lg cursor-pointer block font-bold uppercase text-white">
                       Links
                     </div>
-                    <div className="list-none px-0 md:px-3">
+                    <div className="list-none px-0">
                       <li className="py-0.5">
                         <Link
                           to={homeHref}
-                          className="hover:text-red-800 font-semibold cursor-pointer transition-colors duration-300 block text-sm text-white/80"
+                          className="hover:text-red-700 font-semibold cursor-pointer transition-colors duration-300 block text-sm text-white/80"
                           onClick={() => window.scrollTo(0, 0)}
                         >
                           - Home
@@ -124,7 +124,7 @@ const Footer: React.FC = () => {
                       <li className="py-0.5">
                         <Link
                           to={`${basePath}/about`}
-                          className="hover:text-red-800 font-semibold cursor-pointer transition-colors duration-300 block text-sm text-white/80"
+                          className="hover:text-red-700 font-semibold cursor-pointer transition-colors duration-300 block text-sm text-white/80"
                         >
                           - About us
                         </Link>
@@ -132,7 +132,7 @@ const Footer: React.FC = () => {
                       <li className="py-0.5">
                         <Link
                           to={contactHref}
-                          className="hover:text-red-800 font-semibold cursor-pointer transition-colors duration-300 block text-sm text-white/80"
+                          className="hover:text-red-700 font-semibold cursor-pointer transition-colors duration-300 block text-sm text-white/80"
                           onClick={() => {
                             if (
                               location.pathname === homeHref ||
@@ -146,17 +146,67 @@ const Footer: React.FC = () => {
                           - Contact us
                         </Link>
                       </li>
+                      <li className="py-0.5 lg:hidden">
+                        <Link
+                          to={`${basePath}/digital-projects?category=digital`}
+                          className="hover:text-red-700 font-semibold cursor-pointer transition-colors duration-300 block text-sm text-white/80"
+                          onClick={() => {
+                            if (
+                              location.pathname === homeHref ||
+                              location.pathname === homeHref + "/"
+                            ) {
+                              const el = document.getElementById("contact");
+                              el?.scrollIntoView({ behavior: "smooth" });
+                            }
+                          }}
+                        >
+                          - Digital
+                        </Link>
+                      </li>
+                      <li className="py-0.5 lg:hidden">
+                        <Link
+                          to={`${basePath}/digital-projects?category=creative`}
+                          className="hover:text-red-700 font-semibold cursor-pointer transition-colors duration-300 block text-sm text-white/80"
+                          onClick={() => {
+                            if (
+                              location.pathname === homeHref ||
+                              location.pathname === homeHref + "/"
+                            ) {
+                              const el = document.getElementById("contact");
+                              el?.scrollIntoView({ behavior: "smooth" });
+                            }
+                          }}
+                        >
+                          - Creative
+                        </Link>
+                      </li>
+                      <li className="py-0.5 lg:hidden">
+                        <Link
+                          to={`${basePath}/production`}
+                          className="hover:text-red-700 font-semibold cursor-pointer transition-colors duration-300 block text-sm text-white/80"
+                          onClick={() => {
+                            if (
+                              location.pathname === homeHref ||
+                              location.pathname === homeHref + "/"
+                            ) {
+                              const el = document.getElementById("contact");
+                              el?.scrollIntoView({ behavior: "smooth" });
+                            }
+                          }}
+                        >
+                          - Production
+                        </Link>
+                      </li>
                     </div>
                   </div>
-
                   {categories.map((category) => (
                     <li
                       key={category.id || category.key}
-                      className="text-base md:text-lg"
+                      className="text-base md:text-lg hidden lg:block"
                     >
                       <Link
                         to={categoryHref(category.key)}
-                        className="hover:text-red-800 pb-2 text-lg cursor-pointer transition-colors duration-300 block font-bold uppercase text-white"
+                        className="hover:text-red-700 pb-2 text-lg cursor-pointer transition-colors duration-300 block font-bold uppercase text-white"
                       >
                         {category.title}
                       </Link>
@@ -174,7 +224,7 @@ const Footer: React.FC = () => {
                                 >
                                   <Link
                                     to={`${basePath}/digital-projects?${params.toString()}`}
-                                    className="hover:text-red-800 font-semibold cursor-pointer transition-colors duration-300 block text-sm text-white/80"
+                                    className="hover:text-red-700 font-semibold cursor-pointer transition-colors duration-300 block text-sm text-white/80"
                                   >
                                     - {subItem}
                                   </Link>
@@ -202,23 +252,23 @@ const Footer: React.FC = () => {
                 Let's connect
               </div>
               <div className="py-4 md:py-5  lg:w-[370px] mx-auto group">
-                <div className=" flex justify-between bg-[#222222] rounded-full items-center pr-6 border border-[#333333] group-hover:border-[#E30514] transition-all duration-500 cursor-pointer">
+                <div className=" flex justify-between bg-[#222222] rounded-full items-center pr-6 border border-[#333333] group-hover:border-red-700 transition-all duration-500 cursor-pointer">
                   <input
                     type="text"
-                    className="bg-[#333333] text-white rounded-full p-3 px-7 w-[300px] text-base border border-[#333333] group-hover:border-[#E30514] transition-all duration-500"
+                    className="bg-[#333333] text-white rounded-full p-3 px-7 w-[300px] text-base border border-[#333333] group-hover:border-red-700 transition-all duration-500"
                     placeholder="info@ratschproductions.com"
                   />
                   <MdOutlineMailOutline
                     size={20}
-                    className="md:w-7 md:h-7 flex-shrink-0 group-hover:text-[#E30514] transition-colors duration-300"
+                    className="md:w-7 md:h-7 flex-shrink-0 group-hover:text-red-700 transition-colors duration-300"
                   />
                 </div>
               </div>
             </div>
           </div>
-          <div className="w-full lg:w-1/2 order-2 lg:order-none max-w-lg px-3">
-            <div className="flex flex-col sm:flex-row gap-4 sm:gap-8 md:gap-16 text-xs md:text-sm p-4 border-t-0 lg:border-t-2 border-white justify-center items-center">
-              <div className="">
+          <div className="w-full lg:w-1/2 order-2 lg:order-none max-w-2xl px-3 lg:px-20">
+            <div className="flex flex-col sm:flex-row gap-4 sm:gap-8 md:gap-16 text-xs md:text-sm p-4 border-t-0 lg:border-t-2 border-white justify-center items-center text-center lg:text-left">
+              <div className="w-full">
                 {" "}
                 Copyright © Ratsch Productions - {new Date().getFullYear()}
               </div>
