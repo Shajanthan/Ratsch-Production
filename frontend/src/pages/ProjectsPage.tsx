@@ -10,6 +10,7 @@ import {
 } from "@/services/projectService";
 import { getCategories } from "@/services/categoryService";
 import { getNavbarCategories } from "@/services/navbarCategoryService";
+import WhatsAppFloatingButton from "@/components/WhatsAppFloatingButton";
 
 function formatProjectDate(dateStr: string): string {
   if (!dateStr?.trim()) return "—";
@@ -216,18 +217,28 @@ const ProjectsPage: React.FC = () => {
                             p.coverImageUrl ||
                             (p.imageUrls?.length ? p.imageUrls[0] : "") ||
                             "",
-                          onExplore: () =>
+                          onExplore: () => {
+                            const slug = slugFromTitleLines(
+                              p.titleLine1,
+                              p.titleLine2,
+                            );
+                            const isProductionProject =
+                              (p.navbarCategoryKey || "").trim().toLowerCase() ===
+                                "production" ||
+                              (p.projectCategory || "")
+                                .trim()
+                                .toLowerCase()
+                                .startsWith("production -");
+
+                            if (isDemo && isProductionProject) {
+                              navigate(`/demo/production/project/${slug}`);
+                              return;
+                            }
+
                             navigate(
-                              isDemo
-                                ? `/demo/project/${slugFromTitleLines(
-                                    p.titleLine1,
-                                    p.titleLine2,
-                                  )}`
-                                : `/project/${slugFromTitleLines(
-                                    p.titleLine1,
-                                    p.titleLine2,
-                                  )}`,
-                            ),
+                              isDemo ? `/demo/project/${slug}` : `/project/${slug}`,
+                            );
+                          },
                         }))}
                       />
                     ))
@@ -240,6 +251,7 @@ const ProjectsPage: React.FC = () => {
       </div>
       <LetsConnectSection bottomPadding={false} />
       <Footer />
+      <WhatsAppFloatingButton />
     </div>
   );
 };

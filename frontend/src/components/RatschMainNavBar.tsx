@@ -199,7 +199,7 @@ const RatschMainNavBar: React.FC = () => {
             navButton={true}
             text="Talk with us"
             color="#333333"
-            icon={<CiMail className="w-4 h-4 md:w-6 md:h-6 text-[#C90000]" />}
+            icon={<CiMail className="w-4 h-4 md:w-6 md:h-6 text-blue-500" />}
             onClick={() => handleNavClick("contact")}
           />
         </div>
@@ -281,7 +281,7 @@ const RatschMainNavBar: React.FC = () => {
                 navButton={true}
                 text="Talk with us"
                 color="#333333"
-                icon={<CiMail className="w-4 h-4 text-[#C90000]" />}
+                icon={<CiMail className="w-4 h-4 text-blue-500" />}
                 onClick={() => handleNavClick("contact")}
               />
             </div>

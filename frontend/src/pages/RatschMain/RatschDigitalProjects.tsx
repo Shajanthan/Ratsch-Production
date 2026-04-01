@@ -12,6 +12,7 @@ import RatschClientReview from "./RatschClientReview";
 import CoreValueSection from "@/layout/CoreValueSection";
 import RatschLetsTalk from "./RatschLetsTalk";
 import RatschFooter from "./RatschFooter";
+import WhatsAppFloatingButton from "@/components/WhatsAppFloatingButton";
 
 function formatProjectDate(dateStr: string): string {
   if (!dateStr?.trim()) return "—";
@@ -303,6 +304,7 @@ const RatschDigitalProjects: React.FC = () => {
       <CoreValueSection aboutUs={true} />
       <RatschLetsTalk />
       <RatschFooter />
+      <WhatsAppFloatingButton />
     </div>
   );
 };

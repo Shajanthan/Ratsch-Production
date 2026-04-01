@@ -25,10 +25,10 @@ const Button: React.FC<ButtonProps> = ({
         <button
           type="button"
           onClick={onClick}
-          className={`border rounded-full p-2 md:p-3 ${isLightTheme ? "bg-zinc-100 hover:bg-white/20 backdrop-blur-xl border-[#BF0000] hover:border-[#BF0000]" : "bg-[#1f0000] hover:bg-[rgb(31,0,0)] border-[#770101] hover:border-[#E30514]"} flex items-center border-2 gap-2 md:gap-3 px-3 md:px-5  transition-all duration-500 hover:scale-105 hover:cursor-pointer shadow-lg shadow-black/30`}
+          className={`border rounded-full p-2 md:p-3 ${isLightTheme ? "bg-[#02244A] hover:bg-[#02244A] backdrop-blur-xl border-blue-500 hover:border-blue-600" : "bg-[#1f0000] hover:bg-[rgb(31,0,0)] border-[#770101] hover:border-[#E30514]"} flex items-center border-2 gap-2 md:gap-3 px-3 md:px-5  transition-all duration-500 hover:scale-105 hover:cursor-pointer shadow-lg shadow-black/30`}
         >
           {icon}{" "}
-          <span className={`${isLightTheme ? "text-[#BF0000]" : "text-white"} text-xs md:text-sm lg:text-base`}>
+          <span className={`${isLightTheme ? "text-white" : "text-white"} text-xs md:text-sm lg:text-base`}>
             {text}
           </span>
         </button>
@@ -45,7 +45,7 @@ const Button: React.FC<ButtonProps> = ({
           <div className="flex items-center justify-center gap-1">
             {text}
             {textIcon && (
-              <div className="group-hover:animate-slide-right">{textIcon}</div>
+              <div className="group-hover:animate-slide-right ">{textIcon}</div>
             )}
           </div>
         </button>

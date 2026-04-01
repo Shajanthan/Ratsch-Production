@@ -13,6 +13,7 @@ import {
   slugFromTitleLines,
   type Project,
 } from "../services/projectService";
+import WhatsAppFloatingButton from "@/components/WhatsAppFloatingButton";
 
 interface ProjectData {
   id: string;
@@ -380,6 +381,7 @@ const ProjectDetailsPage: React.FC = () => {
 
       {/* Footer */}
       <Footer />
+      <WhatsAppFloatingButton />
     </div>
   );
 };

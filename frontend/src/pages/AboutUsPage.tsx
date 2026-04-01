@@ -4,6 +4,7 @@ import { getCeoSection, type CeoSection } from "@/services/aboutUsService";
 import "swiper/css";
 import "swiper/css/pagination";
 import RatschFooter from "./RatschMain/RatschFooter";
+import WhatsAppFloatingButton from "@/components/WhatsAppFloatingButton";
 
 const AboutUsPage: React.FC = () => {
   // const teamSwiperRef = useRef<SwiperType | null>(null);
@@ -230,6 +231,7 @@ const AboutUsPage: React.FC = () => {
       <CoreValueSection aboutUs={true} />
       {/* Footer */}
       <RatschFooter />
+      <WhatsAppFloatingButton />
     </div>
   );
 };

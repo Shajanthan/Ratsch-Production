@@ -152,7 +152,7 @@ function AppContent() {
               />
               <Route path="/login" element={<LoginPage />} />
               <Route path="/admin" element={<AdminLayout />}>
-                <Route index element={<AdminPage />} />
+                <Route path="production" element={<AdminPage />} />
                 <Route path="homepage" element={<AdminHomepagePage />} />
                 <Route
                   path="services"
@@ -171,7 +171,7 @@ function AppContent() {
                 <Route path="core-values" element={<AdminCoreValuesPage />} />
                 <Route path="about-us" element={<AdminAboutUsPage />} />
                 <Route
-                  path="ratsch-homepage"
+                  index
                   element={<AdminRatschHomepagePage />}
                 />
               </Route>

@@ -40,9 +40,9 @@ const AdminLayout: React.FC<AdminLayoutProps> = () => {
   }
 
   const menuItems = [
-    { path: "/admin", label: "Production", icon: HiHome },
-    { path: "/admin/ratsch-homepage", label: "Ratsch Banner", icon: IoHomeOutline  },
+    { path: "/admin", label: "Ratsch Banner", icon: IoHomeOutline  },
     { path: "/admin/about-us", label: "About Us", icon: HiOfficeBuilding },
+    { path: "/admin/production", label: "Production", icon: HiHome },
     { path: "/admin/services", label: "Services", icon: HiCollection },
     { path: "/admin/projects", label: "Projects", icon: HiFolder },
     { path: "/admin/clients", label: "Clients", icon: HiUserGroup },
@@ -72,7 +72,7 @@ const AdminLayout: React.FC<AdminLayoutProps> = () => {
           {/* Logo and Close Button */}
           <div className="flex items-center justify-between lg:justify-center p-6 border-b border-white/10">
             <img
-              src="https://res.cloudinary.com/dybv1h20q/image/upload/v1771049149/Ratsch_Productions_Logo_Png-White_ynyzqp.png"
+              src="https://res.cloudinary.com/dybv1h20q/image/upload/v1774418770/Logo_mnyrlk.png"
               alt="Ratsch Productions"
               className="w-32 h-auto"
             />

@@ -14,6 +14,7 @@ import {
 } from "../../services/projectService";
 import RatschFooter from "./RatschFooter";
 import RatschLetsConnectSection from "./RatschLetsConnectSection";
+import WhatsAppFloatingButton from "@/components/WhatsAppFloatingButton";
 
 interface ProjectData {
   id: string;
@@ -385,6 +386,7 @@ const RatschProjectDetailsPage: React.FC = () => {
       </div>
       {/* Footer */}
       <RatschFooter />
+      <WhatsAppFloatingButton />
     </div>
   );
 };
