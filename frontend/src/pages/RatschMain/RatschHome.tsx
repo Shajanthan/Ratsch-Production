@@ -57,7 +57,7 @@ const RatschHome: React.FC<RatschHomeProps> = () => {
             delayMs={80}
             className="absolute bottom-1 lg:bottom-5 left-1/2 -translate-x-1/2 z-10"
           >
-            <div className="text-sm lg:text-xl text-center bg-white/10 backdrop-blur-sm border border-white/20 text-white font-semibold px-12 py-4 rounded-full ">
+            <div onClick={handleGoDown} className="text-sm hover:cursor-pointer lg:text-xl text-center bg-white/10 backdrop-blur-sm border border-white/20 text-white font-semibold px-12 py-4 rounded-full ">
               Lets GO
             </div>
             <button
