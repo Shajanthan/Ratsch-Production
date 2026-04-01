@@ -90,7 +90,7 @@ const ProjectSection: React.FC = () => {
               </div>
               <button
                 type="button"
-                onClick={() => navigate(`${basePath}/projects`)}
+                onClick={() => navigate(`${basePath}/projects?category=production`)}
                 className="uppercase rounded-full font-bold px-6 md:px-10 py-2 md:py-3 flex items-center gap-2 md:gap-3 text-sm md:text-lg bg-white/10 hover:bg-white/20 hover:scale-105 transition-all duration-300 w-fit group"
               >
                 more projects

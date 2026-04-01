@@ -9,6 +9,7 @@ import {
   type Project,
 } from "@/services/projectService";
 import { getCategories } from "@/services/categoryService";
+import { getNavbarCategories } from "@/services/navbarCategoryService";
 
 function formatProjectDate(dateStr: string): string {
   if (!dateStr?.trim()) return "—";
@@ -25,9 +26,19 @@ const ProjectsPage: React.FC = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const isDemo = location.pathname.startsWith("/demo");
+  const selectedMainCategory = new URLSearchParams(location.search)
+    .get("category")
+    ?.trim()
+    .toLowerCase();
+  const selectedSubCategory = new URLSearchParams(location.search)
+    .get("sub")
+    ?.trim();
   const [projects, setProjects] = useState<Project[]>([]);
   const [categories, setCategories] = useState<
     { name: string; description: string }[]
+  >([]);
+  const [navbarCats, setNavbarCats] = useState<
+    { key: string; title: string; items: string[] }[]
   >([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -38,14 +49,21 @@ const ProjectsPage: React.FC = () => {
 
   useEffect(() => {
     let cancelled = false;
-    Promise.all([getProjects(), getCategories()])
-      .then(([projectsData, categoriesData]) => {
+    Promise.all([getProjects(), getCategories(), getNavbarCategories()])
+      .then(([projectsData, categoriesData, navData]) => {
         if (!cancelled) {
           setProjects(projectsData);
           setCategories(
             categoriesData.map((c) => ({
               name: c.name,
               description: c.description ?? "",
+            })),
+          );
+          setNavbarCats(
+            navData.map((c) => ({
+              key: (c.key || "").toLowerCase(),
+              title: c.title || c.key,
+              items: Array.isArray(c.items) ? c.items : [],
             })),
           );
         }
@@ -61,28 +79,46 @@ const ProjectsPage: React.FC = () => {
     };
   }, []);
 
+  const filteredProjects = useMemo(() => {
+    const byMain = selectedMainCategory
+      ? projects.filter((p) => {
+          const key = (p.navbarCategoryKey || "").trim().toLowerCase();
+          if (key) return key === selectedMainCategory;
+          const category = (p.projectCategory || "").trim().toLowerCase();
+          return category.startsWith(`${selectedMainCategory} -`);
+        })
+      : projects;
+
+    if (!selectedSubCategory) return byMain;
+
+    return byMain.filter((p) => {
+      const sub = (p.navbarSubItem || "").trim() || (p.projectCategory || "").trim();
+      return sub === selectedSubCategory;
+    });
+  }, [projects, selectedMainCategory, selectedSubCategory]);
+
   const uniqueCategories = useMemo(() => {
     const set = new Set<string>();
-    projects.forEach((p) => {
+    filteredProjects.forEach((p) => {
       const cat = p.projectCategory?.trim();
       set.add(cat ? cat : "Other");
     });
     return [...set].sort((a, b) => a.localeCompare(b));
-  }, [projects]);
+  }, [filteredProjects]);
 
   const projectsByCategory = useMemo(() => {
     const map: Record<string, Project[]> = {};
     uniqueCategories.forEach((cat) => {
       map[cat] = [];
     });
-    projects.forEach((p) => {
+    filteredProjects.forEach((p) => {
       const cat = p.projectCategory?.trim()
         ? p.projectCategory!.trim()
         : "Other";
       if (map[cat]) map[cat].push(p);
     });
     return map;
-  }, [projects, uniqueCategories]);
+  }, [filteredProjects, uniqueCategories]);
 
   const categoryDescMap = useMemo(() => {
     const map: Record<string, string> = {};
@@ -91,6 +127,22 @@ const ProjectsPage: React.FC = () => {
     });
     return map;
   }, [categories]);
+
+  const subItemsForMain = useMemo(() => {
+    if (!selectedMainCategory) return [];
+    const def = navbarCats.find((c) => c.key === selectedMainCategory);
+    return def?.items ?? [];
+  }, [navbarCats, selectedMainCategory]);
+
+  const setSubFilter = (label: string | null) => {
+    const next = new URLSearchParams(location.search);
+    if (label) next.set("sub", label);
+    else next.delete("sub");
+    const query = next.toString();
+    navigate(query ? `${location.pathname}?${query}` : location.pathname, {
+      replace: true,
+    });
+  };
 
   return (
     <div className="min-h-screen bg-black">
@@ -113,6 +165,29 @@ const ProjectsPage: React.FC = () => {
                 </div>
               </div>
               <div className="py-8 w-full">
+                {subItemsForMain.length > 0 && (
+                  <div className="flex justify-center mb-8">
+                    <div className="flex flex-wrap justify-center items-center gap-4 max-w-5xl uppercase">
+                      {subItemsForMain.map((label) => {
+                        const isActive = selectedSubCategory === label;
+                        return (
+                          <button
+                            key={label}
+                            type="button"
+                            onClick={() => setSubFilter(isActive ? null : label)}
+                            className={`cursor-pointer transition-colors ${
+                              isActive
+                                ? "text-red-600 font-semibold"
+                                : "hover:text-red-600"
+                            }`}
+                          >
+                            {label}
+                          </button>
+                        );
+                      })}
+                    </div>
+                  </div>
+                )}
                 <div className="">
                   {loading ? (
                     <div className="py-10 my-8 bg-black text-center text-white/70">

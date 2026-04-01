@@ -1,11 +1,12 @@
-import React, { useEffect, useState, useMemo } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
+import React, { useEffect, useState, useMemo, useCallback } from "react";
+import { useNavigate, useLocation, useSearchParams } from "react-router-dom";
 import {
   getProjects,
   slugFromTitleLines,
   type Project,
 } from "@/services/projectService";
 import { getCategories } from "@/services/categoryService";
+import { getNavbarCategories } from "@/services/navbarCategoryService";
 import RatschCategoryCard from "@/components/RatschCategoryCard";
 import RatschClientReview from "./RatschClientReview";
 import CoreValueSection from "@/layout/CoreValueSection";
@@ -23,16 +24,47 @@ function formatProjectDate(dateStr: string): string {
   });
 }
 
+type MainCategoryTab = "creative" | "digital";
+
 const RatschDigitalProjects: React.FC = () => {
   const navigate = useNavigate();
   const location = useLocation();
+  const [searchParams, setSearchParams] = useSearchParams();
   const isDemo = location.pathname.startsWith("/demo");
   const [projects, setProjects] = useState<Project[]>([]);
   const [categories, setCategories] = useState<
     { name: string; description: string }[]
   >([]);
+  const [navbarCats, setNavbarCats] = useState<
+    { key: string; title: string; items: string[] }[]
+  >([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+
+  const activeCategory: MainCategoryTab =
+    searchParams.get("category") === "digital" ? "digital" : "creative";
+  const activeSub = searchParams.get("sub")?.trim() ?? "";
+
+  const setMainTab = useCallback(
+    (cat: MainCategoryTab) => {
+      const next = new URLSearchParams(searchParams);
+      next.set("category", cat);
+      next.delete("sub");
+      setSearchParams(next, { replace: true });
+    },
+    [searchParams, setSearchParams],
+  );
+
+  const setSubFilter = useCallback(
+    (label: string | null) => {
+      const next = new URLSearchParams(searchParams);
+      next.set("category", activeCategory);
+      if (label) next.set("sub", label);
+      else next.delete("sub");
+      setSearchParams(next, { replace: true });
+    },
+    [searchParams, setSearchParams, activeCategory],
+  );
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -40,14 +72,21 @@ const RatschDigitalProjects: React.FC = () => {
 
   useEffect(() => {
     let cancelled = false;
-    Promise.all([getProjects(), getCategories()])
-      .then(([projectsData, categoriesData]) => {
+    Promise.all([getProjects(), getCategories(), getNavbarCategories()])
+      .then(([projectsData, categoriesData, navData]) => {
         if (!cancelled) {
           setProjects(projectsData);
           setCategories(
             categoriesData.map((c) => ({
               name: c.name,
               description: c.description ?? "",
+            })),
+          );
+          setNavbarCats(
+            navData.map((c) => ({
+              key: (c.key || "").toLowerCase(),
+              title: c.title || c.key,
+              items: Array.isArray(c.items) ? c.items : [],
             })),
           );
         }
@@ -63,28 +102,56 @@ const RatschDigitalProjects: React.FC = () => {
     };
   }, []);
 
+  const subItemsForTab = useMemo(() => {
+    const def = navbarCats.find((c) => c.key === activeCategory);
+    return def?.items ?? [];
+  }, [navbarCats, activeCategory]);
+
+  const projectsForMainTab = useMemo(() => {
+    return projects.filter((p) => {
+      const key = (p.navbarCategoryKey || "").toLowerCase();
+      if (key === activeCategory) return true;
+      if (key) return false;
+      const pc = (p.projectCategory || "").trim();
+      if (!pc) return false;
+      const items = navbarCats.find((c) => c.key === activeCategory)?.items;
+      if (items?.length && items.some((it) => it === pc)) return true;
+      if (pc.startsWith(`${activeCategory} -`) || pc.startsWith(`${activeCategory}-`))
+        return true;
+      return false;
+    });
+  }, [projects, activeCategory, navbarCats]);
+
+  const filteredProjects = useMemo(() => {
+    if (!activeSub) return projectsForMainTab;
+    return projectsForMainTab.filter((p) => {
+      const sub = (p.navbarSubItem || "").trim() || (p.projectCategory || "").trim();
+      return sub === activeSub;
+    });
+  }, [projectsForMainTab, activeSub]);
+
   const uniqueCategories = useMemo(() => {
     const set = new Set<string>();
-    projects.forEach((p) => {
+    filteredProjects.forEach((p) => {
       const cat = p.projectCategory?.trim();
       set.add(cat ? cat : "Other");
     });
     return [...set].sort((a, b) => a.localeCompare(b));
-  }, [projects]);
+  }, [filteredProjects]);
 
   const projectsByCategory = useMemo(() => {
     const map: Record<string, Project[]> = {};
     uniqueCategories.forEach((cat) => {
       map[cat] = [];
     });
-    projects.forEach((p) => {
+    filteredProjects.forEach((p) => {
       const cat = p.projectCategory?.trim()
         ? p.projectCategory!.trim()
         : "Other";
       if (map[cat]) map[cat].push(p);
     });
     return map;
-  }, [projects, uniqueCategories]);
+  }, [filteredProjects, uniqueCategories]);
 
   const categoryDescMap = useMemo(() => {
     const map: Record<string, string> = {};
@@ -125,36 +192,56 @@ const RatschDigitalProjects: React.FC = () => {
               Pick a category
             </div>
             <div className="flex justify-center items-center py-8 lg:py-12 gap-10">
-              <div className="w-[120px] text-center bg-[#02244A] text-white rounded-3xl p-3 uppercase font-semibold hover:scale-105 transition-all duration-300 cursor-pointer">
+              <button
+                type="button"
+                onClick={() => setMainTab("creative")}
+                className={`w-[120px] text-center rounded-3xl p-3 uppercase font-semibold hover:scale-105 transition-all duration-300 cursor-pointer ${
+                  activeCategory === "creative"
+                    ? "bg-[#02244A] text-white shadow-md"
+                    : "text-[#02244A] bg-white"
+                }`}
+              >
                 creative
-              </div>
-              <div className="w-[120px] text-center text-[#02244A] bg-white rounded-3xl p-3 uppercase font-semibold hover:scale-105 transition-all duration-300 cursor-pointer">
+              </button>
+              <button
+                type="button"
+                onClick={() => setMainTab("digital")}
+                className={`w-[120px] text-center rounded-3xl p-3 uppercase font-semibold hover:scale-105 transition-all duration-300 cursor-pointer ${
+                  activeCategory === "digital"
+                    ? "bg-[#02244A] text-white shadow-md"
+                    : "text-[#02244A] bg-white "
+                }`}
+              >
                 digital
-              </div>
+              </button>
             </div>
             <div className="flex justify-center">
               <div className="flex justify-center items-center lg:text-xl lg:py-6 lg:gap-10 gap-4 flex-wrap uppercase max-w-6xl">
-                <div className="hover:text-[#005EC8] cursor-pointer">
-                  Logo Design
-                </div>
-                <div className="hover:text-[#005EC8] cursor-pointer">
-                  Brand Identity Development
-                </div>
-                <div className="hover:text-[#005EC8] cursor-pointer">
-                  Graphic Design
-                </div>
-                <div className="hover:text-[#005EC8] cursor-pointer">
-                  Motion Graphics
-                </div>
-                <div className="hover:text-[#005EC8] cursor-pointer">
-                  Animation
-                </div>
-                <div className="hover:text-[#005EC8] cursor-pointer">
-                  Advertising Creative
-                </div>
-                <div className="hover:text-[#005EC8] cursor-pointer">
-                  Social Media Visual Design
-                </div>
+                {subItemsForTab.length > 0 ? (
+                  subItemsForTab.map((label) => {
+                    const isActive = activeSub === label;
+                    return (
+                      <button
+                        key={label}
+                        type="button"
+                        onClick={() =>
+                          setSubFilter(isActive ? null : label)
+                        }
+                        className={`cursor-pointer transition-colors ${
+                          isActive
+                            ? "text-[#005EC8] font-semibold"
+                            : "hover:text-[#005EC8]"
+                        }`}
+                      >
+                        {label}
+                      </button>
+                    );
+                  })
+                ) : (
+                  <span className="text-sm text-[#02244A]/70 normal-case">
+                    Subcategories appear here when configured in admin.
+                  </span>
+                )}
               </div>
             </div>
           </div>
@@ -173,8 +260,8 @@ const RatschDigitalProjects: React.FC = () => {
                     {error}
                   </div>
                 ) : uniqueCategories.length === 0 ? (
-                  <div className="py-10 my-8 bg-black text-center text-white/70">
-                    No projects yet.
+                  <div className="py-10 my-8 bg-white text-center text-[#02244A]">
+                    No projects found.
                   </div>
                 ) : (
                   uniqueCategories.map((category) => (

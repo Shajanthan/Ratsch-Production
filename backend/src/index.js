@@ -3,6 +3,7 @@ import cors from "cors";
 import dotenv from "dotenv";
 import authRoutes from "./routes/authRoutes.js";
 import categoryRoutes from "./routes/categoryRoutes.js";
+import navbarCategoryRoutes from "./routes/navbarCategoryRoutes.js";
 import clientReviewRoutes from "./routes/clientReviewRoutes.js";
 import clientRoutes from "./routes/clientRoutes.js";
 import coreValueRoutes from "./routes/coreValueRoutes.js";
@@ -38,6 +39,7 @@ app.get("/", (req, res) => {
 // API Routes
 app.use("/api/auth", authRoutes);
 app.use("/api/categories", categoryRoutes);
+app.use("/api/navbar-categories", navbarCategoryRoutes);
 app.use("/api/client-reviews", clientReviewRoutes);
 app.use("/api/clients", clientRoutes);
 app.use("/api/core-values", coreValueRoutes);

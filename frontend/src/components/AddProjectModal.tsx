@@ -10,7 +10,10 @@ import {
   type Project,
   MAX_IMAGES,
 } from "../services/projectService";
-import type { Category } from "../services/categoryService";
+import {
+  type NavbarCategory,
+  getNavbarCategories,
+} from "../services/navbarCategoryService";
 import { useToast } from "../context/ToastContext";
 import DatePicker from "./DatePicker";
 
@@ -47,8 +50,6 @@ interface AddProjectModalProps {
   onClose: () => void;
   onSuccess: (message?: string) => void;
   initialProject?: Project | null;
-  /** Categories from API (id + name) for dropdown; selecting sends projectCategoryId, typing sends projectCategory name. */
-  existingCategories?: Category[];
 }
 
 const AddProjectModal: React.FC<AddProjectModalProps> = ({
@@ -56,17 +57,12 @@ const AddProjectModal: React.FC<AddProjectModalProps> = ({
   onClose,
   onSuccess,
   initialProject = null,
-  existingCategories = [],
 }) => {
   const toast = useToast();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [titleLine1, setTitleLine1] = useState("");
   const [titleLine2, setTitleLine2] = useState("");
-  const [projectCategoryId, setProjectCategoryId] = useState<string | null>(
-    null,
-  );
-  const [projectCategoryInput, setProjectCategoryInput] = useState("");
   const [smallDescription, setSmallDescription] = useState("");
   const [date, setDate] = useState("");
   const [type, setType] = useState("");
@@ -78,44 +74,46 @@ const AddProjectModal: React.FC<AddProjectModalProps> = ({
   const [bannerImageFile, setBannerImageFile] = useState<File | null>(null);
   const [bannerImagePreview, setBannerImagePreview] = useState("");
   const [imageSlots, setImageSlots] = useState<ImageSlot[]>([]);
-  const [categoryDropdownOpen, setCategoryDropdownOpen] = useState(false);
-  const categoryDropdownRef = useRef<HTMLDivElement>(null);
+  const [mainCategoryOpen, setMainCategoryOpen] = useState(false);
+  const [subItemOpen, setSubItemOpen] = useState(false);
+  const navbarDropdownsRef = useRef<HTMLDivElement>(null);
   const initializedProjectIdRef = useRef<string | null>(null);
   const [uploadingCover, setUploadingCover] = useState(false);
   const [uploadingBanner, setUploadingBanner] = useState(false);
   const [uploadingImageIndices, setUploadingImageIndices] = useState<
     Set<number>
   >(new Set());
+  const [navbarCategories, setNavbarCategories] = useState<NavbarCategory[]>(
+    [],
+  );
+  const [navbarCategoryKey, setNavbarCategoryKey] = useState("");
+  const [navbarSubItem, setNavbarSubItem] = useState("");
 
   const isEdit = Boolean(initialProject?.id);
 
   useEffect(() => {
-    if (!categoryDropdownOpen) return;
+    if (!mainCategoryOpen && !subItemOpen) return;
     const handleClickOutside = (e: MouseEvent) => {
       if (
-        categoryDropdownRef.current &&
-        !categoryDropdownRef.current.contains(e.target as Node)
+        navbarDropdownsRef.current &&
+        !navbarDropdownsRef.current.contains(e.target as Node)
       ) {
-        setCategoryDropdownOpen(false);
+        setMainCategoryOpen(false);
+        setSubItemOpen(false);
       }
     };
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, [categoryDropdownOpen]);
+  }, [mainCategoryOpen, subItemOpen]);
 
-  const categorySuggestions = projectCategoryInput.trim()
-    ? existingCategories.filter((c) =>
-        (c.name || "")
-          .toLowerCase()
-          .includes(projectCategoryInput.trim().toLowerCase()),
-      )
-    : existingCategories;
+  const selectedNavbarCategory = navbarCategories.find(
+    (c) => c.key === navbarCategoryKey,
+  );
+  const navbarSubItems = selectedNavbarCategory?.items ?? [];
 
   const resetForm = useCallback(() => {
     setTitleLine1("");
     setTitleLine2("");
-    setProjectCategoryId(null);
-    setProjectCategoryInput("");
     setSmallDescription("");
     setDate("");
     setType("");
@@ -131,6 +129,21 @@ const AddProjectModal: React.FC<AddProjectModalProps> = ({
     setUploadingCover(false);
     setUploadingBanner(false);
     setUploadingImageIndices(new Set());
+    setNavbarCategoryKey("");
+    setNavbarSubItem("");
+    setMainCategoryOpen(false);
+    setSubItemOpen(false);
+  }, []);
+
+  useEffect(() => {
+    void (async () => {
+      try {
+        const data = await getNavbarCategories();
+        setNavbarCategories(data);
+      } catch {
+        // ignore, optional enhancement
+      }
+    })();
   }, []);
 
   useEffect(() => {
@@ -149,14 +162,14 @@ const AddProjectModal: React.FC<AddProjectModalProps> = ({
     if (initialProject) {
       setTitleLine1(initialProject.titleLine1);
       setTitleLine2(initialProject.titleLine2);
-      setProjectCategoryId(initialProject.projectCategoryId ?? null);
-      setProjectCategoryInput(initialProject.projectCategory ?? "");
       setSmallDescription(initialProject.smallDescription || "");
       setDate(parseDateToIso(initialProject.date || ""));
       setType(initialProject.type || "");
       setClient(initialProject.client || "");
       setOverview(initialProject.overview || "");
       setResults(initialProject.results || "");
+      setNavbarCategoryKey(initialProject.navbarCategoryKey ?? "");
+      setNavbarSubItem(initialProject.navbarSubItem ?? "");
       setCoverImageFile(null);
       setCoverImagePreview(initialProject.coverImageUrl || "");
       setBannerImageFile(null);
@@ -258,11 +271,6 @@ const AddProjectModal: React.FC<AddProjectModalProps> = ({
       toast.error("Title 1st Line and Title 2nd Line are required.");
       return;
     }
-    if (!projectCategoryInput.trim()) {
-      setError("Project category is required.");
-      toast.error("Project category is required.");
-      return;
-    }
     if (imageSlots.length === 0) {
       setError("Add at least one project image (max 10).");
       toast.error("Add at least one project image (max 10).");
@@ -271,6 +279,11 @@ const AddProjectModal: React.FC<AddProjectModalProps> = ({
 
     setLoading(true);
     try {
+      const effectiveProjectCategory =
+        navbarSubItem.trim() ||
+        navbarCategoryKey.trim() ||
+        "Uncategorized";
+
       const basePayload = {
         titleLine1: titleLine1.trim(),
         titleLine2: titleLine2.trim(),
@@ -280,10 +293,10 @@ const AddProjectModal: React.FC<AddProjectModalProps> = ({
         client: client.trim(),
         overview: overview.trim(),
         results: results.trim(),
+        navbarCategoryKey: navbarCategoryKey || "",
+        navbarSubItem: navbarSubItem || "",
+        projectCategory: effectiveProjectCategory,
       };
-      const categoryPayload = projectCategoryId
-        ? { projectCategoryId }
-        : { projectCategory: projectCategoryInput.trim() };
 
       let coverImageUrl = initialProject?.coverImageUrl ?? "";
       let coverImagePublicId = initialProject?.coverImagePublicId ?? "";
@@ -384,7 +397,6 @@ const AddProjectModal: React.FC<AddProjectModalProps> = ({
         }
         await updateProject(initialProject.id, {
           ...basePayload,
-          ...categoryPayload,
           coverImageUrl,
           coverImagePublicId,
           bannerImageUrl,
@@ -397,7 +409,6 @@ const AddProjectModal: React.FC<AddProjectModalProps> = ({
       } else {
         const id = await addProject({
           ...basePayload,
-          ...categoryPayload,
           coverImageUrl: "",
           coverImagePublicId: "",
           bannerImageUrl: "",
@@ -461,7 +472,6 @@ const AddProjectModal: React.FC<AddProjectModalProps> = ({
         }
         await updateProject(id, {
           ...basePayload,
-          ...categoryPayload,
           coverImageUrl,
           coverImagePublicId,
           bannerImageUrl,
@@ -541,78 +551,119 @@ const AddProjectModal: React.FC<AddProjectModalProps> = ({
             </div>
           </div>
 
-          <div ref={categoryDropdownRef} className="relative">
-            <label className="block text-white text-sm uppercase mb-1">
-              Project category *
-            </label>
-            <div className="relative flex items-stretch">
-              <input
-                type="text"
-                value={projectCategoryInput}
-                onChange={(e) => {
-                  setProjectCategoryInput(e.target.value);
-                  setProjectCategoryId(null);
-                  setCategoryDropdownOpen(true);
-                }}
-                onFocus={() => setCategoryDropdownOpen(true)}
-                placeholder="Type or select a category"
-                required
-                className="w-full border border-[#333333] focus:border-[#E30514] rounded-md rounded-r-none py-2 bg-[#333333] focus:ring-0 focus:outline-none px-3 text-white text-sm pr-2"
-              />
-              {projectCategoryInput.trim() ? (
-                <button
-                  type="button"
-                  onClick={() => {
-                    setProjectCategoryId(null);
-                    setProjectCategoryInput("");
-                    setCategoryDropdownOpen(false);
-                  }}
-                  className="border border-l-0 border-[#333333] bg-[#333333] text-white/70 hover:text-white hover:bg-[#404040] px-3 focus:outline-none focus:ring-0"
-                  aria-label="Clear category"
-                >
-                  <HiX className="w-5 h-5" />
-                </button>
-              ) : null}
+          <div
+            ref={navbarDropdownsRef}
+            className="grid grid-cols-1 md:grid-cols-2 gap-4"
+          >
+            <div className="relative">
+              <label className="block text-white text-sm uppercase mb-1">
+                Main category
+              </label>
               <button
                 type="button"
-                onClick={() => setCategoryDropdownOpen((open) => !open)}
-                className="border border-l-0 border-[#333333] rounded-r-md bg-[#333333] text-white/70 hover:text-white hover:bg-[#404040] px-3 focus:outline-none focus:ring-0"
-                aria-label="Toggle category list"
+                onClick={() => {
+                  setMainCategoryOpen((o) => !o);
+                  setSubItemOpen(false);
+                }}
+                className="w-full border border-[#333333] focus:border-[#E30514] rounded-md py-2 bg-[#333333] focus:ring-0 focus:outline-none px-3 text-white text-sm flex items-center justify-between gap-2 text-left"
               >
+                <span className="truncate">
+                  {navbarCategoryKey
+                    ? navbarCategories.find((c) => c.key === navbarCategoryKey)
+                        ?.title ||
+                      navbarCategoryKey
+                    : "Select main category"}
+                </span>
                 <HiChevronDown
-                  className={`w-5 h-5 transition-transform ${
-                    categoryDropdownOpen ? "rotate-180" : ""
+                  className={`w-5 h-5 flex-shrink-0 text-white/50 transition-transform ${
+                    mainCategoryOpen ? "rotate-180" : ""
                   }`}
                 />
               </button>
-            </div>
-            {categoryDropdownOpen && (
-              <ul
-                className="absolute z-50 left-0 right-0 mt-1 max-h-48 overflow-y-auto border border-[#333333] rounded-md bg-[#262626] shadow-lg py-1"
-                role="listbox"
-              >
-                {categorySuggestions.length > 0 ? (
-                  categorySuggestions.map((cat) => (
+              {mainCategoryOpen && (
+                <ul
+                  className="absolute z-50 left-0 right-0 mt-1 max-h-48 overflow-y-auto border border-[#333333] rounded-md bg-[#262626] shadow-lg py-1"
+                  role="listbox"
+                >
+                  <li
+                    role="option"
+                    className="px-3 py-2 text-white/50 text-sm cursor-pointer hover:bg-[#E30514]/20"
+                    onClick={() => {
+                      setNavbarCategoryKey("");
+                      setNavbarSubItem("");
+                      setMainCategoryOpen(false);
+                    }}
+                  >
+                    None
+                  </li>
+                  {navbarCategories.map((c) => (
                     <li
-                      key={cat.id}
+                      key={c.id || c.key}
                       role="option"
-                      className="px-3 py-2 text-white text-sm cursor-pointer hover:bg-[#E30514]/20 focus:bg-[#E30514]/20 focus:outline-none"
+                      className="px-3 py-2 text-white text-sm cursor-pointer hover:bg-[#E30514]/20"
                       onClick={() => {
-                        setProjectCategoryId(cat.id);
-                        setProjectCategoryInput(cat.name || "");
-                        setCategoryDropdownOpen(false);
+                        setNavbarCategoryKey(c.key);
+                        setNavbarSubItem("");
+                        setMainCategoryOpen(false);
                       }}
                     >
-                      {cat.name}
+                      {c.title || c.key}
                     </li>
-                  ))
-                ) : (
-                  <li className="px-3 py-2 text-white/50 text-sm">
-                    No matching category. Type and use your own.
-                  </li>
-                )}
-              </ul>
-            )}
+                  ))}
+                </ul>
+              )}
+            </div>
+            <div className="relative">
+              <label className="block text-white text-sm uppercase mb-1">
+                Sub item (saved as project category)
+              </label>
+              <button
+                type="button"
+                disabled={!navbarCategoryKey || navbarSubItems.length === 0}
+                onClick={() => {
+                  if (!navbarCategoryKey || navbarSubItems.length === 0)
+                    return;
+                  setSubItemOpen((o) => !o);
+                  setMainCategoryOpen(false);
+                }}
+                className="w-full border border-[#333333] focus:border-[#E30514] rounded-md py-2 bg-[#333333] focus:ring-0 focus:outline-none px-3 text-white text-sm flex items-center justify-between gap-2 text-left disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                <span className="truncate">
+                  {navbarSubItem
+                    ? navbarSubItem
+                    : navbarCategoryKey
+                      ? navbarSubItems.length
+                        ? "Select sub item"
+                        : "No sub items configured"
+                      : "Select main category first"}
+                </span>
+                <HiChevronDown
+                  className={`w-5 h-5 flex-shrink-0 text-white/50 transition-transform ${
+                    subItemOpen ? "rotate-180" : ""
+                  }`}
+                />
+              </button>
+              {subItemOpen && navbarCategoryKey && navbarSubItems.length > 0 && (
+                <ul
+                  className="absolute z-50 left-0 right-0 mt-1 max-h-48 overflow-y-auto border border-[#333333] rounded-md bg-[#262626] shadow-lg py-1"
+                  role="listbox"
+                >
+                  {navbarSubItems.map((label) => (
+                    <li
+                      key={label}
+                      role="option"
+                      className="px-3 py-2 text-white text-sm cursor-pointer hover:bg-[#E30514]/20"
+                      onClick={() => {
+                        setNavbarSubItem(label);
+                        setSubItemOpen(false);
+                      }}
+                    >
+                      {label}
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </div>
           </div>
 
           <div>

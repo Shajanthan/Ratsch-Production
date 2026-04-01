@@ -9,6 +9,10 @@ export interface Project {
   projectCategoryId?: string;
   /** Resolved category name (from category id). For display and for legacy / when sending new name. */
   projectCategory?: string;
+  /** Main navbar category key, e.g. "digital", "creative", "production". */
+  navbarCategoryKey?: string;
+  /** Navbar sub item label, e.g. "Website Design". */
+  navbarSubItem?: string;
   smallDescription: string;
   date: string;
   type: string;

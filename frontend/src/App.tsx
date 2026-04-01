@@ -4,7 +4,6 @@ import { ToastProvider } from "./context/ToastContext";
 import SplashScreen, { MIN_DISPLAY_MS } from "./components/SplashScreen";
 import { prefetchAppData } from "./utils/prefetch";
 import UnderProduction from "./pages/UnderProduction";
-import HomePage from "./pages/HomePage";
 import ProjectDetailsPage from "./pages/ProjectDetailsPage";
 import AboutUsPage from "./pages/AboutUsPage";
 import ServiceDetailsPage from "./pages/ServiceDetailsPage";
@@ -19,12 +18,14 @@ import AdminClientsPage from "./pages/Admin/AdminClientsPage";
 import AdminClientReviewPage from "./pages/Admin/AdminClientReviewPage";
 import AdminCoreValuesPage from "./pages/Admin/AdminCoreValuesPage";
 import AdminAboutUsPage from "./pages/Admin/AdminAboutUsPage";
+import AdminNavbarCategoriesPage from "./pages/Admin/AdminNavbarCategoriesPage";
 import ProductionMainLayout from "./layout/ProductionMainLayout";
 import RatchHomePage from "./pages/RatchHomePage";
 import RatschMainLayout from "./layout/RatschMainLayout";
 import RatschDigitalProjects from "./pages/RatschMain/RatschDigitalProjects";
 import RatschProjectDetailsPage from "./pages/RatschMain/RatschProjectDetailsPage";
 import AdminRatschHomepagePage from "./pages/Admin/AdminRatschHomepagePage";
+import HomePage from "./pages/HomePage";
 
 function delay(ms: number): Promise<void> {
   return new Promise((resolve) => setTimeout(resolve, ms));
@@ -50,12 +51,32 @@ function AppContent() {
                 }
               />
               <Route
+                path="/demo/production"
+                element={
+                  <>
+                    <ProductionMainLayout>
+                      <HomePage />
+                    </ProductionMainLayout>
+                  </>
+                }
+              />
+              <Route
                 path="/demo/project/:id"
                 element={
                   <>
                     <RatschMainLayout>
                       <RatschProjectDetailsPage />
                     </RatschMainLayout>
+                  </>
+                }
+              />
+              <Route
+                path="/demo/production/project/:id"
+                element={
+                  <>
+                    <ProductionMainLayout>
+                      <ProjectDetailsPage />
+                    </ProductionMainLayout>
                   </>
                 }
               />
@@ -134,6 +155,10 @@ function AppContent() {
                 <Route index element={<AdminPage />} />
                 <Route path="homepage" element={<AdminHomepagePage />} />
                 <Route path="services" element={<AdminServicesPage />} />
+                <Route
+                  path="navbar-categories"
+                  element={<AdminNavbarCategoriesPage />}
+                />
                 <Route path="projects" element={<AdminProjectsPage />} />
                 <Route path="clients" element={<AdminClientsPage />} />
                 <Route
@@ -142,13 +167,26 @@ function AppContent() {
                 />
                 <Route path="core-values" element={<AdminCoreValuesPage />} />
                 <Route path="about-us" element={<AdminAboutUsPage />} />
-                <Route path="ratsch-homepage" element={<AdminRatschHomepagePage />} />
+                <Route
+                  path="ratsch-homepage"
+                  element={<AdminRatschHomepagePage />}
+                />
               </Route>
             </>
           ) : (
             <>
               <Route
                 path="/"
+                element={
+                  <>
+                    <RatschMainLayout>
+                      <RatchHomePage />
+                    </RatschMainLayout>
+                  </>
+                }
+              />
+               <Route
+                path="/production"
                 element={
                   <>
                     <ProductionMainLayout>
@@ -191,9 +229,9 @@ function AppContent() {
                 path="/about"
                 element={
                   <>
-                    <ProductionMainLayout>
+                    <RatschMainLayout>
                       <AboutUsPage />
-                    </ProductionMainLayout>
+                    </RatschMainLayout>
                   </>
                 }
               />
@@ -202,6 +240,10 @@ function AppContent() {
                 <Route index element={<AdminPage />} />
                 <Route path="homepage" element={<AdminHomepagePage />} />
                 <Route path="services" element={<AdminServicesPage />} />
+                <Route
+                  path="navbar-categories"
+                  element={<AdminNavbarCategoriesPage />}
+                />
                 <Route path="projects" element={<AdminProjectsPage />} />
                 <Route path="clients" element={<AdminClientsPage />} />
                 <Route

@@ -25,7 +25,7 @@ const Button: React.FC<ButtonProps> = ({
         <button
           type="button"
           onClick={onClick}
-          className={`border rounded-full p-2 md:p-3 ${isLightTheme ? "bg-white border-[#BF0000] hover:border-[#BF0000]" : "bg-[#1f0000] hover:bg-[rgb(31,0,0)] border-[#770101] hover:border-[#E30514]"} flex items-center gap-2 md:gap-3 px-3 md:px-5  transition-all duration-500 hover:scale-105 hover:cursor-pointer`}
+          className={`border rounded-full p-2 md:p-3 ${isLightTheme ? "bg-white border-[#BF0000] hover:border-[#BF0000]" : "bg-[#1f0000] hover:bg-[rgb(31,0,0)] border-[#770101] hover:border-[#E30514]"} flex items-center border-2 gap-2 md:gap-3 px-3 md:px-5  transition-all duration-500 hover:scale-105 hover:cursor-pointer`}
         >
           {icon}{" "}
           <span className={`${isLightTheme ? "text-[#BF0000]" : "text-white"} text-xs md:text-sm lg:text-base`}>

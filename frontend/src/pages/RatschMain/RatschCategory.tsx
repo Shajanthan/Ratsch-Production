@@ -6,7 +6,7 @@ interface RatschCategoryProps {
 
 const RatschCategory: React.FC<RatschCategoryProps> = () => {
   return (
-    <div className="max-w-5xl mx-auto py-10">
+    <div id="ratsch-category" className="max-w-5xl mx-auto py-10">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 relative p-2">
         <div className='h-[400px] lg:h-[550px] rounded-3xl flex items-center justify-center relative overflow-hidden'>
           <div className="relative w-full h-full">

@@ -173,9 +173,20 @@ const AdminHomepagePage: React.FC = () => {
   const projectLabel = (p: Project) =>
     `${p.titleLine1} ${p.titleLine2}`.trim() || p.id || "—";
 
+  const productionProjects = useMemo(
+    () =>
+      projects.filter((p) => {
+        const key = (p.navbarCategoryKey || "").trim().toLowerCase();
+        if (key) return key === "production";
+        const category = (p.projectCategory || "").trim().toLowerCase();
+        return category.startsWith("production -");
+      }),
+    [projects],
+  );
+
   const projectDropdownOptions = useMemo(
     () =>
-      projects.map((p) => ({
+      productionProjects.map((p) => ({
         value: p.id ?? "",
         label: projectLabel(p),
         imageUrl:
@@ -183,7 +194,7 @@ const AdminHomepagePage: React.FC = () => {
           (p.imageUrls?.length ? p.imageUrls[0] : "") ||
           undefined,
       })),
-    [projects],
+    [productionProjects],
   );
 
   const clientDropdownOptions = useMemo(
@@ -220,7 +231,7 @@ const AdminHomepagePage: React.FC = () => {
     <div className="text-white">
       <div className="backdrop-blur-xl bg-white/5 border border-white/10 rounded-lg p-6 md:p-8 mb-6">
         <h2 className="text-2xl md:text-3xl font-bold uppercase mb-2">
-          Homepage Management
+          Production Homepage Management
         </h2>
         <p className="text-white/70 text-sm md:text-base mb-6">
           Choose projects, clients, and core values for the homepage sections.

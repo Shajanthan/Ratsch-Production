@@ -31,7 +31,9 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
     e.preventDefault();
     if (slug) {
       const currentPath = window.location.pathname;
-      if (currentPath.startsWith("/demo")) {
+      if (currentPath.startsWith("/demo/production")) {
+        navigate(`/demo/production/project/${slug}`);
+      } else if (currentPath.startsWith("/demo")) {
         navigate(`/demo/project/${slug}`);
       } else {
         navigate(`/project/${slug}`);

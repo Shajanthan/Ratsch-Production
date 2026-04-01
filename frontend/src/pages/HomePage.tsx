@@ -5,7 +5,6 @@ import LetsConnectSection from "@/layout/LetsConnectSection";
 import OurClientsSection from "@/layout/OurClientsSection";
 import ProjectSection from "@/layout/ProjectSection";
 import ReviewSection from "@/layout/ReviewSection";
-import ServiceSection from "@/layout/ServiceSection";
 import React, { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 
@@ -33,11 +32,11 @@ const HomePage: React.FC = () => {
   return (
     <div className="select-none">
       <HomeSection />
-      <ServiceSection />
+      {/* <ServiceSection /> */}
       <ProjectSection />
       <OurClientsSection />
       <ReviewSection />
-      <CoreValueSection />
+      <CoreValueSection aboutUs={true} />
       <LetsConnectSection />
       <Footer />
     </div>

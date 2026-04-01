@@ -1,18 +1,14 @@
-import React, { useEffect, useRef, useState } from "react";
-import type { Swiper as SwiperType } from "swiper";
+import React, { useEffect, useState } from "react";
 import CoreValueSection from "@/layout/CoreValueSection";
-import { Swiper, SwiperSlide } from "swiper/react";
-import { Pagination, Autoplay } from "swiper/modules";
 import { getCeoSection, type CeoSection } from "@/services/aboutUsService";
-import { getTeamMembers, type TeamMember } from "@/services/teamMemberService";
 import "swiper/css";
 import "swiper/css/pagination";
 import RatschFooter from "./RatschMain/RatschFooter";
 
 const AboutUsPage: React.FC = () => {
-  const teamSwiperRef = useRef<SwiperType | null>(null);
+  // const teamSwiperRef = useRef<SwiperType | null>(null);
   const [ceo, setCeo] = useState<CeoSection | null>(null);
-  const [teamMembers, setTeamMembers] = useState<TeamMember[]>([]);
+  // const [teamMembers, setTeamMembers] = useState<TeamMember[]>([]);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -24,11 +20,11 @@ const AboutUsPage: React.FC = () => {
       .catch(() => setCeo(null));
   }, []);
 
-  useEffect(() => {
-    getTeamMembers()
-      .then(setTeamMembers)
-      .catch(() => setTeamMembers([]));
-  }, []);
+  // useEffect(() => {
+  //   getTeamMembers()
+  //     .then(setTeamMembers)
+  //     .catch(() => setTeamMembers([]));
+  // }, []);
 
   return (
     <div className="min-h-screen bg-white text-[#02244A] ">
@@ -53,7 +49,7 @@ const AboutUsPage: React.FC = () => {
       {/* Introductory Section */}
       <div className="py-12 md:py-16 px-4 md:px-0 bg-white">
         <div className="container lg:max-w-[1400px] mx-auto">
-          <h2 className="text-5xl lg:text-8xl font-bold uppercase md:mb-16 leading-tight text-center">
+          <h2 className="text-3xl lg:text-8xl font-bold uppercase md:mb-16 leading-tight text-center">
             BEGAN AS A SIMPLE <span className="text-[#E30514]">IDEA</span>,
             <br /> NOW GROWN INTO A{" "}
             <span className="text-[#E30514]">JOURNEY</span>
@@ -63,7 +59,7 @@ const AboutUsPage: React.FC = () => {
           <div className="flex justify-center md:my-6">
             <div className="p-4 rounded-md">
               <img
-                className=" md:h-[200px] bg-contain"
+                className="md:h-[150px] bg-contain"
                 src="https://res.cloudinary.com/dybv1h20q/image/upload/v1774418189/RATSCH_GROUP_PNG_1_dkzvsu.png"
                 alt="logo"
               />
@@ -105,13 +101,13 @@ const AboutUsPage: React.FC = () => {
         <div className="bg-white z-10 py-8 md:py-16 relative">
           <div className=" text-white px-4 md:px-0">
             <div className="container mx-auto max-w-6xl">
-              <h2 className="text-5xl lg:text-7xl font-bold uppercase text-center mb-12 md:mb-16 bg-[#02244A] text-white py-3 rounded-3xl">
+              <h2 className="text-3xl lg:text-7xl font-bold uppercase text-center mb-12 md:mb-16 bg-[#02244A] text-white py-3 rounded-3xl">
                 MEET OUR CEO
               </h2>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-center">
                 {/* CEO Image */}
-                <div className="flex justify-center md:justify-start">
+                <div className="flex justify-center rounded-3xl">
                   <img
                     src={ceo?.imageUrl || ""}
                     alt={
@@ -119,31 +115,31 @@ const AboutUsPage: React.FC = () => {
                         ? `${ceo.firstName} ${ceo.lastName}`.trim() || "CEO"
                         : "CEO"
                     }
-                    className="w-full max-w-md h-auto object-cover"
+                    className="w-full max-w-md h-auto object-cover rounded-3xl"
                   />
                 </div>
 
                 {/* CEO Info */}
                 <div className="h-full">
                   {ceo?.firstName || ceo?.lastName ? (
-                    <h3 className="text-3xl md:text-4xl uppercase lg:text-5xl font-bold text-[#02244A] mb-2">
+                    <h3 className="text-3xl md:text-4xl text-center lg:text-left uppercase lg:text-5xl font-bold text-[#02244A] mb-2">
                       {ceo.firstName && (
                         <span className="text-[#d80000]">{ceo.firstName} </span>
                       )}
                       {ceo.lastName}
                     </h3>
                   ) : (
-                    <h3 className="text-3xl md:text-4xl uppercase lg:text-5xl font-bold text-[#02244A] mb-2">
+                    <h3 className="text-3xl md:text-4xl uppercase lg:text-5xl font-bold text-[#02244A] mb-2 text-center lg:text-left">
                       <span className="text-[#d80000]"> Raj </span> kumar
                     </h3>
                   )}
 
-                  <p className="text-lg md:text-xl text-[#02244A] mb-6 uppercase">
+                  <p className="text-lg md:text-xl text-[#02244A] mb-6 uppercase text-center lg:text-left">
                     <span className="text-[#FF0000]">ceo, </span>
                     RATSCH PRODUCTIONS
                   </p>
 
-                  <p className="text-[#02244A] text-sm md:text-base leading-relaxed py-7">
+                  <p className="text-[#02244A] text-sm md:text-base leading-relaxed py-7 text-center lg:text-left">
                     {ceo?.description || (
                       <>
                         At RATSCH Productions, our mission is to combine
@@ -163,7 +159,7 @@ const AboutUsPage: React.FC = () => {
       </div>
 
       {/* Our Team Section - image, full name, position */}
-      <div className="py-12 md:py-20 bg-white">
+      {/* <div className="py-12 md:py-20 bg-white">
         <div className="container lg:max-w-[1400px] mx-auto max-w-7xl px-4">
           <h2 className="text-3xl md:text-5xl lg:text-7xl font-bold uppercase text-center mb-12 md:mb-16">
             OUR TEAM
@@ -228,11 +224,10 @@ const AboutUsPage: React.FC = () => {
             </div>
           )}
         </div>
-      </div>
+      </div> */}
 
       {/* Quality Section */}
       <CoreValueSection aboutUs={true} />
-      <div className="h-10"></div>
       {/* Footer */}
       <RatschFooter />
     </div>

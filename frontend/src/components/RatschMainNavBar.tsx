@@ -3,10 +3,15 @@ import { useNavigate, useLocation } from "react-router-dom";
 import Button from "./Button";
 import { CiMail } from "react-icons/ci";
 import { HiMenu, HiX } from "react-icons/hi";
+import {
+  type NavbarCategory,
+  getNavbarCategories,
+} from "../services/navbarCategoryService";
 
 const RatschMainNavBar: React.FC = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [categories, setCategories] = useState<NavbarCategory[]>([]);
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -17,6 +22,21 @@ const RatschMainNavBar: React.FC = () => {
 
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  useEffect(() => {
+    void (async () => {
+      try {
+        const data = await getNavbarCategories();
+        const sorted = data
+          .slice()
+          .sort((a, b) => (a.order || 0) - (b.order || 0));
+        setCategories(sorted);
+      } catch (error) {
+        // Fallback silently; navbar still works without dropdowns
+        console.error("Failed to load navbar categories", error);
+      }
+    })();
   }, []);
 
   const basePath = location.pathname.startsWith("/demo") ? "/demo" : "";
@@ -44,6 +64,12 @@ const RatschMainNavBar: React.FC = () => {
       } else {
         navigate(`${homePath}#contact`);
       }
+    } else if (sectionId === "production") {
+      navigate(`${homePath}/production`);
+    } else if (sectionId === "creative" || sectionId === "digital") {
+      const params = new URLSearchParams();
+      params.set("category", sectionId);
+      navigate(`${basePath}/digital-projects?${params.toString()}`);
     } else {
       // Service and other sections: scroll on home, else navigate to home with state
       if (isOnHome) {
@@ -57,15 +83,24 @@ const RatschMainNavBar: React.FC = () => {
     }
   };
 
+  const handleSubItemClick = (categoryKey: string, subLabel: string) => {
+    setIsMobileMenuOpen(false);
+    const params = new URLSearchParams();
+    params.set("category", categoryKey);
+    params.set("sub", subLabel);
+    navigate(`${basePath}/digital-projects?${params.toString()}`);
+  };
+
   const navItems = [
     { sectionId: "home", label: "Home" },
     { sectionId: "about", label: "About us" },
-    { sectionId: "service", label: "Service" },
-    { sectionId: "contact", label: "Contact us" },
-  ];
+    { sectionId: "creative", label: "Creative" },
+    { sectionId: "digital", label: "Digital" },
+    { sectionId: "production", label: "Production" },
+  ] as const;
   return (
     <div
-      className={`fixed left-0 right-0 z-[51] transition-all duration-300 select-none py-3  ${
+      className={`fixed left-0 right-0 z-[51] transition-all duration-300 select-none py-4  ${
         isScrolled || isMobileMenuOpen
           ? "backdrop-blur-xl bg-white/20"
           : "border-none py-2"
@@ -94,16 +129,44 @@ const RatschMainNavBar: React.FC = () => {
           <div
             className={`rounded-full px-8 xl:px-12 py-3 xl:py-4 flex items-center gap-8 xl:gap-14 transition-all duration-300 bg-white shadow-lg shadow-black/30`}
           >
-            {navItems.map((item) => (
-              <button
-                key={item.sectionId}
-                onClick={() => handleNavClick(item.sectionId)}
-                className="text-[#02244A] text-sm xl:text-base transition-colors relative group hover:text-[#E30514]"
-              >
-                {item.label}
-                <span className="absolute bottom-0 left-0 h-0.5 bg-[#E30514] transition-all duration-300 w-0 group-hover:w-full"></span>
-              </button>
-            ))}
+            {navItems.map((item) => {
+              const cat = categories.find(
+                (c) => c.key === item.sectionId,
+              );
+              const isCategory = !!cat && Array.isArray(cat.items) && cat.items.length > 0;
+              return (
+                <div key={item.sectionId} className="relative group">
+                  <button
+                    onClick={() => handleNavClick(item.sectionId)}
+                    className="text-[#02244A] text-sm xl:text-base transition-colors relative hover:text-[#E30514]"
+                  >
+                    {item.label}
+                    <span className="absolute bottom-0 left-0 h-0.5 bg-[#E30514] transition-all duration-300 w-0 group-hover:w-full"></span>
+                  </button>
+                  {isCategory && cat && (
+                    <div className="absolute top-full pt-3 hidden group-hover:block">
+                      <div className="min-w-[240px] rounded-2xl bg-white shadow-xl shadow-black/20 border border-black/5 py-4 px-5">
+                        <ul className="space-y-1.5">
+                          {cat.items.map((label) => (
+                            <li key={label}>
+                              <button
+                                type="button"
+                                onClick={() =>
+                                  handleSubItemClick(item.sectionId, label)
+                                }
+                                className="w-full text-left text-xs text-[#02244A]/80 hover:text-[#E30514] cursor-pointer"
+                              >
+                                - {label}
+                              </button>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    </div>
+                  )}
+                </div>
+              );
+            })}
           </div>
         </div>
         {/* Desktop Button */}

@@ -1,9 +1,57 @@
-import React from "react";
+import React, { useEffect, useMemo, useState } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
 import { BsArrowUpRight } from "react-icons/bs";
+import { getNavbarCategories } from "@/services/navbarCategoryService";
 
 interface RatschDigitalSectionTwoProps {}
 
 const RatschDigitalSectionTwo: React.FC<RatschDigitalSectionTwoProps> = () => {
+  const navigate = useNavigate();
+  const location = useLocation();
+  const [digitalItems, setDigitalItems] = useState<string[]>([]);
+  const basePath = location.pathname.startsWith("/demo") ? "/demo" : "";
+  const goDigitalProjects = () =>
+    navigate(`${basePath}/digital-projects?category=digital`);
+  const goDigitalSubProjects = (subLabel: string) => {
+    const params = new URLSearchParams();
+    params.set("category", "digital");
+    params.set("sub", subLabel);
+    navigate(`${basePath}/digital-projects?${params.toString()}`);
+  };
+
+  useEffect(() => {
+    let cancelled = false;
+    void (async () => {
+      try {
+        const data = await getNavbarCategories();
+        if (cancelled) return;
+        const digital = data.find((c) => (c.key || "").toLowerCase() === "digital");
+        setDigitalItems(Array.isArray(digital?.items) ? digital!.items : []);
+      } catch {
+        if (!cancelled) setDigitalItems([]);
+      }
+    })();
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
+  const displayedDigitalItems = useMemo(
+    () =>
+      digitalItems.length
+        ? digitalItems
+        : [
+            "Website Design",
+            "Website Development",
+            "Digital Marketing",
+            "Social Media Management",
+            "SEO Optimization",
+            "Online Advertising Campaigns",
+            "Content Strategy",
+          ],
+    [digitalItems],
+  );
+
   const bgImageUrl =
     "https://res.cloudinary.com/dybv1h20q/image/upload/v1774861628/Frame_71_zy7obm.png";
 
@@ -30,14 +78,18 @@ const RatschDigitalSectionTwo: React.FC<RatschDigitalSectionTwoProps> = () => {
                   Smart digital solutions that grow your online presence
                 </div>
               </div>
-              <div className="uppercase rounded-full font-bold px-6 md:px-10 py-3 md:py-4 flex items-center justify-center gap-2 md:gap-3 text-sm md:text-lg bg-[#0557B2] hover:scale-105 transition-all duration-300 w-full sm:w-fit group cursor-pointer text-white">
+              <button
+                type="button"
+                onClick={goDigitalProjects}
+                className="hidden uppercase rounded-full font-bold px-6 md:px-10 py-3 md:py-4 lg:flex items-center justify-center gap-2 md:gap-3 text-sm md:text-lg bg-[#0557B2] hover:scale-105 transition-all duration-300 w-full sm:w-fit group cursor-pointer text-white"
+              >
                 Explore
                 <BsArrowUpRight
                   strokeWidth={2}
                   size={14}
                   className="md:w-4 md:h-4 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform duration-300"
                 />
-              </div>
+              </button>
             </div>
             <div className="grid grid-cols-1 lg:grid-cols-2 py-6 md:py-8 gap-8 lg:gap-0">
               <div className="lg:pr-4">
@@ -111,29 +163,29 @@ const RatschDigitalSectionTwo: React.FC<RatschDigitalSectionTwoProps> = () => {
               </div>
               <div className="flex flex-col gap-2 justify-center items-start">
                 <ul className="list-disc list-inside text-sm sm:text-base md:text-lg lg:text-xl text-[#02244A] px-2 sm:px-4">
-                  <li className="py-2 sm:py-3 hover:text-[#005EC8]">
-                    Website Design
-                  </li>
-                  <li className="py-2 sm:py-3 hover:text-[#005EC8]">
-                    Website Development
-                  </li>
-                  <li className="py-2 sm:py-3 hover:text-[#005EC8]">
-                    Digital Marketing
-                  </li>
-                  <li className="py-2 sm:py-3 hover:text-[#005EC8]">
-                    Social Media Management
-                  </li>
-                  <li className="py-2 sm:py-3 hover:text-[#005EC8]">
-                    SEO Optimization
-                  </li>
-                  <li className="py-2 sm:py-3 hover:text-[#005EC8]">
-                    Online Advertising Campaigns
-                  </li>
-                  <li className="py-2 sm:py-3 hover:text-[#005EC8]">
-                    Content Strategy
-                  </li>
+                  {displayedDigitalItems.map((item) => (
+                    <li
+                      key={item}
+                      className="py-2 sm:py-3 hover:text-[#005EC8] cursor-pointer"
+                      onClick={() => goDigitalSubProjects(item)}
+                    >
+                      {item}
+                    </li>
+                  ))}
                 </ul>
               </div>
+              <button
+                type="button"
+                onClick={goDigitalProjects}
+                className="uppercase rounded-full font-bold px-6 md:px-10 py-3 md:py-4 flex lg:hidden items-center justify-center gap-2 md:gap-3 text-sm md:text-lg bg-[#0557B2] hover:scale-105 transition-all duration-300 w-full sm:w-fit group cursor-pointer text-white"
+              >
+                Explore
+                <BsArrowUpRight
+                  strokeWidth={2}
+                  size={14}
+                  className="md:w-4 md:h-4 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform duration-300"
+                />
+              </button>
             </div>
           </div>
         </div>

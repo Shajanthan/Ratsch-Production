@@ -40,10 +40,11 @@ const AdminLayout: React.FC<AdminLayoutProps> = () => {
   }
 
   const menuItems = [
-    { path: "/admin", label: "Homepage", icon: HiHome },
+    { path: "/admin", label: "Production", icon: HiHome },
     { path: "/admin/ratsch-homepage", label: "Ratsch Banner", icon: IoHomeOutline  },
     { path: "/admin/about-us", label: "About Us", icon: HiOfficeBuilding },
     { path: "/admin/services", label: "Services", icon: HiCollection },
+    { path: "/admin/navbar-categories", label: "Navbar Categories", icon: HiCollection },
     { path: "/admin/projects", label: "Projects", icon: HiFolder },
     { path: "/admin/clients", label: "Clients", icon: HiUserGroup },
     { path: "/admin/client-reviews", label: "Client Reviews", icon: HiChat },
