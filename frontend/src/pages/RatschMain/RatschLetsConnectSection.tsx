@@ -31,7 +31,9 @@ const RatschLetsConnectSection: React.FC<
           </div>
           <div className="uppercase text-[#02244A]">
             <div>Phone</div>
-            <div className="font-bold normal-case">+94 7174123456</div>
+            <div className="font-bold normal-case">
+              +94 72 471 8466 / +41 78 601 36 50
+            </div>
           </div>
           <div className="uppercase text-[#02244A]">
             <div>Address</div>

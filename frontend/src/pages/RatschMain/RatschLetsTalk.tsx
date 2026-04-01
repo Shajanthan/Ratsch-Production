@@ -23,10 +23,10 @@ const RatschLetsTalk: React.FC<RatschLetsTalkProps> = () => {
               <div className="py-2 md:py-3">
                 <div className="text-sm md:text-base lg:text-lg">Phone</div>
                 <div className="text-lg md:text-xl lg:text-3xl font-semibold py-1 md:py-2">
-                  +94 7174123456
+                  +41 78 601 36 50
                 </div>
                 <div className="text-lg md:text-xl lg:text-3xl font-semibold py-1 md:py-2 flex gap-3 items-center">
-                  +94 7174123456
+                  +94 72 471 8466
                   <FaWhatsapp size={24} className="text-green-500" />
                 </div>
               </div>

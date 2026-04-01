@@ -65,11 +65,11 @@ const Footer: React.FC = () => {
                 <div className="list-none uppercase font-semibold">
                   <li className="flex gap-2 md:gap-3 items-center py-1 hover:text-red-700 cursor-pointer transition-colors duration-300 text-sm md:text-base">
                     <BsTelephone className="flex-shrink-0" />
-                    <span className="break-all">+94 77 14141411</span>
+                    <span className="break-all">+41 78 601 36 50</span>
                   </li>
                   <li className="flex gap-2 md:gap-3 items-center py-1 hover:text-red-700 cursor-pointer transition-colors duration-300 text-sm md:text-base">
                     <FaWhatsapp className="flex-shrink-0" />
-                    <span className="break-all">+94 77 14141411</span>
+                    <span className="break-all">+94 72 471 8466</span>
                   </li>
                   <li className="flex gap-2 md:gap-3 items-center py-1 hover:text-red-700 cursor-pointer transition-colors duration-300 text-sm md:text-base">
                     <HiOutlineLocationMarker className="flex-shrink-0" />
