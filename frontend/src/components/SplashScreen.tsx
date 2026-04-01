@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 
 const MIN_DISPLAY_MS = 1500;
 const FADE_OUT_MS = 500;
-const WELCOME_TEXT = "Welcome to Ratsch productions       ";
+const WELCOME_TEXT = "Welcome to Ratsch Creative & Media Group ";
 const TYPING_INTERVAL_MS = 80;
 
 export { MIN_DISPLAY_MS, FADE_OUT_MS };

@@ -153,10 +153,9 @@ const RatschMainNavBar: React.FC = () => {
             className={`rounded-full px-8 xl:px-12 py-3 xl:py-4 flex items-center gap-8 xl:gap-14 transition-all duration-300 bg-white shadow-lg shadow-black/30`}
           >
             {navItems.map((item) => {
-              const cat = categories.find(
-                (c) => c.key === item.sectionId,
-              );
-              const isCategory = !!cat && Array.isArray(cat.items) && cat.items.length > 0;
+              const cat = categories.find((c) => c.key === item.sectionId);
+              const isCategory =
+                !!cat && Array.isArray(cat.items) && cat.items.length > 0;
               return (
                 <div key={item.sectionId} className="relative group">
                   <button
@@ -221,7 +220,7 @@ const RatschMainNavBar: React.FC = () => {
       </div>
       {/* Mobile Menu */}
       {isMobileMenuOpen && (
-        <div className="lg:hidden backdrop-blur-xl bg-[#02244A] border-t border-white/10">
+        <div className="lg:hidden backdrop-blur-xl bg-[#02244A]/80 border-t border-white/10">
           <div className="container lg:max-w-[1400px] mx-auto px-4 py-4 flex flex-col gap-4">
             {navItems.map((item) => {
               const cat = categories.find((c) => c.key === item.sectionId);
@@ -229,7 +228,10 @@ const RatschMainNavBar: React.FC = () => {
                 !!cat && Array.isArray(cat.items) && cat.items.length > 0;
               const isOpen = openMobileCategory === item.sectionId;
               return (
-                <div key={item.sectionId} className="border-b border-white/10 pb-2">
+                <div
+                  key={item.sectionId}
+                  className="border-b border-white/10 pb-2"
+                >
                   <div className="flex items-center justify-between gap-2">
                     <button
                       onClick={() => handleNavClick(item.sectionId)}
@@ -263,7 +265,9 @@ const RatschMainNavBar: React.FC = () => {
                           <button
                             key={label}
                             type="button"
-                            onClick={() => handleSubItemClick(item.sectionId, label)}
+                            onClick={() =>
+                              handleSubItemClick(item.sectionId, label)
+                            }
                             className="text-white/90 text-sm py-1 text-left hover:text-[#E30514] transition-colors"
                           >
                             - {label}
