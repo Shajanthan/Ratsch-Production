@@ -110,7 +110,7 @@ const Navbar: React.FC = () => {
   ] as const;
   return (
     <div
-      className={`fixed left-0 right-0 z-[51] transition-all duration-300 select-none py-4 ${
+      className={`fixed left-0 right-0 z-[51] transition-all duration-300 select-none py-4 pt-6 ${
         isScrolled || isMobileMenuOpen
           ? "backdrop-blur-xl bg-white/5"
           : "border-none py-2"

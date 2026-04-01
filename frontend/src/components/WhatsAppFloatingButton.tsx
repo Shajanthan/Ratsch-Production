@@ -8,7 +8,7 @@ const WhatsAppFloatingButton: React.FC = () => {
       target="_blank"
       rel="noopener noreferrer"
       aria-label="Chat on WhatsApp"
-      className="fixed bottom-5 right-5 z-[60] w-14 h-14 rounded-full bg-[#25D366] text-white shadow-lg shadow-black/30 flex items-center justify-center animate-bounce hover:scale-105 hover:animate-none transition-transform duration-300"
+      className="fixed bottom-10 right-10 z-[60] w-14 h-14 rounded-full bg-[#25D366] text-white shadow-lg shadow-black/30 flex items-center justify-center animate-bounce hover:scale-105 hover:animate-none transition-transform duration-300"
     >
       <FaWhatsapp size={30} />
     </a>
