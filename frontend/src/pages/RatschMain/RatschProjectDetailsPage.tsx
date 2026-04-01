@@ -239,7 +239,7 @@ const RatschProjectDetailsPage: React.FC = () => {
               <h2 className="text-3xl md:text-5xl lg:text-6xl font-bold uppercase text-center mb-8">
                 Results
               </h2>
-              <p className="text-[#02244A] text-center text-sm md:text-base leading-relaxed">
+              <p className="text-[#02244A] text-center text-sm md:text-base leading-relaxed break-words">
                 {project.results || project.description}
               </p>
             </div>
