@@ -14,6 +14,7 @@ import {
   getNavbarCategories,
   type NavbarCategory,
 } from "@/services/navbarCategoryService";
+import RevealOnScroll from "@/components/RevealOnScroll";
 
 const RatschFooter: React.FC = () => {
   const location = useLocation();
@@ -49,7 +50,7 @@ const RatschFooter: React.FC = () => {
     <div className="bg-[#02244A] text-white py-10 ">
       <div className="mx-auto">
         <div className="grid grid-cols-1 lg:grid-cols-6 px-4 lg:px-20">
-          <div className="lg:col-span-2 px-2  max-w-xl">
+          <RevealOnScroll className="lg:col-span-2 px-2  max-w-xl">
             <div className="text-4xl md:text-5xl lg:text-6xl font-bold uppercase pb-4">
               Ratsch
             </div>
@@ -101,9 +102,12 @@ const RatschFooter: React.FC = () => {
                 <FaTiktok size={24} className="md:w-7 md:h-7" />
               </div>
             </div>
-          </div>
+          </RevealOnScroll>
 
-          <div className="lg:col-span-4 flex flex-col lg:flex-row gap-6 lg:gap-2 w-full lg:justify-between px-3 lg:px-6">
+          <RevealOnScroll
+            delayMs={100}
+            className="lg:col-span-4 flex flex-col lg:flex-row gap-6 lg:gap-2 w-full lg:justify-between px-3 lg:px-6"
+          >
             <div className="w-full">
               {categories.length > 0 ? (
                 <ul className="grid grid-cols-1 sm:grid-cols-2 2xl:grid-cols-4 gap-x-6 gap-y-4 list-none">
@@ -242,10 +246,10 @@ const RatschFooter: React.FC = () => {
                 </li>
               )}
             </div>
-          </div>
+          </RevealOnScroll>
         </div>
 
-        <div className="">
+        <RevealOnScroll delayMs={140} className="">
           <div className="flex justify-end items-center pt-5 lg:pt-0">
             <div className="w-full lg:w-1/3 flex flex-col items-center">
               <div className="uppercase font-semibold text-xl md:text-2xl lg:text-3xl text-center lg:text-left">
@@ -274,7 +278,7 @@ const RatschFooter: React.FC = () => {
               </div>
             </div>
           </div>
-        </div>
+        </RevealOnScroll>
       </div>
     </div>
   );

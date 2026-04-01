@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { getNavbarCategories } from "@/services/navbarCategoryService";
+import RevealOnScroll from "@/components/RevealOnScroll";
 
 interface RatschProductionSectionProps {}
 
@@ -52,13 +53,18 @@ const RatschProductionSection: React.FC<RatschProductionSectionProps> = () => {
           <div className="relative overflow-hidden rounded-[50px] h-full w-full py-8 border border-white/50 bg-[#f1f2f4]/90 backdrop-blur-xl shadow-[0_8px_32px_rgba(2,36,74,0.25)]">
             <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4 w-full h-full">
               <div className="w-full h-full text-center">
-                <div className="text-2xl lg:text-6xl font-semibold text-[#02244A] ">
-                  PRODUCTION
-                </div>
-                <div className="text-[#02244A] pb-3 lg:pb-6 pt-2 ">
-                  High-quality visuals that tell powerful stories.
-                </div>
-                <div className="flex justify-center items-center text-xl lg:py-6">
+                <RevealOnScroll>
+                  <div className="text-2xl lg:text-6xl font-semibold text-[#02244A] ">
+                    PRODUCTION
+                  </div>
+                  <div className="text-[#02244A] pb-3 lg:pb-6 pt-2 ">
+                    High-quality visuals that tell powerful stories.
+                  </div>
+                </RevealOnScroll>
+                <RevealOnScroll
+                  delayMs={100}
+                  className="flex justify-center items-center text-xl lg:py-6"
+                >
                   <ul className="text-[#02244A] py-2 text-left list-disc text-sm md:text-base lg:text-lg">
                     {subItems.length > 0 ? (
                       subItems.map((item) => (
@@ -78,15 +84,18 @@ const RatschProductionSection: React.FC<RatschProductionSectionProps> = () => {
                       </li>
                     )}
                   </ul>
-                </div>
-                <div className="flex justify-center items-center py-3">
+                </RevealOnScroll>
+                <RevealOnScroll
+                  delayMs={160}
+                  className="flex justify-center items-center py-3"
+                >
                   <div
-                    className="uppercase rounded-full font-bold px-6 md:px-10 py-3 md:py-4 flex items-center justify-center gap-2 md:gap-3 text-sm md:text-lg bg-[#0557B2] hover:scale-105 transition-all duration-300 w-full sm:w-fit group cursor-pointer text-white"
+                    className="uppercase rounded-full font-bold px-6 md:px-10 py-3 md:py-4 flex items-center justify-center gap-2 md:gap-3 text-sm md:text-lg bg-[#0557B2] hover:scale-105 transition-all duration-300 w-fit group cursor-pointer text-white"
                     onClick={() => navigate(`${basePath}/projects?category=production`)}
                   >
                     Explore Projects
                   </div>
-                </div>
+                </RevealOnScroll>
               </div>
             </div>
           </div>

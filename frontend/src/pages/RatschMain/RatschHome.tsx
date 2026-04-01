@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { FaAnglesDown } from "react-icons/fa6";
 import { useLocation, useNavigate } from "react-router-dom";
 import { getRatschHomeSettings } from "../../services/ratschHomeService";
+import RevealOnScroll from "@/components/RevealOnScroll";
 
 interface RatschHomeProps {}
 
@@ -52,7 +53,10 @@ const RatschHome: React.FC<RatschHomeProps> = () => {
           />
           <div className="absolute inset-0 bg-black/10" />
 
-          <div className="absolute bottom-1 lg:bottom-5 left-1/2 -translate-x-1/2 z-10">
+          <RevealOnScroll
+            delayMs={80}
+            className="absolute bottom-1 lg:bottom-5 left-1/2 -translate-x-1/2 z-10"
+          >
             <div className="text-sm lg:text-xl text-center bg-white/10 backdrop-blur-sm border border-white/20 text-white font-semibold px-12 py-4 rounded-full ">
               Lets GO
             </div>
@@ -64,7 +68,7 @@ const RatschHome: React.FC<RatschHomeProps> = () => {
             >
               <FaAnglesDown className="lg:size-6 size-4" color="white" />
             </button>
-          </div>
+          </RevealOnScroll>
         </div>
       </div>
     </div>

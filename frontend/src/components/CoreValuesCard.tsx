@@ -32,7 +32,7 @@ const CoreValuesCard: React.FC<CoreValuesCardProps> = ({
         {/* subtle vignette for readability */}
         <div className="absolute inset-0 bg-black/40" />
 
-        <div className="py-12 md:py-24 lg:py-32 flex flex-col flex-1 relative z-10">
+        <div className="py-12 md:py-24 lg:py-32 flex flex-col flex-1 relative z-10 bg-black/40">
           {/* Centered title + description */}
           <div className="relative flex-1 flex items-center justify-center text-center px-4 md:px-6 container lg:max-w-[1400px] mx-auto">
             <div className="max-w-3xl px-4 md:px-10">

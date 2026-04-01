@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import Button from "./Button";
 import { CiMail } from "react-icons/ci";
-import { HiChevronDown, HiChevronUp, HiMenu, HiX } from "react-icons/hi";
+import { HiChevronDown, HiMenu, HiX } from "react-icons/hi";
 import {
   type NavbarCategory,
   getNavbarCategories,
@@ -124,8 +124,8 @@ const Navbar: React.FC = () => {
           className="cursor-pointer"
         >
           <img
-            className="w-[100px] md:w-[180px] lg:w-[150px]"
-            src="https://res.cloudinary.com/dybv1h20q/image/upload/v1771049149/Ratsch_Productions_Logo_Png-White_ynyzqp.png"
+            className="w-[100px] md:w-[180px] lg:w-[180px]"
+            src="https://res.cloudinary.com/dybv1h20q/image/upload/v1775052691/RATSCH_PRODUCTIONS_whit_PNG_pyzgxa.png"
             alt="logo"
           />
         </button>
@@ -224,29 +224,33 @@ const Navbar: React.FC = () => {
                         onClick={() =>
                           setOpenMobileCategory(isOpen ? null : item.sectionId)
                         }
-                        className="text-white p-2 hover:text-[#E30514] transition-colors"
+                        className={`text-white p-2 hover:text-[#E30514] transition-all duration-300 ${
+                          isOpen ? "rotate-180" : "rotate-0"
+                        }`}
                         aria-label={`Toggle ${item.label} subitems`}
                       >
-                        {isOpen ? (
-                          <HiChevronUp className="w-5 h-5" />
-                        ) : (
-                          <HiChevronDown className="w-5 h-5" />
-                        )}
+                        <HiChevronDown className="w-5 h-5" />
                       </button>
                     )}
                   </div>
-                  {hasSubItems && isOpen && (
-                    <div className="pl-4 pb-2 flex flex-col gap-1">
-                      {cat.items.map((label) => (
-                        <button
-                          key={label}
-                          type="button"
-                          onClick={() => handleSubItemClick(item.sectionId, label)}
-                          className="text-white/90 text-sm py-1 text-left hover:text-[#E30514] transition-colors"
-                        >
-                          - {label}
-                        </button>
-                      ))}
+                  {hasSubItems && (
+                    <div
+                      className={`overflow-hidden transition-all duration-300 ease-in-out ${
+                        isOpen ? "max-h-60 opacity-100" : "max-h-0 opacity-0"
+                      }`}
+                    >
+                      <div className="pl-4 pb-2 pt-1 flex flex-col gap-1">
+                        {cat.items.map((label) => (
+                          <button
+                            key={label}
+                            type="button"
+                            onClick={() => handleSubItemClick(item.sectionId, label)}
+                            className="text-white/90 text-sm py-1 text-left hover:text-[#E30514] transition-colors"
+                          >
+                            - {label}
+                          </button>
+                        ))}
+                      </div>
                     </div>
                   )}
                 </div>

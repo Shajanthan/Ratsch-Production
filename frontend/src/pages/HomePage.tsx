@@ -30,7 +30,7 @@ const HomePage: React.FC = () => {
   }, [location.pathname, location.hash, scrollToSection]);
 
   return (
-    <div className="select-none">
+    <div className="select-none bg-black">
       <HomeSection />
       {/* <ServiceSection /> */}
       <ProjectSection />

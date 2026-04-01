@@ -43,15 +43,9 @@ const RatchHomePage: React.FC = () => {
       <RatschDigitalSectionTwo />
       <RatschClientReview />
       <RatschLetsConnectSection />
-      <CoreValueSection aboutUs={true}/>
+      <CoreValueSection aboutUs={true} />
       <RatschLetsTalk />
       <RatschFooter />
-      {/* <ServiceSection />
-        <ProjectSection />
-        <ReviewSection />
-        <CoreValueSection />
-        <LetsConnectSection />
-        <Footer /> */}
     </div>
   );
 };

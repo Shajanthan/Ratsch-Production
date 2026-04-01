@@ -2,6 +2,7 @@ import HomeProjectCard from "@/components/HomeProjectCard";
 import React, { useState, useEffect, useRef } from "react";
 import { getHomepageSettings } from "../services/homepageService";
 import { getProjects } from "../services/projectService";
+import RevealOnScroll from "@/components/RevealOnScroll";
 
 interface HomeProject {
   title: string;
@@ -183,56 +184,61 @@ const HomeSection: React.FC = () => {
       </div>
 
       {/* Mobile: Project details below image */}
-      <div
-        className="md:hidden bg-black py-4 px-4 overflow-hidden"
-        onTouchStart={onTouchStart}
-        onTouchMove={onTouchMove}
-        onTouchEnd={onTouchEnd}
-      >
+      <RevealOnScroll delayMs={60}>
         <div
-          className="flex"
-          style={{
-            transform: `translateX(-${activeIndex * 100}vw)`,
-            transition: "transform 0.6s ease-in-out",
-            width: `${projects.length * 100}vw`,
-          }}
+          className="md:hidden bg-black py-4 px-4 overflow-hidden"
+          onTouchStart={onTouchStart}
+          onTouchMove={onTouchMove}
+          onTouchEnd={onTouchEnd}
         >
-          {projects.map((project, index) => (
-            <div
-              key={index}
-              className="flex-shrink-0"
-              style={{
-                width: "100vw",
-                minWidth: "100vw",
-              }}
-            >
-              <div className="container lg:max-w-[1400px] mx-auto flex flex-col items-center gap-3 px-4">
-                <HomeProjectCard
-                  title={project.title}
-                  description={project.description}
-                  isActive={activeIndex === index}
-                />
+          <div
+            className="flex"
+            style={{
+              transform: `translateX(-${activeIndex * 100}vw)`,
+              transition: "transform 0.6s ease-in-out",
+              width: `${projects.length * 100}vw`,
+            }}
+          >
+            {projects.map((project, index) => (
+              <div
+                key={index}
+                className="flex-shrink-0"
+                style={{
+                  width: "100vw",
+                  minWidth: "100vw",
+                }}
+              >
+                <div className="container lg:max-w-[1400px] mx-auto flex flex-col items-center gap-3 px-4">
+                  <HomeProjectCard
+                    title={project.title}
+                    description={project.description}
+                    isActive={activeIndex === index}
+                  />
+                </div>
               </div>
-            </div>
-          ))}
+            ))}
+          </div>
+          {/* Mobile navigation dots */}
+          <div className="flex gap-1.5 justify-center mt-4">
+            {projects.map((_, index) => (
+              <button
+                key={index}
+                onClick={() => setActiveIndex(index)}
+                className={`h-1.5 rounded-full transition-all duration-300 ${
+                  activeIndex === index ? "bg-[#E30514] w-4" : "bg-white/50 w-1.5"
+                }`}
+                aria-label={`Go to project ${index + 1}`}
+              />
+            ))}
+          </div>
         </div>
-        {/* Mobile navigation dots */}
-        <div className="flex gap-1.5 justify-center mt-4">
-          {projects.map((_, index) => (
-            <button
-              key={index}
-              onClick={() => setActiveIndex(index)}
-              className={`h-1.5 rounded-full transition-all duration-300 ${
-                activeIndex === index ? "bg-[#E30514] w-4" : "bg-white/50 w-1.5"
-              }`}
-              aria-label={`Go to project ${index + 1}`}
-            />
-          ))}
-        </div>
-      </div>
+      </RevealOnScroll>
 
       {/* Desktop: Content - row height = tallest card, all cards stretch to match */}
-      <div className="hidden md:flex absolute bottom-0 left-0 right-0 z-20 items-stretch pb-10 md:pb-20 justify-center container mx-auto px-4 md:px-6 gap-6 md:gap-8 lg:gap-16">
+      <RevealOnScroll
+        delayMs={80}
+        className="hidden md:flex absolute bottom-0 left-0 right-0 z-20 items-stretch pb-10 md:pb-20 justify-center container mx-auto px-4 md:px-6 gap-6 md:gap-8 lg:gap-16"
+      >
         {projects.map((project, index) => (
           <div
             key={index}
@@ -246,7 +252,7 @@ const HomeSection: React.FC = () => {
             />
           </div>
         ))}
-      </div>
+      </RevealOnScroll>
     </div>
   );
 };

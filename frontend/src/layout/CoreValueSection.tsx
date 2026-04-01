@@ -5,6 +5,7 @@ import { EffectFade, A11y, Autoplay } from "swiper/modules";
 import type { Swiper as SwiperType } from "swiper";
 import { getCoreValues, type CoreValue } from "../services/coreValueService";
 import { getHomepageSettings } from "../services/homepageService";
+import RevealOnScroll from "@/components/RevealOnScroll";
 
 import "swiper/css";
 import "swiper/css/effect-fade";
@@ -70,9 +71,11 @@ const CoreValueSection: React.FC<CoreValueSectionProps> = ({ aboutUs }) => {
       <div className={`z-10 relative ${aboutUs ? "" : " md:py-12"}`}>
         <div className="text-[#02244A]">
           {!aboutUs && (
-            <div className="text-3xl md:text-5xl lg:text-6xl text-center uppercase font-bold pb-6 md:pb-12 px-4">
-              our core values
-            </div>
+            <RevealOnScroll>
+              <div className="text-3xl md:text-5xl lg:text-6xl text-center uppercase font-bold pb-6 md:pb-12 px-4">
+                our core values
+              </div>
+            </RevealOnScroll>
           )}
 
           <div className="">
@@ -81,45 +84,47 @@ const CoreValueSection: React.FC<CoreValueSectionProps> = ({ aboutUs }) => {
                 Loading…
               </div>
             ) : coreValues.length === 0 ? null : (
-              <div
-                className="relative"
-                onMouseEnter={() => swiperRef.current?.autoplay?.stop()}
-                onMouseLeave={() => swiperRef.current?.autoplay?.start()}
-              >
-                <Swiper
-                  modules={[EffectFade, A11y, Autoplay]}
-                  slidesPerView={1}
-                  effect="fade"
-                  fadeEffect={{ crossFade: true }}
-                  speed={650}
-                  loop={coreValues.length > 1}
-                  allowTouchMove={false}
-                  autoplay={{ delay: 2000 }}
-                  onSwiper={(swiper) => {
-                    swiperRef.current = swiper;
-                  }}
-                  onSlideChange={(swiper) => {
-                    setActiveIndex(swiper.realIndex);
-                  }}
-                  className="w-full"
+              <RevealOnScroll delayMs={80}>
+                <div
+                  className="relative"
+                  onMouseEnter={() => swiperRef.current?.autoplay?.stop()}
+                  onMouseLeave={() => swiperRef.current?.autoplay?.start()}
                 >
-                  {coreValues.map((cv, index) => (
-                    <SwiperSlide key={cv.id ?? cv.title}>
-                      <CoreValuesCard
-                        title={cv.title}
-                        desc={cv.description}
-                        image={cv.imageUrl}
-                        titles={titles}
-                        activeIndex={activeIndex}
-                        onSelectIndex={handleSelectIndex}
-                        className={
-                          index === activeIndex ? "animate-corevalue-in" : ""
-                        }
-                      />
-                    </SwiperSlide>
-                  ))}
-                </Swiper>
-              </div>
+                  <Swiper
+                    modules={[EffectFade, A11y, Autoplay]}
+                    slidesPerView={1}
+                    effect="fade"
+                    fadeEffect={{ crossFade: true }}
+                    speed={650}
+                    loop={coreValues.length > 1}
+                    allowTouchMove={false}
+                    autoplay={{ delay: 2000 }}
+                    onSwiper={(swiper) => {
+                      swiperRef.current = swiper;
+                    }}
+                    onSlideChange={(swiper) => {
+                      setActiveIndex(swiper.realIndex);
+                    }}
+                    className="w-full"
+                  >
+                    {coreValues.map((cv, index) => (
+                      <SwiperSlide key={cv.id ?? cv.title}>
+                        <CoreValuesCard
+                          title={cv.title}
+                          desc={cv.description}
+                          image={cv.imageUrl}
+                          titles={titles}
+                          activeIndex={activeIndex}
+                          onSelectIndex={handleSelectIndex}
+                          className={
+                            index === activeIndex ? "animate-corevalue-in" : ""
+                          }
+                        />
+                      </SwiperSlide>
+                    ))}
+                  </Swiper>
+                </div>
+              </RevealOnScroll>
             )}
           </div>
         </div>

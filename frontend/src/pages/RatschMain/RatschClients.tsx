@@ -6,6 +6,7 @@ import "swiper/css";
 import "swiper/css/pagination";
 import { Client, getClients } from "@/services/clientService";
 import { getHomepageSettings } from "@/services/homepageService";
+import RevealOnScroll from "@/components/RevealOnScroll";
 
 interface RatschClientsProps {}
 
@@ -46,7 +47,7 @@ const RatschClients: React.FC<RatschClientsProps> = () => {
     <div className="bg-gray-200">
       <div className="max-w-4xl mx-auto">
         {/* Mobile/Tablet: show 2 logos, remaining ones are swipeable */}
-        <div className="lg:hidden ">
+        <RevealOnScroll className="lg:hidden ">
           <Swiper
             modules={[Pagination]}
             spaceBetween={4}
@@ -66,10 +67,10 @@ const RatschClients: React.FC<RatschClientsProps> = () => {
               </SwiperSlide>
             ))}
           </Swiper>
-        </div>
+        </RevealOnScroll>
 
         {/* Desktop: center logos; use swiper when more than 5 */}
-        <div className="hidden lg:block py-4">
+        <RevealOnScroll delayMs={80} className="hidden lg:block py-4">
           {clients.length > 5 ? (
             <Swiper
               modules={[Pagination]}
@@ -106,7 +107,7 @@ const RatschClients: React.FC<RatschClientsProps> = () => {
               ))}
             </div>
           )}
-        </div>
+        </RevealOnScroll>
       </div>
     </div>
   );

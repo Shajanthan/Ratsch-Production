@@ -4,6 +4,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { BsArrowUpRight } from "react-icons/bs";
 import { getHomepageSettings } from "../services/homepageService";
 import { getProjects } from "../services/projectService";
+import RevealOnScroll from "@/components/RevealOnScroll";
 
 const ProjectSection: React.FC = () => {
   const navigate = useNavigate();
@@ -84,30 +85,36 @@ const ProjectSection: React.FC = () => {
       <div className="relative z-10 py-6 md:py-12">
         <div className=" bg-black py-6 md:py-12">
           <div className="container lg:max-w-[1400px] mx-auto px-4 md:px-0">
-            <div className="text-white flex flex-col sm:flex-row justify-between gap-4">
-              <div className="text-3xl md:text-5xl uppercase font-bold">
-                Latest Projects
+            <RevealOnScroll>
+              <div className="text-white flex flex-col sm:flex-row justify-between gap-4">
+                <div className="text-3xl md:text-5xl uppercase font-bold">
+                  Latest Projects
+                </div>
+                <button
+                  type="button"
+                  onClick={() =>
+                    navigate(`${basePath}/projects?category=production`)
+                  }
+                  className="uppercase rounded-full font-bold px-6 md:px-10 py-2 md:py-3 flex items-center gap-2 md:gap-3 text-sm md:text-lg bg-white/10 hover:bg-white/20 hover:scale-105 transition-all duration-300 w-fit group"
+                >
+                  more projects
+                  <BsArrowUpRight
+                    strokeWidth={2}
+                    size={14}
+                    className="md:w-4 md:h-4 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform duration-300"
+                  />
+                </button>
               </div>
-              <button
-                type="button"
-                onClick={() => navigate(`${basePath}/projects?category=production`)}
-                className="uppercase rounded-full font-bold px-6 md:px-10 py-2 md:py-3 flex items-center gap-2 md:gap-3 text-sm md:text-lg bg-white/10 hover:bg-white/20 hover:scale-105 transition-all duration-300 w-fit group"
-              >
-                more projects
-                <BsArrowUpRight
-                  strokeWidth={2}
-                  size={14}
-                  className="md:w-4 md:h-4 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform duration-300"
-                />
-              </button>
-            </div>
-            <p className="text-white w-full md:w-1/2 py-4 text-sm md:text-base">
-              Our projects showcase creativity, innovation, and high-quality
-              execution. Each one is crafted to tell a compelling story and
-              deliver measurable impact for our clients
-            </p>
+            </RevealOnScroll>
+            <RevealOnScroll delayMs={80}>
+              <p className="text-white w-full md:w-1/2 py-4 text-sm md:text-base">
+                Our projects showcase creativity, innovation, and high-quality
+                execution. Each one is crafted to tell a compelling story and
+                deliver measurable impact for our clients
+              </p>
+            </RevealOnScroll>
 
-            <div className="text-white flex flex-col gap-3 px-2 md:px-8">
+            <RevealOnScroll delayMs={120} className="text-white flex flex-col gap-3 px-2 md:px-8">
               {loading ? (
                 <p className="text-white/50 py-8">Loading projects…</p>
               ) : projects.length === 0 ? (
@@ -130,7 +137,7 @@ const ProjectSection: React.FC = () => {
                   />
                 ))
               )}
-            </div>
+            </RevealOnScroll>
           </div>
         </div>
       </div>

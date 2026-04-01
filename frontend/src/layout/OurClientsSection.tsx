@@ -6,6 +6,7 @@ import "swiper/css";
 import "swiper/css/pagination";
 import { getClients, type Client } from "../services/clientService";
 import { getHomepageSettings } from "../services/homepageService";
+import RevealOnScroll from "@/components/RevealOnScroll";
 
 const OurClientsSection: React.FC = () => {
   const swiperRef = useRef<SwiperType | null>(null);
@@ -48,17 +49,21 @@ const OurClientsSection: React.FC = () => {
       />
       <div className="bg-black z-10 py-8 md:py-16 relative">
         <div className="container lg:max-w-[1400px] mx-auto text-white px-4 md:px-0">
-          <div className="text-3xl md:text-5xl lg:text-6xl text-center uppercase font-bold">
-            Our Clients
-          </div>
-          <p className="text-center max-w-4xl mx-auto py-3 text-sm md:text-base px-4">
-            We work closely with our clients to create visually compelling
-            content that tells their story, engages audiences, and leaves a
-            lasting impression.
-          </p>
+          <RevealOnScroll>
+            <div className="text-3xl md:text-5xl lg:text-6xl text-center uppercase font-bold">
+              Our Clients
+            </div>
+          </RevealOnScroll>
+          <RevealOnScroll delayMs={80}>
+            <p className="text-center max-w-4xl mx-auto py-3 text-sm md:text-base px-4">
+              We work closely with our clients to create visually compelling
+              content that tells their story, engages audiences, and leaves a
+              lasting impression.
+            </p>
+          </RevealOnScroll>
 
           {/* Mobile & Tablet: Swiper */}
-          <div className="lg:hidden py-4">
+          <RevealOnScroll delayMs={120} className="lg:hidden py-4">
             {loading ? (
               <div className="flex justify-center py-12 text-white/50">
                 Loading…
@@ -97,10 +102,13 @@ const OurClientsSection: React.FC = () => {
                 ))}
               </Swiper>
             )}
-          </div>
+          </RevealOnScroll>
 
           {/* Desktop: Grid */}
-          <div className="hidden lg:flex lg:flex-wrap justify-center items-center gap-6 py-4 md:py-6">
+          <RevealOnScroll
+            delayMs={120}
+            className="hidden lg:flex lg:flex-wrap justify-center items-center gap-6 py-4 md:py-6"
+          >
             {loading ? (
               <div className="text-white/50">Loading…</div>
             ) : (
@@ -114,7 +122,7 @@ const OurClientsSection: React.FC = () => {
                 </div>
               ))
             )}
-          </div>
+          </RevealOnScroll>
         </div>
       </div>
     </div>

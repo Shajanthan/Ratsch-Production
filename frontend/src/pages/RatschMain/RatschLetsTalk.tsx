@@ -1,5 +1,6 @@
 import React from "react";
 import { FaWhatsapp } from "react-icons/fa";
+import RevealOnScroll from "@/components/RevealOnScroll";
 
 interface RatschLetsTalkProps {}
 
@@ -8,10 +9,15 @@ const RatschLetsTalk: React.FC<RatschLetsTalkProps> = () => {
     <div className="pt-12 " id="contact">
       <div className="bg-white z-10 py-8 md:py-16 relative">
         <div className="container lg:max-w-[1400px] mx-auto text-[#02244A] px-4 md:px-0">
-          <div className="text-4xl md:text-6xl lg:text-8xl uppercase font-bold pb-6 md:pb-8">
-            Lets Talk
-          </div>
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 lg:gap-16 py-8 md:py-12 lg:py-18">
+          <RevealOnScroll>
+            <div className="text-4xl md:text-6xl lg:text-8xl uppercase font-bold pb-6 md:pb-8">
+              Lets Talk
+            </div>
+          </RevealOnScroll>
+          <RevealOnScroll
+            delayMs={100}
+            className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 lg:gap-16 py-8 md:py-12 lg:py-18"
+          >
             {/* info */}
             <div className="uppercase">
               <div className="py-2 md:py-3">
@@ -75,7 +81,7 @@ const RatschLetsTalk: React.FC<RatschLetsTalkProps> = () => {
                 Send
               </button>
             </div>
-          </div>
+          </RevealOnScroll>
         </div>
       </div>
     </div>
