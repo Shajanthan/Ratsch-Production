@@ -52,6 +52,12 @@ export async function sendContactMessage(req, res) {
       MAIL_FROM,
     } = process.env;
 
+    console.log("SMTP_USER:", SMTP_USER);
+    console.log("SMTP_PASS:", SMTP_PASS ? "Loaded" : "Missing");
+    console.log("SMTP_HOST:", SMTP_HOST);
+    console.log("SMTP_PORT:", SMTP_PORT);
+    console.log("SMTP_SECURE:", SMTP_SECURE);
+
     if (!SMTP_HOST || !SMTP_USER || !SMTP_PASS || !CONTACT_TO_EMAIL) {
       console.error(
         "Contact: missing SMTP env (SMTP_HOST, SMTP_USER, SMTP_PASS, CONTACT_TO_EMAIL)",
