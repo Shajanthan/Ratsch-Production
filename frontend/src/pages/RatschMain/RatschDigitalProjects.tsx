@@ -68,8 +68,29 @@ const RatschDigitalProjects: React.FC = () => {
   );
 
   useEffect(() => {
+    const params = new URLSearchParams(location.search);
+    const hasSub = !!params.get("sub")?.trim();
+    if (hasSub) {
+      const scrollToTarget = () => {
+        const element = document.getElementById("digital-category-picker");
+        if (!element) return;
+        const navOffset = 110; // fixed navbar + small breathing space
+        const y =
+          element.getBoundingClientRect().top + window.scrollY - navOffset;
+        window.scrollTo({ top: Math.max(0, y), behavior: "smooth" });
+      };
+
+      // First pass + delayed pass for direct URL loads
+      const timer1 = setTimeout(scrollToTarget, 120);
+      const timer2 = setTimeout(scrollToTarget, 380);
+      return () => {
+        clearTimeout(timer1);
+        clearTimeout(timer2);
+      };
+    }
+
     window.scrollTo(0, 0);
-  }, []);
+  }, [location.search]);
 
   useEffect(() => {
     let cancelled = false;
@@ -183,7 +204,7 @@ const RatschDigitalProjects: React.FC = () => {
             </div>
           </div>
         </div>
-        <div className="relative w-full bg-gray-200">
+        <div id="digital-category-picker" className="relative w-full bg-gray-200">
           <img
             src="https://res.cloudinary.com/dybv1h20q/image/upload/v1774861628/Frame_71_zy7obm.png"
             className="absolute inset-0 opacity-70 w-full h-full object-fill pointer-events-none"

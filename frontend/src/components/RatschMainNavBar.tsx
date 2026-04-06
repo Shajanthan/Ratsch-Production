@@ -108,9 +108,11 @@ const RatschMainNavBar: React.FC = () => {
     params.set("category", categoryKey);
     params.set("sub", subLabel);
     if (categoryKey === "production") {
-      navigate(`${basePath}/projects?${params.toString()}`);
+      navigate(`${basePath}/projects?${params.toString()}#production-category-picker`);
     } else {
-      navigate(`${basePath}/digital-projects?${params.toString()}`);
+      navigate(
+        `${basePath}/digital-projects?${params.toString()}#digital-category-picker`,
+      );
     }
   };
 

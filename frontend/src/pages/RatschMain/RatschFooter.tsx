@@ -52,7 +52,7 @@ const RatschFooter: React.FC = () => {
 
   const openContactEmail = (e: React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();
-    window.location.assign(contactMailto);
+    window.open(contactMailto, "_blank", "noopener,noreferrer");
   };
 
   return (
@@ -73,9 +73,14 @@ const RatschFooter: React.FC = () => {
             <div className="py-4">
               <div className="text-base md:text-lg">
                 <ul className="m-0 list-none p-0 uppercase font-semibold">
-                  <li className="flex gap-2 md:gap-3 items-center py-1 hover:text-blue-500 cursor-pointer transition-colors duration-300 text-sm md:text-base">
-                    <BsTelephone className="flex-shrink-0" />
-                    <span className="break-all">+41 78 601 36 50</span>
+                  <li className="py-1 text-sm md:text-base">
+                    <a
+                      href="tel:+41786013650"
+                      className="flex gap-2 md:gap-3 items-center hover:text-blue-500 transition-colors duration-300 text-inherit no-underline"
+                    >
+                      <BsTelephone className="flex-shrink-0" />
+                      <span className="break-all">+41 78 601 36 50</span>
+                    </a>
                   </li>
                   <li className="py-1 text-sm md:text-base">
                     <a
@@ -95,6 +100,8 @@ const RatschFooter: React.FC = () => {
                   <li className="py-1 text-sm md:text-base normal-case">
                     <a
                       href={contactMailto}
+                      target="_blank"
+                      rel="noopener noreferrer"
                       onClick={openContactEmail}
                       className="flex gap-2 md:gap-3 items-center hover:text-blue-500 transition-colors duration-300 text-inherit no-underline cursor-pointer"
                     >
@@ -243,13 +250,17 @@ const RatschFooter: React.FC = () => {
                               const params = new URLSearchParams();
                               params.set("category", category.key);
                               params.set("sub", subItem);
+                              const subItemHref =
+                                category.key === "production"
+                                  ? `${basePath}/projects?${params.toString()}`
+                                  : `${basePath}/digital-projects?${params.toString()}`;
                               return (
                                 <li
                                   key={`${category.key}-${subItem}`}
                                   className="py-0.5"
                                 >
                                   <Link
-                                    to={`${basePath}/digital-projects?${params.toString()}`}
+                                    to={subItemHref}
                                     className="hover:text-blue-500 font-semibold cursor-pointer transition-colors duration-300 block text-sm text-white/80"
                                   >
                                     - {subItem}

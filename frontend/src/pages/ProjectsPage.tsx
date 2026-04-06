@@ -45,8 +45,26 @@ const ProjectsPage: React.FC = () => {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
+    const params = new URLSearchParams(location.search);
+    const hasSub = !!params.get("sub")?.trim();
+    if (hasSub) {
+      const scrollToTarget = () => {
+        const element = document.getElementById("production-category-picker");
+        if (!element) return;
+        const navOffset = 110;
+        const y =
+          element.getBoundingClientRect().top + window.scrollY - navOffset;
+        window.scrollTo({ top: Math.max(0, y), behavior: "smooth" });
+      };
+      const timer1 = setTimeout(scrollToTarget, 120);
+      const timer2 = setTimeout(scrollToTarget, 380);
+      return () => {
+        clearTimeout(timer1);
+        clearTimeout(timer2);
+      };
+    }
     window.scrollTo(0, 0);
-  }, []);
+  }, [location.search]);
 
   useEffect(() => {
     let cancelled = false;
@@ -167,7 +185,10 @@ const ProjectsPage: React.FC = () => {
               </div>
               <div className="py-8 w-full">
                 {subItemsForMain.length > 0 && (
-                  <div className="flex justify-center mb-8">
+                  <div
+                    id="production-category-picker"
+                    className="flex justify-center mb-8"
+                  >
                     <div className="flex flex-wrap justify-center items-center gap-4 max-w-5xl uppercase">
                       {subItemsForMain.map((label) => {
                         const isActive = selectedSubCategory === label;

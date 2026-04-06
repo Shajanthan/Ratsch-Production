@@ -2,9 +2,7 @@ import React from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import RevealOnScroll from "@/components/RevealOnScroll";
 
-interface RatschCategoryProps {
-  
-}
+interface RatschCategoryProps {}
 
 const RatschCategory: React.FC<RatschCategoryProps> = () => {
   const navigate = useNavigate();
@@ -38,7 +36,9 @@ const RatschCategory: React.FC<RatschCategoryProps> = () => {
 
                 <button
                   type="button"
-                  onClick={() => navigate(`${basePath}/digital-projects`)}
+                  onClick={() =>
+                    navigate(`${basePath}/digital-projects?category=creative`)
+                  }
                   className="mt-10 text-center capitalize xl:text-lg text-base text-white bg-[#00CF69] p-4 px-8 rounded-full hover:scale-105 hover:shadow-lg hover:shadow-black/30 transition-all duration-300 cursor-pointer"
                 >
                   Let's Design
@@ -75,7 +75,9 @@ const RatschCategory: React.FC<RatschCategoryProps> = () => {
 
                 <button
                   type="button"
-                  onClick={() => navigate(`${basePath}/projects?category=production`)}
+                  onClick={() =>
+                    navigate(`${basePath}/projects?category=production`)
+                  }
                   className="mt-10 text-center capitalize xl:text-lg text-base text-white bg-[#0557B2] p-4 px-8 rounded-full hover:scale-105 hover:shadow-lg hover:shadow-black/30 transition-all duration-300 cursor-pointer"
                 >
                   Tell your story
@@ -91,11 +93,11 @@ const RatschCategory: React.FC<RatschCategoryProps> = () => {
           className="hidden md:block absolute -bottom-12 left-1/2 -translate-x-1/2 z-20"
         >
           <div className="bg-white rounded-3xl shadow-2xl px-5 py-4 transition-transform duration-300 hover:-translate-y-1">
-          <img
-            src="https://res.cloudinary.com/dybv1h20q/image/upload/v1774418955/RATSCH_GROUP_PNG_1_ozkz1e.png"
-            alt="Ratsch group logo"
-            className="w-[70px] h-auto"
-          />
+            <img
+              src="https://res.cloudinary.com/dybv1h20q/image/upload/v1774418955/RATSCH_GROUP_PNG_1_ozkz1e.png"
+              alt="Ratsch group logo"
+              className="w-[70px] h-auto"
+            />
           </div>
         </RevealOnScroll>
       </div>
