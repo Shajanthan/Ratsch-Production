@@ -83,6 +83,27 @@
   }
 }
 
+/* Toast notifications (contact forms, etc.) */
+@keyframes toast-slide-in {
+  from {
+    opacity: 0;
+    transform: translateX(12px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0) scale(1);
+  }
+}
+
+@keyframes toast-progress-shrink {
+  from {
+    transform: scaleX(1);
+  }
+  to {
+    transform: scaleX(0);
+  }
+}
+
 @layer utilities {
   .animate-slide-right {
     animation: slide-right 0.6s ease-in-out infinite;
@@ -94,6 +115,15 @@
 
   .animate-letsgo-down {
     animation: letsgo-down 1.4s ease-in-out infinite;
+  }
+
+  .animate-toast-slide-in {
+    animation: toast-slide-in 0.4s cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+
+  .animate-toast-progress {
+    transform-origin: left center;
+    animation: toast-progress-shrink 4s linear forwards;
   }
 
   .bg-full-size-mobile {

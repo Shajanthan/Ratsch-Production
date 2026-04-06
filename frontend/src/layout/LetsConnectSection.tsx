@@ -1,5 +1,6 @@
 import React from "react";
 import RevealOnScroll from "@/components/RevealOnScroll";
+import { useContactForm } from "@/hooks/useContactForm";
 
 interface LetsConnectSectionProps {
   bottomPadding?: boolean;
@@ -8,6 +9,17 @@ interface LetsConnectSectionProps {
 const LetsConnectSection: React.FC<LetsConnectSectionProps> = ({
   bottomPadding = true,
 }) => {
+  const {
+    name,
+    setName,
+    email,
+    setEmail,
+    message,
+    setMessage,
+    submitting,
+    submit,
+  } = useContactForm();
+
   return (
     <div className="pt-12 bg-black" id="contact">
       <div
@@ -49,15 +61,20 @@ const LetsConnectSection: React.FC<LetsConnectSectionProps> = ({
                   </div>
                 </div>
               </div>
-              {/* Form */}
-              <div className="uppercase">
+              {/* Form — POST /api/contact (Nodemailer on server) */}
+              <form className="uppercase" onSubmit={submit} noValidate>
                 <div className="py-2 md:py-3">
                   <div className="text-sm md:text-base lg:text-lg">Name</div>
                   <div className="py-2 md:py-3">
                     <input
                       type="text"
+                      name="name"
+                      autoComplete="name"
+                      value={name}
+                      onChange={(e) => setName(e.target.value)}
                       className="border hover:cursor-default border-[#333333] hover:border-[#E30514] transition-all duration-500 rounded-md py-3 md:py-4 bg-[#333333] w-full lg:w-3/4 focus:ring-1 ring-[#E30514] focus:outline-none px-2 text-sm md:text-base"
                       placeholder="your name here"
+                      disabled={submitting}
                     />
                   </div>
                 </div>
@@ -65,9 +82,14 @@ const LetsConnectSection: React.FC<LetsConnectSectionProps> = ({
                   <div className="text-sm md:text-base lg:text-lg">Email</div>
                   <div className="py-2 md:py-3">
                     <input
-                      type="text"
+                      type="email"
+                      name="email"
+                      autoComplete="email"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
                       className="border hover:cursor-default border-[#333333] hover:border-[#E30514] transition-all duration-500 rounded-md py-3 md:py-4 bg-[#333333] w-full lg:w-3/4 focus:ring-1 ring-[#E30514] focus:outline-none px-2 text-sm md:text-base"
                       placeholder="your email here"
+                      disabled={submitting}
                     />
                   </div>
                 </div>
@@ -76,17 +98,24 @@ const LetsConnectSection: React.FC<LetsConnectSectionProps> = ({
                   <div className="py-2 md:py-3">
                     <textarea
                       rows={6}
+                      name="message"
+                      value={message}
+                      onChange={(e) => setMessage(e.target.value)}
                       placeholder="leave your message here"
-                      name=""
-                      id=""
                       className="border hover:cursor-default border-[#333333] hover:border-[#E30514] transition-all duration-500 rounded-md py-3 md:py-4 bg-[#333333] w-full lg:w-3/4 focus:ring-1 ring-[#E30514] focus:outline-none px-2 text-sm md:text-base resize-none"
-                    ></textarea>
+                      disabled={submitting}
+                    />
                   </div>
                 </div>
-                <button className="border-white border p-2 md:p-3 w-full lg:w-3/4 py-4 md:py-5 text-sm md:text-base lg:text-lg hover:border-red-800 transition-colors duration-300">
-                  Send
+                <button
+                  type="submit"
+                  disabled={submitting}
+                  aria-busy={submitting}
+                  className="border-white border p-2 md:p-3 w-full lg:w-3/4 py-4 md:py-5 text-sm md:text-base lg:text-lg hover:border-red-800 transition-colors duration-300 disabled:opacity-60 disabled:cursor-not-allowed"
+                >
+                  {submitting ? "Sending…" : "Send"}
                 </button>
-              </div>
+              </form>
             </RevealOnScroll>
           </div>
         </div>

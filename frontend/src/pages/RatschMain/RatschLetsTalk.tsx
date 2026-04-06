@@ -1,10 +1,22 @@
 import React from "react";
 import { FaWhatsapp } from "react-icons/fa";
 import RevealOnScroll from "@/components/RevealOnScroll";
+import { useContactForm } from "@/hooks/useContactForm";
 
 interface RatschLetsTalkProps {}
 
 const RatschLetsTalk: React.FC<RatschLetsTalkProps> = () => {
+  const {
+    name,
+    setName,
+    email,
+    setEmail,
+    message,
+    setMessage,
+    submitting,
+    submit,
+  } = useContactForm();
+
   return (
     <div className="pt-12 " id="contact">
       <div className="bg-white z-10 py-8 md:py-16 relative">
@@ -43,15 +55,20 @@ const RatschLetsTalk: React.FC<RatschLetsTalkProps> = () => {
                 </div>
               </div>
             </div>
-            {/* Form */}
-            <div className="uppercase">
+            {/* Form — POST /api/contact (Nodemailer on server) */}
+            <form className="uppercase" onSubmit={submit} noValidate>
               <div className="py-2 md:py-3">
                 <div className="text-sm md:text-base xl:text-lg">Name</div>
                 <div className="py-2 md:py-3">
                   <input
                     type="text"
+                    name="name"
+                    autoComplete="name"
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
                     className="border hover:cursor-default border-zinc-500 hover:border-[#02244A] transition-all duration-500 rounded-md py-3 md:py-4 bg-zinc-200 w-full xl:w-3/4 focus:ring-1 ring-[#02244A] focus:outline-none px-2 text-sm md:text-base"
                     placeholder="your name here"
+                    disabled={submitting}
                   />
                 </div>
               </div>
@@ -59,9 +76,14 @@ const RatschLetsTalk: React.FC<RatschLetsTalkProps> = () => {
                 <div className="text-sm md:text-base xl:text-lg">Email</div>
                 <div className="py-2 md:py-3">
                   <input
-                    type="text"
+                    type="email"
+                    name="email"
+                    autoComplete="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
                     className="border hover:cursor-default border-zinc-500 hover:border-[#02244A] transition-all duration-500 rounded-md py-3 md:py-4 bg-zinc-200 w-full xl:w-3/4 focus:ring-1 ring-[#02244A] focus:outline-none px-2 text-sm md:text-base"
                     placeholder="your email here"
+                    disabled={submitting}
                   />
                 </div>
               </div>
@@ -70,17 +92,24 @@ const RatschLetsTalk: React.FC<RatschLetsTalkProps> = () => {
                 <div className="py-2 md:py-3">
                   <textarea
                     rows={6}
+                    name="message"
+                    value={message}
+                    onChange={(e) => setMessage(e.target.value)}
                     placeholder="leave your message here"
-                    name=""
-                    id=""
                     className="border hover:cursor-default border-zinc-500 hover:border-[#02244A] transition-all duration-500 rounded-md py-3 md:py-4 bg-zinc-200 w-full xl:w-3/4 focus:ring-1 ring-[#02244A] focus:outline-none px-2 text-sm md:text-base resize-none"
-                  ></textarea>
+                    disabled={submitting}
+                  />
                 </div>
               </div>
-              <button className="bg-[#02244A] border p-2 md:p-3 w-full xl:w-3/4 py-4 md:py-5 text-sm md:text-base xl:text-lg hover:border-[#02244A] hover:bg-[#02244A] text-white transition-all duration-500">
-                Send
+              <button
+                type="submit"
+                disabled={submitting}
+                aria-busy={submitting}
+                className="bg-[#02244A] border p-2 md:p-3 w-full xl:w-3/4 py-4 md:py-5 text-sm md:text-base xl:text-lg hover:border-[#02244A] hover:bg-[#02244A] text-white transition-all duration-500 disabled:opacity-60 disabled:cursor-not-allowed"
+              >
+                {submitting ? "Sending…" : "Send"}
               </button>
-            </div>
+            </form>
           </RevealOnScroll>
         </div>
       </div>
