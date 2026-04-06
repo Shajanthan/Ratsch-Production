@@ -75,7 +75,7 @@ const SplashScreen: React.FC<SplashScreenProps> = ({
         />
       </div>
       {/* Typing: "Welcome to Ratsch productions" then cursor or " . . . " */}
-      <p className="mt-4 min-h-[1.5rem] text-sm uppercase tracking-widest text-white md:text-base">
+      <p className="mt-4 min-h-[1.5rem] text-sm uppercase tracking-widest text-white md:text-base text-center">
         {typedText}
         {!typingComplete && (
           <span
