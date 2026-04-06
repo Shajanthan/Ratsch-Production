@@ -1,6 +1,5 @@
 import axios, { isAxiosError } from "axios";
-
-const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000/api";
+import { getApiBaseUrl } from "@/config/apiBaseUrl";
 
 export interface ContactFormPayload {
   name: string;
@@ -17,7 +16,7 @@ export async function sendContactForm(
 ): Promise<void> {
   try {
     const res = await axios.post<{ success: boolean; message?: string }>(
-      `${API_URL}/contact`,
+      `${getApiBaseUrl()}/contact`,
       payload,
       {
         headers: { "Content-Type": "application/json" },

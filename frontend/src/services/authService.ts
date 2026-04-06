@@ -1,3 +1,4 @@
+import { getApiBaseUrl } from "@/config/apiBaseUrl";
 import api from "./api";
 import { AxiosError } from "axios";
 
@@ -137,7 +138,7 @@ export const logout = (): void => {
 export const refreshAuthToken = async (): Promise<string | null> => {
   const refreshTokenStored = localStorage.getItem("refreshToken");
   if (!refreshTokenStored) return null;
-  const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000/api";
+  const API_URL = getApiBaseUrl();
   try {
     const response = await fetch(`${API_URL}/auth/refresh`, {
       method: "POST",
