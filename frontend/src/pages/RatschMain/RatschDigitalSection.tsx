@@ -83,7 +83,7 @@ const RatschDigitalSection: React.FC<RatschDigitalSectionProps> = () => {
               <button
                 type="button"
                 onClick={goCreativeProjects}
-                className="hidden uppercase rounded-full font-bold px-6 md:px-10 py-3 md:py-4 lg:flex items-center justify-center gap-2 md:gap-3 text-sm md:text-lg bg-[#0557B2] hover:scale-105 transition-all duration-300 w-full sm:w-fit group cursor-pointer text-white"
+                className="hidden uppercase rounded-full font-bold px-6 md:px-10 py-3 md:py-4 xl:flex items-center justify-center gap-2 md:gap-3 text-sm md:text-lg bg-[#0557B2] hover:scale-105 transition-all duration-300 w-full sm:w-fit group cursor-pointer text-white"
               >
                 Explore
                 <BsArrowUpRight
@@ -96,9 +96,9 @@ const RatschDigitalSection: React.FC<RatschDigitalSectionProps> = () => {
             </RevealOnScroll>
             <RevealOnScroll
               delayMs={100}
-              className="grid grid-cols-1 lg:grid-cols-2 py-6 md:py-8 gap-8 lg:gap-0"
+              className="grid grid-cols-1 xl:grid-cols-2 py-6 md:py-8 gap-8 xl:gap-0"
             >
-              <div className="lg:pr-4">
+              <div className="xl:pr-4 ">
                 {/* Mobile: 2x2 equal boxes */}
                 <div className="grid grid-cols-2 gap-4 sm:hidden">
                   {[
@@ -167,8 +167,8 @@ const RatschDigitalSection: React.FC<RatschDigitalSectionProps> = () => {
                   </div>
                 </div>
               </div>
-              <div className="flex flex-col gap-2 justify-center items-start">
-                <ul className="list-disc list-inside text-sm sm:text-base md:text-lg lg:text-xl text-[#02244A] px-2 sm:px-4">
+              <div className="flex flex-col gap-2 justify-center items-start w-full">
+                <ul className="list-disc list-inside text-sm sm:text-base md:text-lg xl:text-xl text-[#02244A] px-2 sm:px-4">
                   {displayedCreativeItems.map((item) => (
                     <li
                       key={item}
@@ -183,7 +183,7 @@ const RatschDigitalSection: React.FC<RatschDigitalSectionProps> = () => {
               <button
                 type="button"
                 onClick={goCreativeProjects}
-                className="uppercase rounded-full font-bold px-6 md:px-10 py-3 md:py-4 flex lg:hidden items-center justify-center gap-2 md:gap-3 text-sm md:text-lg bg-[#0557B2] hover:scale-105 transition-all duration-300 w-full sm:w-fit group cursor-pointer text-white"
+                className="uppercase rounded-full font-bold px-6 md:px-10 py-3 md:py-4 flex xl:hidden items-center justify-center gap-2 md:gap-3 text-sm md:text-lg bg-[#0557B2] hover:scale-105 transition-all duration-300 w-full sm:w-fit group cursor-pointer text-white"
               >
                 Explore
                 <BsArrowUpRight

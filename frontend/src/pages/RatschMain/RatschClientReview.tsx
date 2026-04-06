@@ -64,7 +64,7 @@ const RatschClientReview: React.FC = () => {
       <div className="bg-white z-10 py-8 md:py-16 relative">
         <div className="container mx-auto text-[#02244A] px-4 md:px-0">
           <RevealOnScroll>
-            <div className="text-3xl md:text-5xl lg:text-6xl text-center uppercase font-bold">
+            <div className="text-3xl md:text-5xl lg:text-5xl xl:text-6xl text-center uppercase font-bold px-2">
               Client Reviews
             </div>
           </RevealOnScroll>
@@ -78,7 +78,7 @@ const RatschClientReview: React.FC = () => {
 
           <RevealOnScroll delayMs={120}>
             <div
-              className="relative mt-8 md:mt-12 px-4 md:px-10 lg:px-20"
+              className="relative mt-8 md:mt-12 px-4 md:px-10 xl:px-20"
               onMouseEnter={() => swiperRef.current?.autoplay?.stop()}
               onMouseLeave={() => swiperRef.current?.autoplay?.start()}
             >

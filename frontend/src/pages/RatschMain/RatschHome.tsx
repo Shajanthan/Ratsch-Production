@@ -45,7 +45,7 @@ const RatschHome: React.FC<RatschHomeProps> = () => {
   return (
     <div>
       <div className="p-3 ">
-        <div className="lg:h-[800px] h-[300px] rounded-3xl relative overflow-hidden">
+        <div className="h-[min(42vh,320px)] sm:h-[min(48vh,420px)] md:h-[min(55vh,520px)] lg:h-[min(68vh,720px)] xl:h-[800px] rounded-3xl relative overflow-hidden">
           <img
             src={bannerUrl}
             alt="Ratsch home banner"
@@ -55,9 +55,9 @@ const RatschHome: React.FC<RatschHomeProps> = () => {
 
           <RevealOnScroll
             delayMs={80}
-            className="absolute bottom-1 lg:bottom-5 left-1/2 -translate-x-1/2 z-10"
+            className="absolute bottom-1 md:bottom-3 xl:bottom-5 left-1/2 -translate-x-1/2 z-10"
           >
-            <div onClick={handleGoDown} className="text-sm hover:cursor-pointer lg:text-xl text-center bg-white/10 backdrop-blur-sm border border-white/20 text-white font-semibold px-12 py-4 rounded-full ">
+            <div onClick={handleGoDown} className="text-sm hover:cursor-pointer md:text-base xl:text-xl text-center bg-white/10 backdrop-blur-sm border border-white/20 text-white font-semibold px-8 py-3 sm:px-12 sm:py-4 rounded-full ">
               Lets GO
             </div>
             <button
@@ -66,7 +66,7 @@ const RatschHome: React.FC<RatschHomeProps> = () => {
               className="animate-letsgo-down flex items-center justify-center py-2 w-full cursor-pointer"
               aria-label="Go to category section"
             >
-              <FaAnglesDown className="lg:size-6 size-4" color="white" />
+              <FaAnglesDown className="size-4 xl:size-6" color="white" />
             </button>
           </RevealOnScroll>
         </div>

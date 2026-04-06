@@ -123,13 +123,17 @@ const RatschMainNavBar: React.FC = () => {
   ] as const;
   return (
     <div
-      className={`fixed left-0 right-0 z-[51] transition-all duration-300 select-none py-4 pt-6  ${
+      className={`fixed left-0 right-0 z-[51] transition-all duration-300 select-none py-4 pt-6 ${
         isScrolled || isMobileMenuOpen
           ? "backdrop-blur-xl bg-white/20"
           : "border-none py-2"
+      } ${
+        isMobileMenuOpen
+          ? "flex max-h-[100dvh] flex-col overflow-hidden xl:max-h-none xl:flex-col xl:overflow-visible"
+          : ""
       }`}
     >
-      <div className="container lg:max-w-[1400px] mx-auto flex justify-between items-center px-4 md:px-2 ">
+      <div className="container shrink-0 lg:max-w-[1400px] mx-auto flex justify-between items-center px-4 md:px-2">
         <button
           onClick={() => {
             const currentPath = window.location.pathname;
@@ -147,10 +151,10 @@ const RatschMainNavBar: React.FC = () => {
             alt="logo"
           />
         </button>
-        {/* Desktop Navigation */}
-        <div className="hidden lg:flex items-center">
+        {/* Desktop navigation — xl so 1024px tablets (e.g. iPad Pro portrait) avoid cramped horizontal nav */}
+        <div className="hidden xl:flex items-center">
           <div
-            className={`rounded-full px-8 xl:px-12 py-3 xl:py-4 flex items-center gap-8 xl:gap-14 transition-all duration-300 bg-white shadow-lg shadow-black/30`}
+            className={`overflow-visible rounded-full px-8 xl:px-12 py-3 xl:py-4 flex items-center gap-8 xl:gap-14 transition-all duration-300 bg-white shadow-lg shadow-black/30`}
           >
             {navItems.map((item) => {
               const cat = categories.find((c) => c.key === item.sectionId);
@@ -166,17 +170,17 @@ const RatschMainNavBar: React.FC = () => {
                     <span className="absolute bottom-0 left-0 h-0.5 bg-[#E30514] transition-all duration-300 w-0 group-hover:w-full"></span>
                   </button>
                   {isCategory && cat && (
-                    <div className="absolute top-full pt-3 hidden group-hover:block">
-                      <div className="min-w-[240px] rounded-2xl bg-white shadow-xl shadow-black/20 border border-black/5 py-4 px-5">
-                        <ul className="space-y-1.5">
-                          {cat.items.map((label) => (
-                            <li key={label}>
+                    <div className="absolute left-0 top-full z-[60] pt-2 hidden group-hover:block">
+                      <div className="min-w-[240px] max-w-[min(100vw-2rem,320px)] rounded-2xl bg-white shadow-xl shadow-black/20 border border-black/5 py-3 px-4">
+                        <ul className="max-h-[min(70vh,22rem)] space-y-1.5 overflow-y-auto overscroll-contain py-1 pr-1 [scrollbar-gutter:stable]">
+                          {cat.items.map((label, idx) => (
+                            <li key={`${item.sectionId}-${idx}-${label}`}>
                               <button
                                 type="button"
                                 onClick={() =>
                                   handleSubItemClick(item.sectionId, label)
                                 }
-                                className="w-full text-left text-xs text-[#02244A]/80 hover:text-[#E30514] cursor-pointer"
+                                className="w-full whitespace-normal break-words text-left text-xs leading-snug text-[#02244A]/80 hover:text-[#E30514] cursor-pointer"
                               >
                                 - {label}
                               </button>
@@ -191,8 +195,7 @@ const RatschMainNavBar: React.FC = () => {
             })}
           </div>
         </div>
-        {/* Desktop Button */}
-        <div className="hidden lg:block">
+        <div className="hidden xl:block">
           <Button
             isLightTheme={true}
             navButton={true}
@@ -208,7 +211,7 @@ const RatschMainNavBar: React.FC = () => {
             setIsMobileMenuOpen(!isMobileMenuOpen);
             if (isMobileMenuOpen) setOpenMobileCategory(null);
           }}
-          className="lg:hidden text-[#02244A] p-2"
+          className="xl:hidden text-[#02244A] p-2"
           aria-label="Toggle menu"
         >
           {isMobileMenuOpen ? (
@@ -218,10 +221,11 @@ const RatschMainNavBar: React.FC = () => {
           )}
         </button>
       </div>
-      {/* Mobile Menu */}
+      {/* Mobile menu: scroll inside navbar so short viewports can reach all links */}
       {isMobileMenuOpen && (
-        <div className="lg:hidden backdrop-blur-xl bg-[#02244A]/80 border-t border-white/10">
-          <div className="container lg:max-w-[1400px] mx-auto px-4 py-4 flex flex-col gap-4">
+        <div className="flex min-h-0 flex-1 flex-col overflow-hidden xl:hidden">
+          <div className="min-h-0 flex-1 overflow-y-auto overscroll-contain border-t border-white/10 bg-[#02244A]/80 backdrop-blur-xl [-webkit-overflow-scrolling:touch]">
+            <div className="container lg:max-w-[1400px] mx-auto flex flex-col gap-4 px-4 py-4 pb-6">
             {navItems.map((item) => {
               const cat = categories.find((c) => c.key === item.sectionId);
               const hasSubItems =
@@ -256,19 +260,21 @@ const RatschMainNavBar: React.FC = () => {
                   </div>
                   {hasSubItems && (
                     <div
-                      className={`overflow-hidden transition-all duration-300 ease-in-out ${
-                        isOpen ? "max-h-60 opacity-100" : "max-h-0 opacity-0"
+                      className={`transition-all duration-300 ease-in-out ${
+                        isOpen
+                          ? "max-h-[min(70vh,28rem)] opacity-100 overflow-y-auto overscroll-contain"
+                          : "max-h-0 opacity-0 overflow-hidden"
                       }`}
                     >
                       <div className="pl-4 pb-2 pt-1 flex flex-col gap-1">
-                        {cat.items.map((label) => (
+                        {cat.items.map((label, idx) => (
                           <button
-                            key={label}
+                            key={`${item.sectionId}-${idx}-${label}`}
                             type="button"
                             onClick={() =>
                               handleSubItemClick(item.sectionId, label)
                             }
-                            className="text-white/90 text-sm py-1 text-left hover:text-[#E30514] transition-colors"
+                            className="text-white/90 text-sm py-1.5 text-left whitespace-normal break-words hover:text-[#E30514] transition-colors"
                           >
                             - {label}
                           </button>
@@ -288,6 +294,7 @@ const RatschMainNavBar: React.FC = () => {
                 icon={<CiMail className="w-4 h-4 text-blue-500" />}
                 onClick={() => handleNavClick("contact")}
               />
+            </div>
             </div>
           </div>
         </div>

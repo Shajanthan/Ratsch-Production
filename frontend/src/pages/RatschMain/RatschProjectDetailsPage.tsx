@@ -168,14 +168,14 @@ const RatschProjectDetailsPage: React.FC = () => {
           <div className="h-full w-full rounded-[50px] bg-gradient-to-b from-transparent from-[0%] to-black" />
         </div>
 
-        <div className="relative z-20 container lg:max-w-[1400px] mx-auto min-h-[80vh] flex items-center py-20 px-4 lg:px-0">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 w-full items-center">
+        <div className="relative z-20 container lg:max-w-[1400px] mx-auto min-h-[80vh] flex items-center py-16 md:py-20 px-4 xl:px-0">
+          <div className="grid grid-cols-1 xl:grid-cols-2 gap-8 xl:gap-16 w-full items-center">
             {/* Left: Title and Description */}
-            <div>
-              <h1 className="text-5xl md:text-6xl lg:text-8xl font-bold uppercase mb-4 text-white">
+            <div className="min-w-0">
+              <h1 className="text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold uppercase mb-4 text-white break-words">
                 {project.titleLine}
               </h1>
-              <h2 className="text-5xl md:text-6xl lg:text-8xl font-bold uppercase mb-6 text-white">
+              <h2 className="text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold uppercase mb-6 text-white break-words">
                 {project.titleLine2}
               </h2>
               <p className="text-white/90 text-sm md:text-base leading-relaxed max-w-2xl">
@@ -184,30 +184,30 @@ const RatschProjectDetailsPage: React.FC = () => {
             </div>
 
             {/* Right: Project Details Card */}
-            <div className="flex justify-start lg:justify-end">
-              <div className="p-2 lg:p-8 w-full max-w-sm">
+            <div className="flex justify-start xl:justify-end min-w-0">
+              <div className="p-2 xl:p-8 w-full max-w-sm">
                 <div className="space-y-2 md:space-y-4">
-                  <div className="flex items-center gap-5 lg:block ">
-                    <div className="md:text-base text-gray-300 uppercase pb-1 w-[80px] lg:w-full">
+                  <div className="flex items-center gap-5 xl:block ">
+                    <div className="md:text-base text-gray-300 uppercase pb-1 w-[80px] xl:w-full shrink-0">
                       Date
                     </div>
-                    <div className="md:text-xl font-semibold uppercase text-white pb-1 lg:pb-10">
+                    <div className="md:text-xl font-semibold uppercase text-white pb-1 xl:pb-10 min-w-0 break-words">
                       {project.date}
                     </div>
                   </div>
-                  <div className="flex items-center gap-5 lg:block ">
-                    <div className="md:text-base text-gray-300 uppercase pb-1 w-[80px] lg:w-full">
+                  <div className="flex items-center gap-5 xl:block ">
+                    <div className="md:text-base text-gray-300 uppercase pb-1 w-[80px] xl:w-full shrink-0">
                       Type
                     </div>
-                    <div className="lg:text-xl font-semibold uppercase text-white pb-1 lg:pb-10">
+                    <div className="xl:text-xl font-semibold uppercase text-white pb-1 xl:pb-10 min-w-0 break-words">
                       {project.type}
                     </div>
                   </div>
-                  <div className="flex items-center gap-5 lg:block ">
-                    <div className="md:text-base text-gray-300 uppercase pb-1 w-[80px] lg:w-full">
+                  <div className="flex items-center gap-5 xl:block ">
+                    <div className="md:text-base text-gray-300 uppercase pb-1 w-[80px] xl:w-full shrink-0">
                       Client
                     </div>
-                    <div className="lg:text-xl font-semibold uppercase text-white pb-1 lg:pb-10">
+                    <div className="xl:text-xl font-semibold uppercase text-white pb-1 xl:pb-10 min-w-0 break-words">
                       {project.client}
                     </div>
                   </div>
@@ -224,10 +224,10 @@ const RatschProjectDetailsPage: React.FC = () => {
             {/* Overview Section */}
             <div className="pb-24 px-4">
               <div className="container lg:max-w-[1400px] mx-auto max-w-4xl">
-                <h2 className="text-3xl md:text-5xl lg:text-6xl font-bold uppercase text-center mb-8">
+                <h2 className="text-3xl md:text-5xl lg:text-5xl xl:text-6xl font-bold uppercase text-center mb-8">
                   Overview
                 </h2>
-                <p className="text-[#02244A]0 text-center text-sm md:text-base leading-relaxed">
+                <p className="text-[#02244A] text-center text-sm md:text-base leading-relaxed">
                   {project.overview || project.description}
                 </p>
               </div>
@@ -236,7 +236,7 @@ const RatschProjectDetailsPage: React.FC = () => {
             {/* Results Section */}
 
             <div className="container lg:max-w-[1400px] mx-auto text-[#02244A] px-4 md:px-0">
-              <h2 className="text-3xl md:text-5xl lg:text-6xl font-bold uppercase text-center mb-8">
+              <h2 className="text-3xl md:text-5xl lg:text-5xl xl:text-6xl font-bold uppercase text-center mb-8">
                 Results
               </h2>
               <p className="text-[#02244A] text-center text-sm md:text-base leading-relaxed break-words">
@@ -267,7 +267,7 @@ const RatschProjectDetailsPage: React.FC = () => {
                     <img
                       src={project.galleryImages[swiperActiveIndex]}
                       alt={`Gallery ${swiperActiveIndex + 1}`}
-                      className="w-full h-[280px] md:h-[700px] object-cover rounded-lg transition-opacity duration-300 group-hover:opacity-90"
+                      className="w-full h-[280px] md:h-[420px] lg:h-[520px] xl:h-[700px] object-cover rounded-lg transition-opacity duration-300 group-hover:opacity-90"
                     />
                     <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-all duration-300 rounded-lg flex items-center justify-center">
                       <span className="opacity-0 group-hover:opacity-100 text-white text-sm md:text-base uppercase font-semibold transition-opacity duration-300">
@@ -290,7 +290,8 @@ const RatschProjectDetailsPage: React.FC = () => {
                       setSwiperActiveIndex(swiper.activeIndex);
                     }}
                     breakpoints={{
-                      768: { slidesPerView: 4, spaceBetween: 8 },
+                      768: { slidesPerView: 3, spaceBetween: 8 },
+                      1280: { slidesPerView: 4, spaceBetween: 8 },
                     }}
                     className={`gallery-thumbs-swiper ${
                       project.galleryImages.length <= 2
@@ -312,7 +313,7 @@ const RatschProjectDetailsPage: React.FC = () => {
                               setSwiperActiveIndex(index);
                             }
                           }}
-                          className={`rounded-lg w-[250px] overflow-hidden border-2 cursor-pointer transition-all duration-200 ${
+                          className={`rounded-lg w-full max-w-[250px] mx-auto overflow-hidden border-2 cursor-pointer transition-all duration-200 ${
                             swiperActiveIndex === index
                               ? "border-[#E30514] opacity-100"
                               : "border-transparent opacity-60 hover:opacity-80"

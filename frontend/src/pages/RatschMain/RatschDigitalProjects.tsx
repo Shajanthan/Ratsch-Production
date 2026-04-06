@@ -171,12 +171,12 @@ const RatschDigitalProjects: React.FC = () => {
             src="https://res.cloudinary.com/dybv1h20q/image/upload/v1774924370/Latest_Projects_Frame_qomssa.png"
             className="absolute inset-0 opacity-70 w-full h-full object-fill"
           />
-          <div className="min-h-[35vh] lg:min-h-[80vh]">
-            <div className="flex flex-col justify-center items-center text-center w-full min-h-[35vh] lg:min-h-[80vh]">
-              <div className="uppercase text-4xl md:text-6xl lg:text-8xl font-bold">
+          <div className="min-h-[35vh] lg:min-h-[50vh] xl:min-h-[80vh]">
+            <div className="flex flex-col justify-center items-center text-center w-full min-h-[35vh] lg:min-h-[50vh] xl:min-h-[80vh]">
+              <div className="uppercase text-4xl md:text-6xl lg:text-6xl xl:text-8xl font-bold px-2">
                 projects
               </div>
-              <div className="capitalize text-lg md:text-2xl lg:text-4xl py-8">
+              <div className="capitalize text-lg md:text-2xl lg:text-3xl xl:text-4xl py-8 px-4">
                 our <span className="text-red-600">work</span> speaks for{" "}
                 <span className="text-red-600">itself</span>
               </div>
@@ -188,11 +188,11 @@ const RatschDigitalProjects: React.FC = () => {
             src="https://res.cloudinary.com/dybv1h20q/image/upload/v1774861628/Frame_71_zy7obm.png"
             className="absolute inset-0 opacity-70 w-full h-full object-fill pointer-events-none"
           />
-          <div className="relative z-10 p-6 py-8 lg:py-12 container mx-auto">
-            <div className="text-[#02244A] font-bold text-center text-3xl lg:text-4xl uppercase ">
+          <div className="relative z-10 p-6 py-8 xl:py-12 container mx-auto">
+            <div className="text-[#02244A] font-bold text-center text-3xl xl:text-4xl uppercase ">
               Pick a category
             </div>
-            <div className="flex justify-center items-center py-8 lg:py-12 gap-10">
+            <div className="flex justify-center items-center py-8 xl:py-12 gap-10">
               <button
                 type="button"
                 onClick={() => setMainTab("creative")}
@@ -217,7 +217,7 @@ const RatschDigitalProjects: React.FC = () => {
               </button>
             </div>
             <div className="flex justify-center">
-              <div className="flex justify-center items-center lg:text-xl lg:py-6 lg:gap-10 gap-4 flex-wrap uppercase max-w-6xl">
+              <div className="flex justify-center items-center xl:text-xl lg:py-4 xl:py-6 lg:gap-6 xl:gap-10 gap-4 flex-wrap uppercase max-w-6xl px-2">
                 {subItemsForTab.length > 0 ? (
                   subItemsForTab.map((label) => {
                     const isActive = activeSub === label;

@@ -100,7 +100,7 @@
     background-size: 100% 100%;
   }
 
-  @media (min-width: 1024px) {
+  @media (min-width: 1280px) {
     .bg-full-size-mobile {
       background-size: cover;
     }
@@ -189,7 +189,7 @@
   justify-content: center;
 }
 
-@media (min-width: 1024px) {
+@media (min-width: 1280px) {
   .team-swiper.center-slides-few .swiper-wrapper {
     justify-content: center;
   }

@@ -41,7 +41,7 @@ const RatschClients: React.FC<RatschClientsProps> = () => {
     <div className="bg-gray-200">
       <div className="max-w-4xl mx-auto">
         {/* Mobile/Tablet: show 2 logos, remaining ones are swipeable */}
-        <RevealOnScroll className="lg:hidden ">
+        <RevealOnScroll className="xl:hidden ">
           <Swiper
             modules={[Pagination]}
             spaceBetween={4}
@@ -64,7 +64,7 @@ const RatschClients: React.FC<RatschClientsProps> = () => {
         </RevealOnScroll>
 
         {/* Desktop: center logos; use swiper when more than 5 */}
-        <RevealOnScroll delayMs={80} className="hidden lg:block py-4">
+        <RevealOnScroll delayMs={80} className="hidden xl:block py-4">
           {clients.length > 5 ? (
             <Swiper
               modules={[Pagination]}

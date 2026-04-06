@@ -50,16 +50,16 @@ function ProjectTile({ item }: { item: RatschCategoryCardItem }) {
       </div>
       {/* Title - center when not hovering, hidden on hover */}
       <div className="absolute inset-0 flex flex-col items-center justify-center px-4 z-10 opacity-100 group-hover:opacity-0 transition-opacity duration-500 pointer-events-none">
-        <h3 className="select-none font-bold text-xl md:text-2xl lg:text-5xl uppercase text-white text-center drop-shadow-sm">
+        <h3 className="select-none font-bold text-xl md:text-2xl lg:text-4xl xl:text-5xl uppercase text-white text-center drop-shadow-sm px-1">
           {item.projectTitle1}
         </h3>
-        <h3 className="select-none font-bold text-xl md:text-2xl lg:text-5xl uppercase text-white text-center drop-shadow-sm">
+        <h3 className="select-none font-bold text-xl md:text-2xl lg:text-4xl xl:text-5xl uppercase text-white text-center drop-shadow-sm px-1">
           {item.projectTitle2}
         </h3>
       </div>
       {/* On hover: title above shortdesc, centered */}
       <div className="absolute inset-0 flex flex-col items-center justify-center px-5 md:px-6 z-10 opacity-0 translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-500 ease-out pointer-events-none delay-75 gap-3 md:gap-4">
-        <h3 className="select-none font-bold text-lg md:text-xl lg:text-3xl uppercase text-white text-center drop-shadow-md">
+        <h3 className="select-none font-bold text-lg md:text-xl lg:text-2xl xl:text-3xl uppercase text-white text-center drop-shadow-md">
           {item.projectTitle1} {item.projectTitle2}
         </h3>
         <p className="text-white/95 text-center text-sm md:text-base leading-relaxed line-clamp-5 max-w-full drop-shadow-md">
@@ -94,7 +94,7 @@ const RatschCategoryCard: React.FC<RatschCategoryCardProps> = ({
   return (
     <div className="py-10 my-4 bg-[#EEEEEE] px-3">
       <div className="container lg:max-w-[1400px] mx-auto">
-        <div className="text-3xl md:text-5xl lg:text-6xl uppercase font-bold">
+        <div className="text-3xl md:text-5xl lg:text-5xl xl:text-6xl uppercase font-bold">
           {title}
         </div>
         <p className="text-[#02244A] text-sm md:text-base py-4">{desc}</p>
@@ -108,7 +108,8 @@ const RatschCategoryCard: React.FC<RatschCategoryCardProps> = ({
               breakpoints={{
                 640: { slidesPerView: 1 },
                 768: { slidesPerView: 2 },
-                1024: { slidesPerView: 3 },
+                1024: { slidesPerView: 2 },
+                1280: { slidesPerView: 3 },
               }}
               onSwiper={(swiper) => {
                 swiperRef.current = swiper;

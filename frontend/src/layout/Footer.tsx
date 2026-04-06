@@ -45,6 +45,15 @@ const Footer: React.FC = () => {
     return `${homeHref}#${key}`;
   };
 
+  const contactMailto =
+    "mailto:info@ratschproductions.com?subject=" +
+    encodeURIComponent("Inquiry from Ratsch Productions website");
+
+  const openContactEmail = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    e.preventDefault();
+    window.location.assign(contactMailto);
+  };
+
   return (
     <div className="bg-black text-white py-10 ">
       <div className="mx-auto">
@@ -62,26 +71,39 @@ const Footer: React.FC = () => {
 
             <div className="py-4">
               <div className="text-base md:text-lg">
-                <div className="list-none uppercase font-semibold">
+                <ul className="m-0 list-none p-0 uppercase font-semibold">
                   <li className="flex gap-2 md:gap-3 items-center py-1 hover:text-red-700 cursor-pointer transition-colors duration-300 text-sm md:text-base">
                     <BsTelephone className="flex-shrink-0" />
                     <span className="break-all">+41 78 601 36 50</span>
                   </li>
-                  <li className="flex gap-2 md:gap-3 items-center py-1 hover:text-red-700 cursor-pointer transition-colors duration-300 text-sm md:text-base">
-                    <FaWhatsapp className="flex-shrink-0" />
-                    <span className="break-all">+94 72 471 8466</span>
+                  <li className="py-1 text-sm md:text-base">
+                    <a
+                      href="https://wa.me/94724718466"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex gap-2 md:gap-3 items-center hover:text-red-700 transition-colors duration-300 text-inherit no-underline"
+                    >
+                      <FaWhatsapp className="flex-shrink-0" />
+                      <span className="break-all">+94 72 471 8466</span>
+                    </a>
                   </li>
                   <li className="flex gap-2 md:gap-3 items-center py-1 hover:text-red-700 cursor-pointer transition-colors duration-300 text-sm md:text-base">
                     <HiOutlineLocationMarker className="flex-shrink-0" />
                     <span>Sri Lanka / Switzerland</span>
                   </li>
-                  <li className="flex gap-2 md:gap-3 items-center py-1 hover:text-red-700 cursor-pointer transition-colors duration-300 text-sm md:text-base">
-                    <MdOutlineMailOutline className="flex-shrink-0" />
-                    <span className="break-all">
-                      info@ratschproductions.com
-                    </span>
+                  <li className="py-1 text-sm md:text-base normal-case">
+                    <a
+                      href={contactMailto}
+                      onClick={openContactEmail}
+                      className="flex gap-2 md:gap-3 items-center hover:text-red-700 transition-colors duration-300 text-inherit no-underline cursor-pointer"
+                    >
+                      <MdOutlineMailOutline className="flex-shrink-0" />
+                      <span className="break-all">
+                        info@ratschproductions.com
+                      </span>
+                    </a>
                   </li>
-                </div>
+                </ul>
               </div>
             </div>
             <div className="flex gap-3 md:gap-4 px-0 lg:px-3 py-4 md:py-6">

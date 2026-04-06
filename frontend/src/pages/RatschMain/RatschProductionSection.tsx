@@ -54,18 +54,18 @@ const RatschProductionSection: React.FC<RatschProductionSectionProps> = () => {
             <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4 w-full h-full">
               <div className="w-full h-full text-center">
                 <RevealOnScroll>
-                  <div className="text-2xl lg:text-6xl font-semibold text-[#02244A] ">
+                  <div className="text-2xl lg:text-5xl xl:text-6xl font-semibold text-[#02244A] ">
                     PRODUCTION
                   </div>
-                  <div className="text-[#02244A] pb-3 lg:pb-6 pt-2 ">
+                  <div className="text-[#02244A] pb-3 xl:pb-6 pt-2 ">
                     High-quality visuals that tell powerful stories.
                   </div>
                 </RevealOnScroll>
                 <RevealOnScroll
                   delayMs={100}
-                  className="flex justify-center items-center text-xl lg:py-6"
+                  className="flex justify-center items-center text-xl xl:py-6"
                 >
-                  <ul className="text-[#02244A] py-2 text-left list-disc text-sm md:text-base lg:text-lg">
+                  <ul className="text-[#02244A] py-2 text-left list-disc text-sm md:text-base xl:text-lg">
                     {subItems.length > 0 ? (
                       subItems.map((item) => (
                         <li key={item} className="py-2 sm:py-3">
