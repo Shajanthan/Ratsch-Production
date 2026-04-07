@@ -58,8 +58,8 @@ const RatschFooter: React.FC = () => {
   return (
     <div className="bg-[#02244A] text-white py-10 ">
       <div className="mx-auto">
-        <div className="grid grid-cols-1 xl:grid-cols-6 px-4 md:px-8 xl:px-20">
-          <RevealOnScroll className="xl:col-span-2 px-2  max-w-xl">
+        <div className="grid grid-cols-1 lg:grid-cols-3 xl:grid-cols-6 px-4 md:px-8 xl:px-20">
+          <RevealOnScroll className="lg:col-span-2 px-2  max-w-xl">
             <div className="text-4xl md:text-5xl lg:text-5xl xl:text-6xl font-bold uppercase pb-4">
               Ratsch
             </div>

@@ -51,11 +51,11 @@ const RatschClients: React.FC<RatschClientsProps> = () => {
           >
             {clients.map((client, index) => (
               <SwiperSlide key={index}>
-                <div className="h-[90px] flex items-center justify-center ">
+                <div className="h-[90px] lg:h-[120px] flex items-center justify-center ">
                   <img
                     src={client.imageUrl}
                     alt="Ratsch clients"
-                    className="w-[120px] h-[70px] object-cover rounded-lg hover:scale-105 transition-all duration-500"
+                    className="w-[120px] h-[70px] lg:w-[240px] lg:h-[100px]  object-cover rounded-lg hover:scale-105 transition-all duration-500"
                   />
                 </div>
               </SwiperSlide>

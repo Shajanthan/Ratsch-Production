@@ -83,7 +83,7 @@ const RatschDigitalSectionTwo: React.FC<RatschDigitalSectionTwoProps> = () => {
               <button
                 type="button"
                 onClick={goDigitalProjects}
-                className="hidden uppercase rounded-full font-bold px-6 md:px-10 py-3 md:py-4 xl:flex items-center justify-center gap-2 md:gap-3 text-sm md:text-lg bg-[#0557B2] hover:scale-105 transition-all duration-300 w-full sm:w-fit group cursor-pointer text-white"
+                className="hidden uppercase rounded-full font-bold px-6 md:px-10 py-3 md:py-4 lg:flex items-center justify-center gap-2 md:gap-3 text-sm md:text-lg bg-[#0557B2] hover:scale-105 transition-all duration-300 w-full sm:w-fit group cursor-pointer text-white"
               >
                 Explore
                 <BsArrowUpRight
@@ -96,9 +96,9 @@ const RatschDigitalSectionTwo: React.FC<RatschDigitalSectionTwoProps> = () => {
             </RevealOnScroll>
             <RevealOnScroll
               delayMs={100}
-              className="grid grid-cols-1 xl:grid-cols-2 py-6 md:py-8 gap-8 xl:gap-0"
+              className="grid grid-cols-1 md:grid-cols-2 py-6 md:py-8 gap-8 md:gap-6 xl:gap-0"
             >
-              <div className="xl:pr-4">
+              <div className="md:pr-4">
                 {/* Mobile: 2x2 equal boxes */}
                 <div className="grid grid-cols-2 gap-4 sm:hidden">
                   {[
@@ -183,7 +183,7 @@ const RatschDigitalSectionTwo: React.FC<RatschDigitalSectionTwoProps> = () => {
               <button
                 type="button"
                 onClick={goDigitalProjects}
-                className="uppercase rounded-full font-bold px-6 md:px-10 py-3 md:py-4 flex xl:hidden items-center justify-center gap-2 md:gap-3 text-sm md:text-lg bg-[#0557B2] hover:scale-105 transition-all duration-300 w-full sm:w-fit group cursor-pointer text-white"
+                className="uppercase rounded-full font-bold px-6 md:px-10 py-3 md:py-4 flex lg:hidden items-center justify-center gap-2 md:gap-3 text-sm md:text-lg bg-[#0557B2] hover:scale-105 transition-all duration-300 w-full sm:w-fit group cursor-pointer text-white"
               >
                 Explore
                 <BsArrowUpRight
