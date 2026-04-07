@@ -21,7 +21,7 @@ const LetsConnectSection: React.FC<LetsConnectSectionProps> = ({
   } = useContactForm();
 
   return (
-    <div className="pt-12 bg-black" id="contact">
+    <div className="pt-12 bg-black px-4 xl:px-0" id="contact">
       <div
         className={`relative w-full bg-black ${bottomPadding ? "pb-12" : ""}`}
       >
