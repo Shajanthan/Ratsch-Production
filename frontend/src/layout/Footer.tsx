@@ -57,9 +57,9 @@ const Footer: React.FC = () => {
   return (
     <div className="bg-black text-white py-10 ">
       <div className="mx-auto">
-        <div className="grid grid-cols-1 lg:grid-cols-6 px-4 lg:px-20">
-          <div className="lg:col-span-2 px-2  max-w-xl">
-            <div className="text-4xl md:text-5xl lg:text-6xl font-bold uppercase pb-4">
+        <div className="grid grid-cols-1 xl:grid-cols-6 px-4 md:px-8 xl:px-20">
+          <div className="xl:col-span-2 px-2  max-w-xl">
+            <div className="text-4xl md:text-5xl lg:text-5xl xl:text-6xl font-bold uppercase pb-4">
               Ratsch
             </div>
             <div className="text-sm md:text-base w-full ">
@@ -113,7 +113,7 @@ const Footer: React.FC = () => {
                 </ul>
               </div>
             </div>
-            <div className="flex gap-3 md:gap-4 px-0 lg:px-3 py-4 md:py-6">
+            <div className="flex gap-3 md:gap-4 px-0 xl:px-3 py-4 md:py-6">
               <div className="hover:text-red-700 cursor-pointer transition-colors duration-300">
                 <FaFacebook size={24} className="md:w-7 md:h-7" />
               </div>
@@ -132,11 +132,11 @@ const Footer: React.FC = () => {
             </div>
           </div>
 
-          <div className="lg:col-span-4 flex flex-col lg:flex-row gap-6 lg:gap-2 w-full lg:justify-between px-3 lg:px-6">
+          <div className="xl:col-span-4 flex flex-col xl:flex-row gap-6 xl:gap-2 w-full xl:justify-between px-3 xl:px-6">
             <div className="w-full">
               {categories.length > 0 ? (
                 <ul className="grid grid-cols-1 sm:grid-cols-2 2xl:grid-cols-4 gap-x-6 gap-y-4 list-none">
-                  <div className="lg:pl-28">
+                  <div className="2xl:pl-28">
                     <div className="w-full pb-2 text-lg cursor-pointer block font-bold uppercase text-white">
                       Links
                     </div>
@@ -175,7 +175,7 @@ const Footer: React.FC = () => {
                           - Contact us
                         </Link>
                       </li>
-                      <li className="py-0.5 lg:hidden">
+                      <li className="py-0.5 xl:hidden">
                         <Link
                           to={`${basePath}/digital-projects?category=digital`}
                           className="hover:text-red-700 font-semibold cursor-pointer transition-colors duration-300 block text-sm text-white/80"
@@ -192,7 +192,7 @@ const Footer: React.FC = () => {
                           - Digital
                         </Link>
                       </li>
-                      <li className="py-0.5 lg:hidden">
+                      <li className="py-0.5 xl:hidden">
                         <Link
                           to={`${basePath}/digital-projects?category=creative`}
                           className="hover:text-red-700 font-semibold cursor-pointer transition-colors duration-300 block text-sm text-white/80"
@@ -209,7 +209,7 @@ const Footer: React.FC = () => {
                           - Creative
                         </Link>
                       </li>
-                      <li className="py-0.5 lg:hidden">
+                      <li className="py-0.5 xl:hidden">
                         <Link
                           to={`${basePath}/production`}
                           className="hover:text-red-700 font-semibold cursor-pointer transition-colors duration-300 block text-sm text-white/80"
@@ -231,7 +231,7 @@ const Footer: React.FC = () => {
                   {categories.map((category) => (
                     <li
                       key={category.id || category.key}
-                      className="text-base md:text-lg hidden lg:block"
+                      className="text-base md:text-lg hidden xl:block"
                     >
                       <Link
                         to={categoryHref(category.key)}
@@ -279,16 +279,16 @@ const Footer: React.FC = () => {
         </div>
 
         <div className="">
-          <div className="flex justify-end items-center pt-5 lg:pt-0">
-            <div className="w-full lg:w-1/3 flex flex-col items-center">
-              <div className="uppercase font-semibold text-xl md:text-2xl lg:text-3xl text-center lg:text-left">
+          <div className="flex justify-end items-center pt-5 xl:pt-0">
+            <div className="w-full xl:w-1/3 flex flex-col items-center max-w-full">
+              <div className="uppercase font-semibold text-xl md:text-2xl lg:text-2xl xl:text-3xl text-center xl:text-left">
                 Let's connect
               </div>
-              <div className="py-4 md:py-5  lg:w-[370px] mx-auto group">
-                <div className=" flex justify-between bg-[#222222] rounded-full items-center pr-6 border border-[#333333] group-hover:border-red-700 transition-all duration-500 cursor-pointer">
+              <div className="py-4 md:py-5 w-full max-w-[370px] xl:w-[370px] mx-auto group px-2">
+                <div className="flex flex-wrap sm:flex-nowrap justify-between gap-2 bg-[#222222] rounded-full items-center pr-4 sm:pr-6 border border-[#333333] group-hover:border-red-700 transition-all duration-500 cursor-pointer">
                   <input
                     type="text"
-                    className="bg-[#333333] text-white rounded-full p-3 px-7 w-[300px] text-base border border-[#333333] group-hover:border-red-700 transition-all duration-500"
+                    className="bg-[#333333] text-white rounded-full p-3 px-5 sm:px-7 min-w-0 flex-1 w-full max-w-[min(100%,300px)] text-base border border-[#333333] group-hover:border-red-700 transition-all duration-500"
                     placeholder="info@ratschproductions.com"
                   />
                   <MdOutlineMailOutline
@@ -299,8 +299,8 @@ const Footer: React.FC = () => {
               </div>
             </div>
           </div>
-          <div className="w-full lg:w-1/2 order-2 lg:order-none max-w-2xl px-3 lg:px-20">
-            <div className="flex flex-col sm:flex-row gap-4 sm:gap-8 md:gap-16 text-xs md:text-sm p-4 border-t-0 lg:border-t-2 border-white justify-center items-center text-center lg:text-left">
+          <div className="w-full min-w-full xl:min-w-0 xl:w-1/2 order-2 xl:order-none max-w-2xl px-3 xl:px-20">
+            <div className="flex flex-col sm:flex-row gap-4 sm:gap-8 md:gap-16 text-xs md:text-sm p-4 border-t-0 xl:border-t-2 border-white justify-center items-center text-center xl:text-left">
               <div className="w-full">
                 {" "}
                 Copyright © Ratsch Productions - {new Date().getFullYear()}

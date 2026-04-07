@@ -30,7 +30,7 @@ const LetsConnectSection: React.FC<LetsConnectSectionProps> = ({
           className="absolute inset-0 opacity-70 w-full h-full object-cover"
         />
         <div className="bg-black z-10 py-8 md:py-16 relative">
-          <div className="container lg:max-w-[1400px] mx-auto text-white px-4 md:px-0">
+          <div className="container mx-auto text-white px-4 md:px-0">
             <RevealOnScroll>
               <div className="text-4xl md:text-6xl lg:text-8xl uppercase font-bold pb-6 md:pb-8">
                 Lets Connect
@@ -38,10 +38,10 @@ const LetsConnectSection: React.FC<LetsConnectSectionProps> = ({
             </RevealOnScroll>
             <RevealOnScroll
               delayMs={100}
-              className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 lg:gap-16 py-8 md:py-12 lg:py-18"
+              className="grid grid-cols-1 xl:grid-cols-2 gap-8 md:gap-12 xl:gap-16 py-8 md:py-12 xl:py-18"
             >
               {/* info */}
-              <div className="uppercase">
+              <div className="uppercase px-3 xl:px-0">
                 <div className="py-2 md:py-3">
                   <div className="text-sm md:text-base lg:text-lg">Email</div>
                   <div className="text-xl md:text-2xl lg:text-3xl font-semibold py-1 md:py-2 break-all">
@@ -62,7 +62,7 @@ const LetsConnectSection: React.FC<LetsConnectSectionProps> = ({
                 </div>
               </div>
               {/* Form — POST /api/contact (Nodemailer on server) */}
-              <form className="uppercase" onSubmit={submit} noValidate>
+              <form className="uppercase px-3 xl:px-0" onSubmit={submit} noValidate>
                 <div className="py-2 md:py-3">
                   <div className="text-sm md:text-base lg:text-lg">Name</div>
                   <div className="py-2 md:py-3">
@@ -72,7 +72,7 @@ const LetsConnectSection: React.FC<LetsConnectSectionProps> = ({
                       autoComplete="name"
                       value={name}
                       onChange={(e) => setName(e.target.value)}
-                      className="border hover:cursor-default border-[#333333] hover:border-[#E30514] transition-all duration-500 rounded-md py-3 md:py-4 bg-[#333333] w-full lg:w-3/4 focus:ring-1 ring-[#E30514] focus:outline-none px-2 text-sm md:text-base"
+                      className="border hover:cursor-default border-[#333333] hover:border-[#E30514] transition-all duration-500 rounded-md py-3 md:py-4 bg-[#333333] w-full xl:w-3/4 focus:ring-1 ring-[#E30514] focus:outline-none px-2 text-sm md:text-base"
                       placeholder="your name here"
                       disabled={submitting}
                     />
@@ -87,7 +87,7 @@ const LetsConnectSection: React.FC<LetsConnectSectionProps> = ({
                       autoComplete="email"
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
-                      className="border hover:cursor-default border-[#333333] hover:border-[#E30514] transition-all duration-500 rounded-md py-3 md:py-4 bg-[#333333] w-full lg:w-3/4 focus:ring-1 ring-[#E30514] focus:outline-none px-2 text-sm md:text-base"
+                      className="border hover:cursor-default border-[#333333] hover:border-[#E30514] transition-all duration-500 rounded-md py-3 md:py-4 bg-[#333333] w-full xl:w-3/4 focus:ring-1 ring-[#E30514] focus:outline-none px-2 text-sm md:text-base"
                       placeholder="your email here"
                       disabled={submitting}
                     />
@@ -102,7 +102,7 @@ const LetsConnectSection: React.FC<LetsConnectSectionProps> = ({
                       value={message}
                       onChange={(e) => setMessage(e.target.value)}
                       placeholder="leave your message here"
-                      className="border hover:cursor-default border-[#333333] hover:border-[#E30514] transition-all duration-500 rounded-md py-3 md:py-4 bg-[#333333] w-full lg:w-3/4 focus:ring-1 ring-[#E30514] focus:outline-none px-2 text-sm md:text-base resize-none"
+                      className="border hover:cursor-default border-[#333333] hover:border-[#E30514] transition-all duration-500 rounded-md py-3 md:py-4 bg-[#333333] w-full xl:w-3/4 focus:ring-1 ring-[#E30514] focus:outline-none px-2 text-sm md:text-base resize-none"
                       disabled={submitting}
                     />
                   </div>
@@ -111,7 +111,7 @@ const LetsConnectSection: React.FC<LetsConnectSectionProps> = ({
                   type="submit"
                   disabled={submitting}
                   aria-busy={submitting}
-                  className="border-white border p-2 md:p-3 w-full lg:w-3/4 py-4 md:py-5 text-sm md:text-base lg:text-lg hover:border-red-800 transition-colors duration-300 disabled:opacity-60 disabled:cursor-not-allowed"
+                  className="border-white border p-2 md:p-3 w-full xl:w-3/4 py-4 md:py-5 text-sm md:text-base lg:text-lg hover:border-red-800 transition-colors duration-300 disabled:opacity-60 disabled:cursor-not-allowed"
                 >
                   {submitting ? "Sending…" : "Send"}
                 </button>

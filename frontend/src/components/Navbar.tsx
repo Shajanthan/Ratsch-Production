@@ -100,7 +100,6 @@ const Navbar: React.FC = () => {
     }
   };
 
-
   const navItems = [
     { sectionId: "home", label: "Home" },
     { sectionId: "about", label: "About us" },
@@ -114,9 +113,13 @@ const Navbar: React.FC = () => {
         isScrolled || isMobileMenuOpen
           ? "backdrop-blur-xl bg-white/5"
           : "border-none py-2"
+      } ${
+        isMobileMenuOpen
+          ? "flex max-h-[100dvh] flex-col overflow-hidden xl:max-h-none xl:flex-col xl:overflow-visible"
+          : ""
       }`}
     >
-      <div className="container lg:max-w-[1400px] mx-auto flex justify-between items-center px-4 md:px-2">
+      <div className="container shrink-0 lg:max-w-[1400px] mx-auto flex justify-between items-center px-4 md:px-2">
         <button
           onClick={() => {
             navigate(homePath);
@@ -130,9 +133,9 @@ const Navbar: React.FC = () => {
           />
         </button>
         {/* Desktop Navigation */}
-        <div className="hidden lg:flex items-center">
+        <div className="hidden xl:flex items-center">
           <div
-            className={`rounded-full px-8 xl:px-12 py-3 xl:py-4 flex items-center gap-8 xl:gap-14 transition-all duration-300 bg-black/75`}
+            className={`overflow-visible rounded-full px-8 xl:px-12 py-3 xl:py-4 flex items-center gap-8 xl:gap-14 transition-all duration-300 bg-black/75`}
           >
             {navItems.map((item) => {
               const cat = categories.find((c) => c.key === item.sectionId);
@@ -148,7 +151,7 @@ const Navbar: React.FC = () => {
                     <span className="absolute bottom-0 left-0 h-0.5 bg-[#E30514] transition-all duration-300 w-0 group-hover:w-full"></span>
                   </button>
                   {isCategory && cat && (
-                    <div className="absolute top-full pt-3 hidden group-hover:block">
+                    <div className="absolute left-0 top-full z-[60] pt-2 hidden group-hover:block">
                       <div className="min-w-[240px] rounded-2xl bg-black shadow-xl shadow-black/20 border border-black/5 py-4 px-5">
                         <ul className="space-y-1.5">
                           {cat.items.map((label) => (
@@ -174,7 +177,7 @@ const Navbar: React.FC = () => {
           </div>
         </div>
         {/* Desktop Button */}
-        <div className="hidden lg:block">
+        <div className="hidden xl:block">
           <Button
             navButton={true}
             text="Talk with us"
@@ -190,7 +193,7 @@ const Navbar: React.FC = () => {
             setIsMobileMenuOpen(!isMobileMenuOpen);
             if (isMobileMenuOpen) setOpenMobileCategory(null);
           }}
-          className="lg:hidden text-white p-2"
+          className="xl:hidden text-white p-2"
           aria-label="Toggle menu"
         >
           {isMobileMenuOpen ? (
@@ -202,15 +205,19 @@ const Navbar: React.FC = () => {
       </div>
       {/* Mobile Menu */}
       {isMobileMenuOpen && (
-        <div className="lg:hidden backdrop-blur-xl bg-white/5 border-t border-white/10">
-          <div className="container lg:max-w-[1400px] mx-auto px-4 py-4 flex flex-col gap-4">
+        <div className="flex min-h-0 flex-1 flex-col overflow-hidden xl:hidden">
+          <div className="min-h-0 flex-1 overflow-y-auto overscroll-contain border-t border-white/10 bg-white/5 backdrop-blur-xl [-webkit-overflow-scrolling:touch]">
+            <div className="container lg:max-w-[1400px] mx-auto px-4 py-4 pb-6 flex flex-col gap-4">
             {navItems.map((item) => {
               const cat = categories.find((c) => c.key === item.sectionId);
               const hasSubItems =
                 !!cat && Array.isArray(cat.items) && cat.items.length > 0;
               const isOpen = openMobileCategory === item.sectionId;
               return (
-                <div key={item.sectionId} className="border-b border-white/10 pb-2">
+                <div
+                  key={item.sectionId}
+                  className="border-b border-white/10 pb-2"
+                >
                   <div className="flex items-center justify-between gap-2">
                     <button
                       onClick={() => handleNavClick(item.sectionId)}
@@ -235,17 +242,21 @@ const Navbar: React.FC = () => {
                   </div>
                   {hasSubItems && (
                     <div
-                      className={`overflow-hidden transition-all duration-300 ease-in-out ${
-                        isOpen ? "max-h-60 opacity-100" : "max-h-0 opacity-0"
+                      className={`transition-all duration-300 ease-in-out ${
+                        isOpen
+                          ? "max-h-[min(70vh,28rem)] opacity-100 overflow-y-auto overscroll-contain"
+                          : "max-h-0 opacity-0 overflow-hidden"
                       }`}
                     >
                       <div className="pl-4 pb-2 pt-1 flex flex-col gap-1">
-                        {cat.items.map((label) => (
+                        {cat.items.map((label, idx) => (
                           <button
-                            key={label}
+                            key={`${item.sectionId}-${idx}-${label}`}
                             type="button"
-                            onClick={() => handleSubItemClick(item.sectionId, label)}
-                            className="text-white/90 text-sm py-1 text-left hover:text-[#E30514] transition-colors"
+                            onClick={() =>
+                              handleSubItemClick(item.sectionId, label)
+                            }
+                            className="text-white/90 text-sm py-1.5 text-left whitespace-normal break-words hover:text-[#E30514] transition-colors"
                           >
                             - {label}
                           </button>
@@ -265,6 +276,7 @@ const Navbar: React.FC = () => {
                 icon={<CiMail className="w-4 h-4 text-[#C90000]" />}
                 onClick={() => handleNavClick("contact")}
               />
+            </div>
             </div>
           </div>
         </div>
